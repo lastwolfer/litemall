@@ -9,7 +9,17 @@ public class Region {
 
     private Byte type;
 
-    private Integer code;
+    private Long code;
+
+    private Region[] children;
+
+    public Region[] getChildren() {
+        return children;
+    }
+
+    public void setChildren(Region[] children) {
+        this.children = children;
+    }
 
     public Integer getId() {
         return id;
@@ -43,11 +53,11 @@ public class Region {
         this.type = type;
     }
 
-    public Integer getCode() {
+    public Long getCode() {
         return code;
     }
 
-    public void setCode(Integer code) {
+    public void setCode(Long code) {
         this.code = code;
     }
 }

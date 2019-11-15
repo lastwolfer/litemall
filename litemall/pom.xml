@@ -65,7 +65,6 @@
             <artifactId>pagehelper-spring-boot-starter</artifactId>
             <version>1.2.12</version>
         </dependency>
-
     </dependencies>
 
     <build>

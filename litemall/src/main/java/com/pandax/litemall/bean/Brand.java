@@ -1,8 +1,10 @@
 package com.pandax.litemall.bean;
 
+import lombok.Data;
+
 import java.math.BigDecimal;
 import java.util.Date;
-
+@Data
 public class Brand {
     private Integer id;
 
