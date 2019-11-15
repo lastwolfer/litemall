@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cskaoyan.mapper.PermissionMapper">
-  <resultMap id="BaseResultMap" type="com.cskaoyan.bean.Permission">
+<mapper namespace="com.pandax.litemall.mapper.IssueMapper">
+  <resultMap id="BaseResultMap" type="com.pandax.litemall.bean.Issue">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="role_id" jdbcType="INTEGER" property="roleId" />
-    <result column="permission" jdbcType="VARCHAR" property="permission" />
+    <result column="question" jdbcType="VARCHAR" property="question" />
+    <result column="answer" jdbcType="VARCHAR" property="answer" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="deleted" jdbcType="BIT" property="deleted" />
@@ -68,15 +68,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, role_id, permission, add_time, update_time, deleted
+    id, question, answer, add_time, update_time, deleted
   </sql>
-  <select id="selectByExample" parameterType="com.cskaoyan.bean.PermissionExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.pandax.litemall.bean.IssueExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from cskaoyan_mall_permission
+    from cskaoyan_mall_issue
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -87,38 +87,38 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from cskaoyan_mall_permission
+    from cskaoyan_mall_issue
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from cskaoyan_mall_permission
+    delete from cskaoyan_mall_issue
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.cskaoyan.bean.PermissionExample">
-    delete from cskaoyan_mall_permission
+  <delete id="deleteByExample" parameterType="com.pandax.litemall.bean.IssueExample">
+    delete from cskaoyan_mall_issue
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.cskaoyan.bean.Permission">
-    insert into cskaoyan_mall_permission (id, role_id, permission, 
+  <insert id="insert" parameterType="com.pandax.litemall.bean.Issue">
+    insert into cskaoyan_mall_issue (id, question, answer, 
       add_time, update_time, deleted
       )
-    values (#{id,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}, #{permission,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{question,jdbcType=VARCHAR}, #{answer,jdbcType=VARCHAR}, 
       #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.cskaoyan.bean.Permission">
-    insert into cskaoyan_mall_permission
+  <insert id="insertSelective" parameterType="com.pandax.litemall.bean.Issue">
+    insert into cskaoyan_mall_issue
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
       </if>
-      <if test="roleId != null">
-        role_id,
+      <if test="question != null">
+        question,
       </if>
-      <if test="permission != null">
-        permission,
+      <if test="answer != null">
+        answer,
       </if>
       <if test="addTime != null">
         add_time,
@@ -134,11 +134,11 @@
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="roleId != null">
-        #{roleId,jdbcType=INTEGER},
+      <if test="question != null">
+        #{question,jdbcType=VARCHAR},
       </if>
-      <if test="permission != null">
-        #{permission,jdbcType=VARCHAR},
+      <if test="answer != null">
+        #{answer,jdbcType=VARCHAR},
       </if>
       <if test="addTime != null">
         #{addTime,jdbcType=TIMESTAMP},
@@ -151,23 +151,23 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.cskaoyan.bean.PermissionExample" resultType="java.lang.Long">
-    select count(*) from cskaoyan_mall_permission
+  <select id="countByExample" parameterType="com.pandax.litemall.bean.IssueExample" resultType="java.lang.Long">
+    select count(*) from cskaoyan_mall_issue
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update cskaoyan_mall_permission
+    update cskaoyan_mall_issue
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.roleId != null">
-        role_id = #{record.roleId,jdbcType=INTEGER},
+      <if test="record.question != null">
+        question = #{record.question,jdbcType=VARCHAR},
       </if>
-      <if test="record.permission != null">
-        permission = #{record.permission,jdbcType=VARCHAR},
+      <if test="record.answer != null">
+        answer = #{record.answer,jdbcType=VARCHAR},
       </if>
       <if test="record.addTime != null">
         add_time = #{record.addTime,jdbcType=TIMESTAMP},
@@ -184,10 +184,10 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update cskaoyan_mall_permission
+    update cskaoyan_mall_issue
     set id = #{record.id,jdbcType=INTEGER},
-      role_id = #{record.roleId,jdbcType=INTEGER},
-      permission = #{record.permission,jdbcType=VARCHAR},
+      question = #{record.question,jdbcType=VARCHAR},
+      answer = #{record.answer,jdbcType=VARCHAR},
       add_time = #{record.addTime,jdbcType=TIMESTAMP},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP},
       deleted = #{record.deleted,jdbcType=BIT}
@@ -195,14 +195,14 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.cskaoyan.bean.Permission">
-    update cskaoyan_mall_permission
+  <update id="updateByPrimaryKeySelective" parameterType="com.pandax.litemall.bean.Issue">
+    update cskaoyan_mall_issue
     <set>
-      <if test="roleId != null">
-        role_id = #{roleId,jdbcType=INTEGER},
+      <if test="question != null">
+        question = #{question,jdbcType=VARCHAR},
       </if>
-      <if test="permission != null">
-        permission = #{permission,jdbcType=VARCHAR},
+      <if test="answer != null">
+        answer = #{answer,jdbcType=VARCHAR},
       </if>
       <if test="addTime != null">
         add_time = #{addTime,jdbcType=TIMESTAMP},
@@ -216,10 +216,10 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.cskaoyan.bean.Permission">
-    update cskaoyan_mall_permission
-    set role_id = #{roleId,jdbcType=INTEGER},
-      permission = #{permission,jdbcType=VARCHAR},
+  <update id="updateByPrimaryKey" parameterType="com.pandax.litemall.bean.Issue">
+    update cskaoyan_mall_issue
+    set question = #{question,jdbcType=VARCHAR},
+      answer = #{answer,jdbcType=VARCHAR},
       add_time = #{addTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       deleted = #{deleted,jdbcType=BIT}

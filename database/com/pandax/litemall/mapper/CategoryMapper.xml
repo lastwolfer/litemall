@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cskaoyan.mapper.OrderGoodsMapper">
-  <resultMap id="BaseResultMap" type="com.cskaoyan.bean.OrderGoods">
+<mapper namespace="com.pandax.litemall.mapper.CategoryMapper">
+  <resultMap id="BaseResultMap" type="com.pandax.litemall.bean.Category">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="order_id" jdbcType="INTEGER" property="orderId" />
-    <result column="goods_id" jdbcType="INTEGER" property="goodsId" />
-    <result column="goods_name" jdbcType="VARCHAR" property="goodsName" />
-    <result column="goods_sn" jdbcType="VARCHAR" property="goodsSn" />
-    <result column="product_id" jdbcType="INTEGER" property="productId" />
-    <result column="number" jdbcType="SMALLINT" property="number" />
-    <result column="price" jdbcType="DECIMAL" property="price" />
-    <result column="specifications" jdbcType="VARCHAR" property="specifications" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="keywords" jdbcType="VARCHAR" property="keywords" />
+    <result column="desc" jdbcType="VARCHAR" property="desc" />
+    <result column="pid" jdbcType="INTEGER" property="pid" />
+    <result column="icon_url" jdbcType="VARCHAR" property="iconUrl" />
     <result column="pic_url" jdbcType="VARCHAR" property="picUrl" />
-    <result column="comment" jdbcType="INTEGER" property="comment" />
+    <result column="level" jdbcType="VARCHAR" property="level" />
+    <result column="sort_order" jdbcType="TINYINT" property="sortOrder" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="deleted" jdbcType="BIT" property="deleted" />
@@ -76,16 +74,16 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, order_id, goods_id, goods_name, goods_sn, product_id, number, price, specifications, 
-    pic_url, comment, add_time, update_time, deleted
+    id, name, keywords, desc, pid, icon_url, pic_url, level, sort_order, add_time, update_time, 
+    deleted
   </sql>
-  <select id="selectByExample" parameterType="com.cskaoyan.bean.OrderGoodsExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.pandax.litemall.bean.CategoryExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from cskaoyan_mall_order_goods
+    from cskaoyan_mall_category
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -96,66 +94,60 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from cskaoyan_mall_order_goods
+    from cskaoyan_mall_category
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from cskaoyan_mall_order_goods
+    delete from cskaoyan_mall_category
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.cskaoyan.bean.OrderGoodsExample">
-    delete from cskaoyan_mall_order_goods
+  <delete id="deleteByExample" parameterType="com.pandax.litemall.bean.CategoryExample">
+    delete from cskaoyan_mall_category
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.cskaoyan.bean.OrderGoods">
-    insert into cskaoyan_mall_order_goods (id, order_id, goods_id, 
-      goods_name, goods_sn, product_id, 
-      number, price, specifications, 
-      pic_url, comment, add_time, 
-      update_time, deleted)
-    values (#{id,jdbcType=INTEGER}, #{orderId,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, 
-      #{goodsName,jdbcType=VARCHAR}, #{goodsSn,jdbcType=VARCHAR}, #{productId,jdbcType=INTEGER}, 
-      #{number,jdbcType=SMALLINT}, #{price,jdbcType=DECIMAL}, #{specifications,jdbcType=VARCHAR}, 
-      #{picUrl,jdbcType=VARCHAR}, #{comment,jdbcType=INTEGER}, #{addTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT})
+  <insert id="insert" parameterType="com.pandax.litemall.bean.Category">
+    insert into cskaoyan_mall_category (id, name, keywords, 
+      desc, pid, icon_url, 
+      pic_url, level, sort_order, 
+      add_time, update_time, deleted
+      )
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{keywords,jdbcType=VARCHAR}, 
+      #{desc,jdbcType=VARCHAR}, #{pid,jdbcType=INTEGER}, #{iconUrl,jdbcType=VARCHAR}, 
+      #{picUrl,jdbcType=VARCHAR}, #{level,jdbcType=VARCHAR}, #{sortOrder,jdbcType=TINYINT}, 
+      #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.cskaoyan.bean.OrderGoods">
-    insert into cskaoyan_mall_order_goods
+  <insert id="insertSelective" parameterType="com.pandax.litemall.bean.Category">
+    insert into cskaoyan_mall_category
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
       </if>
-      <if test="orderId != null">
-        order_id,
+      <if test="name != null">
+        name,
       </if>
-      <if test="goodsId != null">
-        goods_id,
+      <if test="keywords != null">
+        keywords,
       </if>
-      <if test="goodsName != null">
-        goods_name,
+      <if test="desc != null">
+        desc,
       </if>
-      <if test="goodsSn != null">
-        goods_sn,
+      <if test="pid != null">
+        pid,
       </if>
-      <if test="productId != null">
-        product_id,
-      </if>
-      <if test="number != null">
-        number,
-      </if>
-      <if test="price != null">
-        price,
-      </if>
-      <if test="specifications != null">
-        specifications,
+      <if test="iconUrl != null">
+        icon_url,
       </if>
       <if test="picUrl != null">
         pic_url,
       </if>
-      <if test="comment != null">
-        comment,
+      <if test="level != null">
+        level,
+      </if>
+      <if test="sortOrder != null">
+        sort_order,
       </if>
       <if test="addTime != null">
         add_time,
@@ -171,35 +163,29 @@
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="orderId != null">
-        #{orderId,jdbcType=INTEGER},
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
       </if>
-      <if test="goodsId != null">
-        #{goodsId,jdbcType=INTEGER},
+      <if test="keywords != null">
+        #{keywords,jdbcType=VARCHAR},
       </if>
-      <if test="goodsName != null">
-        #{goodsName,jdbcType=VARCHAR},
+      <if test="desc != null">
+        #{desc,jdbcType=VARCHAR},
       </if>
-      <if test="goodsSn != null">
-        #{goodsSn,jdbcType=VARCHAR},
+      <if test="pid != null">
+        #{pid,jdbcType=INTEGER},
       </if>
-      <if test="productId != null">
-        #{productId,jdbcType=INTEGER},
-      </if>
-      <if test="number != null">
-        #{number,jdbcType=SMALLINT},
-      </if>
-      <if test="price != null">
-        #{price,jdbcType=DECIMAL},
-      </if>
-      <if test="specifications != null">
-        #{specifications,jdbcType=VARCHAR},
+      <if test="iconUrl != null">
+        #{iconUrl,jdbcType=VARCHAR},
       </if>
       <if test="picUrl != null">
         #{picUrl,jdbcType=VARCHAR},
       </if>
-      <if test="comment != null">
-        #{comment,jdbcType=INTEGER},
+      <if test="level != null">
+        #{level,jdbcType=VARCHAR},
+      </if>
+      <if test="sortOrder != null">
+        #{sortOrder,jdbcType=TINYINT},
       </if>
       <if test="addTime != null">
         #{addTime,jdbcType=TIMESTAMP},
@@ -212,47 +198,41 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.cskaoyan.bean.OrderGoodsExample" resultType="java.lang.Long">
-    select count(*) from cskaoyan_mall_order_goods
+  <select id="countByExample" parameterType="com.pandax.litemall.bean.CategoryExample" resultType="java.lang.Long">
+    select count(*) from cskaoyan_mall_category
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update cskaoyan_mall_order_goods
+    update cskaoyan_mall_category
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.orderId != null">
-        order_id = #{record.orderId,jdbcType=INTEGER},
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
       </if>
-      <if test="record.goodsId != null">
-        goods_id = #{record.goodsId,jdbcType=INTEGER},
+      <if test="record.keywords != null">
+        keywords = #{record.keywords,jdbcType=VARCHAR},
       </if>
-      <if test="record.goodsName != null">
-        goods_name = #{record.goodsName,jdbcType=VARCHAR},
+      <if test="record.desc != null">
+        desc = #{record.desc,jdbcType=VARCHAR},
       </if>
-      <if test="record.goodsSn != null">
-        goods_sn = #{record.goodsSn,jdbcType=VARCHAR},
+      <if test="record.pid != null">
+        pid = #{record.pid,jdbcType=INTEGER},
       </if>
-      <if test="record.productId != null">
-        product_id = #{record.productId,jdbcType=INTEGER},
-      </if>
-      <if test="record.number != null">
-        number = #{record.number,jdbcType=SMALLINT},
-      </if>
-      <if test="record.price != null">
-        price = #{record.price,jdbcType=DECIMAL},
-      </if>
-      <if test="record.specifications != null">
-        specifications = #{record.specifications,jdbcType=VARCHAR},
+      <if test="record.iconUrl != null">
+        icon_url = #{record.iconUrl,jdbcType=VARCHAR},
       </if>
       <if test="record.picUrl != null">
         pic_url = #{record.picUrl,jdbcType=VARCHAR},
       </if>
-      <if test="record.comment != null">
-        comment = #{record.comment,jdbcType=INTEGER},
+      <if test="record.level != null">
+        level = #{record.level,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sortOrder != null">
+        sort_order = #{record.sortOrder,jdbcType=TINYINT},
       </if>
       <if test="record.addTime != null">
         add_time = #{record.addTime,jdbcType=TIMESTAMP},
@@ -269,18 +249,16 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update cskaoyan_mall_order_goods
+    update cskaoyan_mall_category
     set id = #{record.id,jdbcType=INTEGER},
-      order_id = #{record.orderId,jdbcType=INTEGER},
-      goods_id = #{record.goodsId,jdbcType=INTEGER},
-      goods_name = #{record.goodsName,jdbcType=VARCHAR},
-      goods_sn = #{record.goodsSn,jdbcType=VARCHAR},
-      product_id = #{record.productId,jdbcType=INTEGER},
-      number = #{record.number,jdbcType=SMALLINT},
-      price = #{record.price,jdbcType=DECIMAL},
-      specifications = #{record.specifications,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      keywords = #{record.keywords,jdbcType=VARCHAR},
+      desc = #{record.desc,jdbcType=VARCHAR},
+      pid = #{record.pid,jdbcType=INTEGER},
+      icon_url = #{record.iconUrl,jdbcType=VARCHAR},
       pic_url = #{record.picUrl,jdbcType=VARCHAR},
-      comment = #{record.comment,jdbcType=INTEGER},
+      level = #{record.level,jdbcType=VARCHAR},
+      sort_order = #{record.sortOrder,jdbcType=TINYINT},
       add_time = #{record.addTime,jdbcType=TIMESTAMP},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP},
       deleted = #{record.deleted,jdbcType=BIT}
@@ -288,38 +266,32 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.cskaoyan.bean.OrderGoods">
-    update cskaoyan_mall_order_goods
+  <update id="updateByPrimaryKeySelective" parameterType="com.pandax.litemall.bean.Category">
+    update cskaoyan_mall_category
     <set>
-      <if test="orderId != null">
-        order_id = #{orderId,jdbcType=INTEGER},
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="goodsId != null">
-        goods_id = #{goodsId,jdbcType=INTEGER},
+      <if test="keywords != null">
+        keywords = #{keywords,jdbcType=VARCHAR},
       </if>
-      <if test="goodsName != null">
-        goods_name = #{goodsName,jdbcType=VARCHAR},
+      <if test="desc != null">
+        desc = #{desc,jdbcType=VARCHAR},
       </if>
-      <if test="goodsSn != null">
-        goods_sn = #{goodsSn,jdbcType=VARCHAR},
+      <if test="pid != null">
+        pid = #{pid,jdbcType=INTEGER},
       </if>
-      <if test="productId != null">
-        product_id = #{productId,jdbcType=INTEGER},
-      </if>
-      <if test="number != null">
-        number = #{number,jdbcType=SMALLINT},
-      </if>
-      <if test="price != null">
-        price = #{price,jdbcType=DECIMAL},
-      </if>
-      <if test="specifications != null">
-        specifications = #{specifications,jdbcType=VARCHAR},
+      <if test="iconUrl != null">
+        icon_url = #{iconUrl,jdbcType=VARCHAR},
       </if>
       <if test="picUrl != null">
         pic_url = #{picUrl,jdbcType=VARCHAR},
       </if>
-      <if test="comment != null">
-        comment = #{comment,jdbcType=INTEGER},
+      <if test="level != null">
+        level = #{level,jdbcType=VARCHAR},
+      </if>
+      <if test="sortOrder != null">
+        sort_order = #{sortOrder,jdbcType=TINYINT},
       </if>
       <if test="addTime != null">
         add_time = #{addTime,jdbcType=TIMESTAMP},
@@ -333,18 +305,16 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.cskaoyan.bean.OrderGoods">
-    update cskaoyan_mall_order_goods
-    set order_id = #{orderId,jdbcType=INTEGER},
-      goods_id = #{goodsId,jdbcType=INTEGER},
-      goods_name = #{goodsName,jdbcType=VARCHAR},
-      goods_sn = #{goodsSn,jdbcType=VARCHAR},
-      product_id = #{productId,jdbcType=INTEGER},
-      number = #{number,jdbcType=SMALLINT},
-      price = #{price,jdbcType=DECIMAL},
-      specifications = #{specifications,jdbcType=VARCHAR},
+  <update id="updateByPrimaryKey" parameterType="com.pandax.litemall.bean.Category">
+    update cskaoyan_mall_category
+    set name = #{name,jdbcType=VARCHAR},
+      keywords = #{keywords,jdbcType=VARCHAR},
+      desc = #{desc,jdbcType=VARCHAR},
+      pid = #{pid,jdbcType=INTEGER},
+      icon_url = #{iconUrl,jdbcType=VARCHAR},
       pic_url = #{picUrl,jdbcType=VARCHAR},
-      comment = #{comment,jdbcType=INTEGER},
+      level = #{level,jdbcType=VARCHAR},
+      sort_order = #{sortOrder,jdbcType=TINYINT},
       add_time = #{addTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       deleted = #{deleted,jdbcType=BIT}

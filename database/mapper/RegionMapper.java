@@ -1,7 +1,7 @@
-package com.cskaoyan.mapper;
+package com.pandax.litemall.mapper;
 
-import com.cskaoyan.bean.Region;
-import com.cskaoyan.bean.RegionExample;
+import com.pandax.litemall.bean.Region;
+import com.pandax.litemall.bean.RegionExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 

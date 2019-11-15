@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cskaoyan.mapper.GoodsMapper">
-  <resultMap id="BaseResultMap" type="com.cskaoyan.bean.Goods">
+<mapper namespace="com.pandax.litemall.mapper.GoodsMapper">
+  <resultMap id="BaseResultMap" type="com.pandax.litemall.bean.Goods">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="goods_sn" jdbcType="VARCHAR" property="goodsSn" />
     <result column="name" jdbcType="VARCHAR" property="name" />
@@ -23,7 +23,7 @@
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="deleted" jdbcType="BIT" property="deleted" />
   </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.cskaoyan.bean.Goods">
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.pandax.litemall.bean.Goods">
     <result column="detail" jdbcType="LONGVARCHAR" property="detail" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -92,7 +92,7 @@
   <sql id="Blob_Column_List">
     detail
   </sql>
-  <select id="selectByExampleWithBLOBs" parameterType="com.cskaoyan.bean.GoodsExample" resultMap="ResultMapWithBLOBs">
+  <select id="selectByExampleWithBLOBs" parameterType="com.pandax.litemall.bean.GoodsExample" resultMap="ResultMapWithBLOBs">
     select
     <if test="distinct">
       distinct
@@ -108,7 +108,7 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByExample" parameterType="com.cskaoyan.bean.GoodsExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.pandax.litemall.bean.GoodsExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -134,13 +134,13 @@
     delete from cskaoyan_mall_goods
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.cskaoyan.bean.GoodsExample">
+  <delete id="deleteByExample" parameterType="com.pandax.litemall.bean.GoodsExample">
     delete from cskaoyan_mall_goods
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.cskaoyan.bean.Goods">
+  <insert id="insert" parameterType="com.pandax.litemall.bean.Goods">
     insert into cskaoyan_mall_goods (id, goods_sn, name, 
       category_id, brand_id, gallery, 
       keywords, brief, is_on_sale, 
@@ -156,7 +156,7 @@
       #{retailPrice,jdbcType=DECIMAL}, #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
       #{deleted,jdbcType=BIT}, #{detail,jdbcType=LONGVARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.cskaoyan.bean.Goods">
+  <insert id="insertSelective" parameterType="com.pandax.litemall.bean.Goods">
     insert into cskaoyan_mall_goods
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -289,7 +289,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.cskaoyan.bean.GoodsExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.pandax.litemall.bean.GoodsExample" resultType="java.lang.Long">
     select count(*) from cskaoyan_mall_goods
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -419,7 +419,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.cskaoyan.bean.Goods">
+  <update id="updateByPrimaryKeySelective" parameterType="com.pandax.litemall.bean.Goods">
     update cskaoyan_mall_goods
     <set>
       <if test="goodsSn != null">
@@ -485,7 +485,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.cskaoyan.bean.Goods">
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.pandax.litemall.bean.Goods">
     update cskaoyan_mall_goods
     set goods_sn = #{goodsSn,jdbcType=VARCHAR},
       name = #{name,jdbcType=VARCHAR},
@@ -509,7 +509,7 @@
       detail = #{detail,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.cskaoyan.bean.Goods">
+  <update id="updateByPrimaryKey" parameterType="com.pandax.litemall.bean.Goods">
     update cskaoyan_mall_goods
     set goods_sn = #{goodsSn,jdbcType=VARCHAR},
       name = #{name,jdbcType=VARCHAR},

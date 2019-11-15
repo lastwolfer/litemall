@@ -1,4 +1,4 @@
-package com.cskaoyan.bean;
+package com.pandax.litemall.bean;
 
 import java.util.ArrayList;
 import java.util.Date;

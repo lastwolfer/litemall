@@ -1,7 +1,7 @@
-package com.cskaoyan.mapper;
+package com.pandax.litemall.mapper;
 
-import com.cskaoyan.bean.Category;
-import com.cskaoyan.bean.CategoryExample;
+import com.pandax.litemall.bean.Category;
+import com.pandax.litemall.bean.CategoryExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 

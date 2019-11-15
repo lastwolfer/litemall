@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cskaoyan.mapper.CartMapper">
-  <resultMap id="BaseResultMap" type="com.cskaoyan.bean.Cart">
+<mapper namespace="com.pandax.litemall.mapper.CouponUserMapper">
+  <resultMap id="BaseResultMap" type="com.pandax.litemall.bean.CouponUser">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
-    <result column="goods_id" jdbcType="INTEGER" property="goodsId" />
-    <result column="goods_sn" jdbcType="VARCHAR" property="goodsSn" />
-    <result column="goods_name" jdbcType="VARCHAR" property="goodsName" />
-    <result column="product_id" jdbcType="INTEGER" property="productId" />
-    <result column="price" jdbcType="DECIMAL" property="price" />
-    <result column="number" jdbcType="SMALLINT" property="number" />
-    <result column="specifications" jdbcType="VARCHAR" property="specifications" />
-    <result column="checked" jdbcType="BIT" property="checked" />
-    <result column="pic_url" jdbcType="VARCHAR" property="picUrl" />
+    <result column="coupon_id" jdbcType="INTEGER" property="couponId" />
+    <result column="status" jdbcType="SMALLINT" property="status" />
+    <result column="used_time" jdbcType="TIMESTAMP" property="usedTime" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="order_id" jdbcType="INTEGER" property="orderId" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="deleted" jdbcType="BIT" property="deleted" />
@@ -76,16 +73,16 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, user_id, goods_id, goods_sn, goods_name, product_id, price, number, specifications, 
-    checked, pic_url, add_time, update_time, deleted
+    id, user_id, coupon_id, status, used_time, start_time, end_time, order_id, add_time, 
+    update_time, deleted
   </sql>
-  <select id="selectByExample" parameterType="com.cskaoyan.bean.CartExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.pandax.litemall.bean.CouponUserExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from cskaoyan_mall_cart
+    from cskaoyan_mall_coupon_user
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -96,33 +93,31 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from cskaoyan_mall_cart
+    from cskaoyan_mall_coupon_user
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from cskaoyan_mall_cart
+    delete from cskaoyan_mall_coupon_user
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.cskaoyan.bean.CartExample">
-    delete from cskaoyan_mall_cart
+  <delete id="deleteByExample" parameterType="com.pandax.litemall.bean.CouponUserExample">
+    delete from cskaoyan_mall_coupon_user
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.cskaoyan.bean.Cart">
-    insert into cskaoyan_mall_cart (id, user_id, goods_id, 
-      goods_sn, goods_name, product_id, 
-      price, number, specifications, 
-      checked, pic_url, add_time, 
+  <insert id="insert" parameterType="com.pandax.litemall.bean.CouponUser">
+    insert into cskaoyan_mall_coupon_user (id, user_id, coupon_id, 
+      status, used_time, start_time, 
+      end_time, order_id, add_time, 
       update_time, deleted)
-    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, 
-      #{goodsSn,jdbcType=VARCHAR}, #{goodsName,jdbcType=VARCHAR}, #{productId,jdbcType=INTEGER}, 
-      #{price,jdbcType=DECIMAL}, #{number,jdbcType=SMALLINT}, #{specifications,jdbcType=VARCHAR}, 
-      #{checked,jdbcType=BIT}, #{picUrl,jdbcType=VARCHAR}, #{addTime,jdbcType=TIMESTAMP}, 
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{couponId,jdbcType=INTEGER}, 
+      #{status,jdbcType=SMALLINT}, #{usedTime,jdbcType=TIMESTAMP}, #{startTime,jdbcType=TIMESTAMP}, 
+      #{endTime,jdbcType=TIMESTAMP}, #{orderId,jdbcType=INTEGER}, #{addTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT})
   </insert>
-  <insert id="insertSelective" parameterType="com.cskaoyan.bean.Cart">
-    insert into cskaoyan_mall_cart
+  <insert id="insertSelective" parameterType="com.pandax.litemall.bean.CouponUser">
+    insert into cskaoyan_mall_coupon_user
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
@@ -130,32 +125,23 @@
       <if test="userId != null">
         user_id,
       </if>
-      <if test="goodsId != null">
-        goods_id,
+      <if test="couponId != null">
+        coupon_id,
       </if>
-      <if test="goodsSn != null">
-        goods_sn,
+      <if test="status != null">
+        status,
       </if>
-      <if test="goodsName != null">
-        goods_name,
+      <if test="usedTime != null">
+        used_time,
       </if>
-      <if test="productId != null">
-        product_id,
+      <if test="startTime != null">
+        start_time,
       </if>
-      <if test="price != null">
-        price,
+      <if test="endTime != null">
+        end_time,
       </if>
-      <if test="number != null">
-        number,
-      </if>
-      <if test="specifications != null">
-        specifications,
-      </if>
-      <if test="checked != null">
-        checked,
-      </if>
-      <if test="picUrl != null">
-        pic_url,
+      <if test="orderId != null">
+        order_id,
       </if>
       <if test="addTime != null">
         add_time,
@@ -174,32 +160,23 @@
       <if test="userId != null">
         #{userId,jdbcType=INTEGER},
       </if>
-      <if test="goodsId != null">
-        #{goodsId,jdbcType=INTEGER},
+      <if test="couponId != null">
+        #{couponId,jdbcType=INTEGER},
       </if>
-      <if test="goodsSn != null">
-        #{goodsSn,jdbcType=VARCHAR},
+      <if test="status != null">
+        #{status,jdbcType=SMALLINT},
       </if>
-      <if test="goodsName != null">
-        #{goodsName,jdbcType=VARCHAR},
+      <if test="usedTime != null">
+        #{usedTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="productId != null">
-        #{productId,jdbcType=INTEGER},
+      <if test="startTime != null">
+        #{startTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="price != null">
-        #{price,jdbcType=DECIMAL},
+      <if test="endTime != null">
+        #{endTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="number != null">
-        #{number,jdbcType=SMALLINT},
-      </if>
-      <if test="specifications != null">
-        #{specifications,jdbcType=VARCHAR},
-      </if>
-      <if test="checked != null">
-        #{checked,jdbcType=BIT},
-      </if>
-      <if test="picUrl != null">
-        #{picUrl,jdbcType=VARCHAR},
+      <if test="orderId != null">
+        #{orderId,jdbcType=INTEGER},
       </if>
       <if test="addTime != null">
         #{addTime,jdbcType=TIMESTAMP},
@@ -212,14 +189,14 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.cskaoyan.bean.CartExample" resultType="java.lang.Long">
-    select count(*) from cskaoyan_mall_cart
+  <select id="countByExample" parameterType="com.pandax.litemall.bean.CouponUserExample" resultType="java.lang.Long">
+    select count(*) from cskaoyan_mall_coupon_user
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update cskaoyan_mall_cart
+    update cskaoyan_mall_coupon_user
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
@@ -227,32 +204,23 @@
       <if test="record.userId != null">
         user_id = #{record.userId,jdbcType=INTEGER},
       </if>
-      <if test="record.goodsId != null">
-        goods_id = #{record.goodsId,jdbcType=INTEGER},
+      <if test="record.couponId != null">
+        coupon_id = #{record.couponId,jdbcType=INTEGER},
       </if>
-      <if test="record.goodsSn != null">
-        goods_sn = #{record.goodsSn,jdbcType=VARCHAR},
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=SMALLINT},
       </if>
-      <if test="record.goodsName != null">
-        goods_name = #{record.goodsName,jdbcType=VARCHAR},
+      <if test="record.usedTime != null">
+        used_time = #{record.usedTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.productId != null">
-        product_id = #{record.productId,jdbcType=INTEGER},
+      <if test="record.startTime != null">
+        start_time = #{record.startTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.price != null">
-        price = #{record.price,jdbcType=DECIMAL},
+      <if test="record.endTime != null">
+        end_time = #{record.endTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.number != null">
-        number = #{record.number,jdbcType=SMALLINT},
-      </if>
-      <if test="record.specifications != null">
-        specifications = #{record.specifications,jdbcType=VARCHAR},
-      </if>
-      <if test="record.checked != null">
-        checked = #{record.checked,jdbcType=BIT},
-      </if>
-      <if test="record.picUrl != null">
-        pic_url = #{record.picUrl,jdbcType=VARCHAR},
+      <if test="record.orderId != null">
+        order_id = #{record.orderId,jdbcType=INTEGER},
       </if>
       <if test="record.addTime != null">
         add_time = #{record.addTime,jdbcType=TIMESTAMP},
@@ -269,18 +237,15 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update cskaoyan_mall_cart
+    update cskaoyan_mall_coupon_user
     set id = #{record.id,jdbcType=INTEGER},
       user_id = #{record.userId,jdbcType=INTEGER},
-      goods_id = #{record.goodsId,jdbcType=INTEGER},
-      goods_sn = #{record.goodsSn,jdbcType=VARCHAR},
-      goods_name = #{record.goodsName,jdbcType=VARCHAR},
-      product_id = #{record.productId,jdbcType=INTEGER},
-      price = #{record.price,jdbcType=DECIMAL},
-      number = #{record.number,jdbcType=SMALLINT},
-      specifications = #{record.specifications,jdbcType=VARCHAR},
-      checked = #{record.checked,jdbcType=BIT},
-      pic_url = #{record.picUrl,jdbcType=VARCHAR},
+      coupon_id = #{record.couponId,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=SMALLINT},
+      used_time = #{record.usedTime,jdbcType=TIMESTAMP},
+      start_time = #{record.startTime,jdbcType=TIMESTAMP},
+      end_time = #{record.endTime,jdbcType=TIMESTAMP},
+      order_id = #{record.orderId,jdbcType=INTEGER},
       add_time = #{record.addTime,jdbcType=TIMESTAMP},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP},
       deleted = #{record.deleted,jdbcType=BIT}
@@ -288,38 +253,29 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.cskaoyan.bean.Cart">
-    update cskaoyan_mall_cart
+  <update id="updateByPrimaryKeySelective" parameterType="com.pandax.litemall.bean.CouponUser">
+    update cskaoyan_mall_coupon_user
     <set>
       <if test="userId != null">
         user_id = #{userId,jdbcType=INTEGER},
       </if>
-      <if test="goodsId != null">
-        goods_id = #{goodsId,jdbcType=INTEGER},
+      <if test="couponId != null">
+        coupon_id = #{couponId,jdbcType=INTEGER},
       </if>
-      <if test="goodsSn != null">
-        goods_sn = #{goodsSn,jdbcType=VARCHAR},
+      <if test="status != null">
+        status = #{status,jdbcType=SMALLINT},
       </if>
-      <if test="goodsName != null">
-        goods_name = #{goodsName,jdbcType=VARCHAR},
+      <if test="usedTime != null">
+        used_time = #{usedTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="productId != null">
-        product_id = #{productId,jdbcType=INTEGER},
+      <if test="startTime != null">
+        start_time = #{startTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="price != null">
-        price = #{price,jdbcType=DECIMAL},
+      <if test="endTime != null">
+        end_time = #{endTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="number != null">
-        number = #{number,jdbcType=SMALLINT},
-      </if>
-      <if test="specifications != null">
-        specifications = #{specifications,jdbcType=VARCHAR},
-      </if>
-      <if test="checked != null">
-        checked = #{checked,jdbcType=BIT},
-      </if>
-      <if test="picUrl != null">
-        pic_url = #{picUrl,jdbcType=VARCHAR},
+      <if test="orderId != null">
+        order_id = #{orderId,jdbcType=INTEGER},
       </if>
       <if test="addTime != null">
         add_time = #{addTime,jdbcType=TIMESTAMP},
@@ -333,18 +289,15 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.cskaoyan.bean.Cart">
-    update cskaoyan_mall_cart
+  <update id="updateByPrimaryKey" parameterType="com.pandax.litemall.bean.CouponUser">
+    update cskaoyan_mall_coupon_user
     set user_id = #{userId,jdbcType=INTEGER},
-      goods_id = #{goodsId,jdbcType=INTEGER},
-      goods_sn = #{goodsSn,jdbcType=VARCHAR},
-      goods_name = #{goodsName,jdbcType=VARCHAR},
-      product_id = #{productId,jdbcType=INTEGER},
-      price = #{price,jdbcType=DECIMAL},
-      number = #{number,jdbcType=SMALLINT},
-      specifications = #{specifications,jdbcType=VARCHAR},
-      checked = #{checked,jdbcType=BIT},
-      pic_url = #{picUrl,jdbcType=VARCHAR},
+      coupon_id = #{couponId,jdbcType=INTEGER},
+      status = #{status,jdbcType=SMALLINT},
+      used_time = #{usedTime,jdbcType=TIMESTAMP},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      order_id = #{orderId,jdbcType=INTEGER},
       add_time = #{addTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       deleted = #{deleted,jdbcType=BIT}

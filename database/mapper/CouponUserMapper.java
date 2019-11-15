@@ -1,7 +1,7 @@
-package com.cskaoyan.mapper;
+package com.pandax.litemall.mapper;
 
-import com.cskaoyan.bean.CouponUser;
-import com.cskaoyan.bean.CouponUserExample;
+import com.pandax.litemall.bean.CouponUser;
+import com.pandax.litemall.bean.CouponUserExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 

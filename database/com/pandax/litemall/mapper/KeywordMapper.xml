@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cskaoyan.mapper.GrouponRulesMapper">
-  <resultMap id="BaseResultMap" type="com.cskaoyan.bean.GrouponRules">
+<mapper namespace="com.pandax.litemall.mapper.KeywordMapper">
+  <resultMap id="BaseResultMap" type="com.pandax.litemall.bean.Keyword">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="goods_id" jdbcType="INTEGER" property="goodsId" />
-    <result column="goods_name" jdbcType="VARCHAR" property="goodsName" />
-    <result column="pic_url" jdbcType="VARCHAR" property="picUrl" />
-    <result column="discount" jdbcType="DECIMAL" property="discount" />
-    <result column="discount_member" jdbcType="INTEGER" property="discountMember" />
+    <result column="keyword" jdbcType="VARCHAR" property="keyword" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="is_hot" jdbcType="BIT" property="isHot" />
+    <result column="is_default" jdbcType="BIT" property="isDefault" />
+    <result column="sort_order" jdbcType="INTEGER" property="sortOrder" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-    <result column="expire_time" jdbcType="TIMESTAMP" property="expireTime" />
     <result column="deleted" jdbcType="BIT" property="deleted" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -72,16 +71,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, goods_id, goods_name, pic_url, discount, discount_member, add_time, update_time, 
-    expire_time, deleted
+    id, keyword, url, is_hot, is_default, sort_order, add_time, update_time, deleted
   </sql>
-  <select id="selectByExample" parameterType="com.cskaoyan.bean.GrouponRulesExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.pandax.litemall.bean.KeywordExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from cskaoyan_mall_groupon_rules
+    from cskaoyan_mall_keyword
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -92,58 +90,55 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from cskaoyan_mall_groupon_rules
+    from cskaoyan_mall_keyword
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from cskaoyan_mall_groupon_rules
+    delete from cskaoyan_mall_keyword
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.cskaoyan.bean.GrouponRulesExample">
-    delete from cskaoyan_mall_groupon_rules
+  <delete id="deleteByExample" parameterType="com.pandax.litemall.bean.KeywordExample">
+    delete from cskaoyan_mall_keyword
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.cskaoyan.bean.GrouponRules">
-    insert into cskaoyan_mall_groupon_rules (id, goods_id, goods_name, 
-      pic_url, discount, discount_member, 
-      add_time, update_time, expire_time, 
-      deleted)
-    values (#{id,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, #{goodsName,jdbcType=VARCHAR}, 
-      #{picUrl,jdbcType=VARCHAR}, #{discount,jdbcType=DECIMAL}, #{discountMember,jdbcType=INTEGER}, 
-      #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{expireTime,jdbcType=TIMESTAMP}, 
-      #{deleted,jdbcType=BIT})
+  <insert id="insert" parameterType="com.pandax.litemall.bean.Keyword">
+    insert into cskaoyan_mall_keyword (id, keyword, url, 
+      is_hot, is_default, sort_order, 
+      add_time, update_time, deleted
+      )
+    values (#{id,jdbcType=INTEGER}, #{keyword,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
+      #{isHot,jdbcType=BIT}, #{isDefault,jdbcType=BIT}, #{sortOrder,jdbcType=INTEGER}, 
+      #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.cskaoyan.bean.GrouponRules">
-    insert into cskaoyan_mall_groupon_rules
+  <insert id="insertSelective" parameterType="com.pandax.litemall.bean.Keyword">
+    insert into cskaoyan_mall_keyword
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
       </if>
-      <if test="goodsId != null">
-        goods_id,
+      <if test="keyword != null">
+        keyword,
       </if>
-      <if test="goodsName != null">
-        goods_name,
+      <if test="url != null">
+        url,
       </if>
-      <if test="picUrl != null">
-        pic_url,
+      <if test="isHot != null">
+        is_hot,
       </if>
-      <if test="discount != null">
-        discount,
+      <if test="isDefault != null">
+        is_default,
       </if>
-      <if test="discountMember != null">
-        discount_member,
+      <if test="sortOrder != null">
+        sort_order,
       </if>
       <if test="addTime != null">
         add_time,
       </if>
       <if test="updateTime != null">
         update_time,
-      </if>
-      <if test="expireTime != null">
-        expire_time,
       </if>
       <if test="deleted != null">
         deleted,
@@ -153,20 +148,20 @@
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="goodsId != null">
-        #{goodsId,jdbcType=INTEGER},
+      <if test="keyword != null">
+        #{keyword,jdbcType=VARCHAR},
       </if>
-      <if test="goodsName != null">
-        #{goodsName,jdbcType=VARCHAR},
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
       </if>
-      <if test="picUrl != null">
-        #{picUrl,jdbcType=VARCHAR},
+      <if test="isHot != null">
+        #{isHot,jdbcType=BIT},
       </if>
-      <if test="discount != null">
-        #{discount,jdbcType=DECIMAL},
+      <if test="isDefault != null">
+        #{isDefault,jdbcType=BIT},
       </if>
-      <if test="discountMember != null">
-        #{discountMember,jdbcType=INTEGER},
+      <if test="sortOrder != null">
+        #{sortOrder,jdbcType=INTEGER},
       </if>
       <if test="addTime != null">
         #{addTime,jdbcType=TIMESTAMP},
@@ -174,49 +169,43 @@
       <if test="updateTime != null">
         #{updateTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="expireTime != null">
-        #{expireTime,jdbcType=TIMESTAMP},
-      </if>
       <if test="deleted != null">
         #{deleted,jdbcType=BIT},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.cskaoyan.bean.GrouponRulesExample" resultType="java.lang.Long">
-    select count(*) from cskaoyan_mall_groupon_rules
+  <select id="countByExample" parameterType="com.pandax.litemall.bean.KeywordExample" resultType="java.lang.Long">
+    select count(*) from cskaoyan_mall_keyword
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update cskaoyan_mall_groupon_rules
+    update cskaoyan_mall_keyword
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.goodsId != null">
-        goods_id = #{record.goodsId,jdbcType=INTEGER},
+      <if test="record.keyword != null">
+        keyword = #{record.keyword,jdbcType=VARCHAR},
       </if>
-      <if test="record.goodsName != null">
-        goods_name = #{record.goodsName,jdbcType=VARCHAR},
+      <if test="record.url != null">
+        url = #{record.url,jdbcType=VARCHAR},
       </if>
-      <if test="record.picUrl != null">
-        pic_url = #{record.picUrl,jdbcType=VARCHAR},
+      <if test="record.isHot != null">
+        is_hot = #{record.isHot,jdbcType=BIT},
       </if>
-      <if test="record.discount != null">
-        discount = #{record.discount,jdbcType=DECIMAL},
+      <if test="record.isDefault != null">
+        is_default = #{record.isDefault,jdbcType=BIT},
       </if>
-      <if test="record.discountMember != null">
-        discount_member = #{record.discountMember,jdbcType=INTEGER},
+      <if test="record.sortOrder != null">
+        sort_order = #{record.sortOrder,jdbcType=INTEGER},
       </if>
       <if test="record.addTime != null">
         add_time = #{record.addTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.updateTime != null">
         update_time = #{record.updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.expireTime != null">
-        expire_time = #{record.expireTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.deleted != null">
         deleted = #{record.deleted,jdbcType=BIT},
@@ -227,38 +216,37 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update cskaoyan_mall_groupon_rules
+    update cskaoyan_mall_keyword
     set id = #{record.id,jdbcType=INTEGER},
-      goods_id = #{record.goodsId,jdbcType=INTEGER},
-      goods_name = #{record.goodsName,jdbcType=VARCHAR},
-      pic_url = #{record.picUrl,jdbcType=VARCHAR},
-      discount = #{record.discount,jdbcType=DECIMAL},
-      discount_member = #{record.discountMember,jdbcType=INTEGER},
+      keyword = #{record.keyword,jdbcType=VARCHAR},
+      url = #{record.url,jdbcType=VARCHAR},
+      is_hot = #{record.isHot,jdbcType=BIT},
+      is_default = #{record.isDefault,jdbcType=BIT},
+      sort_order = #{record.sortOrder,jdbcType=INTEGER},
       add_time = #{record.addTime,jdbcType=TIMESTAMP},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP},
-      expire_time = #{record.expireTime,jdbcType=TIMESTAMP},
       deleted = #{record.deleted,jdbcType=BIT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.cskaoyan.bean.GrouponRules">
-    update cskaoyan_mall_groupon_rules
+  <update id="updateByPrimaryKeySelective" parameterType="com.pandax.litemall.bean.Keyword">
+    update cskaoyan_mall_keyword
     <set>
-      <if test="goodsId != null">
-        goods_id = #{goodsId,jdbcType=INTEGER},
+      <if test="keyword != null">
+        keyword = #{keyword,jdbcType=VARCHAR},
       </if>
-      <if test="goodsName != null">
-        goods_name = #{goodsName,jdbcType=VARCHAR},
+      <if test="url != null">
+        url = #{url,jdbcType=VARCHAR},
       </if>
-      <if test="picUrl != null">
-        pic_url = #{picUrl,jdbcType=VARCHAR},
+      <if test="isHot != null">
+        is_hot = #{isHot,jdbcType=BIT},
       </if>
-      <if test="discount != null">
-        discount = #{discount,jdbcType=DECIMAL},
+      <if test="isDefault != null">
+        is_default = #{isDefault,jdbcType=BIT},
       </if>
-      <if test="discountMember != null">
-        discount_member = #{discountMember,jdbcType=INTEGER},
+      <if test="sortOrder != null">
+        sort_order = #{sortOrder,jdbcType=INTEGER},
       </if>
       <if test="addTime != null">
         add_time = #{addTime,jdbcType=TIMESTAMP},
@@ -266,25 +254,21 @@
       <if test="updateTime != null">
         update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="expireTime != null">
-        expire_time = #{expireTime,jdbcType=TIMESTAMP},
-      </if>
       <if test="deleted != null">
         deleted = #{deleted,jdbcType=BIT},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.cskaoyan.bean.GrouponRules">
-    update cskaoyan_mall_groupon_rules
-    set goods_id = #{goodsId,jdbcType=INTEGER},
-      goods_name = #{goodsName,jdbcType=VARCHAR},
-      pic_url = #{picUrl,jdbcType=VARCHAR},
-      discount = #{discount,jdbcType=DECIMAL},
-      discount_member = #{discountMember,jdbcType=INTEGER},
+  <update id="updateByPrimaryKey" parameterType="com.pandax.litemall.bean.Keyword">
+    update cskaoyan_mall_keyword
+    set keyword = #{keyword,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      is_hot = #{isHot,jdbcType=BIT},
+      is_default = #{isDefault,jdbcType=BIT},
+      sort_order = #{sortOrder,jdbcType=INTEGER},
       add_time = #{addTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
-      expire_time = #{expireTime,jdbcType=TIMESTAMP},
       deleted = #{deleted,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>

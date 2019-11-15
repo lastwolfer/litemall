@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cskaoyan.mapper.GoodsProductMapper">
-  <resultMap id="BaseResultMap" type="com.cskaoyan.bean.GoodsProduct">
+<mapper namespace="com.pandax.litemall.mapper.GoodsAttributeMapper">
+  <resultMap id="BaseResultMap" type="com.pandax.litemall.bean.GoodsAttribute">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="goods_id" jdbcType="INTEGER" property="goodsId" />
-    <result column="specifications" jdbcType="VARCHAR" property="specifications" />
-    <result column="price" jdbcType="DECIMAL" property="price" />
-    <result column="number" jdbcType="INTEGER" property="number" />
-    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="attribute" jdbcType="VARCHAR" property="attribute" />
+    <result column="value" jdbcType="VARCHAR" property="value" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="deleted" jdbcType="BIT" property="deleted" />
@@ -71,15 +69,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, goods_id, specifications, price, number, url, add_time, update_time, deleted
+    id, goods_id, attribute, value, add_time, update_time, deleted
   </sql>
-  <select id="selectByExample" parameterType="com.cskaoyan.bean.GoodsProductExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.pandax.litemall.bean.GoodsAttributeExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from cskaoyan_mall_goods_product
+    from cskaoyan_mall_goods_attribute
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -90,31 +88,29 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from cskaoyan_mall_goods_product
+    from cskaoyan_mall_goods_attribute
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from cskaoyan_mall_goods_product
+    delete from cskaoyan_mall_goods_attribute
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.cskaoyan.bean.GoodsProductExample">
-    delete from cskaoyan_mall_goods_product
+  <delete id="deleteByExample" parameterType="com.pandax.litemall.bean.GoodsAttributeExample">
+    delete from cskaoyan_mall_goods_attribute
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.cskaoyan.bean.GoodsProduct">
-    insert into cskaoyan_mall_goods_product (id, goods_id, specifications, 
-      price, number, url, 
-      add_time, update_time, deleted
-      )
-    values (#{id,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, #{specifications,jdbcType=VARCHAR}, 
-      #{price,jdbcType=DECIMAL}, #{number,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR}, 
-      #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT}
-      )
+  <insert id="insert" parameterType="com.pandax.litemall.bean.GoodsAttribute">
+    insert into cskaoyan_mall_goods_attribute (id, goods_id, attribute, 
+      value, add_time, update_time, 
+      deleted)
+    values (#{id,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, #{attribute,jdbcType=VARCHAR}, 
+      #{value,jdbcType=VARCHAR}, #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{deleted,jdbcType=BIT})
   </insert>
-  <insert id="insertSelective" parameterType="com.cskaoyan.bean.GoodsProduct">
-    insert into cskaoyan_mall_goods_product
+  <insert id="insertSelective" parameterType="com.pandax.litemall.bean.GoodsAttribute">
+    insert into cskaoyan_mall_goods_attribute
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
@@ -122,17 +118,11 @@
       <if test="goodsId != null">
         goods_id,
       </if>
-      <if test="specifications != null">
-        specifications,
+      <if test="attribute != null">
+        attribute,
       </if>
-      <if test="price != null">
-        price,
-      </if>
-      <if test="number != null">
-        number,
-      </if>
-      <if test="url != null">
-        url,
+      <if test="value != null">
+        value,
       </if>
       <if test="addTime != null">
         add_time,
@@ -151,17 +141,11 @@
       <if test="goodsId != null">
         #{goodsId,jdbcType=INTEGER},
       </if>
-      <if test="specifications != null">
-        #{specifications,jdbcType=VARCHAR},
+      <if test="attribute != null">
+        #{attribute,jdbcType=VARCHAR},
       </if>
-      <if test="price != null">
-        #{price,jdbcType=DECIMAL},
-      </if>
-      <if test="number != null">
-        #{number,jdbcType=INTEGER},
-      </if>
-      <if test="url != null">
-        #{url,jdbcType=VARCHAR},
+      <if test="value != null">
+        #{value,jdbcType=VARCHAR},
       </if>
       <if test="addTime != null">
         #{addTime,jdbcType=TIMESTAMP},
@@ -174,14 +158,14 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.cskaoyan.bean.GoodsProductExample" resultType="java.lang.Long">
-    select count(*) from cskaoyan_mall_goods_product
+  <select id="countByExample" parameterType="com.pandax.litemall.bean.GoodsAttributeExample" resultType="java.lang.Long">
+    select count(*) from cskaoyan_mall_goods_attribute
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update cskaoyan_mall_goods_product
+    update cskaoyan_mall_goods_attribute
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
@@ -189,17 +173,11 @@
       <if test="record.goodsId != null">
         goods_id = #{record.goodsId,jdbcType=INTEGER},
       </if>
-      <if test="record.specifications != null">
-        specifications = #{record.specifications,jdbcType=VARCHAR},
+      <if test="record.attribute != null">
+        attribute = #{record.attribute,jdbcType=VARCHAR},
       </if>
-      <if test="record.price != null">
-        price = #{record.price,jdbcType=DECIMAL},
-      </if>
-      <if test="record.number != null">
-        number = #{record.number,jdbcType=INTEGER},
-      </if>
-      <if test="record.url != null">
-        url = #{record.url,jdbcType=VARCHAR},
+      <if test="record.value != null">
+        value = #{record.value,jdbcType=VARCHAR},
       </if>
       <if test="record.addTime != null">
         add_time = #{record.addTime,jdbcType=TIMESTAMP},
@@ -216,13 +194,11 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update cskaoyan_mall_goods_product
+    update cskaoyan_mall_goods_attribute
     set id = #{record.id,jdbcType=INTEGER},
       goods_id = #{record.goodsId,jdbcType=INTEGER},
-      specifications = #{record.specifications,jdbcType=VARCHAR},
-      price = #{record.price,jdbcType=DECIMAL},
-      number = #{record.number,jdbcType=INTEGER},
-      url = #{record.url,jdbcType=VARCHAR},
+      attribute = #{record.attribute,jdbcType=VARCHAR},
+      value = #{record.value,jdbcType=VARCHAR},
       add_time = #{record.addTime,jdbcType=TIMESTAMP},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP},
       deleted = #{record.deleted,jdbcType=BIT}
@@ -230,23 +206,17 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.cskaoyan.bean.GoodsProduct">
-    update cskaoyan_mall_goods_product
+  <update id="updateByPrimaryKeySelective" parameterType="com.pandax.litemall.bean.GoodsAttribute">
+    update cskaoyan_mall_goods_attribute
     <set>
       <if test="goodsId != null">
         goods_id = #{goodsId,jdbcType=INTEGER},
       </if>
-      <if test="specifications != null">
-        specifications = #{specifications,jdbcType=VARCHAR},
+      <if test="attribute != null">
+        attribute = #{attribute,jdbcType=VARCHAR},
       </if>
-      <if test="price != null">
-        price = #{price,jdbcType=DECIMAL},
-      </if>
-      <if test="number != null">
-        number = #{number,jdbcType=INTEGER},
-      </if>
-      <if test="url != null">
-        url = #{url,jdbcType=VARCHAR},
+      <if test="value != null">
+        value = #{value,jdbcType=VARCHAR},
       </if>
       <if test="addTime != null">
         add_time = #{addTime,jdbcType=TIMESTAMP},
@@ -260,13 +230,11 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.cskaoyan.bean.GoodsProduct">
-    update cskaoyan_mall_goods_product
+  <update id="updateByPrimaryKey" parameterType="com.pandax.litemall.bean.GoodsAttribute">
+    update cskaoyan_mall_goods_attribute
     set goods_id = #{goodsId,jdbcType=INTEGER},
-      specifications = #{specifications,jdbcType=VARCHAR},
-      price = #{price,jdbcType=DECIMAL},
-      number = #{number,jdbcType=INTEGER},
-      url = #{url,jdbcType=VARCHAR},
+      attribute = #{attribute,jdbcType=VARCHAR},
+      value = #{value,jdbcType=VARCHAR},
       add_time = #{addTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       deleted = #{deleted,jdbcType=BIT}

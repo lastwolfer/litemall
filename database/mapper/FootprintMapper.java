@@ -1,7 +1,7 @@
-package com.cskaoyan.mapper;
+package com.pandax.litemall.mapper;
 
-import com.cskaoyan.bean.Footprint;
-import com.cskaoyan.bean.FootprintExample;
+import com.pandax.litemall.bean.Footprint;
+import com.pandax.litemall.bean.FootprintExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 

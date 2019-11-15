@@ -1,6 +1,6 @@
-package com.cskaoyan.mapper;
+package com.pandax.litemall.mapper;
 
-import com.cskaoyan.bean.Ad;
+import com.pandax.litemall.bean.Ad;
 
 public interface AdMapper {
     int deleteByPrimaryKey(Integer id);

@@ -1,7 +1,7 @@
-package com.cskaoyan.mapper;
+package com.pandax.litemall.mapper;
 
-import com.cskaoyan.bean.Brand;
-import com.cskaoyan.bean.BrandExample;
+import com.pandax.litemall.bean.Brand;
+import com.pandax.litemall.bean.BrandExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 

@@ -1,7 +1,7 @@
-package com.cskaoyan.mapper;
+package com.pandax.litemall.mapper;
 
-import com.cskaoyan.bean.Permission;
-import com.cskaoyan.bean.PermissionExample;
+import com.pandax.litemall.bean.Permission;
+import com.pandax.litemall.bean.PermissionExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 

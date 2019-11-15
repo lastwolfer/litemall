@@ -1,4 +1,4 @@
-package com.cskaoyan.bean;
+package com.pandax.litemall.bean;
 
 public class Region {
     private Integer id;

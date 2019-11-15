@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cskaoyan.mapper.CommentMapper">
-  <resultMap id="BaseResultMap" type="com.cskaoyan.bean.Comment">
+<mapper namespace="com.pandax.litemall.mapper.GoodsSpecificationMapper">
+  <resultMap id="BaseResultMap" type="com.pandax.litemall.bean.GoodsSpecification">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="value_id" jdbcType="INTEGER" property="valueId" />
-    <result column="type" jdbcType="TINYINT" property="type" />
-    <result column="content" jdbcType="VARCHAR" property="content" />
-    <result column="user_id" jdbcType="INTEGER" property="userId" />
-    <result column="has_picture" jdbcType="BIT" property="hasPicture" />
-    <result column="pic_urls" jdbcType="VARCHAR" property="picUrls" />
-    <result column="star" jdbcType="SMALLINT" property="star" />
+    <result column="goods_id" jdbcType="INTEGER" property="goodsId" />
+    <result column="specification" jdbcType="VARCHAR" property="specification" />
+    <result column="value" jdbcType="VARCHAR" property="value" />
+    <result column="pic_url" jdbcType="VARCHAR" property="picUrl" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="deleted" jdbcType="BIT" property="deleted" />
@@ -73,16 +70,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, value_id, type, content, user_id, has_picture, pic_urls, star, add_time, update_time, 
-    deleted
+    id, goods_id, specification, value, pic_url, add_time, update_time, deleted
   </sql>
-  <select id="selectByExample" parameterType="com.cskaoyan.bean.CommentExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.pandax.litemall.bean.GoodsSpecificationExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from cskaoyan_mall_comment
+    from cskaoyan_mall_goods_specification
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -93,55 +89,44 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from cskaoyan_mall_comment
+    from cskaoyan_mall_goods_specification
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from cskaoyan_mall_comment
+    delete from cskaoyan_mall_goods_specification
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.cskaoyan.bean.CommentExample">
-    delete from cskaoyan_mall_comment
+  <delete id="deleteByExample" parameterType="com.pandax.litemall.bean.GoodsSpecificationExample">
+    delete from cskaoyan_mall_goods_specification
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.cskaoyan.bean.Comment">
-    insert into cskaoyan_mall_comment (id, value_id, type, 
-      content, user_id, has_picture, 
-      pic_urls, star, add_time, 
+  <insert id="insert" parameterType="com.pandax.litemall.bean.GoodsSpecification">
+    insert into cskaoyan_mall_goods_specification (id, goods_id, specification, 
+      value, pic_url, add_time, 
       update_time, deleted)
-    values (#{id,jdbcType=INTEGER}, #{valueId,jdbcType=INTEGER}, #{type,jdbcType=TINYINT}, 
-      #{content,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, #{hasPicture,jdbcType=BIT}, 
-      #{picUrls,jdbcType=VARCHAR}, #{star,jdbcType=SMALLINT}, #{addTime,jdbcType=TIMESTAMP}, 
+    values (#{id,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, #{specification,jdbcType=VARCHAR}, 
+      #{value,jdbcType=VARCHAR}, #{picUrl,jdbcType=VARCHAR}, #{addTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT})
   </insert>
-  <insert id="insertSelective" parameterType="com.cskaoyan.bean.Comment">
-    insert into cskaoyan_mall_comment
+  <insert id="insertSelective" parameterType="com.pandax.litemall.bean.GoodsSpecification">
+    insert into cskaoyan_mall_goods_specification
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
       </if>
-      <if test="valueId != null">
-        value_id,
+      <if test="goodsId != null">
+        goods_id,
       </if>
-      <if test="type != null">
-        type,
+      <if test="specification != null">
+        specification,
       </if>
-      <if test="content != null">
-        content,
+      <if test="value != null">
+        value,
       </if>
-      <if test="userId != null">
-        user_id,
-      </if>
-      <if test="hasPicture != null">
-        has_picture,
-      </if>
-      <if test="picUrls != null">
-        pic_urls,
-      </if>
-      <if test="star != null">
-        star,
+      <if test="picUrl != null">
+        pic_url,
       </if>
       <if test="addTime != null">
         add_time,
@@ -157,26 +142,17 @@
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="valueId != null">
-        #{valueId,jdbcType=INTEGER},
+      <if test="goodsId != null">
+        #{goodsId,jdbcType=INTEGER},
       </if>
-      <if test="type != null">
-        #{type,jdbcType=TINYINT},
+      <if test="specification != null">
+        #{specification,jdbcType=VARCHAR},
       </if>
-      <if test="content != null">
-        #{content,jdbcType=VARCHAR},
+      <if test="value != null">
+        #{value,jdbcType=VARCHAR},
       </if>
-      <if test="userId != null">
-        #{userId,jdbcType=INTEGER},
-      </if>
-      <if test="hasPicture != null">
-        #{hasPicture,jdbcType=BIT},
-      </if>
-      <if test="picUrls != null">
-        #{picUrls,jdbcType=VARCHAR},
-      </if>
-      <if test="star != null">
-        #{star,jdbcType=SMALLINT},
+      <if test="picUrl != null">
+        #{picUrl,jdbcType=VARCHAR},
       </if>
       <if test="addTime != null">
         #{addTime,jdbcType=TIMESTAMP},
@@ -189,38 +165,29 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.cskaoyan.bean.CommentExample" resultType="java.lang.Long">
-    select count(*) from cskaoyan_mall_comment
+  <select id="countByExample" parameterType="com.pandax.litemall.bean.GoodsSpecificationExample" resultType="java.lang.Long">
+    select count(*) from cskaoyan_mall_goods_specification
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update cskaoyan_mall_comment
+    update cskaoyan_mall_goods_specification
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.valueId != null">
-        value_id = #{record.valueId,jdbcType=INTEGER},
+      <if test="record.goodsId != null">
+        goods_id = #{record.goodsId,jdbcType=INTEGER},
       </if>
-      <if test="record.type != null">
-        type = #{record.type,jdbcType=TINYINT},
+      <if test="record.specification != null">
+        specification = #{record.specification,jdbcType=VARCHAR},
       </if>
-      <if test="record.content != null">
-        content = #{record.content,jdbcType=VARCHAR},
+      <if test="record.value != null">
+        value = #{record.value,jdbcType=VARCHAR},
       </if>
-      <if test="record.userId != null">
-        user_id = #{record.userId,jdbcType=INTEGER},
-      </if>
-      <if test="record.hasPicture != null">
-        has_picture = #{record.hasPicture,jdbcType=BIT},
-      </if>
-      <if test="record.picUrls != null">
-        pic_urls = #{record.picUrls,jdbcType=VARCHAR},
-      </if>
-      <if test="record.star != null">
-        star = #{record.star,jdbcType=SMALLINT},
+      <if test="record.picUrl != null">
+        pic_url = #{record.picUrl,jdbcType=VARCHAR},
       </if>
       <if test="record.addTime != null">
         add_time = #{record.addTime,jdbcType=TIMESTAMP},
@@ -237,15 +204,12 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update cskaoyan_mall_comment
+    update cskaoyan_mall_goods_specification
     set id = #{record.id,jdbcType=INTEGER},
-      value_id = #{record.valueId,jdbcType=INTEGER},
-      type = #{record.type,jdbcType=TINYINT},
-      content = #{record.content,jdbcType=VARCHAR},
-      user_id = #{record.userId,jdbcType=INTEGER},
-      has_picture = #{record.hasPicture,jdbcType=BIT},
-      pic_urls = #{record.picUrls,jdbcType=VARCHAR},
-      star = #{record.star,jdbcType=SMALLINT},
+      goods_id = #{record.goodsId,jdbcType=INTEGER},
+      specification = #{record.specification,jdbcType=VARCHAR},
+      value = #{record.value,jdbcType=VARCHAR},
+      pic_url = #{record.picUrl,jdbcType=VARCHAR},
       add_time = #{record.addTime,jdbcType=TIMESTAMP},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP},
       deleted = #{record.deleted,jdbcType=BIT}
@@ -253,29 +217,20 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.cskaoyan.bean.Comment">
-    update cskaoyan_mall_comment
+  <update id="updateByPrimaryKeySelective" parameterType="com.pandax.litemall.bean.GoodsSpecification">
+    update cskaoyan_mall_goods_specification
     <set>
-      <if test="valueId != null">
-        value_id = #{valueId,jdbcType=INTEGER},
+      <if test="goodsId != null">
+        goods_id = #{goodsId,jdbcType=INTEGER},
       </if>
-      <if test="type != null">
-        type = #{type,jdbcType=TINYINT},
+      <if test="specification != null">
+        specification = #{specification,jdbcType=VARCHAR},
       </if>
-      <if test="content != null">
-        content = #{content,jdbcType=VARCHAR},
+      <if test="value != null">
+        value = #{value,jdbcType=VARCHAR},
       </if>
-      <if test="userId != null">
-        user_id = #{userId,jdbcType=INTEGER},
-      </if>
-      <if test="hasPicture != null">
-        has_picture = #{hasPicture,jdbcType=BIT},
-      </if>
-      <if test="picUrls != null">
-        pic_urls = #{picUrls,jdbcType=VARCHAR},
-      </if>
-      <if test="star != null">
-        star = #{star,jdbcType=SMALLINT},
+      <if test="picUrl != null">
+        pic_url = #{picUrl,jdbcType=VARCHAR},
       </if>
       <if test="addTime != null">
         add_time = #{addTime,jdbcType=TIMESTAMP},
@@ -289,15 +244,12 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.cskaoyan.bean.Comment">
-    update cskaoyan_mall_comment
-    set value_id = #{valueId,jdbcType=INTEGER},
-      type = #{type,jdbcType=TINYINT},
-      content = #{content,jdbcType=VARCHAR},
-      user_id = #{userId,jdbcType=INTEGER},
-      has_picture = #{hasPicture,jdbcType=BIT},
-      pic_urls = #{picUrls,jdbcType=VARCHAR},
-      star = #{star,jdbcType=SMALLINT},
+  <update id="updateByPrimaryKey" parameterType="com.pandax.litemall.bean.GoodsSpecification">
+    update cskaoyan_mall_goods_specification
+    set goods_id = #{goodsId,jdbcType=INTEGER},
+      specification = #{specification,jdbcType=VARCHAR},
+      value = #{value,jdbcType=VARCHAR},
+      pic_url = #{picUrl,jdbcType=VARCHAR},
       add_time = #{addTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       deleted = #{deleted,jdbcType=BIT}

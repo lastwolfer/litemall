@@ -1,4 +1,4 @@
-package com.cskaoyan.bean;
+package com.pandax.litemall.bean;
 
 import java.math.BigDecimal;
 import java.util.Date;

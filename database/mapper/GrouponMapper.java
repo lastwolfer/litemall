@@ -1,7 +1,7 @@
-package com.cskaoyan.mapper;
+package com.pandax.litemall.mapper;
 
-import com.cskaoyan.bean.Groupon;
-import com.cskaoyan.bean.GrouponExample;
+import com.pandax.litemall.bean.Groupon;
+import com.pandax.litemall.bean.GrouponExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 

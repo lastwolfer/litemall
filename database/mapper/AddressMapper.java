@@ -1,9 +1,10 @@
-package com.cskaoyan.mapper;
+package com.pandax.litemall.mapper;
 
-import com.cskaoyan.bean.Address;
-import com.cskaoyan.bean.AddressExample;
-import java.util.List;
+import com.pandax.litemall.bean.Address;
+import com.pandax.litemall.bean.AddressExample;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface AddressMapper {
     long countByExample(AddressExample example);

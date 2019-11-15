@@ -1,7 +1,7 @@
-package com.cskaoyan.mapper;
+package com.pandax.litemall.mapper;
 
-import com.cskaoyan.bean.Order;
-import com.cskaoyan.bean.OrderExample;
+import com.pandax.litemall.bean.Order;
+import com.pandax.litemall.bean.OrderExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
