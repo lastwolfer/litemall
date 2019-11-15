@@ -1,0 +1,23 @@
+server:
+  port: 8081
+  servlet:
+    context-path: /
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/cskaoyanmall
+    username: root
+    password: 123456
+    type: com.alibaba.druid.pool.DruidDataSource
+
+pagehelper:
+  helper-dialect: mysql
+logging:
+  level:
+    com:
+      pandax:
+        litemall:
+          mapper: debug
+mybatis:
+  type-handlers-package: com.pandax.litemall.handler
