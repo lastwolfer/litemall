@@ -1,5 +1,7 @@
 package com.pandax.litemall.service;
 
+import java.util.HashMap;
+
 /**
  * @author Da
  * @version 1.0
@@ -8,4 +10,6 @@ package com.pandax.litemall.service;
  */
 
 public interface AdminService {
+
+    HashMap<String, Object> queryUsers();
 }

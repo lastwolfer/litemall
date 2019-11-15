@@ -1,4 +1,4 @@
-package com.cskaoyan.mall.config;
+package com.pandax.litemall.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

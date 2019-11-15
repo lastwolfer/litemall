@@ -1,4 +1,4 @@
-package com.cskaoyan.mall.bean;
+package com.pandax.litemall.bean;
 
 import lombok.Data;
 
