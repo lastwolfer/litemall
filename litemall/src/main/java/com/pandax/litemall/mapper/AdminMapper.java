@@ -1,11 +1,9 @@
 package com.pandax.litemall.mapper;
 
-
 import com.pandax.litemall.bean.Admin;
 import com.pandax.litemall.bean.AdminExample;
-import org.apache.ibatis.annotations.Param;
-
 import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 public interface AdminMapper {
     long countByExample(AdminExample example);

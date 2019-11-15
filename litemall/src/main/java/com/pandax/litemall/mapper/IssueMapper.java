@@ -1,11 +1,9 @@
 package com.pandax.litemall.mapper;
 
-
 import com.pandax.litemall.bean.Issue;
 import com.pandax.litemall.bean.IssueExample;
-import org.apache.ibatis.annotations.Param;
-
 import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 public interface IssueMapper {
     long countByExample(IssueExample example);

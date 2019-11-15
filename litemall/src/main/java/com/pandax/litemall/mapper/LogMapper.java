@@ -1,10 +1,9 @@
 package com.pandax.litemall.mapper;
 
+import com.pandax.litemall.bean.Log;
 import com.pandax.litemall.bean.LogExample;
-import org.apache.ibatis.annotations.Param;
-import sun.rmi.runtime.Log;
-
 import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 public interface LogMapper {
     long countByExample(LogExample example);

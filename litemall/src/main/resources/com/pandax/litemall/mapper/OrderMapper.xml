@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cskaoyan.mapper.OrderMapper">
-  <resultMap id="BaseResultMap" type="com.cskaoyan.bean.Order">
+<mapper namespace="com.pandax.litemall.mapper.OrderMapper">
+  <resultMap id="BaseResultMap" type="com.pandax.litemall.bean.Order">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="order_sn" jdbcType="VARCHAR" property="orderSn" />
@@ -93,7 +93,7 @@
     pay_id, pay_time, ship_sn, ship_channel, ship_time, confirm_time, comments, end_time, 
     add_time, update_time, deleted
   </sql>
-  <select id="selectByExample" parameterType="com.cskaoyan.bean.OrderExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.pandax.litemall.bean.OrderExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -117,13 +117,13 @@
     delete from cskaoyan_mall_order
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.cskaoyan.bean.OrderExample">
+  <delete id="deleteByExample" parameterType="com.pandax.litemall.bean.OrderExample">
     delete from cskaoyan_mall_order
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.cskaoyan.bean.Order">
+  <insert id="insert" parameterType="com.pandax.litemall.bean.Order">
     insert into cskaoyan_mall_order (id, user_id, order_sn, 
       order_status, consignee, mobile, 
       address, message, goods_price, 
@@ -143,7 +143,7 @@
       #{comments,jdbcType=SMALLINT}, #{endTime,jdbcType=TIMESTAMP}, #{addTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT})
   </insert>
-  <insert id="insertSelective" parameterType="com.cskaoyan.bean.Order">
+  <insert id="insertSelective" parameterType="com.pandax.litemall.bean.Order">
     insert into cskaoyan_mall_order
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -306,7 +306,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.cskaoyan.bean.OrderExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.pandax.litemall.bean.OrderExample" resultType="java.lang.Long">
     select count(*) from cskaoyan_mall_order
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -430,7 +430,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.cskaoyan.bean.Order">
+  <update id="updateByPrimaryKeySelective" parameterType="com.pandax.litemall.bean.Order">
     update cskaoyan_mall_order
     <set>
       <if test="userId != null">
@@ -511,7 +511,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.cskaoyan.bean.Order">
+  <update id="updateByPrimaryKey" parameterType="com.pandax.litemall.bean.Order">
     update cskaoyan_mall_order
     set user_id = #{userId,jdbcType=INTEGER},
       order_sn = #{orderSn,jdbcType=VARCHAR},

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cskaoyan.mapper.LogMapper">
-  <resultMap id="BaseResultMap" type="com.cskaoyan.bean.Log">
+<mapper namespace="com.pandax.litemall.mapper.LogMapper">
+  <resultMap id="BaseResultMap" type="com.pandax.litemall.bean.Log">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="admin" jdbcType="VARCHAR" property="admin" />
     <result column="ip" jdbcType="VARCHAR" property="ip" />
@@ -75,7 +75,7 @@
   <sql id="Base_Column_List">
     id, admin, ip, type, action, status, result, comment, add_time, update_time, deleted
   </sql>
-  <select id="selectByExample" parameterType="com.cskaoyan.bean.LogExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.pandax.litemall.bean.LogExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -99,13 +99,13 @@
     delete from cskaoyan_mall_log
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.cskaoyan.bean.LogExample">
+  <delete id="deleteByExample" parameterType="com.pandax.litemall.bean.LogExample">
     delete from cskaoyan_mall_log
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.cskaoyan.bean.Log">
+  <insert id="insert" parameterType="com.pandax.litemall.bean.Log">
     insert into cskaoyan_mall_log (id, admin, ip, 
       type, action, status, result, 
       comment, add_time, update_time, 
@@ -115,7 +115,7 @@
       #{comment,jdbcType=VARCHAR}, #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
       #{deleted,jdbcType=BIT})
   </insert>
-  <insert id="insertSelective" parameterType="com.cskaoyan.bean.Log">
+  <insert id="insertSelective" parameterType="com.pandax.litemall.bean.Log">
     insert into cskaoyan_mall_log
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -188,7 +188,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.cskaoyan.bean.LogExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.pandax.litemall.bean.LogExample" resultType="java.lang.Long">
     select count(*) from cskaoyan_mall_log
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -252,7 +252,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.cskaoyan.bean.Log">
+  <update id="updateByPrimaryKeySelective" parameterType="com.pandax.litemall.bean.Log">
     update cskaoyan_mall_log
     <set>
       <if test="admin != null">
@@ -288,7 +288,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.cskaoyan.bean.Log">
+  <update id="updateByPrimaryKey" parameterType="com.pandax.litemall.bean.Log">
     update cskaoyan_mall_log
     set admin = #{admin,jdbcType=VARCHAR},
       ip = #{ip,jdbcType=VARCHAR},

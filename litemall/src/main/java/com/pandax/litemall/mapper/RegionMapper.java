@@ -1,11 +1,9 @@
 package com.pandax.litemall.mapper;
 
-
 import com.pandax.litemall.bean.Region;
 import com.pandax.litemall.bean.RegionExample;
-import org.apache.ibatis.annotations.Param;
-
 import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 public interface RegionMapper {
     long countByExample(RegionExample example);

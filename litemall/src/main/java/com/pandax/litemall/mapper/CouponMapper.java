@@ -1,11 +1,9 @@
 package com.pandax.litemall.mapper;
 
-
 import com.pandax.litemall.bean.Coupon;
 import com.pandax.litemall.bean.CouponExample;
-import org.apache.ibatis.annotations.Param;
-
 import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 public interface CouponMapper {
     long countByExample(CouponExample example);

@@ -1,6 +1,5 @@
 package com.pandax.litemall.mapper;
 
-
 import com.pandax.litemall.bean.Address;
 import com.pandax.litemall.bean.AddressExample;
 import org.apache.ibatis.annotations.Param;

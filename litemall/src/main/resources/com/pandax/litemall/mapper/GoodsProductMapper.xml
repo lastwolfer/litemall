@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cskaoyan.mapper.GoodsProductMapper">
-  <resultMap id="BaseResultMap" type="com.cskaoyan.bean.GoodsProduct">
+<mapper namespace="com.pandax.litemall.mapper.GoodsProductMapper">
+  <resultMap id="BaseResultMap" type="com.pandax.litemall.bean.GoodsProduct">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="goods_id" jdbcType="INTEGER" property="goodsId" />
     <result column="specifications" jdbcType="VARCHAR" property="specifications" />
@@ -73,7 +73,7 @@
   <sql id="Base_Column_List">
     id, goods_id, specifications, price, number, url, add_time, update_time, deleted
   </sql>
-  <select id="selectByExample" parameterType="com.cskaoyan.bean.GoodsProductExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.pandax.litemall.bean.GoodsProductExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -97,13 +97,13 @@
     delete from cskaoyan_mall_goods_product
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.cskaoyan.bean.GoodsProductExample">
+  <delete id="deleteByExample" parameterType="com.pandax.litemall.bean.GoodsProductExample">
     delete from cskaoyan_mall_goods_product
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.cskaoyan.bean.GoodsProduct">
+  <insert id="insert" parameterType="com.pandax.litemall.bean.GoodsProduct">
     insert into cskaoyan_mall_goods_product (id, goods_id, specifications, 
       price, number, url, 
       add_time, update_time, deleted
@@ -113,7 +113,7 @@
       #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.cskaoyan.bean.GoodsProduct">
+  <insert id="insertSelective" parameterType="com.pandax.litemall.bean.GoodsProduct">
     insert into cskaoyan_mall_goods_product
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -174,7 +174,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.cskaoyan.bean.GoodsProductExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.pandax.litemall.bean.GoodsProductExample" resultType="java.lang.Long">
     select count(*) from cskaoyan_mall_goods_product
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -230,7 +230,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.cskaoyan.bean.GoodsProduct">
+  <update id="updateByPrimaryKeySelective" parameterType="com.pandax.litemall.bean.GoodsProduct">
     update cskaoyan_mall_goods_product
     <set>
       <if test="goodsId != null">
@@ -260,7 +260,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.cskaoyan.bean.GoodsProduct">
+  <update id="updateByPrimaryKey" parameterType="com.pandax.litemall.bean.GoodsProduct">
     update cskaoyan_mall_goods_product
     set goods_id = #{goodsId,jdbcType=INTEGER},
       specifications = #{specifications,jdbcType=VARCHAR},

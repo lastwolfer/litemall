@@ -1,6 +1,5 @@
 package com.pandax.litemall.mapper;
 
-
 import com.pandax.litemall.bean.Ad;
 
 public interface AdMapper {

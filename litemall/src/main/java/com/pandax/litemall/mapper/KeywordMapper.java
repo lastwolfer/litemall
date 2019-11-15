@@ -2,9 +2,8 @@ package com.pandax.litemall.mapper;
 
 import com.pandax.litemall.bean.Keyword;
 import com.pandax.litemall.bean.KeywordExample;
-import org.apache.ibatis.annotations.Param;
-
 import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 public interface KeywordMapper {
     long countByExample(KeywordExample example);

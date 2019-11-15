@@ -2,9 +2,8 @@ package com.pandax.litemall.mapper;
 
 import com.pandax.litemall.bean.GoodsAttribute;
 import com.pandax.litemall.bean.GoodsAttributeExample;
-import org.apache.ibatis.annotations.Param;
-
 import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 public interface GoodsAttributeMapper {
     long countByExample(GoodsAttributeExample example);

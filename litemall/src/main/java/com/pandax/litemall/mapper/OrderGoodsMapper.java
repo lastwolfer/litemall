@@ -1,11 +1,9 @@
 package com.pandax.litemall.mapper;
 
-
 import com.pandax.litemall.bean.OrderGoods;
 import com.pandax.litemall.bean.OrderGoodsExample;
-import org.apache.ibatis.annotations.Param;
-
 import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 public interface OrderGoodsMapper {
     long countByExample(OrderGoodsExample example);

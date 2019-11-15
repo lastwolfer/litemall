@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cskaoyan.mapper.GrouponMapper">
-  <resultMap id="BaseResultMap" type="com.cskaoyan.bean.Groupon">
+<mapper namespace="com.pandax.litemall.mapper.GrouponMapper">
+  <resultMap id="BaseResultMap" type="com.pandax.litemall.bean.Groupon">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="order_id" jdbcType="INTEGER" property="orderId" />
     <result column="groupon_id" jdbcType="INTEGER" property="grouponId" />
@@ -76,7 +76,7 @@
     id, order_id, groupon_id, rules_id, user_id, creator_user_id, add_time, update_time, 
     share_url, payed, deleted
   </sql>
-  <select id="selectByExample" parameterType="com.cskaoyan.bean.GrouponExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.pandax.litemall.bean.GrouponExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -100,13 +100,13 @@
     delete from cskaoyan_mall_groupon
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.cskaoyan.bean.GrouponExample">
+  <delete id="deleteByExample" parameterType="com.pandax.litemall.bean.GrouponExample">
     delete from cskaoyan_mall_groupon
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.cskaoyan.bean.Groupon">
+  <insert id="insert" parameterType="com.pandax.litemall.bean.Groupon">
     insert into cskaoyan_mall_groupon (id, order_id, groupon_id, 
       rules_id, user_id, creator_user_id, 
       add_time, update_time, share_url, 
@@ -116,7 +116,7 @@
       #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{shareUrl,jdbcType=VARCHAR}, 
       #{payed,jdbcType=BIT}, #{deleted,jdbcType=BIT})
   </insert>
-  <insert id="insertSelective" parameterType="com.cskaoyan.bean.Groupon">
+  <insert id="insertSelective" parameterType="com.pandax.litemall.bean.Groupon">
     insert into cskaoyan_mall_groupon
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -189,7 +189,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.cskaoyan.bean.GrouponExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.pandax.litemall.bean.GrouponExample" resultType="java.lang.Long">
     select count(*) from cskaoyan_mall_groupon
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -253,7 +253,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.cskaoyan.bean.Groupon">
+  <update id="updateByPrimaryKeySelective" parameterType="com.pandax.litemall.bean.Groupon">
     update cskaoyan_mall_groupon
     <set>
       <if test="orderId != null">
@@ -289,7 +289,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.cskaoyan.bean.Groupon">
+  <update id="updateByPrimaryKey" parameterType="com.pandax.litemall.bean.Groupon">
     update cskaoyan_mall_groupon
     set order_id = #{orderId,jdbcType=INTEGER},
       groupon_id = #{grouponId,jdbcType=INTEGER},

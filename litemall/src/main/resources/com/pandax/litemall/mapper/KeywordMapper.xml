@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cskaoyan.mapper.KeywordMapper">
-  <resultMap id="BaseResultMap" type="com.cskaoyan.bean.Keyword">
+<mapper namespace="com.pandax.litemall.mapper.KeywordMapper">
+  <resultMap id="BaseResultMap" type="com.pandax.litemall.bean.Keyword">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="keyword" jdbcType="VARCHAR" property="keyword" />
     <result column="url" jdbcType="VARCHAR" property="url" />
@@ -73,7 +73,7 @@
   <sql id="Base_Column_List">
     id, keyword, url, is_hot, is_default, sort_order, add_time, update_time, deleted
   </sql>
-  <select id="selectByExample" parameterType="com.cskaoyan.bean.KeywordExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.pandax.litemall.bean.KeywordExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -97,13 +97,13 @@
     delete from cskaoyan_mall_keyword
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.cskaoyan.bean.KeywordExample">
+  <delete id="deleteByExample" parameterType="com.pandax.litemall.bean.KeywordExample">
     delete from cskaoyan_mall_keyword
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.cskaoyan.bean.Keyword">
+  <insert id="insert" parameterType="com.pandax.litemall.bean.Keyword">
     insert into cskaoyan_mall_keyword (id, keyword, url, 
       is_hot, is_default, sort_order, 
       add_time, update_time, deleted
@@ -113,7 +113,7 @@
       #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.cskaoyan.bean.Keyword">
+  <insert id="insertSelective" parameterType="com.pandax.litemall.bean.Keyword">
     insert into cskaoyan_mall_keyword
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -174,7 +174,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.cskaoyan.bean.KeywordExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.pandax.litemall.bean.KeywordExample" resultType="java.lang.Long">
     select count(*) from cskaoyan_mall_keyword
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -230,7 +230,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.cskaoyan.bean.Keyword">
+  <update id="updateByPrimaryKeySelective" parameterType="com.pandax.litemall.bean.Keyword">
     update cskaoyan_mall_keyword
     <set>
       <if test="keyword != null">
@@ -260,7 +260,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.cskaoyan.bean.Keyword">
+  <update id="updateByPrimaryKey" parameterType="com.pandax.litemall.bean.Keyword">
     update cskaoyan_mall_keyword
     set keyword = #{keyword,jdbcType=VARCHAR},
       url = #{url,jdbcType=VARCHAR},

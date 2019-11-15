@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cskaoyan.mapper.AdMapper">
-  <resultMap id="BaseResultMap" type="com.cskaoyan.bean.Ad">
+<mapper namespace="com.pandax.litemall.mapper.AdMapper">
+  <resultMap id="BaseResultMap" type="com.pandax.litemall.bean.Ad">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="link" jdbcType="VARCHAR" property="link" />
@@ -29,7 +29,7 @@
     delete from cskaoyan_mall_ad
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.cskaoyan.bean.Ad">
+  <insert id="insert" parameterType="com.pandax.litemall.bean.Ad">
     insert into cskaoyan_mall_ad (id, name, link, 
       url, position, content, 
       start_time, end_time, enabled, 
@@ -41,7 +41,7 @@
       #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.cskaoyan.bean.Ad">
+  <insert id="insertSelective" parameterType="com.pandax.litemall.bean.Ad">
     insert into cskaoyan_mall_ad
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -120,7 +120,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.cskaoyan.bean.Ad">
+  <update id="updateByPrimaryKeySelective" parameterType="com.pandax.litemall.bean.Ad">
     update cskaoyan_mall_ad
     <set>
       <if test="name != null">
@@ -159,7 +159,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.cskaoyan.bean.Ad">
+  <update id="updateByPrimaryKey" parameterType="com.pandax.litemall.bean.Ad">
     update cskaoyan_mall_ad
     set name = #{name,jdbcType=VARCHAR},
       link = #{link,jdbcType=VARCHAR},

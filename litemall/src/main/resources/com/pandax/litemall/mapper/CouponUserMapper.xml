@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cskaoyan.mapper.CouponUserMapper">
-  <resultMap id="BaseResultMap" type="com.cskaoyan.bean.CouponUser">
+<mapper namespace="com.pandax.litemall.mapper.CouponUserMapper">
+  <resultMap id="BaseResultMap" type="com.pandax.litemall.bean.CouponUser">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="coupon_id" jdbcType="INTEGER" property="couponId" />
@@ -76,7 +76,7 @@
     id, user_id, coupon_id, status, used_time, start_time, end_time, order_id, add_time, 
     update_time, deleted
   </sql>
-  <select id="selectByExample" parameterType="com.cskaoyan.bean.CouponUserExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.pandax.litemall.bean.CouponUserExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -100,13 +100,13 @@
     delete from cskaoyan_mall_coupon_user
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.cskaoyan.bean.CouponUserExample">
+  <delete id="deleteByExample" parameterType="com.pandax.litemall.bean.CouponUserExample">
     delete from cskaoyan_mall_coupon_user
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.cskaoyan.bean.CouponUser">
+  <insert id="insert" parameterType="com.pandax.litemall.bean.CouponUser">
     insert into cskaoyan_mall_coupon_user (id, user_id, coupon_id, 
       status, used_time, start_time, 
       end_time, order_id, add_time, 
@@ -116,7 +116,7 @@
       #{endTime,jdbcType=TIMESTAMP}, #{orderId,jdbcType=INTEGER}, #{addTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT})
   </insert>
-  <insert id="insertSelective" parameterType="com.cskaoyan.bean.CouponUser">
+  <insert id="insertSelective" parameterType="com.pandax.litemall.bean.CouponUser">
     insert into cskaoyan_mall_coupon_user
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -189,7 +189,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.cskaoyan.bean.CouponUserExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.pandax.litemall.bean.CouponUserExample" resultType="java.lang.Long">
     select count(*) from cskaoyan_mall_coupon_user
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -253,7 +253,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.cskaoyan.bean.CouponUser">
+  <update id="updateByPrimaryKeySelective" parameterType="com.pandax.litemall.bean.CouponUser">
     update cskaoyan_mall_coupon_user
     <set>
       <if test="userId != null">
@@ -289,7 +289,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.cskaoyan.bean.CouponUser">
+  <update id="updateByPrimaryKey" parameterType="com.pandax.litemall.bean.CouponUser">
     update cskaoyan_mall_coupon_user
     set user_id = #{userId,jdbcType=INTEGER},
       coupon_id = #{couponId,jdbcType=INTEGER},

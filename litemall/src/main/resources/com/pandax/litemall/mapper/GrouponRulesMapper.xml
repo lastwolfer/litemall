@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cskaoyan.mapper.GrouponRulesMapper">
-  <resultMap id="BaseResultMap" type="com.cskaoyan.bean.GrouponRules">
+<mapper namespace="com.pandax.litemall.mapper.GrouponRulesMapper">
+  <resultMap id="BaseResultMap" type="com.pandax.litemall.bean.GrouponRules">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="goods_id" jdbcType="INTEGER" property="goodsId" />
     <result column="goods_name" jdbcType="VARCHAR" property="goodsName" />
@@ -75,7 +75,7 @@
     id, goods_id, goods_name, pic_url, discount, discount_member, add_time, update_time, 
     expire_time, deleted
   </sql>
-  <select id="selectByExample" parameterType="com.cskaoyan.bean.GrouponRulesExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.pandax.litemall.bean.GrouponRulesExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -99,13 +99,13 @@
     delete from cskaoyan_mall_groupon_rules
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.cskaoyan.bean.GrouponRulesExample">
+  <delete id="deleteByExample" parameterType="com.pandax.litemall.bean.GrouponRulesExample">
     delete from cskaoyan_mall_groupon_rules
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.cskaoyan.bean.GrouponRules">
+  <insert id="insert" parameterType="com.pandax.litemall.bean.GrouponRules">
     insert into cskaoyan_mall_groupon_rules (id, goods_id, goods_name, 
       pic_url, discount, discount_member, 
       add_time, update_time, expire_time, 
@@ -115,7 +115,7 @@
       #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{expireTime,jdbcType=TIMESTAMP}, 
       #{deleted,jdbcType=BIT})
   </insert>
-  <insert id="insertSelective" parameterType="com.cskaoyan.bean.GrouponRules">
+  <insert id="insertSelective" parameterType="com.pandax.litemall.bean.GrouponRules">
     insert into cskaoyan_mall_groupon_rules
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -182,7 +182,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.cskaoyan.bean.GrouponRulesExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.pandax.litemall.bean.GrouponRulesExample" resultType="java.lang.Long">
     select count(*) from cskaoyan_mall_groupon_rules
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -242,7 +242,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.cskaoyan.bean.GrouponRules">
+  <update id="updateByPrimaryKeySelective" parameterType="com.pandax.litemall.bean.GrouponRules">
     update cskaoyan_mall_groupon_rules
     <set>
       <if test="goodsId != null">
@@ -275,7 +275,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.cskaoyan.bean.GrouponRules">
+  <update id="updateByPrimaryKey" parameterType="com.pandax.litemall.bean.GrouponRules">
     update cskaoyan_mall_groupon_rules
     set goods_id = #{goodsId,jdbcType=INTEGER},
       goods_name = #{goodsName,jdbcType=VARCHAR},
