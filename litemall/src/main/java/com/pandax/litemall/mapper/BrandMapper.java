@@ -22,9 +22,13 @@ public interface BrandMapper {
 
     int updateByExampleSelective(@Param("record") Brand record, @Param("example") BrandExample example);
 
-    int updateByExample(@Param("record") Brand record, @Param("example") BrandExample example);
+    int updateByExample(@Param("record") Brand record);
 
     int updateByPrimaryKeySelective(Brand record);
 
     int updateByPrimaryKey(Brand record);
+
+    List<Brand> selectAllBrands(@Param("sort") String sort, @Param("order") String order,@Param("id") Integer id,@Param("name") String name);
+
+    Brand selectByName(String name);
 }

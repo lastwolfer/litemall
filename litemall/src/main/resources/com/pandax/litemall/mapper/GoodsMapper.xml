@@ -532,8 +532,11 @@
       deleted = #{deleted,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+<<<<<<< HEAD
     <select id="selectCategory" resultType="com.pandax.litemall.bean.CategoryList">
       select id as value ,name as label from cskaoyan_mall_category where pid = #{value}
     </select>
 
+=======
+>>>>>>> 349d129149ccfcbd7373c71bd77d0ae7d1657bce
 </mapper>

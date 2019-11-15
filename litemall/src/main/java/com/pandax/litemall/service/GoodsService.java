@@ -13,4 +13,6 @@ public interface GoodsService {
     List<CategoryList> QuerryCat();
 
     List QuerryBrand();
+    public int countGoods();
+
 }

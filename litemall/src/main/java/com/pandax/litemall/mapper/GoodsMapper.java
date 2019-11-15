@@ -35,7 +35,10 @@ public interface GoodsMapper {
 
     int updateByPrimaryKey(Goods record);
 
+<<<<<<< HEAD
     List<CategoryList> selectCategory(Integer value);
 
 
+=======
+>>>>>>> 349d129149ccfcbd7373c71bd77d0ae7d1657bce
 }

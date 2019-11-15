@@ -218,17 +218,15 @@
   <update id="updateByExample" parameterType="map">
     update cskaoyan_mall_brand
     set id = #{record.id,jdbcType=INTEGER},
-      name = #{record.name,jdbcType=VARCHAR},
-      desc = #{record.desc,jdbcType=VARCHAR},
+      `name` = #{record.name,jdbcType=VARCHAR},
+      `desc` = #{record.desc,jdbcType=VARCHAR},
       pic_url = #{record.picUrl,jdbcType=VARCHAR},
       sort_order = #{record.sortOrder,jdbcType=TINYINT},
       floor_price = #{record.floorPrice,jdbcType=DECIMAL},
       add_time = #{record.addTime,jdbcType=TIMESTAMP},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP},
       deleted = #{record.deleted,jdbcType=BIT}
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
+    where id=#{record.id}
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.pandax.litemall.bean.Brand">
     update cskaoyan_mall_brand
@@ -272,4 +270,28 @@
       deleted = #{deleted,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+<<<<<<< HEAD
+=======
+
+
+  <select id="selectAllBrands" resultMap="BaseResultMap">
+    select id,`name`,`desc`,pic_url,sort_order,floor_price,add_time,update_time,deleted
+    from cskaoyan_mall_brand
+    <where>
+      <if test="id != null">
+        id=#{id}
+      </if>
+      <if test="name != null">
+        and name=#{name}
+      </if>
+    </where>
+    order by #{sort} #{order}
+
+  </select>
+  <select id="selectByName" resultMap="BaseResultMap">
+    select id,`name`,`desc`,pic_url,sort_order,floor_price,add_time,update_time,deleted
+    from cskaoyan_mall_brand
+    where name=#{name}
+  </select>
+>>>>>>> 349d129149ccfcbd7373c71bd77d0ae7d1657bce
 </mapper>

@@ -84,7 +84,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from cskaoyan_mall_region
     where id = #{id,jdbcType=INTEGER}
@@ -100,9 +100,9 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.pandax.litemall.bean.Region">
-    insert into cskaoyan_mall_region (id, pid, name, 
+    insert into cskaoyan_mall_region (id, pid, name,
       type, code)
-    values (#{id,jdbcType=INTEGER}, #{pid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{pid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
       #{type,jdbcType=TINYINT}, #{code,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.pandax.litemall.bean.Region">
@@ -208,4 +208,23 @@
       code = #{code,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <resultMap id="allRegion1" type="com.pandax.litemall.bean.Region">
+    <result column="id" property="id"/>
+    <result column="pid" property="pid"/>
+    <result column="name" property="name"/>
+    <result column="type" property="type"/>
+    <result column="code" property="code"/>
+    <collection property="children" column="id" select="com.pandax.litemall.mapper.RegionMapper.selectChild1"/>
+  </resultMap>
+  <select id="setlectAllRegion" resultMap="allRegion1">
+    select id,name,type,code from cskaoyan_mall_region where type=1
+  </select>
+  <select id="selectChild1" resultType="com.pandax.litemall.bean.Region">
+    select id,pid,name,type,code from cskaoyan_mall_region where type=2 and pid=#{id}
+  </select>
+
+  <select id="selectByPid" resultMap="BaseResultMap">
+    select id,pid,name,type,code from cskaoyan_mall_region where type=3 and pid=#{pid}
+  </select>
 </mapper>
