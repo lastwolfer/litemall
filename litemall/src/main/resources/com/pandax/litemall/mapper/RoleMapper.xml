@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pandax.litemall.mapper.RoleMapper">
+    <resultMap id="roleMap" type="com.pandax.litemall.bean.Role">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="desc" column="desc"/>
+        <result property="enabled" column="enabled"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="addTime" column="add_time"/>
+        <result property="deleted" column="deleted"/>
+    </resultMap>
+    <select id="selectRoles" resultMap="roleMap">
+        select id, name, `desc`, enabled,
+        add_time, update_time,deleted
+        from cskaoyan_mall_role
+    </select>
+</mapper>

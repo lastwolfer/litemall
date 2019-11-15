@@ -11,5 +11,6 @@ import java.util.HashMap;
 
 public interface AdminService {
 
-    HashMap<String, Object> queryUsers();
+    HashMap<String, Object> queryUsers(Integer page,
+                                       Integer limit, String sort, String order);
 }

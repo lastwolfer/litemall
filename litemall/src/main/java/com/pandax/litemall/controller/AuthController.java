@@ -1,7 +1,6 @@
 package com.pandax.litemall.controller;
 import java.util.ArrayList;
 
-
 import com.pandax.litemall.bean.BaseReqVo;
 import com.pandax.litemall.bean.InfoData;
 import com.pandax.litemall.bean.LoginVo;

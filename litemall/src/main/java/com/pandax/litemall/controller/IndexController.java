@@ -47,5 +47,4 @@ public class IndexController {
 
         return baseReqVo;
     }
-
 }
