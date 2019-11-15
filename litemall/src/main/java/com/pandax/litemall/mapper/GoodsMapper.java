@@ -1,8 +1,9 @@
 package com.pandax.litemall.mapper;
 
-import com.pandax.litemall.bean.Goods;
-import com.pandax.litemall.bean.GoodsExample;
+import com.pandax.litemall.bean.*;
+
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface GoodsMapper {
@@ -33,4 +34,8 @@ public interface GoodsMapper {
     int updateByPrimaryKeyWithBLOBs(Goods record);
 
     int updateByPrimaryKey(Goods record);
+
+    List<CategoryList> selectCategory(Integer value);
+
+
 }

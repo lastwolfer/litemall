@@ -71,7 +71,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, desc, pic_url, sort_order, floor_price, add_time, update_time, deleted
+    id, name, `desc`, pic_url, sort_order, floor_price, add_time, update_time, deleted
   </sql>
   <select id="selectByExample" parameterType="com.pandax.litemall.bean.BrandExample" resultMap="BaseResultMap">
     select
@@ -88,7 +88,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from cskaoyan_mall_brand
     where id = #{id,jdbcType=INTEGER}
@@ -104,12 +104,12 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.pandax.litemall.bean.Brand">
-    insert into cskaoyan_mall_brand (id, name, desc, 
-      pic_url, sort_order, floor_price, 
+    insert into cskaoyan_mall_brand (id, name, desc,
+      pic_url, sort_order, floor_price,
       add_time, update_time, deleted
       )
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{desc,jdbcType=VARCHAR}, 
-      #{picUrl,jdbcType=VARCHAR}, #{sortOrder,jdbcType=TINYINT}, #{floorPrice,jdbcType=DECIMAL}, 
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{desc,jdbcType=VARCHAR},
+      #{picUrl,jdbcType=VARCHAR}, #{sortOrder,jdbcType=TINYINT}, #{floorPrice,jdbcType=DECIMAL},
       #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT}
       )
   </insert>
