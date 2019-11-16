@@ -62,9 +62,12 @@ public class SystemController {
         return baseReqVo;
     }
 
-   /*
-    //明日再战
 
+    /**
+     * 保存静态资源（比如图片）
+     * @param file 上传的静态资源
+     * @return 状态码
+     */
     @RequestMapping("storage/create ")
     public BaseReqVo storageResource(@RequestParam("file") MultipartFile file) {
         BaseReqVo<Object> baseReqVo = new BaseReqVo<>();
@@ -94,5 +97,5 @@ public class SystemController {
         }
         return baseReqVo;
 
-    }*/
+    }
 }
