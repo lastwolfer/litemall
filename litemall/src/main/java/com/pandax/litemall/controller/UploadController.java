@@ -32,6 +32,10 @@ public class UploadController {
     @Value("${my.Storage.path}")
     private String prefix;
 
+    //E:/17th/17th/Repository-mall/litemall/static/img
+    @Value("${my.urlPath}")
+    private String filePath;
+
     /**
      * 保存静态资源（比如图片）
      * @param file 上传的静态资源
@@ -55,7 +59,7 @@ public class UploadController {
 
 
             // 设置文件存储路径
-            String filePath = "E:/17th/17th/Repository-mall/litemall/static/img/";
+            //String filePath = "E:/17th/17th/Repository-mall/litemall/static/img/";
 
             String newFileName = uuid + suffixName;
             //设置文件存储路径

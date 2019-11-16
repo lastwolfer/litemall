@@ -28,3 +28,4 @@ filePath: E:/17th/17th/Repository-mall/litemall/static/img
 my:
   Storage:
     path: http://localhost:8081/
+  urlPath: E:/17th/17th/Repository-mall/litemall/static/img/
