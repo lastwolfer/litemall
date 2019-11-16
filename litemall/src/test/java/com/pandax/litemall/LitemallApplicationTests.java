@@ -1,10 +1,13 @@
 package com.pandax.litemall;
 
+import com.pandax.litemall.mapper.GoodsMapper;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 class LitemallApplicationTests {
+
 
     @Test
     void contextLoads() {

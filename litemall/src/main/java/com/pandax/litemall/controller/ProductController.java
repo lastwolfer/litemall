@@ -17,7 +17,7 @@ import java.util.Map;
 @RestController
 public class ProductController {
 
-    BaseReqVo<Object> baseReqVo = new BaseReqVo<>();
+
     @Autowired
     GoodsService goodsService;
 
@@ -26,6 +26,7 @@ public class ProductController {
      */
     @RequestMapping("admin/goods/list")
     public BaseReqVo goodsList(QuerryGoodsList querryGoodsList) {
+        BaseReqVo<Object> baseReqVo = new BaseReqVo<>();
         List<Goods> goodsList = goodsService.goodsList(querryGoodsList);
         long total = new PageInfo<>(goodsList).getTotal();
         Map<String, Object> map = new HashMap<>();
@@ -45,6 +46,7 @@ public class ProductController {
      */
     @RequestMapping("admin/goods/catAndBrand")
     public BaseReqVo catAndBrand() {
+        BaseReqVo<Object> baseReqVo = new BaseReqVo<>();
         List<CategoryList> categoryList = goodsService.QuerryCat();
         List brandList = goodsService.QuerryBrand();
         Map<String, Object> map = new HashMap<>();
@@ -58,15 +60,76 @@ public class ProductController {
 
     /**
      * 商品上架
-     * @param goodsCreateBean
+     *
+     * @param
      * @return
      */
     @RequestMapping("admin/goods/create")
-    public BaseReqVo createGoods(@RequestBody String string) throws JsonProcessingException {
-        System.out.println(string);
-        ObjectMapper objectMapper = new ObjectMapper();
-        GoodsCreateBean goodsCreateBean = objectMapper.readValue(string, GoodsCreateBean.class);
-        System.out.println(goodsCreateBean);
+    public BaseReqVo createGoods(@RequestBody GoodsCreateBean goodsCreateBean) throws JsonProcessingException {
+        BaseReqVo<Object> baseReqVo = new BaseReqVo<>();
+        int i = goodsService.createGoods(goodsCreateBean);
+        baseReqVo.setErrno(0);
+        baseReqVo.setErrmsg("成功");
+        return baseReqVo;
+    }
+
+    /**
+     * 根据id 查询商品信息
+     *
+     * @param id
+     * @return
+     */
+    @RequestMapping("admin/goods/detail")
+    public BaseReqVo selectGoodsById(Integer id) {
+        BaseReqVo<Object> baseReqVo = new BaseReqVo<>();
+        GoodsCreateBean goodsCreateBean = goodsService.selectGoodsById(id);
+        baseReqVo.setErrno(0);
+        baseReqVo.setData(goodsCreateBean);
+        baseReqVo.setErrmsg("成功");
+        return baseReqVo;
+    }
+
+    /**
+     * 商品信息更新
+     *
+     * @param goodsCreateBean
+     * @return
+     */
+    @RequestMapping("admin/goods/update")
+    public BaseReqVo updateGoods(@RequestBody GoodsCreateBean goodsCreateBean) {
+        BaseReqVo<Object> baseReqVo = new BaseReqVo<>();
+        int i = goodsService.updateGoods(goodsCreateBean);
+        baseReqVo.setErrno(0);
+        baseReqVo.setErrmsg("成功");
+        return baseReqVo;
+    }
+
+    /**
+     * 删除商品
+     *
+     * @param map
+     * @return
+     */
+    @RequestMapping("admin/goods/delete")
+    public BaseReqVo deleteGoods(@RequestBody Map map) {
+        BaseReqVo<Object> baseReqVo = new BaseReqVo<>();
+        int i = goodsService.deleteGoods(map);
+        baseReqVo.setErrno(0);
+        baseReqVo.setErrmsg("成功");
+        return baseReqVo;
+    }
+
+    @RequestMapping("admin/comment/list")
+    public BaseReqVo commentList(QuerryCommentList querryCommentList){
+        BaseReqVo<Object> baseReqVo = new BaseReqVo<>();
+        List<Comment> commentList = goodsService.commentList(querryCommentList);
+        long total = new PageInfo<>(commentList).getTotal();
+        Map<String, Object> map = new HashMap<>();
+        map.put("total", total);
+        map.put("items", commentList);
+        baseReqVo.setErrno(0);
+        baseReqVo.setData(map);
+        baseReqVo.setErrmsg("成功");
         return baseReqVo;
     }
 

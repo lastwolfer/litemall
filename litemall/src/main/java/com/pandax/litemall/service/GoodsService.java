@@ -1,11 +1,9 @@
 package com.pandax.litemall.service;
 
-import com.pandax.litemall.bean.Brand;
-import com.pandax.litemall.bean.CategoryList;
-import com.pandax.litemall.bean.Goods;
-import com.pandax.litemall.bean.QuerryGoodsList;
+import com.pandax.litemall.bean.*;
 
 import java.util.List;
+import java.util.Map;
 
 public interface GoodsService {
     List<Goods> goodsList(QuerryGoodsList querryGoodsList);
@@ -15,4 +13,13 @@ public interface GoodsService {
     List QuerryBrand();
     public int countGoods();
 
+    int createGoods(GoodsCreateBean goodsCreateBean);
+
+    GoodsCreateBean selectGoodsById(Integer id);
+
+    int updateGoods(GoodsCreateBean goodsCreateBean);
+
+    int deleteGoods(Map map);
+
+    List<Comment> commentList(QuerryCommentList querryCommentList);
 }

@@ -4,7 +4,6 @@ import com.pandax.litemall.bean.Category;
 import com.pandax.litemall.bean.CategoryExample;
 import java.util.List;
 
-import com.pandax.litemall.bean.ValueAndLable;
 import org.apache.ibatis.annotations.Param;
 
 public interface CategoryMapper {

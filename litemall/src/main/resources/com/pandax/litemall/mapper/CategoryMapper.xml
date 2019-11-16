@@ -74,7 +74,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, keywords, desc, pid, icon_url, pic_url, level, sort_order, add_time, update_time,
+    id, name, keywords, `desc`, pid, icon_url, pic_url, level, sort_order, add_time, update_time,
     deleted
   </sql>
   <select id="selectByExample" parameterType="com.pandax.litemall.bean.CategoryExample" resultMap="BaseResultMap">

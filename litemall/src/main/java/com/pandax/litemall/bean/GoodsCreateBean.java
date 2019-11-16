@@ -13,4 +13,5 @@ public class GoodsCreateBean {
     private List<GoodsSpecification> specifications;
     private List<GoodsProduct> products;
     private List<GoodsAttribute> attributes;
+    private List<String> categoryIds;
 }

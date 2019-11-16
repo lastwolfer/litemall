@@ -70,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, goods_id, specification, value, pic_url, add_time, update_time, deleted
+    id, goods_id, specification, `value`, pic_url, add_time, update_time, deleted
   </sql>
   <select id="selectByExample" parameterType="com.pandax.litemall.bean.GoodsSpecificationExample" resultMap="BaseResultMap">
     select
@@ -87,7 +87,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from cskaoyan_mall_goods_specification
     where id = #{id,jdbcType=INTEGER}
@@ -103,11 +103,11 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.pandax.litemall.bean.GoodsSpecification">
-    insert into cskaoyan_mall_goods_specification (id, goods_id, specification, 
-      value, pic_url, add_time, 
+    insert into cskaoyan_mall_goods_specification (id, goods_id, specification,
+      value, pic_url, add_time,
       update_time, deleted)
-    values (#{id,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, #{specification,jdbcType=VARCHAR}, 
-      #{value,jdbcType=VARCHAR}, #{picUrl,jdbcType=VARCHAR}, #{addTime,jdbcType=TIMESTAMP}, 
+    values (#{id,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, #{specification,jdbcType=VARCHAR},
+      #{value,jdbcType=VARCHAR}, #{picUrl,jdbcType=VARCHAR}, #{addTime,jdbcType=TIMESTAMP},
       #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="com.pandax.litemall.bean.GoodsSpecification">
