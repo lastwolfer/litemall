@@ -27,16 +27,29 @@ public class AdminServiceImpl implements AdminService{
 
     @Override
     public HashMap<String, Object> queryUsers(Integer page, Integer limit,
-                                              String sort, String order) {
+                                              String sort, String order, String username) {
         PageHelper.startPage(page, limit);
         HashMap<String, Object> map = new HashMap<>();
-        List<Admin> adminList = adminMapper.selectAdmins(sort, order);
-        for (Admin admin : adminList) {
-            System.out.println(admin);
+        if (username != null) {
+            username = "%" + username + "%";
         }
+        List<Admin> adminList = adminMapper.selectAdmins(sort, order, username);
+        /*for (Admin admin : adminList) {
+            System.out.println(admin);
+        }*/
         PageInfo<Admin> adminPageInfo = new PageInfo<>(adminList);
         map.put("items", adminList);
         map.put("total", adminPageInfo.getTotal());
         return map;
+    }
+
+    @Override
+    public void updateAdmin(Admin admin) {
+        adminMapper.updateAdmin(admin);
+    }
+
+    @Override
+    public void deleteAdmin(Admin admin) {
+        adminMapper.deleteAdmin(admin.getId());
     }
 }

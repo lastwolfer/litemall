@@ -88,9 +88,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, user_id, order_sn, order_status, consignee, mobile, address, message, goods_price, 
-    freight_price, coupon_price, integral_price, groupon_price, order_price, actual_price, 
-    pay_id, pay_time, ship_sn, ship_channel, ship_time, confirm_time, comments, end_time, 
+    id, user_id, order_sn, order_status, consignee, mobile, address, message, goods_price,
+    freight_price, coupon_price, integral_price, groupon_price, order_price, actual_price,
+    pay_id, pay_time, ship_sn, ship_channel, ship_time, confirm_time, comments, end_time,
     add_time, update_time, deleted
   </sql>
   <select id="selectByExample" parameterType="com.pandax.litemall.bean.OrderExample" resultMap="BaseResultMap">
@@ -108,7 +108,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from cskaoyan_mall_order
     where id = #{id,jdbcType=INTEGER}
@@ -124,23 +124,23 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.pandax.litemall.bean.Order">
-    insert into cskaoyan_mall_order (id, user_id, order_sn, 
-      order_status, consignee, mobile, 
-      address, message, goods_price, 
-      freight_price, coupon_price, integral_price, 
-      groupon_price, order_price, actual_price, 
-      pay_id, pay_time, ship_sn, 
-      ship_channel, ship_time, confirm_time, 
-      comments, end_time, add_time, 
+    insert into cskaoyan_mall_order (id, user_id, order_sn,
+      order_status, consignee, mobile,
+      address, message, goods_price,
+      freight_price, coupon_price, integral_price,
+      groupon_price, order_price, actual_price,
+      pay_id, pay_time, ship_sn,
+      ship_channel, ship_time, confirm_time,
+      comments, end_time, add_time,
       update_time, deleted)
-    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{orderSn,jdbcType=VARCHAR}, 
-      #{orderStatus,jdbcType=SMALLINT}, #{consignee,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, 
-      #{address,jdbcType=VARCHAR}, #{message,jdbcType=VARCHAR}, #{goodsPrice,jdbcType=DECIMAL}, 
-      #{freightPrice,jdbcType=DECIMAL}, #{couponPrice,jdbcType=DECIMAL}, #{integralPrice,jdbcType=DECIMAL}, 
-      #{grouponPrice,jdbcType=DECIMAL}, #{orderPrice,jdbcType=DECIMAL}, #{actualPrice,jdbcType=DECIMAL}, 
-      #{payId,jdbcType=VARCHAR}, #{payTime,jdbcType=TIMESTAMP}, #{shipSn,jdbcType=VARCHAR}, 
-      #{shipChannel,jdbcType=VARCHAR}, #{shipTime,jdbcType=TIMESTAMP}, #{confirmTime,jdbcType=TIMESTAMP}, 
-      #{comments,jdbcType=SMALLINT}, #{endTime,jdbcType=TIMESTAMP}, #{addTime,jdbcType=TIMESTAMP}, 
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{orderSn,jdbcType=VARCHAR},
+      #{orderStatus,jdbcType=SMALLINT}, #{consignee,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR},
+      #{address,jdbcType=VARCHAR}, #{message,jdbcType=VARCHAR}, #{goodsPrice,jdbcType=DECIMAL},
+      #{freightPrice,jdbcType=DECIMAL}, #{couponPrice,jdbcType=DECIMAL}, #{integralPrice,jdbcType=DECIMAL},
+      #{grouponPrice,jdbcType=DECIMAL}, #{orderPrice,jdbcType=DECIMAL}, #{actualPrice,jdbcType=DECIMAL},
+      #{payId,jdbcType=VARCHAR}, #{payTime,jdbcType=TIMESTAMP}, #{shipSn,jdbcType=VARCHAR},
+      #{shipChannel,jdbcType=VARCHAR}, #{shipTime,jdbcType=TIMESTAMP}, #{confirmTime,jdbcType=TIMESTAMP},
+      #{comments,jdbcType=SMALLINT}, #{endTime,jdbcType=TIMESTAMP}, #{addTime,jdbcType=TIMESTAMP},
       #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="com.pandax.litemall.bean.Order">
@@ -540,4 +540,22 @@
       deleted = #{deleted,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="selectByCondition" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from cskaoyan_mall_order
+    <where>
+      <if test="userId != null and userId!=''">
+        id=#{userId}
+      </if>
+      <if test="orderSn != null and orderSn != ''">
+        and order_sn=#{orderSn}
+      </if>
+      <if test="orderStatusArray != null and orderStatusArray!=''">
+        and order_status=#{orderStatusArray}
+      </if>
+    </where>
+    order by #{sort} #{order}
+  </select>
 </mapper>

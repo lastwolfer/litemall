@@ -28,4 +28,10 @@ public interface CategoryMapper {
     int updateByPrimaryKeySelective(Category record);
 
     int updateByPrimaryKey(Category record);
+
+    Category[] selectCategoryList();
+
+    Category[] categoryL1();
+
+    void deleteByPid(@Param("pid") Integer id);
 }

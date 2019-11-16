@@ -12,7 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-@MappedTypes(String[].class)
+@MappedTypes(Integer[].class)
 public class String2IntArrayTypeHandler implements TypeHandler<Integer[]> {
     /*输入映射*/
     @Override

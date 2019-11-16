@@ -1,7 +1,9 @@
 package com.pandax.litemall.bean;
 
-import java.util.Date;
+import lombok.Data;
 
+import java.util.Date;
+@Data
 public class Category {
     private Integer id;
 
@@ -26,6 +28,16 @@ public class Category {
     private Date updateTime;
 
     private Boolean deleted;
+
+    private Category[] children;
+
+    public Category[] getChildren() {
+        return children;
+    }
+
+    public void setChildren(Category[] children) {
+        this.children = children;
+    }
 
     public Integer getId() {
         return id;

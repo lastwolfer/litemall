@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pandax.litemall.mapper.ConfigMapper">
+  <select id="getMallConfig" resultMap="SystemInfoMap">
+    select key_name,key_value from cskaoyan_mall_system where key_name in
+    ('cskaoyan_mall_mall_name','cskaoyan_mall_mall_address','cskaoyan_mall_mall_phone','cskaoyan_mall_mall_qq')
+  </select>
+  <resultMap id="SystemInfoMap" type="com.pandax.litemall.bean.SystemInfo">
+    <result column="key_value" property="keyValue"/>
+    <result column="key_name" property="keyName"/>
+  </resultMap>
+
+  <update id="updateMallConfig">
+    update cskaoyan_mall_system
+      set key_value = CASE key_name
+      <foreach collection="mallConfigMap.entrySet()" index="key" item="value">
+        when #{key} then #{value}
+      </foreach>
+      END ,update_time = NOW()
+      <foreach collection="mallConfigMap.entrySet()" ></foreach>
+    where key_name in (
+    <foreach collection="mallConfigMap.entrySet()" index="key" item="value" separator=",">
+      #{key}
+    </foreach>
+    )
+  </update>
+
+  <select id="getExpressConfig" resultMap="SystemInfoMap">
+    select key_name,key_value from cskaoyan_mall_system where key_name in
+    ('cskaoyan_mall_express_freight_min','cskaoyan_mall_express_freight_value')
+  </select>
+
+  <update id="updateExpressConfig">
+    update cskaoyan_mall_system
+    set key_value = CASE key_name
+    <foreach collection="expressConfigMap.entrySet()" index="key" item="value">
+      when #{key} then #{value}
+    </foreach>
+    END , ,update_time = NOW()
+    where key_name in (
+    <foreach collection="expressConfigMap.entrySet()" index="key" item="value" separator=",">
+      #{key}
+    </foreach>
+    )
+  </update>
+
+  <select id="getOrderConfig" resultMap="SystemInfoMap">
+    select key_name,key_value from cskaoyan_mall_system where key_name in
+    ('cskaoyan_mall_order_comment','cskaoyan_mall_order_unpaid','cskaoyan_mall_order_unconfirm')
+  </select>
+
+  <update id="updateOrderConfig">
+    update cskaoyan_mall_system
+    set key_value = CASE key_name
+    <foreach collection="orderConfigMap.entrySet()" index="key" item="value">
+      when #{key} then #{value}
+    </foreach>
+    END , ,update_time = NOW()
+    where key_name in (
+    <foreach collection="orderConfigMap.entrySet()" index="key" item="value" separator=",">
+      #{key}
+    </foreach>
+    )
+  </update>
+
+  <select id="getWxConfig" resultMap="SystemInfoMap">
+    select key_name,key_value from cskaoyan_mall_system where key_name like "%cskaoyan_mall_wx%"
+  </select>
+
+  <update id="updateWxConfig">
+    update cskaoyan_mall_system
+    set key_value = CASE key_name
+    <foreach collection="wxConfigMap.entrySet()" index="key" item="value">
+      when #{key} then #{value}
+    </foreach>
+    END , ,update_time = NOW()
+    where key_name in (
+    <foreach collection="wxConfigMap.entrySet()" index="key" item="value" separator=",">
+      #{key}
+    </foreach>
+    )
+  </update>
+
+</mapper>

@@ -1,7 +1,11 @@
 package com.pandax.litemall.bean;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Data;
+
 import java.util.Date;
 
+@Data
 public class Log {
     private Integer id;
 
@@ -11,105 +15,59 @@ public class Log {
 
     private Integer type;
 
+    private final Integer DEFAULT_TYPE = 1;
+
     private String action;
 
     private Boolean status;
 
+    private final Boolean DEFAULT_STATUS = true;
+
     private String result;
+
+    private final String DEFAULT_RESULT = "";
 
     private String comment;
 
+    private final String DEFAULT_COMMENT = "";
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date addTime;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date updateTime;
 
     private Boolean deleted;
 
-    public Integer getId() {
-        return id;
-    }
+    private final Boolean DEFAULT_DELETED = false;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getAdmin() {
-        return admin;
-    }
-
-    public void setAdmin(String admin) {
-        this.admin = admin == null ? null : admin.trim();
-    }
-
-    public String getIp() {
-        return ip;
-    }
-
-    public void setIp(String ip) {
-        this.ip = ip == null ? null : ip.trim();
-    }
-
-    public Integer getType() {
-        return type;
-    }
-
-    public void setType(Integer type) {
+    public Log(String admin, String ip, Integer type, String action, Boolean status, String result, String comment, Date addTime, Date updateTime, Boolean deleted) {
+        this.admin = admin;
+        this.ip = ip;
         this.type = type;
-    }
-
-    public String getAction() {
-        return action;
-    }
-
-    public void setAction(String action) {
-        this.action = action == null ? null : action.trim();
-    }
-
-    public Boolean getStatus() {
-        return status;
-    }
-
-    public void setStatus(Boolean status) {
+        this.action = action;
         this.status = status;
-    }
-
-    public String getResult() {
-        return result;
-    }
-
-    public void setResult(String result) {
-        this.result = result == null ? null : result.trim();
-    }
-
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment == null ? null : comment.trim();
-    }
-
-    public Date getAddTime() {
-        return addTime;
-    }
-
-    public void setAddTime(Date addTime) {
+        this.result = result;
+        this.comment = comment;
         this.addTime = addTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
-    }
-
-    public Boolean getDeleted() {
-        return deleted;
-    }
-
-    public void setDeleted(Boolean deleted) {
         this.deleted = deleted;
+    }
+
+    public Log(String admin, String ip, Integer type, String action) {
+        this.admin = admin;
+        this.ip = ip;
+        this.type = type;
+        this.action = action;
+        this.status = DEFAULT_STATUS;
+        this.result = DEFAULT_RESULT;
+        this.comment = DEFAULT_COMMENT;
+        this.addTime = new Date();
+        this.updateTime = new Date();
+        this.deleted = DEFAULT_DELETED;
+
+    }
+
+    public Log() {
     }
 }

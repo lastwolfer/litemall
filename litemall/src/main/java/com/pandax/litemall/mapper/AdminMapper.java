@@ -9,5 +9,9 @@ import org.apache.ibatis.annotations.Param;
 
 public interface AdminMapper {
 
-    List<Admin> selectAdmins(@Param("sort") String sort, @Param("order") String order);
+    List<Admin> selectAdmins(@Param("sort") String sort, @Param("order") String order, @Param("username") String username);
+
+    void updateAdmin(Admin admin);
+
+    void deleteAdmin(Integer id);
 }

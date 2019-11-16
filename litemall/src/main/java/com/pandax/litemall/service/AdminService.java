@@ -1,5 +1,7 @@
 package com.pandax.litemall.service;
 
+import com.pandax.litemall.bean.Admin;
+
 import java.util.HashMap;
 
 /**
@@ -12,5 +14,9 @@ import java.util.HashMap;
 public interface AdminService {
 
     HashMap<String, Object> queryUsers(Integer page,
-                                       Integer limit, String sort, String order);
+                                       Integer limit, String sort, String order, String username);
+
+    void updateAdmin(Admin admin);
+
+    void deleteAdmin(Admin admin);
 }

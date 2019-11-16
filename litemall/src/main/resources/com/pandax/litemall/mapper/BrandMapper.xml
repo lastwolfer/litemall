@@ -93,10 +93,10 @@
     from cskaoyan_mall_brand
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <update id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from cskaoyan_mall_brand
     where id = #{id,jdbcType=INTEGER}
-  </delete>
+  </update>
   <delete id="deleteByExample" parameterType="com.pandax.litemall.bean.BrandExample">
     delete from cskaoyan_mall_brand
     <if test="_parameter != null">
