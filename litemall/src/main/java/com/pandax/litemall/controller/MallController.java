@@ -1,8 +1,6 @@
 package com.pandax.litemall.controller;
 
-import com.pandax.litemall.bean.BaseReqVo;
-import com.pandax.litemall.bean.Brand;
-import com.pandax.litemall.bean.Region;
+import com.pandax.litemall.bean.*;
 import com.pandax.litemall.service.MallService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,14 +26,6 @@ public class MallController {
 
     @RequestMapping("admin/brand/list")
     public BaseReqVo brandList(Integer page, Integer limit, String sort, String order,Integer id,String name) {
-
-        System.out.println(page);
-        System.out.println(limit);
-        System.out.println(sort);
-        System.out.println(order);
-        System.out.println("id="+id);
-        System.out.println("name="+name);
-
         BaseReqVo<Object> baseReqVo = new BaseReqVo<>();
         HashMap<String, Object> map = mallService.brand(page,limit,sort,order,id,name);
         baseReqVo.setData(map);
@@ -65,6 +55,116 @@ public class MallController {
         BaseReqVo<Object> baseReqVo = new BaseReqVo<>();
         Brand brand = mallService.brandCreate(newBrand);
         baseReqVo.setData(brand);
+        baseReqVo.setErrmsg("成功");
+        baseReqVo.setErrno(0);
+        return baseReqVo;
+    }
+    @RequestMapping("admin/category/list")
+    public BaseReqVo categoryList() {
+        BaseReqVo<Object> baseReqVo = new BaseReqVo<>();
+        Category[] categories = mallService.categoryList();
+        baseReqVo.setData(categories);
+        baseReqVo.setErrmsg("成功");
+        baseReqVo.setErrno(0);
+        return baseReqVo;
+    }
+    @RequestMapping("admin/category/l1")
+    public BaseReqVo categoryL1() {
+        BaseReqVo<Object> baseReqVo = new BaseReqVo<>();
+        Category[] categories = mallService.categoryL1();
+        baseReqVo.setData(categories);
+        baseReqVo.setErrmsg("成功");
+        baseReqVo.setErrno(0);
+        return baseReqVo;
+    }
+    @RequestMapping("admin/category/create")
+    public BaseReqVo categoryCreate(@RequestBody Category category) {
+        BaseReqVo<Object> baseReqVo = new BaseReqVo<>();
+        Category categories = mallService.categoryCreate(category);
+        baseReqVo.setData(categories);
+        baseReqVo.setErrmsg("成功");
+        baseReqVo.setErrno(0);
+        return baseReqVo;
+    }
+    @RequestMapping("admin/category/update")
+    public BaseReqVo categoryUpdate(@RequestBody Category category) {
+        BaseReqVo<Object> baseReqVo = new BaseReqVo<>();
+        mallService.categoryUpdate(category);
+        baseReqVo.setErrmsg("成功");
+        baseReqVo.setErrno(0);
+        return baseReqVo;
+    }
+    @RequestMapping("admin/category/delete")
+    public BaseReqVo categoryDelete(@RequestBody Category category) {
+        BaseReqVo<Object> baseReqVo = new BaseReqVo<>();
+        mallService.categoryDelete(category);
+        baseReqVo.setErrmsg("成功");
+        baseReqVo.setErrno(0);
+        return baseReqVo;
+    }
+
+    @RequestMapping("admin/order/list")
+    public BaseReqVo orderList(Integer page, Integer limit,Integer orderStatusArray, String sort, String order,Integer userId,String orderSn) {
+        System.out.println("orderStatusArray="+orderStatusArray);
+        System.out.println("userId="+userId);
+        System.out.println("orderSn="+orderSn);
+        System.out.println("".equals(orderSn));
+        BaseReqVo<Object> baseReqVo = new BaseReqVo<>();
+        HashMap<String, Object> map = mallService.orderList(page,limit,orderStatusArray,sort,order,userId,orderSn);
+        baseReqVo.setData(map);
+        baseReqVo.setErrmsg("成功");
+        baseReqVo.setErrno(0);
+        return baseReqVo;
+    }
+    @RequestMapping("admin/order/detail")
+    public BaseReqVo orderDetail(Integer id) {
+        BaseReqVo<Object> baseReqVo = new BaseReqVo<>();
+        HashMap<String, Object> map = mallService.orderDetail(id);
+        baseReqVo.setData(map);
+        baseReqVo.setErrmsg("成功");
+        baseReqVo.setErrno(0);
+        return baseReqVo;
+    }
+    @RequestMapping("admin/issue/list")
+    public BaseReqVo issueList(Integer page,Integer limit,String question,String sort,String order) {
+        BaseReqVo<Object> baseReqVo = new BaseReqVo<>();
+        HashMap<String, Object> map = mallService.issueList(page,limit,question,sort,order);
+        baseReqVo.setData(map);
+        baseReqVo.setErrmsg("成功");
+        baseReqVo.setErrno(0);
+        return baseReqVo;
+    }
+    @RequestMapping("admin/keyword/list")
+    public BaseReqVo keywordList(Integer page,Integer limit,String keyword,String url,String sort,String order) {
+        BaseReqVo<Object> baseReqVo = new BaseReqVo<>();
+        HashMap<String, Object> map = mallService.keywordList(page,limit,keyword,url,sort,order);
+        baseReqVo.setData(map);
+        baseReqVo.setErrmsg("成功");
+        baseReqVo.setErrno(0);
+        return baseReqVo;
+    }
+    @RequestMapping("admin/keyword/update")
+    public BaseReqVo keywordUpdate(@RequestBody Keyword keyword) {
+        BaseReqVo<Object> baseReqVo = new BaseReqVo<>();
+        Keyword keyword1 = mallService.keywordUpdate(keyword);
+        baseReqVo.setData(keyword1);
+        baseReqVo.setErrmsg("成功");
+        baseReqVo.setErrno(0);
+        return baseReqVo;
+    }
+    @RequestMapping("admin/keyword/delete")
+    public BaseReqVo keywordDelete(@RequestBody Keyword keyword) {
+        BaseReqVo<Object> baseReqVo = new BaseReqVo<>();
+        mallService.keywordDelete(keyword);
+        baseReqVo.setErrmsg("成功");
+        baseReqVo.setErrno(0);
+        return baseReqVo;
+    }
+    @RequestMapping("admin/keyword/create")
+    public BaseReqVo keywordCreate(@RequestBody Keyword keyword) {
+        BaseReqVo<Object> baseReqVo = new BaseReqVo<>();
+        Keyword keyword1=mallService.keywordCreate(keyword);
+        baseReqVo.setData(keyword1);
         baseReqVo.setErrmsg("成功");
         baseReqVo.setErrno(0);
         return baseReqVo;
