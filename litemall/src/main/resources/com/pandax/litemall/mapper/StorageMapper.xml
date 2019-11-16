@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pandax.litemall.mapper.StorageMapper">
+    <insert id="insertStorage">
+        <selectKey resultType="int" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into cskaoyan_mall_storage
+        (`key`, name, type, size, url, add_time, update_time, deleted)
+        values
+        (#{storage.key}, #{storage.name}, #{storage.type}, #{storage.size},
+        #{storage.url},#{storage.addTime}, #{storage.updateTime}, 0)
+    </insert>
+</mapper>

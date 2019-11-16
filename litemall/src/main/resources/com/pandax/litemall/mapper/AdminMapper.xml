@@ -20,6 +20,28 @@
   </sql>
   <select id="selectAdmins" resultMap="BaseResultMap">
     select <include refid="adminInfo"/> from cskaoyan_mall_admin
+    <where>
+      deleted = 0
+      <if test="username != null " >
+        and username like #{username}
+      </if>
+    </where>
     order by ${sort} ${order}
   </select>
+    <update id="updateAdmin">
+      update cskaoyan_mall_admin set
+      username = #{username,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      avatar = #{avatar,jdbcType=VARCHAR},
+      role_ids = #{roleIds}
+      <where>
+        id = #{id,jdbcType=INTEGER}
+      </where>
+    </update>
+  <delete id="deleteAdmin">
+    update cskaoyan_mall_admin set deleted = 1
+    <where>
+      id = #{id}
+    </where>
+  </delete>
 </mapper>
