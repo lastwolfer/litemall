@@ -88,7 +88,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from cskaoyan_mall_keyword
     where id = #{id,jdbcType=INTEGER}
@@ -104,12 +104,15 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.pandax.litemall.bean.Keyword">
-    insert into cskaoyan_mall_keyword (id, keyword, url, 
-      is_hot, is_default, sort_order, 
+    <selectKey keyColumn="id" keyProperty="id" resultType="integer">
+      select LAST_INSERT_ID() as id
+    </selectKey>
+    insert into cskaoyan_mall_keyword (id, keyword, url,
+      is_hot, is_default, sort_order,
       add_time, update_time, deleted
       )
-    values (#{id,jdbcType=INTEGER}, #{keyword,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
-      #{isHot,jdbcType=BIT}, #{isDefault,jdbcType=BIT}, #{sortOrder,jdbcType=INTEGER}, 
+    values (#{id,jdbcType=INTEGER}, #{keyword,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR},
+      #{isHot,jdbcType=BIT}, #{isDefault,jdbcType=BIT}, #{sortOrder,jdbcType=INTEGER},
       #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT}
       )
   </insert>
@@ -272,4 +275,18 @@
       deleted = #{deleted,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectByCondition" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from cskaoyan_mall_keyword
+    <where>
+      <if test="keyword != null and keyword != ''">
+        keyword like #{keyword}
+      </if>
+     <if test="url != null and url != ''">
+       url like #{url}
+     </if>
+    </where>
+    order by #{sort} #{order}
+  </select>
 </mapper>
