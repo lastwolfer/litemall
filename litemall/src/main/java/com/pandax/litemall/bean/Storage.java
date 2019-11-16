@@ -33,4 +33,6 @@ public class Storage {
      @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date updateTime;
 
+     private Boolean deleted;
+
 }

@@ -23,8 +23,15 @@ logging:
           mapper: debug
 mybatis:
   type-handlers-package: com.pandax.litemall.handler
+  scripting-language-driver:
+    freemarker:
+      template-file:
+        path-provider:
+          cache-enabled:
 
-filePath: E:/17th/17th/Repository-mall/litemall/static/img
+filePath: D:/Develop/Coding WorkingSpace/static/img
 my:
   Storage:
     path: http://localhost:8081/
+
+  filePath: D:/Develop/Coding WorkingSpace/static/img/
