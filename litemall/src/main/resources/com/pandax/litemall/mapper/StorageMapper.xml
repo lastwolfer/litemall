@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pandax.litemall.mapper.StorageMapper">
+<<<<<<< HEAD
     <insert id="insertStorage">
         <selectKey resultType="int" order="AFTER" keyProperty="id">
             SELECT LAST_INSERT_ID()
@@ -11,4 +12,46 @@
         (#{storage.key}, #{storage.name}, #{storage.type}, #{storage.size},
         #{storage.url},#{storage.addTime}, #{storage.updateTime}, 0)
     </insert>
+=======
+    <resultMap id="storageMap" type="com.pandax.litemall.bean.Storage">
+        <result column="id" property="id"/>
+        <result column="key" property="key"/>
+        <result column="name" property="name"/>
+        <result column="type" property="type"/>
+        <result column="size" property="size"/>
+        <result column="url" property="url"/>
+        <result column="add_time" property="addTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="deleted" property="deleted"/>
+    </resultMap>
+    <sql id="baseSql">
+        id,`key`,name,type,size,url,add_time,update_time,deleted
+    </sql>
+    <select id="selectStorage" resultMap="storageMap">
+        select <include refid="baseSql"/>
+        from cskaoyan_mall_storage
+        order by ${sort} ${order}
+        <where>
+            <trim suffixOverrides="and">
+                <if test="key!=null">
+                    key like #{key} and
+                </if>
+                <if test="name!=null">
+                    name like #{name}
+                </if>
+            </trim>
+        </where>
+    </select>
+
+    <update id="updateStorage" parameterType="com.pandax.litemall.bean.Storage">
+        update cskaoyan_mall_storage set
+          id = #{storage.id}, `key` = #{storage.key},name =#{storage.name},
+          type = #{storage.type},size = #{storage.size},url = #{storage.url},
+          add_time = #{storage.addTime},update_time = #{storage.updateTime},deleted = #{storage.deleted}
+    </update>
+
+    <delete id="deleteStorage" parameterType="com.pandax.litemall.bean.Storage">
+        delete from cskaoyan_mall_storage where id = #{storage.id}
+    </delete>
+>>>>>>> 61656379866a0d62eaae441f0e44ba083682aed5
 </mapper>

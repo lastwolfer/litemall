@@ -1,7 +1,7 @@
 package com.pandax.litemall.service;
 
 import com.pandax.litemall.bean.Storage;
-import org.springframework.web.multipart.MultipartFile;
+import java.util.HashMap;
 
 /**
  * @author Da
@@ -13,4 +13,10 @@ import org.springframework.web.multipart.MultipartFile;
 public interface StorageService {
 
     int saveStorage(Storage storage);
+
+    HashMap<String, Object> queryStorage(Integer page, Integer limit, String sort, String order,String key,String name);
+
+    Storage updateStorage(Storage storage);
+
+    int deleteStorage(Storage storage);
 }
