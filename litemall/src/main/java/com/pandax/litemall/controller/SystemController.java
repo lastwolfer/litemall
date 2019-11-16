@@ -13,7 +13,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -81,7 +80,7 @@ public class SystemController {
             String suffixName = fileName.substring(fileName.lastIndexOf("."));
             // 设置文件存储路径
             //String filePath = "D:/Test/Downloads/";
-            String filePath = "staic/";
+            String filePath = "static/";
             String path = filePath + fileName;
             File dest = new File(path);
             // 检测是否存在目录

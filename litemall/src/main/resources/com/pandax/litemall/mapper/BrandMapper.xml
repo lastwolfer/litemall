@@ -270,10 +270,6 @@
       deleted = #{deleted,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
-<<<<<<< HEAD
-=======
-
-
   <select id="selectAllBrands" resultMap="BaseResultMap">
     select id,`name`,`desc`,pic_url,sort_order,floor_price,add_time,update_time,deleted
     from cskaoyan_mall_brand
@@ -293,5 +289,4 @@
     from cskaoyan_mall_brand
     where name=#{name}
   </select>
->>>>>>> 349d129149ccfcbd7373c71bd77d0ae7d1657bce
 </mapper>
