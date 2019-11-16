@@ -71,7 +71,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, desc, pic_url, sort_order, floor_price, add_time, update_time, deleted
+    id, name, `desc`, pic_url, sort_order, floor_price, add_time, update_time, deleted
   </sql>
   <select id="selectByExample" parameterType="com.pandax.litemall.bean.BrandExample" resultMap="BaseResultMap">
     select
@@ -88,7 +88,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from cskaoyan_mall_brand
     where id = #{id,jdbcType=INTEGER}
@@ -104,12 +104,12 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.pandax.litemall.bean.Brand">
-    insert into cskaoyan_mall_brand (id, name, desc, 
-      pic_url, sort_order, floor_price, 
+    insert into cskaoyan_mall_brand (id, name, desc,
+      pic_url, sort_order, floor_price,
       add_time, update_time, deleted
       )
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{desc,jdbcType=VARCHAR}, 
-      #{picUrl,jdbcType=VARCHAR}, #{sortOrder,jdbcType=TINYINT}, #{floorPrice,jdbcType=DECIMAL}, 
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{desc,jdbcType=VARCHAR},
+      #{picUrl,jdbcType=VARCHAR}, #{sortOrder,jdbcType=TINYINT}, #{floorPrice,jdbcType=DECIMAL},
       #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT}
       )
   </insert>
@@ -218,17 +218,15 @@
   <update id="updateByExample" parameterType="map">
     update cskaoyan_mall_brand
     set id = #{record.id,jdbcType=INTEGER},
-      name = #{record.name,jdbcType=VARCHAR},
-      desc = #{record.desc,jdbcType=VARCHAR},
+      `name` = #{record.name,jdbcType=VARCHAR},
+      `desc` = #{record.desc,jdbcType=VARCHAR},
       pic_url = #{record.picUrl,jdbcType=VARCHAR},
       sort_order = #{record.sortOrder,jdbcType=TINYINT},
       floor_price = #{record.floorPrice,jdbcType=DECIMAL},
       add_time = #{record.addTime,jdbcType=TIMESTAMP},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP},
       deleted = #{record.deleted,jdbcType=BIT}
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
+    where id=#{record.id}
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.pandax.litemall.bean.Brand">
     update cskaoyan_mall_brand
@@ -272,4 +270,23 @@
       deleted = #{deleted,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectAllBrands" resultMap="BaseResultMap">
+    select id,`name`,`desc`,pic_url,sort_order,floor_price,add_time,update_time,deleted
+    from cskaoyan_mall_brand
+    <where>
+      <if test="id != null">
+        id=#{id}
+      </if>
+      <if test="name != null">
+        and name=#{name}
+      </if>
+    </where>
+    order by #{sort} #{order}
+
+  </select>
+  <select id="selectByName" resultMap="BaseResultMap">
+    select id,`name`,`desc`,pic_url,sort_order,floor_price,add_time,update_time,deleted
+    from cskaoyan_mall_brand
+    where name=#{name}
+  </select>
 </mapper>

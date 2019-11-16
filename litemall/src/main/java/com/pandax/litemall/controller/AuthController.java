@@ -14,7 +14,6 @@ public class AuthController {
 
     @RequestMapping("login")
     public BaseReqVo login(@RequestBody LoginVo loginVo){
-
         BaseReqVo baseReqVo = new BaseReqVo();
         baseReqVo.setData("4b7d719e-53b7-4019-9677-6309b2445b45");
         baseReqVo.setErrmsg("成功");
