@@ -115,6 +115,13 @@ public class SystemController {
     public BaseReqVo deleteAdmin(@RequestBody Admin admin){
         BaseReqVo baseReqVo = new BaseReqVo();
         adminService.deleteAdmin(admin);
+
+        //日志操作
+        Log log = new Log("unknow admin", "0:0:0:0:0:0:0:1",
+                1, "删除管理员");
+
+        logService.record(log);
+
         baseReqVo.setErrmsg("成功");
         baseReqVo.setErrno(0);
         return baseReqVo;
