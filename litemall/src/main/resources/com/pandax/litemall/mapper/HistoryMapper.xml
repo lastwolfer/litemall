@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.pandax.litemall.mapper.AddressMapper">
-  <resultMap id="BaseResultMap" type="com.pandax.litemall.bean.Address">
+<mapper namespace="com.pandax.litemall.mapper.HistoryMapper">
+  <resultMap id="BaseResultMap" type="com.pandax.litemall.bean.History">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
-    <result column="province_id" jdbcType="INTEGER" property="provinceId" />
-    <result column="city_id" jdbcType="INTEGER" property="cityId" />
-    <result column="area_id" jdbcType="INTEGER" property="areaId" />
-    <result column="address" jdbcType="VARCHAR" property="address" />
-    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
-    <result column="is_default" jdbcType="BIT" property="isDefault" />
+    <result column="keyword" jdbcType="VARCHAR" property="keyword" />
+    <result column="from" jdbcType="VARCHAR" property="from" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="deleted" jdbcType="BIT" property="deleted" />
@@ -74,16 +69,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, user_id, province_id, city_id, area_id, address, mobile, is_default, add_time, 
-    update_time, deleted
+    id, user_id, keyword, `from`, add_time, update_time, deleted
   </sql>
-  <select id="selectByExample" parameterType="com.pandax.litemall.bean.AddressExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.pandax.litemall.bean.HistoryExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from cskaoyan_mall_address
+    from cskaoyan_mall_search_history
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -94,60 +88,41 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from cskaoyan_mall_address
+    from cskaoyan_mall_search_history
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from cskaoyan_mall_address
+    delete from cskaoyan_mall_search_history
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.pandax.litemall.bean.AddressExample">
-    delete from cskaoyan_mall_address
+  <delete id="deleteByExample" parameterType="com.pandax.litemall.bean.HistoryExample">
+    delete from cskaoyan_mall_search_history
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.pandax.litemall.bean.Address">
-    insert into cskaoyan_mall_address (id, name, user_id, 
-      province_id, city_id, area_id, 
-      address, mobile, is_default, 
-      add_time, update_time, deleted
-      )
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, 
-      #{provinceId,jdbcType=INTEGER}, #{cityId,jdbcType=INTEGER}, #{areaId,jdbcType=INTEGER}, 
-      #{address,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{isDefault,jdbcType=BIT}, 
-      #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT}
-      )
+  <insert id="insert" parameterType="com.pandax.litemall.bean.History">
+    insert into cskaoyan_mall_search_history (id, user_id, keyword, 
+      `from`, add_time, update_time,
+      deleted)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{keyword,jdbcType=VARCHAR}, 
+      #{from,jdbcType=VARCHAR}, #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{deleted,jdbcType=BIT})
   </insert>
-  <insert id="insertSelective" parameterType="com.pandax.litemall.bean.Address">
-    insert into cskaoyan_mall_address
+  <insert id="insertSelective" parameterType="com.pandax.litemall.bean.History">
+    insert into cskaoyan_mall_search_history
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
       </if>
-      <if test="name != null">
-        name,
-      </if>
       <if test="userId != null">
         user_id,
       </if>
-      <if test="provinceId != null">
-        province_id,
+      <if test="keyword != null">
+        keyword,
       </if>
-      <if test="cityId != null">
-        city_id,
-      </if>
-      <if test="areaId != null">
-        area_id,
-      </if>
-      <if test="address != null">
-        address,
-      </if>
-      <if test="mobile != null">
-        mobile,
-      </if>
-      <if test="isDefault != null">
-        is_default,
+      <if test="from != null">
+        `from`,
       </if>
       <if test="addTime != null">
         add_time,
@@ -163,29 +138,14 @@
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
-      </if>
       <if test="userId != null">
         #{userId,jdbcType=INTEGER},
       </if>
-      <if test="provinceId != null">
-        #{provinceId,jdbcType=INTEGER},
+      <if test="keyword != null">
+        #{keyword,jdbcType=VARCHAR},
       </if>
-      <if test="cityId != null">
-        #{cityId,jdbcType=INTEGER},
-      </if>
-      <if test="areaId != null">
-        #{areaId,jdbcType=INTEGER},
-      </if>
-      <if test="address != null">
-        #{address,jdbcType=VARCHAR},
-      </if>
-      <if test="mobile != null">
-        #{mobile,jdbcType=VARCHAR},
-      </if>
-      <if test="isDefault != null">
-        #{isDefault,jdbcType=BIT},
+      <if test="from != null">
+        #{from,jdbcType=VARCHAR},
       </if>
       <if test="addTime != null">
         #{addTime,jdbcType=TIMESTAMP},
@@ -198,41 +158,26 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.pandax.litemall.bean.AddressExample" resultType="java.lang.Long">
-    select count(*) from cskaoyan_mall_address
+  <select id="countByExample" parameterType="com.pandax.litemall.bean.HistoryExample" resultType="java.lang.Long">
+    select count(*) from cskaoyan_mall_search_history
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update cskaoyan_mall_address
+    update cskaoyan_mall_search_history
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.name != null">
-        name = #{record.name,jdbcType=VARCHAR},
-      </if>
       <if test="record.userId != null">
         user_id = #{record.userId,jdbcType=INTEGER},
       </if>
-      <if test="record.provinceId != null">
-        province_id = #{record.provinceId,jdbcType=INTEGER},
+      <if test="record.keyword != null">
+        keyword = #{record.keyword,jdbcType=VARCHAR},
       </if>
-      <if test="record.cityId != null">
-        city_id = #{record.cityId,jdbcType=INTEGER},
-      </if>
-      <if test="record.areaId != null">
-        area_id = #{record.areaId,jdbcType=INTEGER},
-      </if>
-      <if test="record.address != null">
-        address = #{record.address,jdbcType=VARCHAR},
-      </if>
-      <if test="record.mobile != null">
-        mobile = #{record.mobile,jdbcType=VARCHAR},
-      </if>
-      <if test="record.isDefault != null">
-        is_default = #{record.isDefault,jdbcType=BIT},
+      <if test="record.from != null">
+        `from` = #{record.from,jdbcType=VARCHAR},
       </if>
       <if test="record.addTime != null">
         add_time = #{record.addTime,jdbcType=TIMESTAMP},
@@ -249,16 +194,11 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update cskaoyan_mall_address
+    update cskaoyan_mall_search_history
     set id = #{record.id,jdbcType=INTEGER},
-      name = #{record.name,jdbcType=VARCHAR},
       user_id = #{record.userId,jdbcType=INTEGER},
-      province_id = #{record.provinceId,jdbcType=INTEGER},
-      city_id = #{record.cityId,jdbcType=INTEGER},
-      area_id = #{record.areaId,jdbcType=INTEGER},
-      address = #{record.address,jdbcType=VARCHAR},
-      mobile = #{record.mobile,jdbcType=VARCHAR},
-      is_default = #{record.isDefault,jdbcType=BIT},
+      keyword = #{record.keyword,jdbcType=VARCHAR},
+      `from` = #{record.from,jdbcType=VARCHAR},
       add_time = #{record.addTime,jdbcType=TIMESTAMP},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP},
       deleted = #{record.deleted,jdbcType=BIT}
@@ -266,32 +206,17 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.pandax.litemall.bean.Address">
-    update cskaoyan_mall_address
+  <update id="updateByPrimaryKeySelective" parameterType="com.pandax.litemall.bean.History">
+    update cskaoyan_mall_search_history
     <set>
-      <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
-      </if>
       <if test="userId != null">
         user_id = #{userId,jdbcType=INTEGER},
       </if>
-      <if test="provinceId != null">
-        province_id = #{provinceId,jdbcType=INTEGER},
+      <if test="keyword != null">
+        keyword = #{keyword,jdbcType=VARCHAR},
       </if>
-      <if test="cityId != null">
-        city_id = #{cityId,jdbcType=INTEGER},
-      </if>
-      <if test="areaId != null">
-        area_id = #{areaId,jdbcType=INTEGER},
-      </if>
-      <if test="address != null">
-        address = #{address,jdbcType=VARCHAR},
-      </if>
-      <if test="mobile != null">
-        mobile = #{mobile,jdbcType=VARCHAR},
-      </if>
-      <if test="isDefault != null">
-        is_default = #{isDefault,jdbcType=BIT},
+      <if test="from != null">
+        `from` = #{from,jdbcType=VARCHAR},
       </if>
       <if test="addTime != null">
         add_time = #{addTime,jdbcType=TIMESTAMP},
@@ -305,41 +230,14 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.pandax.litemall.bean.Address">
-    update cskaoyan_mall_address
-    set name = #{name,jdbcType=VARCHAR},
-      user_id = #{userId,jdbcType=INTEGER},
-      province_id = #{provinceId,jdbcType=INTEGER},
-      city_id = #{cityId,jdbcType=INTEGER},
-      area_id = #{areaId,jdbcType=INTEGER},
-      address = #{address,jdbcType=VARCHAR},
-      mobile = #{mobile,jdbcType=VARCHAR},
-      is_default = #{isDefault,jdbcType=BIT},
+  <update id="updateByPrimaryKey" parameterType="com.pandax.litemall.bean.History">
+    update cskaoyan_mall_search_history
+    set user_id = #{userId,jdbcType=INTEGER},
+      keyword = #{keyword,jdbcType=VARCHAR},
+      `from` = #{from,jdbcType=VARCHAR},
       add_time = #{addTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       deleted = #{deleted,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
-
-
-    <select id="selectAddressList" resultMap="BaseResultMap">
-      select id, name, user_id,
-      province_id, city_id, area_id,
-      address, mobile, is_default,
-      add_time, update_time, deleted
-      from cskaoyan_mall_address
-      <where>
-        <if test="userId != null">
-            user_Id = #{userId}
-        </if>
-
-        <if test="userId != null and name != null ">
-            and
-        </if>
-        <if test="name != null ">
-            name like #{name}
-        </if>
-      </where>
-      order by #{sort}  #{desc}
-    </select>
 </mapper>

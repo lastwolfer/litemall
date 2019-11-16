@@ -1,8 +1,16 @@
 package com.pandax.litemall.bean;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class Address {
+
+    //先添加的内容
+    private String province;
+    private String city;
+    private String area;
+    //------------
     private Integer id;
 
     private String name;
@@ -21,8 +29,10 @@ public class Address {
 
     private Boolean isDefault;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date addTime;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
     private Boolean deleted;
@@ -121,5 +131,39 @@ public class Address {
 
     public void setDeleted(Boolean deleted) {
         this.deleted = deleted;
+    }
+
+
+    public Boolean getDefault() {
+        return isDefault;
+    }
+
+
+    public void setDefault(Boolean aDefault) {
+        isDefault = aDefault;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
     }
 }

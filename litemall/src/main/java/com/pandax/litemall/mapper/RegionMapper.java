@@ -27,4 +27,6 @@ public interface RegionMapper {
     int updateByPrimaryKeySelective(Region record);
 
     int updateByPrimaryKey(Region record);
+
+    String selectNameById(@Param("code") Integer Id);
 }

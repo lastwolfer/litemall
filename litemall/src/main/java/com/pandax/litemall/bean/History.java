@@ -4,14 +4,14 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.Date;
 
-public class Collect {
+public class History {
     private Integer id;
 
     private Integer userId;
 
-    private Integer valueId;
+    private String keyword;
 
-    private Byte type;
+    private String from;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date addTime;
@@ -37,20 +37,20 @@ public class Collect {
         this.userId = userId;
     }
 
-    public Integer getValueId() {
-        return valueId;
+    public String getKeyword() {
+        return keyword;
     }
 
-    public void setValueId(Integer valueId) {
-        this.valueId = valueId;
+    public void setKeyword(String keyword) {
+        this.keyword = keyword == null ? null : keyword.trim();
     }
 
-    public Byte getType() {
-        return type;
+    public String getFrom() {
+        return from;
     }
 
-    public void setType(Byte type) {
-        this.type = type;
+    public void setFrom(String from) {
+        this.from = from == null ? null : from.trim();
     }
 
     public Date getAddTime() {
