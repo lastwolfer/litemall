@@ -1,5 +1,4 @@
 package com.pandax.litemall.mapper;
-
 import com.pandax.litemall.bean.Storage;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
@@ -12,7 +11,6 @@ import java.util.List;
  */
 
 public interface StorageMapper {
-
     void insertStorage(@Param("storage") Storage storage);
 
     List<Storage> selectStorage(@Param("sort") String sort, @Param("order") String order,

@@ -1,5 +1,6 @@
 package com.pandax.litemall.service;
 
+
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.pandax.litemall.bean.Storage;
@@ -10,13 +11,20 @@ import java.util.HashMap;
 import java.util.List;
 
 
+
+/**
+ * @author Da
+ * @version 1.0
+ * @date 2019/11/16
+ * @time 14:05
+ */
+
+
 @Service
 public class StorageServiceImpl implements StorageService {
 
     @Autowired
     StorageMapper storageMapper;
-
-
 
     @Override
     public int saveStorage(Storage storage) {
