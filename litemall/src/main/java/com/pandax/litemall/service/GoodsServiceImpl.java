@@ -261,11 +261,13 @@ public class GoodsServiceImpl implements GoodsService {
      */
     @Override
     public int reply(CommentReply commentReply) {
-        int i = commentReplyMapper.selectCountByCommentId(commentReply.getCommentId());
+        Integer i = commentReplyMapper.selectCountByCommentId(commentReply.getCommentId());
+        System.out.println(i);
         if (i != 0) {//已经回复
             return 0;
         }
         commentReply.setAddTime(new Date());
+        commentReply.setDeleted(false);
         int insert = commentReplyMapper.insert(commentReply);
         return insert;
     }

@@ -231,9 +231,9 @@
     from cskaoyan_mall_comment_reply
     where comment_id = #{commentId}
   </select>
-  <select id="selectCountByCommentId" resultType="int">
+  <select id="selectCountByCommentId" resultType="integer">
     select
-    <include refid="Base_Column_List" />
+    count(0)
     from cskaoyan_mall_comment_reply
     where comment_id = #{commentId} and deleted=0
   </select>

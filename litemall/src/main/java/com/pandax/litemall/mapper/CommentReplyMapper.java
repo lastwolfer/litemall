@@ -31,5 +31,5 @@ public interface CommentReplyMapper {
 
     CommentReply selectReply(Integer commentId);
 
-    int selectCountByCommentId(Integer commentId);
+    Integer selectCountByCommentId(Integer commentId);
 }
