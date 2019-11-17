@@ -119,6 +119,11 @@ public class ProductController {
         return baseReqVo;
     }
 
+    /**
+     * 所以评论
+     * @param querryCommentList
+     * @return
+     */
     @RequestMapping("admin/comment/list")
     public BaseReqVo commentList(QuerryCommentList querryCommentList){
         BaseReqVo<Object> baseReqVo = new BaseReqVo<>();
@@ -129,6 +134,39 @@ public class ProductController {
         map.put("items", commentList);
         baseReqVo.setErrno(0);
         baseReqVo.setData(map);
+        baseReqVo.setErrmsg("成功");
+        return baseReqVo;
+    }
+
+    /**
+     * 评论回复
+     * @param commentReply
+     * @return
+     */
+    @RequestMapping("admin/order/reply")
+    public BaseReqVo reply(@RequestBody CommentReply commentReply){
+        BaseReqVo<Object> baseReqVo = new BaseReqVo<>();
+        int i = goodsService.reply(commentReply);
+        if (i == 0){
+            baseReqVo.setErrno(622);
+            baseReqVo.setErrmsg("订单商品已回复！");
+        }else {
+            baseReqVo .setErrno(0);
+            baseReqVo.setErrmsg("成功");
+        }
+        return baseReqVo;
+    }
+
+    /**
+     * 删除评论
+     * @param comment
+     * @return
+     */
+    @RequestMapping("/admin/comment/delete")
+    public BaseReqVo deleteComment(@RequestBody Comment comment){
+        BaseReqVo<Override> baseReqVo = new BaseReqVo<>();
+        int i = goodsService.deleteComment(comment);
+        baseReqVo.setErrno(0);
         baseReqVo.setErrmsg("成功");
         return baseReqVo;
     }
