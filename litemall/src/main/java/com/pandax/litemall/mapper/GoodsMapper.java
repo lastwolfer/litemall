@@ -37,5 +37,4 @@ public interface GoodsMapper {
 
     List<CategoryList> selectCategory(Integer value);
 
-
 }
