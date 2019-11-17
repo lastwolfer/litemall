@@ -3,7 +3,7 @@ package com.pandax.litemall.bean;
 import lombok.Data;
 
 @Data
-public class User {
+public class    User {
     int id;
     String username;
     String password;
