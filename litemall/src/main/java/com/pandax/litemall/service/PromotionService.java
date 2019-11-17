@@ -22,4 +22,8 @@ public interface PromotionService {
     int deleteCoupon(Integer id);
 
     Coupon updateCoupon(Coupon coupon);
+
+    Ad createAd(Ad record);
+
+    Ad updateAd(Ad record);
 }
