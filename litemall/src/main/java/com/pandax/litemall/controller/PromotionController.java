@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,15 +34,12 @@ public class PromotionController {
         return baseReqVo;
     }
 
-   /* @RequestMapping("admin/ad/create")
+    @RequestMapping("admin/ad/create")
     public BaseReqVo createAd(@RequestBody Ad record){
-        //Date date = new SimpleDateFormat("yyyy-HH-dd hh:MM:ss").format(new Date());
-        record.setAddTime(new Date());
-        record.setUpdateTime(new Date());
-        int insert = promotionService.insertSelective(record);
+        Ad ad = promotionService.createAd(record);
         BaseReqVo baseReqVo = new BaseReqVo();
-        if(insert == 1){
-            baseReqVo.setData(record);
+        if(ad!=null){
+            baseReqVo.setData(ad);
             baseReqVo.setErrmsg("成功");
             baseReqVo.setErrno(0);
             return baseReqVo;
@@ -49,7 +47,22 @@ public class PromotionController {
         baseReqVo.setErrmsg("失败");
         baseReqVo.setErrno(-1);
         return baseReqVo;
-    }*/
+    }
+
+    @RequestMapping("admin/ad/update")
+    public BaseReqVo updateCoupon(@RequestBody Ad record){
+        Ad ad = promotionService.updateAd(record);
+        BaseReqVo baseReqVo = new BaseReqVo();
+        if(ad!=null){
+            baseReqVo.setData(ad);
+            baseReqVo.setErrmsg("成功");
+            baseReqVo.setErrno(0);
+            return baseReqVo;
+        }
+        baseReqVo.setErrmsg("失败");
+        baseReqVo.setErrno(-1);
+        return baseReqVo;
+    }
 //
 //    @RequestMapping("admin/read")
 //    public BaseReqVo readeAd(Integer page,Integer limit,@RequestBody Ad ad){
@@ -100,9 +113,7 @@ public class PromotionController {
         Coupon coupon1 = promotionService.createCoupon(coupon);
         BaseReqVo baseReqVo = new BaseReqVo();
         if(coupon1!=null){
-            HashMap<String, Object> map = new HashMap<>();
-            map.put("data",coupon1);
-            baseReqVo.setData(map);
+            baseReqVo.setData(coupon1);
             baseReqVo.setErrmsg("成功");
             baseReqVo.setErrno(0);
             return baseReqVo;

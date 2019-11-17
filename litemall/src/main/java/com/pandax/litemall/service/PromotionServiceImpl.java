@@ -52,6 +52,27 @@ public class PromotionServiceImpl implements PromotionService {
     }
 
     @Override
+    public Ad createAd(Ad record) {
+        record.setAddTime(new Date());
+        record.setUpdateTime(new Date());
+        adMapper.insertSelective(record);
+        int i = adMapper.selectLastInsert();
+        Ad ad = adMapper.selectByPrimaryKey(i);
+        return ad;
+    }
+
+    @Override
+    public Ad updateAd(Ad record) {
+        record.setUpdateTime(new Date());
+        AdExample example = new AdExample();
+        AdExample.Criteria criteria = example.createCriteria();
+        criteria.andIdEqualTo(record.getId());
+        int i = adMapper.updateByExampleSelective(record, example);
+        Ad ad = adMapper.selectByPrimaryKey(record.getId());
+        return ad;
+    }
+
+    @Override
     public Map<String, Object> listCoupon(Integer page, Integer limit, Coupon coupon) {
         CouponExample example = new CouponExample();
         CouponExample.Criteria criteria = example.createCriteria();
@@ -81,7 +102,6 @@ public class PromotionServiceImpl implements PromotionService {
         coupon.setUpdateTime(new Date());
         couponMapper.insertSelective(coupon);
         int i = couponMapper.selectLastInsert();
-        System.out.println(i);
         Coupon coupon1 = couponMapper.selectByPrimaryKey(i);
         return coupon1;
     }
@@ -130,4 +150,6 @@ public class PromotionServiceImpl implements PromotionService {
         Coupon coupon1 = couponMapper.selectByPrimaryKey(coupon.getId());
         return coupon1;
     }
+
+
 }
