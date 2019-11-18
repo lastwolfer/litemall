@@ -28,7 +28,6 @@ public class User {
     private String nickname;
 
     private String mobile;
-    private String mobile1;
 
     private String avatar;
 
