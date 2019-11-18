@@ -200,12 +200,9 @@ public class UserServiceImpl implements UserService{
         return map;
     }
 
-    @Autowired
-    CouponUserMapper couponUserMapper;
-
     @Override
     public int countUsers() {
-        return (int) couponUserMapper.countByExample(null);
+        return (int) userMapper.countByExample(null);
     }
 
 }
