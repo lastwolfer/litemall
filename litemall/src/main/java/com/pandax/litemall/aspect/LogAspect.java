@@ -2,9 +2,8 @@ package com.pandax.litemall.aspect;
 
 import com.pandax.litemall.bean.BaseReqVo;
 import com.pandax.litemall.bean.Log;
-import com.pandax.litemall.exception.AdminException;
+import com.pandax.litemall.exception.SystemException;
 import com.pandax.litemall.service.LogService;
-import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -120,7 +119,7 @@ public class LogAspect {
      * @return
      */
     @AfterThrowing(pointcut = "log()", throwing = "e")
-    public void afterThrowing(AdminException e){
+    public void afterThrowing(SystemException e){
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
         String uri = request.getRequestURI();

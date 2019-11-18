@@ -25,4 +25,8 @@ public interface RoleService {
     Map createRole(Role role);
 
     int deleteRole(Role role);
+
+    Role selectRoleById(int id);
+
+    Role selectRoleByName(String name);
 }

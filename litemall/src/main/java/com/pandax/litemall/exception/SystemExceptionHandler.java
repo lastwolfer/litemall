@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @ControllerAdvice
 @ResponseBody
-public class AdminExceptionHandler {
+public class SystemExceptionHandler {
 
-    @ExceptionHandler(AdminException.class)
-    public BaseReqVo handleAdminException(AdminException e){
+    @ExceptionHandler(SystemException.class)
+    public BaseReqVo handleAdminException(SystemException e){
         BaseReqVo baseReqVo = new BaseReqVo();
         baseReqVo.setErrno(e.getErrorNo());
         baseReqVo.setErrmsg(e.getMessage());

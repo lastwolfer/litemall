@@ -26,4 +26,8 @@ public interface RoleMapper {
     Role getRole(@Param("id") Integer id);
 
     int deleteRole(@Param("role") Role role);
+
+    Role selectRoleById(@Param("id") int id);
+
+    Role selectRoleByName(@Param("name") String name);
 }

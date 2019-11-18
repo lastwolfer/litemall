@@ -14,21 +14,25 @@
         select id, name, `desc`, enabled,
         add_time, update_time,deleted
         from cskaoyan_mall_role
+        <where>
+            deleted = false
+        </where>
     </select>
     <select id="selectRoleList" resultMap="roleMap">
         select id, name, `desc`, enabled,add_time, update_time,deleted from cskaoyan_mall_role
         <where>
-            <if test="name!=null">
-                name like #{name}
-            </if>
+            <trim suffixOverrides="and">
+                deleted = false and
+                <if test="name!=null">
+                    name like #{name}
+                </if>
+            </trim>
         </where>
     </select>
 
     <update id="updateRole" parameterType="com.pandax.litemall.bean.Role">
         update cskaoyan_mall_role set
-          name = #{role.name},`desc` =#{role.desc},
-          enabled = #{role.enabled},update_time = now(),add_time = #{role.addTime},
-          deleted = #{role.deleted}
+          name = #{role.name},`desc` =#{role.desc}, update_time = now()
       <where>
           id = #{role.id}
       </where>
@@ -49,7 +53,30 @@
     </select>
 
     <delete id="deleteRole">
-        delete from cskaoyan_mall_role where id = #{role.id}
+        <!--delete from cskaoyan_mall_role where id = #{role.id}-->
+        update cskaoyan_mall_role
+        set deleted = true
+        <where>
+            id = #{role.id}
+        </where>
     </delete>
+    <select id="selectRoleById" resultMap="roleMap">
+        select id, name, `desc`, enabled,
+        add_time, update_time,deleted
+        from cskaoyan_mall_role
+        <where>
+            deleted = false and
+            id = #{id}
+        </where>
+    </select>
+    <select id="selectRoleByName" resultMap="roleMap">
+        select id, name, `desc`, enabled,
+        add_time, update_time,deleted
+        from cskaoyan_mall_role
+        <where>
+            deleted = false and
+            `name` = #{name}
+        </where>
+    </select>
 
 </mapper>

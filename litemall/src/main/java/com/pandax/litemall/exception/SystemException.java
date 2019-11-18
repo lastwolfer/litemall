@@ -7,14 +7,14 @@ package com.pandax.litemall.exception;
  * @time 16:26
  */
 
-public class AdminException extends Exception{
+public class SystemException extends Exception{
 
     private int errorNo;
 
-    public AdminException() {
+    public SystemException() {
     }
 
-    public AdminException(int errorNo, String message) {
+    public SystemException(int errorNo, String message) {
         super(message);
         this.errorNo = errorNo;
     }

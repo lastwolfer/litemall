@@ -1,6 +1,6 @@
 package com.pandax.litemall.controller;
 
-import com.pandax.litemall.exception.AdminException;
+import com.pandax.litemall.exception.SystemException;
 import com.pandax.litemall.bean.*;
 import com.pandax.litemall.service.AdminService;
 import com.pandax.litemall.service.LogService;
@@ -74,16 +74,16 @@ public class SystemController {
      * @return
      */
     @RequestMapping("admin/update")
-    public BaseReqVo adminUpdate(@RequestBody Admin admin) throws AdminException {
+    public BaseReqVo adminUpdate(@RequestBody Admin admin) throws SystemException {
         BaseReqVo baseReqVo = new BaseReqVo();
         checkUsernameAndPassword(admin);
         /*int count = adminService.queryUserCountByName(username);
         if(count == 1) {
-            throw new AdminException(602, "管理员已经存在");
+            throw new SystemException(602, "管理员已经存在");
         }
         String password = admin.getPassword();
         if(password.length() < 6){
-            throw new AdminException(602, "管理员密码长度不能小于6");
+            throw new SystemException(602, "管理员密码长度不能小于6");
         }*/
         adminService.updateAdmin(admin);
         baseReqVo.setData(admin);
@@ -119,7 +119,7 @@ public class SystemController {
      * @return
      */
     @RequestMapping("admin/create")
-    public BaseReqVo adminCreate(@RequestBody Admin admin) throws AdminException {
+    public BaseReqVo adminCreate(@RequestBody Admin admin) throws SystemException {
         BaseReqVo baseReqVo = new BaseReqVo();
 
         checkUsernameAndPassword(admin);
@@ -144,21 +144,21 @@ public class SystemController {
      * @param admin 用户
      * @return true/false
      */
-    private void checkUsernameAndPassword(Admin admin) throws AdminException {
+    private void checkUsernameAndPassword(Admin admin) throws SystemException {
         //^[a-zA-Z0-9_-]{4,16}
         Admin queryAdmin = adminService.queryUserCountById(admin.getId());
         String username = admin.getUsername();
         if (queryAdmin != null && !username.equals(queryAdmin.getUsername())) {
             if(!username.matches("^[\\u4E00-\\u9FA5-a-zA-Z0-9_-]{6,20}")) {
-                throw new AdminException(601, "管理员名称不符合规定");
+                throw new SystemException(601, "管理员名称不符合规定");
             }
             int count = adminService.queryUserCountByName(username);
             if(count == 1) {
-                throw new AdminException(602, "管理员已经存在");
+                throw new SystemException(602, "管理员已经存在");
             }
         }
         if(admin.getPassword().length() < 6){
-            throw new AdminException(602, "管理员密码长度不能小于6");
+            throw new SystemException(602, "管理员密码长度不能小于6");
         }
     }
 
@@ -370,13 +370,33 @@ public class SystemController {
      * @return
      */
     @RequestMapping("role/update")
-    public BaseReqVo updateRole(@RequestBody Role role){
+    public BaseReqVo updateRole(@RequestBody Role role) throws SystemException {
         BaseReqVo baseReqVo = new BaseReqVo();
+        if(isRepeatRole(role)){
+            throw new SystemException(640, "角色已经存在");
+        }
         Role updateRole = roleService.updateRole(role);
         baseReqVo.setData(updateRole);
         baseReqVo.setErrmsg("成功");
         baseReqVo.setErrno(0);
         return baseReqVo;
+    }
+
+    private boolean isRepeatRole(Role role) {
+        Role r1 = null;
+        if(role.getId() != 0) {
+            r1 = roleService.selectRoleById(role.getId());
+        }
+        Role r2 = roleService.selectRoleByName(role.getName());
+        if(r1 == null) {
+            return r2 != null;
+        } else {
+            if(r1.getName().equals(role.getName())){
+                return false;
+            } else {
+                return r2 != null;
+            }
+        }
     }
 
     /**创建角色信息
@@ -398,8 +418,11 @@ public class SystemController {
      * @return BaseReqVo
      */
     @RequestMapping("role/create")
-    public BaseReqVo createRole(@RequestBody Role role){
+    public BaseReqVo createRole(@RequestBody Role role) throws SystemException {
         BaseReqVo baseReqVo = new BaseReqVo();
+        if(isRepeatRole(role)) {
+            throw new SystemException(640, "角色已经存在");
+        }
         Map<String,Object> map = roleService.createRole(role);
         baseReqVo.setData(map);
         baseReqVo.setErrmsg("成功");
