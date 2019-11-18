@@ -19,5 +19,4 @@ public interface StorageMapper {
     int updateStorage(@Param("storage") Storage storage);
 
     int deleteStorage(@Param("storage") Storage storage);
-
 }

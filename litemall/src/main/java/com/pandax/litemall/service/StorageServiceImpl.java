@@ -7,6 +7,9 @@ import com.pandax.litemall.bean.Storage;
 import com.pandax.litemall.mapper.StorageMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.HashMap;
+import java.util.List;
+
 
 
 /**
@@ -16,8 +19,6 @@ import org.springframework.stereotype.Service;
  * @time 14:05
  */
 
-import java.util.HashMap;
-import java.util.List;
 
 @Service
 public class StorageServiceImpl implements StorageService {
@@ -30,6 +31,7 @@ public class StorageServiceImpl implements StorageService {
         storageMapper.insertStorage(storage);
         return storage.getId();
     }
+
     @Override
     public HashMap<String, Object> queryStorage(Integer page, Integer limit, String sort, String order,String key,String name) {
         PageHelper.startPage(page, limit);
