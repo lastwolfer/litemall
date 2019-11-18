@@ -1,5 +1,6 @@
 package com.pandax.litemall.controller;
 
+import com.pandax.litemall.exception.AdminException;
 import com.pandax.litemall.bean.*;
 import com.pandax.litemall.service.AdminService;
 import com.pandax.litemall.service.LogService;
@@ -10,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -74,15 +74,17 @@ public class SystemController {
      * @return
      */
     @RequestMapping("admin/update")
-    public BaseReqVo adminUpdate(@RequestBody Admin admin){
+    public BaseReqVo adminUpdate(@RequestBody Admin admin) throws AdminException {
         BaseReqVo baseReqVo = new BaseReqVo();
+        checkUsernameAndPassword(admin);
+        /*int count = adminService.queryUserCountByName(username);
+        if(count == 1) {
+            throw new AdminException(602, "管理员已经存在");
+        }
         String password = admin.getPassword();
         if(password.length() < 6){
-            baseReqVo.setData(null);
-            baseReqVo.setErrno(602);
-            baseReqVo.setErrmsg("管理员密码长度不能小于6");
-            return baseReqVo;
-        }
+            throw new AdminException(602, "管理员密码长度不能小于6");
+        }*/
         adminService.updateAdmin(admin);
         baseReqVo.setData(admin);
         baseReqVo.setErrmsg("成功");
@@ -90,24 +92,77 @@ public class SystemController {
 
 
         //日志操作
-        Log log = new Log("unknow admin", "0:0:0:0:0:0:0:1",
-                1, "编辑管理员");
+//        Log log = new Log("unknow admin", "0:0:0:0:0:0:0:1",
+//                1, "编辑管理员");
+//
+//        /*log.setAdmin(username);
+//        log.setIp("0:0:0:0:0:0:0:1");
+//        log.setType(1);
+//        log.setAction("编辑管理员");
+//        log.setStatus(true);
+//        log.setResult("");
+//        log.setComment("");
+//        log.setAddTime(new Date());
+//        log.setUpdateTime(new Date());
+//        log.setDeleted(false);*/
+//
+//        logService.record(log);
 
-        /*log.setAdmin(username);
-        log.setIp("0:0:0:0:0:0:0:1");
-        log.setType(1);
-        log.setAction("编辑管理员");
-        log.setStatus(true);
-        log.setResult("");
-        log.setComment("");
-        log.setAddTime(new Date());
-        log.setUpdateTime(new Date());
-        log.setDeleted(false);*/
-
-        logService.record(log);
 
         return baseReqVo;
     }
+
+
+    /**
+     * 添加管理员
+     * @param admin 管理员信息
+     * @return
+     */
+    @RequestMapping("admin/create")
+    public BaseReqVo adminCreate(@RequestBody Admin admin) throws AdminException {
+        BaseReqVo baseReqVo = new BaseReqVo();
+
+        checkUsernameAndPassword(admin);
+
+
+        Admin returnAdmin = adminService.createAdmin(admin);
+        baseReqVo.setData(returnAdmin);
+        baseReqVo.setErrmsg("成功");
+        baseReqVo.setErrno(0);
+
+
+        /*Log log = new Log("unknow admin", "0:0:0:0:0:0:0:1",
+                1, "添加管理员");
+        logService.record(log);*/
+
+        return baseReqVo;
+    }
+
+
+    /**
+     * 检验用户名和密码是否正确
+     * @param admin 用户
+     * @return true/false
+     */
+    private void checkUsernameAndPassword(Admin admin) throws AdminException {
+        //^[a-zA-Z0-9_-]{4,16}
+        Admin queryAdmin = adminService.queryUserCountById(admin.getId());
+        String username = admin.getUsername();
+        if (queryAdmin != null && !username.equals(queryAdmin.getUsername())) {
+            if(!username.matches("^[\\u4E00-\\u9FA5-a-zA-Z0-9_-]{6,20}")) {
+                throw new AdminException(601, "管理员名称不符合规定");
+            }
+            int count = adminService.queryUserCountByName(username);
+            if(count == 1) {
+                throw new AdminException(602, "管理员已经存在");
+            }
+        }
+        if(admin.getPassword().length() < 6){
+            throw new AdminException(602, "管理员密码长度不能小于6");
+        }
+    }
+
+
 
     /**
      * 删除管理员
@@ -120,12 +175,12 @@ public class SystemController {
         adminService.deleteAdmin(admin);
 
         //日志操作
-        Log log = new Log("unknow admin", "0:0:0:0:0:0:0:1",
+        /*Log log = new Log("unknow admin", "0:0:0:0:0:0:0:1",
                 1, "删除管理员");
 
-        logService.record(log);
+        logService.record(log);*/
 
-        baseReqVo.setErrmsg("成功");
+        baseReqVo.setErrmsg("成功删除：" + admin.getUsername());
         baseReqVo.setErrno(0);
         return baseReqVo;
     }
