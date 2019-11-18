@@ -74,7 +74,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, keywords, desc, pid, icon_url, pic_url, level, sort_order, add_time, update_time, 
+    id, name, keywords, `desc`, pid, icon_url, pic_url, level, sort_order, add_time, update_time,
     deleted
   </sql>
   <select id="selectByExample" parameterType="com.pandax.litemall.bean.CategoryExample" resultMap="BaseResultMap">
@@ -92,7 +92,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from cskaoyan_mall_category
     where id = #{id,jdbcType=INTEGER}
@@ -108,14 +108,17 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.pandax.litemall.bean.Category">
-    insert into cskaoyan_mall_category (id, name, keywords, 
-      desc, pid, icon_url, 
-      pic_url, level, sort_order, 
+    <selectKey order="AFTER" keyColumn="id" keyProperty="id" resultType="integer">
+      select LAST_INSERT_ID() as id
+    </selectKey>
+    insert into cskaoyan_mall_category (id, name, keywords,
+      `desc`, pid, icon_url,
+      pic_url, level, sort_order,
       add_time, update_time, deleted
       )
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{keywords,jdbcType=VARCHAR}, 
-      #{desc,jdbcType=VARCHAR}, #{pid,jdbcType=INTEGER}, #{iconUrl,jdbcType=VARCHAR}, 
-      #{picUrl,jdbcType=VARCHAR}, #{level,jdbcType=VARCHAR}, #{sortOrder,jdbcType=TINYINT}, 
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{keywords,jdbcType=VARCHAR},
+      #{desc,jdbcType=VARCHAR}, #{pid,jdbcType=INTEGER}, #{iconUrl,jdbcType=VARCHAR},
+      #{picUrl,jdbcType=VARCHAR}, #{level,jdbcType=VARCHAR}, #{sortOrder,jdbcType=TINYINT},
       #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT}
       )
   </insert>
@@ -309,7 +312,7 @@
     update cskaoyan_mall_category
     set name = #{name,jdbcType=VARCHAR},
       keywords = #{keywords,jdbcType=VARCHAR},
-      desc = #{desc,jdbcType=VARCHAR},
+      `desc` = #{desc,jdbcType=VARCHAR},
       pid = #{pid,jdbcType=INTEGER},
       icon_url = #{iconUrl,jdbcType=VARCHAR},
       pic_url = #{picUrl,jdbcType=VARCHAR},
@@ -320,4 +323,55 @@
       deleted = #{deleted,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <resultMap id="CategoryListMap" type="com.pandax.litemall.bean.Category">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="keywords" jdbcType="VARCHAR" property="keywords" />
+    <result column="desc" jdbcType="VARCHAR" property="desc" />
+    <result column="pid" jdbcType="INTEGER" property="pid" />
+    <result column="icon_url" jdbcType="VARCHAR" property="iconUrl" />
+    <result column="pic_url" jdbcType="VARCHAR" property="picUrl" />
+    <result column="level" jdbcType="VARCHAR" property="level" />
+    <result column="sort_order" jdbcType="TINYINT" property="sortOrder" />
+    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="deleted" jdbcType="BIT" property="deleted" />
+    <collection property="children" column="id" select="com.pandax.litemall.mapper.CategoryMapper.selectByPid"/>
+  </resultMap>
+  <resultMap id="CategoryListMap1" type="com.pandax.litemall.bean.Category">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="keywords" jdbcType="VARCHAR" property="keywords" />
+    <result column="desc" jdbcType="VARCHAR" property="desc" />
+    <result column="pid" jdbcType="INTEGER" property="pid" />
+    <result column="icon_url" jdbcType="VARCHAR" property="iconUrl" />
+    <result column="pic_url" jdbcType="VARCHAR" property="picUrl" />
+    <result column="level" jdbcType="VARCHAR" property="level" />
+    <result column="sort_order" jdbcType="TINYINT" property="sortOrder" />
+    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="deleted" jdbcType="BIT" property="deleted" />
+    <!--<collection property="children" column="id" select="com.pandax.litemall.mapper.CategoryMapper.selectByPid"/>-->
+  </resultMap>
+  <select id="selectCategoryList" resultMap="CategoryListMap">
+    select
+    <include refid="Base_Column_List" />
+    from cskaoyan_mall_category
+    where level='L1'
+  </select>
+  <select id="selectByPid" resultMap="CategoryListMap1">
+    select
+    <include refid="Base_Column_List" />
+    from cskaoyan_mall_category
+    where pid=#{id}
+  </select>
+  <select id="categoryL1" resultMap="CategoryListMap1">
+    select
+    <include refid="Base_Column_List" />
+    from cskaoyan_mall_category
+    where level='L1'
+  </select>
+  <delete id="deleteByPid">
+    delete from cskaoyan_mall_category where pid=#{pid}
+  </delete>
 </mapper>

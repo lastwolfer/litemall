@@ -1,8 +1,11 @@
 package com.pandax.litemall.bean;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Data;
+
 import java.math.BigDecimal;
 import java.util.Date;
-
+@Data
 public class Brand {
     private Integer id;
 
@@ -16,8 +19,10 @@ public class Brand {
 
     private BigDecimal floorPrice;
 
+    @JsonFormat(pattern = "yyyy-MM-hh")
     private Date addTime;
 
+    @JsonFormat(pattern = "yyyy-MM-hh")
     private Date updateTime;
 
     private Boolean deleted;

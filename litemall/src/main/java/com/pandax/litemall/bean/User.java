@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import java.util.Date;
 
 public class User {
+
     private Integer id;
 
     private String username;
@@ -26,6 +27,7 @@ public class User {
     private String nickname;
 
     private String mobile;
+    private String mobile1;
 
     private String avatar;
 

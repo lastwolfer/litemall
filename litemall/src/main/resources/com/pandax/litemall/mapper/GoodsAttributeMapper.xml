@@ -69,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, goods_id, attribute, value, add_time, update_time, deleted
+    id, goods_id, attribute, `value`, add_time, update_time, deleted
   </sql>
   <select id="selectByExample" parameterType="com.pandax.litemall.bean.GoodsAttributeExample" resultMap="BaseResultMap">
     select
@@ -86,7 +86,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from cskaoyan_mall_goods_attribute
     where id = #{id,jdbcType=INTEGER}
@@ -102,11 +102,11 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.pandax.litemall.bean.GoodsAttribute">
-    insert into cskaoyan_mall_goods_attribute (id, goods_id, attribute, 
-      value, add_time, update_time, 
+    insert into cskaoyan_mall_goods_attribute (id, goods_id, attribute,
+      value, add_time, update_time,
       deleted)
-    values (#{id,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, #{attribute,jdbcType=VARCHAR}, 
-      #{value,jdbcType=VARCHAR}, #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+    values (#{id,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, #{attribute,jdbcType=VARCHAR},
+      #{value,jdbcType=VARCHAR}, #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
       #{deleted,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="com.pandax.litemall.bean.GoodsAttribute">

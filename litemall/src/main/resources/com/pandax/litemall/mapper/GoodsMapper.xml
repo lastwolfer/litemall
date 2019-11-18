@@ -7,7 +7,7 @@
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="category_id" jdbcType="INTEGER" property="categoryId" />
     <result column="brand_id" jdbcType="INTEGER" property="brandId" />
-    <result column="gallery" jdbcType="VARCHAR" property="gallery" />
+    <result column="gallery" jdbcType="VARCHAR" property="gallery" typeHandler="com.pandax.litemall.handler.String2ArrayTypeHandler"/>
     <result column="keywords" jdbcType="VARCHAR" property="keywords" />
     <result column="brief" jdbcType="VARCHAR" property="brief" />
     <result column="is_on_sale" jdbcType="BIT" property="isOnSale" />
@@ -19,6 +19,7 @@
     <result column="unit" jdbcType="VARCHAR" property="unit" />
     <result column="counter_price" jdbcType="DECIMAL" property="counterPrice" />
     <result column="retail_price" jdbcType="DECIMAL" property="retailPrice" />
+<!--    <result column="detail" jdbcType="TEXT" property="detail"/>-->
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="deleted" jdbcType="BIT" property="deleted" />
@@ -85,8 +86,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, goods_sn, name, category_id, brand_id, gallery, keywords, brief, is_on_sale, 
-    sort_order, pic_url, share_url, is_new, is_hot, unit, counter_price, retail_price, 
+    id, goods_sn, name, category_id, brand_id, gallery, keywords, brief, is_on_sale,
+    sort_order, pic_url, share_url, is_new, is_hot, unit, counter_price, retail_price,
     add_time, update_time, deleted
   </sql>
   <sql id="Blob_Column_List">
@@ -123,7 +124,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
-    select 
+    select
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
@@ -141,22 +142,28 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.pandax.litemall.bean.Goods">
-    insert into cskaoyan_mall_goods (id, goods_sn, name, 
-      category_id, brand_id, gallery, 
-      keywords, brief, is_on_sale, 
-      sort_order, pic_url, share_url, 
-      is_new, is_hot, unit, counter_price, 
-      retail_price, add_time, update_time, 
+    <selectKey order="AFTER" keyColumn="LAST_INSERT_ID()" keyProperty="id" resultType="int">
+      select LAST_INSERT_ID()
+    </selectKey>
+    insert into cskaoyan_mall_goods (id, goods_sn, name,
+      category_id, brand_id, gallery,
+      keywords, brief, is_on_sale,
+      sort_order, pic_url, share_url,
+      is_new, is_hot, unit, counter_price,
+      retail_price, add_time, update_time,
       deleted, detail)
-    values (#{id,jdbcType=INTEGER}, #{goodsSn,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
-      #{categoryId,jdbcType=INTEGER}, #{brandId,jdbcType=INTEGER}, #{gallery,jdbcType=VARCHAR}, 
-      #{keywords,jdbcType=VARCHAR}, #{brief,jdbcType=VARCHAR}, #{isOnSale,jdbcType=BIT}, 
-      #{sortOrder,jdbcType=SMALLINT}, #{picUrl,jdbcType=VARCHAR}, #{shareUrl,jdbcType=VARCHAR}, 
-      #{isNew,jdbcType=BIT}, #{isHot,jdbcType=BIT}, #{unit,jdbcType=VARCHAR}, #{counterPrice,jdbcType=DECIMAL}, 
-      #{retailPrice,jdbcType=DECIMAL}, #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+    values (#{id,jdbcType=INTEGER}, #{goodsSn,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},
+      #{categoryId,jdbcType=INTEGER}, #{brandId,jdbcType=INTEGER}, #{gallery,jdbcType=VARCHAR,typeHandler=com.pandax.litemall.handler.String2ArrayTypeHandler},
+      #{keywords,jdbcType=VARCHAR}, #{brief,jdbcType=VARCHAR}, #{isOnSale,jdbcType=BIT},
+      #{sortOrder,jdbcType=SMALLINT}, #{picUrl,jdbcType=VARCHAR}, #{shareUrl,jdbcType=VARCHAR},
+      #{isNew,jdbcType=BIT}, #{isHot,jdbcType=BIT}, #{unit,jdbcType=VARCHAR}, #{counterPrice,jdbcType=DECIMAL},
+      #{retailPrice,jdbcType=DECIMAL}, #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
       #{deleted,jdbcType=BIT}, #{detail,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.pandax.litemall.bean.Goods">
+    <selectKey order="AFTER" keyColumn="LAST_INSERT_ID()" keyProperty="id" resultType="int">
+      select LAST_INSERT_ID()
+    </selectKey>
     insert into cskaoyan_mall_goods
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -240,7 +247,7 @@
         #{brandId,jdbcType=INTEGER},
       </if>
       <if test="gallery != null">
-        #{gallery,jdbcType=VARCHAR},
+        #{gallery,jdbcType=VARCHAR,typeHandler=com.pandax.litemall.handler.String2ArrayTypeHandler},
       </if>
       <if test="keywords != null">
         #{keywords,jdbcType=VARCHAR},
@@ -435,7 +442,7 @@
         brand_id = #{brandId,jdbcType=INTEGER},
       </if>
       <if test="gallery != null">
-        gallery = #{gallery,jdbcType=VARCHAR},
+        gallery = #{gallery,jdbcType=VARCHAR,typeHandler=com.pandax.litemall.handler.String2ArrayTypeHandler},
       </if>
       <if test="keywords != null">
         keywords = #{keywords,jdbcType=VARCHAR},
@@ -491,7 +498,7 @@
       name = #{name,jdbcType=VARCHAR},
       category_id = #{categoryId,jdbcType=INTEGER},
       brand_id = #{brandId,jdbcType=INTEGER},
-      gallery = #{gallery,jdbcType=VARCHAR},
+      gallery = #{gallery,jdbcType=VARCHAR,typeHandler=com.pandax.litemall.handler.String2ArrayTypeHandler},
       keywords = #{keywords,jdbcType=VARCHAR},
       brief = #{brief,jdbcType=VARCHAR},
       is_on_sale = #{isOnSale,jdbcType=BIT},
@@ -532,4 +539,7 @@
       deleted = #{deleted,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+    <select id="selectCategory" resultType="com.pandax.litemall.bean.CategoryList">
+      select id as value ,name as label from cskaoyan_mall_category where pid = #{value}
+    </select>
 </mapper>

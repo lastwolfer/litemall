@@ -1,6 +1,7 @@
 package com.pandax.litemall.service;
 
 
+
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.pandax.litemall.bean.*;
@@ -11,6 +12,16 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import com.pandax.litemall.mapper.CouponUserMapper;
+
+
+/**
+ * @author Da
+ * @version 1.0
+ * @date 2019/11/15
+ * @time 17:28
+ */
+
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -189,5 +200,12 @@ public class UserServiceImpl implements UserService{
         return map;
     }
 
+    @Autowired
+    CouponUserMapper couponUserMapper;
+
+    @Override
+    public int countUsers() {
+        return (int) couponUserMapper.countByExample(null);
+    }
 
 }

@@ -8,7 +8,7 @@
     <result column="content" jdbcType="VARCHAR" property="content" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="has_picture" jdbcType="BIT" property="hasPicture" />
-    <result column="pic_urls" jdbcType="VARCHAR" property="picUrls" />
+    <result column="pic_urls" jdbcType="VARCHAR" property="picUrls" typeHandler="com.pandax.litemall.handler.String2ArrayTypeHandler" />
     <result column="star" jdbcType="SMALLINT" property="star" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
@@ -73,7 +73,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, value_id, type, content, user_id, has_picture, pic_urls, star, add_time, update_time, 
+    id, value_id, type, content, user_id, has_picture, pic_urls, star, add_time, update_time,
     deleted
   </sql>
   <select id="selectByExample" parameterType="com.pandax.litemall.bean.CommentExample" resultMap="BaseResultMap">
@@ -91,7 +91,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from cskaoyan_mall_comment
     where id = #{id,jdbcType=INTEGER}
@@ -107,13 +107,13 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.pandax.litemall.bean.Comment">
-    insert into cskaoyan_mall_comment (id, value_id, type, 
-      content, user_id, has_picture, 
-      pic_urls, star, add_time, 
+    insert into cskaoyan_mall_comment (id, value_id, type,
+      content, user_id, has_picture,
+      pic_urls, star, add_time,
       update_time, deleted)
-    values (#{id,jdbcType=INTEGER}, #{valueId,jdbcType=INTEGER}, #{type,jdbcType=TINYINT}, 
-      #{content,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, #{hasPicture,jdbcType=BIT}, 
-      #{picUrls,jdbcType=VARCHAR}, #{star,jdbcType=SMALLINT}, #{addTime,jdbcType=TIMESTAMP}, 
+    values (#{id,jdbcType=INTEGER}, #{valueId,jdbcType=INTEGER}, #{type,jdbcType=TINYINT},
+      #{content,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, #{hasPicture,jdbcType=BIT},
+      #{picUrls,jdbcType=VARCHAR}, #{star,jdbcType=SMALLINT}, #{addTime,jdbcType=TIMESTAMP},
       #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="com.pandax.litemall.bean.Comment">

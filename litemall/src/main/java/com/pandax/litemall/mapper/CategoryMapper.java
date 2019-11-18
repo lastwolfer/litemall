@@ -3,6 +3,7 @@ package com.pandax.litemall.mapper;
 import com.pandax.litemall.bean.Category;
 import com.pandax.litemall.bean.CategoryExample;
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface CategoryMapper {
@@ -27,4 +28,10 @@ public interface CategoryMapper {
     int updateByPrimaryKeySelective(Category record);
 
     int updateByPrimaryKey(Category record);
+
+    Category[] selectCategoryList();
+
+    Category[] categoryL1();
+
+    void deleteByPid(@Param("pid") Integer id);
 }
