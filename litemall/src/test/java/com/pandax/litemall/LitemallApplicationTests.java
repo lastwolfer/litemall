@@ -21,6 +21,9 @@ class LitemallApplicationTests {
         String username = "username";
         String password = "password";
         UsernamePasswordToken token = new UsernamePasswordToken(username,password);
+        subject.login(token);
+        boolean authenticated = subject.isAuthenticated();
+
     }
 
 }
