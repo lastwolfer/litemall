@@ -1,11 +1,7 @@
 package com.pandax.litemall.controller;
 
-import com.pandax.litemall.bean.Admin;
-import com.pandax.litemall.bean.BaseReqVo;
-import com.pandax.litemall.bean.Log;
-import com.pandax.litemall.bean.RoleInfo;
-import com.pandax.litemall.bean.Storage;
 import com.pandax.litemall.exception.AdminException;
+import com.pandax.litemall.bean.*;
 import com.pandax.litemall.service.AdminService;
 import com.pandax.litemall.service.LogService;
 import com.pandax.litemall.service.RoleService;
@@ -305,4 +301,135 @@ public class SystemController {
         }
         return baseReqVo;
     }
+
+    /**显示角色信息
+     * Request:
+     * page: 1
+     * limit: 20
+     * name:
+     * sort: add_time
+     * order: desc
+     * Response:
+     * {
+     *     "errno": 0,
+     *     "data": {
+     *         "total": 33,
+     *         "items": [
+     *             {
+     *                 "id": 124,
+     *                 "name": "iiiiiii",
+     *                 "desc": "????",
+     *                 "enabled": true,
+     *                 "addTime": "2019-11-17 20:58:45",
+     *                 "updateTime": "2019-11-17 20:58:45",
+     *                 "deleted": false
+     *             },
+     *             {
+     *                 "id": 123,
+     *                 "name": "21321",
+     *                 "desc": "321321",
+     *                 "enabled": true,
+     *                 "addTime": "2019-11-17 08:41:12",
+     *                 "updateTime": "2019-11-17 08:41:12",
+     *                 "deleted": false
+     *             }
+     *         ]
+     *     },
+     *     "errmsg": "成功"
+     * }
+     * @param page
+     * @param limit
+     * @param sort
+     * @param order
+     * @param name
+     * @return
+     */
+    @RequestMapping("role/list")
+    public BaseReqVo showRoleList(Integer page, Integer limit, String sort, String order,String name){
+        BaseReqVo baseReqVo = new BaseReqVo();
+        HashMap<String,Object> map = roleService.getRoles(page,limit,sort,order,name);
+        baseReqVo.setData(map);
+        baseReqVo.setErrmsg("成功");
+        baseReqVo.setErrno(0);
+        return baseReqVo;
+    }
+
+
+    /**修改角色信息
+     * Request:
+     * addTime: "2019-11-17 20:58:45"
+     * deleted: false
+     * desc: "hahaha"
+     * enabled: true
+     * id: 124
+     * name: "iiiiiii"
+     * updateTime: "2019-11-17 20:58:45"
+     * Response:
+     * {"errno":0,"errmsg":"成功"}
+     * @param role
+     * @return
+     */
+    @RequestMapping("role/update")
+    public BaseReqVo updateRole(@RequestBody Role role){
+        BaseReqVo baseReqVo = new BaseReqVo();
+        Role updateRole = roleService.updateRole(role);
+        baseReqVo.setData(updateRole);
+        baseReqVo.setErrmsg("成功");
+        baseReqVo.setErrno(0);
+        return baseReqVo;
+    }
+
+    /**创建角色信息
+     * Request:
+     * {name: "xixixi234", desc: "hahaha"}
+     * Response:
+     * {
+     *     "errno": 0,
+     *     "data": {
+     *         "id": 128,
+     *         "name": "xixixi234",
+     *         "desc": "hahaha",
+     *         "addTime": "2019-11-18 03:19:10",
+     *         "updateTime": "2019-11-18 03:19:10"
+     *     },
+     *     "errmsg": "成功"
+     * }
+     * @param role
+     * @return BaseReqVo
+     */
+    @RequestMapping("role/create")
+    public BaseReqVo createRole(@RequestBody Role role){
+        BaseReqVo baseReqVo = new BaseReqVo();
+        Map<String,Object> map = roleService.createRole(role);
+        baseReqVo.setData(map);
+        baseReqVo.setErrmsg("成功");
+        baseReqVo.setErrno(0);
+        return baseReqVo;
+    }
+
+    /**删除角色信息
+     * Request:
+     * addTime: "2019-11-18 02:53:03"
+     * deleted: false
+     * desc: "hahah"
+     * enabled: true
+     * id: 126
+     * name: "xixixi"
+     * updateTime: "2019-11-18 02:57:47"
+     * Response:
+     * {"errno":0,"errmsg":"成功"}
+     * @param role
+     * @return BaseReqVo
+     */
+    @RequestMapping("role/delete")
+    public BaseReqVo deleteRole(@RequestBody Role role){
+        BaseReqVo baseReqVo = new BaseReqVo();
+        int deleteStatus = roleService.deleteRole(role);
+        if(deleteStatus != -1){
+            baseReqVo.setErrno(0);
+            baseReqVo.setErrmsg("成功");
+        }
+        return baseReqVo;
+    }
+
 }

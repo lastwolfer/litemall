@@ -15,6 +15,7 @@ spring:
 
 pagehelper:
   helper-dialect: mysql
+
 logging:
   level:
     com:

@@ -19,6 +19,7 @@ public class String2ArrayTypeHandler implements TypeHandler<String[]> {
     public void setParameter(PreparedStatement preparedStatement, int index, String[] strings, JdbcType jdbcType) throws SQLException {
         preparedStatement.setString(index,parseArray2String(strings));
     }
+
     /*输出映射*/
     @Override
     public String[] getResult(ResultSet resultSet, String columnName) throws SQLException {

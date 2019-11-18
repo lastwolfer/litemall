@@ -209,6 +209,7 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
+<!--龙-->
   <resultMap id="allRegion1" type="com.pandax.litemall.bean.Region">
     <result column="id" property="id"/>
     <result column="pid" property="pid"/>
@@ -217,6 +218,11 @@
     <result column="code" property="code"/>
     <collection property="children" column="id" select="com.pandax.litemall.mapper.RegionMapper.selectChild1"/>
   </resultMap>
+
+  <select id="selectNameById" resultType="java.lang.String">
+    select name from cskaoyan_mall_region where code = #{code}
+  </select>
+
   <select id="setlectAllRegion" resultMap="allRegion1">
     select id,name,type,code from cskaoyan_mall_region where type=1
   </select>
@@ -227,4 +233,6 @@
   <select id="selectByPid" resultMap="BaseResultMap">
     select id,pid,name,type,code from cskaoyan_mall_region where type=3 and pid=#{pid}
   </select>
+
 </mapper>
+
