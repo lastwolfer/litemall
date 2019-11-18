@@ -31,7 +31,8 @@ public class PromotionServiceImpl implements PromotionService {
     GrouponMapper grouponMapper;
 
     @Override
-    public Map<String,Object> selectByExample(Integer page, Integer limit, Ad ad) {
+    public Map<String,Object> listAd(Integer page, Integer limit, String sort,String order,Ad ad) {
+        PageHelper.startPage(page,limit);//分页
         AdExample example = new AdExample();
         AdExample.Criteria criteria = example.createCriteria();
         if(ad.getName()!=null) {
@@ -40,9 +41,8 @@ public class PromotionServiceImpl implements PromotionService {
         if(ad.getContent()!=null){
             criteria.andContentLike("%" + ad.getContent() + "%");
         }
+        example.setOrderByClause(sort+" "+order);//排序
         List<Ad> ads = adMapper.selectByExample(example);
-        //完成分页的查询
-        PageHelper.startPage(page,limit);
         PageInfo<Ad> adPageInfo = new PageInfo<>(ads);
         long total = adPageInfo.getTotal();
         HashMap<String, Object> map = new HashMap<>();
@@ -79,7 +79,8 @@ public class PromotionServiceImpl implements PromotionService {
     }
 
     @Override
-    public Map<String, Object> listTopic(Integer page, Integer limit, Topic topic) {
+    public Map<String, Object> listTopic(Integer page, Integer limit, String sort,String order,Topic topic) {
+        PageHelper.startPage(page,limit);
         TopicExample example = new TopicExample();
         TopicExample.Criteria criteria = example.createCriteria();
         if(topic.getTitle()!=null) {
@@ -88,9 +89,8 @@ public class PromotionServiceImpl implements PromotionService {
         if(topic.getSubtitle()!=null){
             criteria.andSubtitleLike("%" +topic.getSubtitle()+ "%");
         }
+        example.setOrderByClause(sort+" "+order);
         List<Topic> list = topicMapper.selectByExample(example);
-        //完成分页的查询
-        PageHelper.startPage(page,limit);
         PageInfo<Topic> PageInfo = new PageInfo<>(list);
         long total = PageInfo.getTotal();
         HashMap<String, Object> map = new HashMap<>();
@@ -126,15 +126,15 @@ public class PromotionServiceImpl implements PromotionService {
     }
 
     @Override
-    public Map<String, Object> listGroupon(Integer page, Integer limit, GrouponRules grouponRules) {
+    public Map<String, Object> listGroupon(Integer page, Integer limit,String sort,String order, GrouponRules grouponRules) {
+        PageHelper.startPage(page,limit);
         GrouponRulesExample example = new GrouponRulesExample();
         GrouponRulesExample.Criteria criteria = example.createCriteria();
         if(grouponRules.getGoodsId()!=null) {
                 criteria.andGoodsIdEqualTo(grouponRules.getGoodsId());
             }
+        example.setOrderByClause(sort+" "+order);
         List<GrouponRules> list = grouponRulesMapper.selectByExample(example);
-        //完成分页的查询
-        PageHelper.startPage(page,limit);
         PageInfo<GrouponRules> PageInfo = new PageInfo<>(list);
         long total = PageInfo.getTotal();
         HashMap<String, Object> map = new HashMap<>();
@@ -177,15 +177,15 @@ public class PromotionServiceImpl implements PromotionService {
     }
 
     @Override
-    public Map<String, Object> listRecord(Integer page, Integer limit, Groupon groupon) {
+    public Map<String, Object> listRecord(Integer page, Integer limit,String sort,String order, Groupon groupon) {
+        PageHelper.startPage(page,limit);
         GrouponExample example = new GrouponExample();
         GrouponExample.Criteria criteria = example.createCriteria();
         if(groupon.getGoodsId()!=null) {
             //未完待续 等写前端的时候再说吧。。。。。。
         }
+        example.setOrderByClause(sort+" "+order);
         List<Groupon> list = grouponMapper.selectByExample(example);
-        //完成分页的查询
-        PageHelper.startPage(page,limit);
         PageInfo<Groupon> PageInfo = new PageInfo<>(list);
         long total = PageInfo.getTotal();
         HashMap<String, Object> map = new HashMap<>();
@@ -195,7 +195,8 @@ public class PromotionServiceImpl implements PromotionService {
     }
 
     @Override
-    public Map<String, Object> listCoupon(Integer page, Integer limit, Coupon coupon) {
+    public Map<String, Object> listCoupon(Integer page, Integer limit,String sort,String order, Coupon coupon) {
+        PageHelper.startPage(page,limit);
         CouponExample example = new CouponExample();
         CouponExample.Criteria criteria = example.createCriteria();
         if(coupon.getName()!=null) {
@@ -207,9 +208,8 @@ public class PromotionServiceImpl implements PromotionService {
         if(coupon.getType()!=null){
             criteria.andTypeEqualTo(coupon.getType());
         }
+        example.setOrderByClause(sort+" "+order);
         List<Coupon> couponList = couponMapper.selectByExample(example);
-        //完成分页的查询
-        PageHelper.startPage(page,limit);
         PageInfo<Coupon> PageInfo = new PageInfo<>(couponList);
         long total = PageInfo.getTotal();
         HashMap<String, Object> map = new HashMap<>();
@@ -235,7 +235,8 @@ public class PromotionServiceImpl implements PromotionService {
     }
 
     @Override
-    public Map<String, Object> listCouponUser(Integer page, Integer limit, CouponUser couponUser) {
+    public Map<String, Object> listCouponUser(Integer page, Integer limit, String sort,String order,CouponUser couponUser) {
+        PageHelper.startPage(page,limit);
         CouponUserExample example = new CouponUserExample();
         CouponUserExample.Criteria criteria = example.createCriteria();
         if(couponUser.getUserId()!=null) {
@@ -245,9 +246,8 @@ public class PromotionServiceImpl implements PromotionService {
             criteria.andStatusEqualTo(couponUser.getStatus());
         }
         criteria.andCouponIdEqualTo(couponUser.getCouponId());
+        example.setOrderByClause(sort+" "+order);
         List<CouponUser> couponUserList = couponUserMapper.selectByExample(example);
-        //完成分页的查询
-        PageHelper.startPage(page,limit);
         PageInfo<CouponUser> PageInfo = new PageInfo<>(couponUserList);
         long total = PageInfo.getTotal();
         HashMap<String, Object> map = new HashMap<>();
