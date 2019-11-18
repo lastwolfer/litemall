@@ -52,4 +52,22 @@ public class AdminServiceImpl implements AdminService{
     public void deleteAdmin(Admin admin) {
         adminMapper.deleteAdmin(admin.getId());
     }
+
+    @Override
+    public Admin createAdmin(Admin admin) {
+        adminMapper.createAdmin(admin);
+        int id = adminMapper.selectLastInsertId();
+        return adminMapper.selectAdminById(id);
+    }
+
+    @Override
+    public int queryUserCountByName(String username) {
+        Admin admin = adminMapper.selectAdminByName(username);
+        return admin == null? 0 : 1;
+    }
+
+    @Override
+    public Admin queryUserCountById(Integer id) {
+        return adminMapper.selectAdminById(id);
+    }
 }

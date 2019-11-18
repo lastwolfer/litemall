@@ -14,4 +14,12 @@ public interface AdminMapper {
     void updateAdmin(Admin admin);
 
     void deleteAdmin(Integer id);
+
+    void createAdmin(@Param("admin") Admin admin);
+
+    int selectLastInsertId();
+
+    Admin selectAdminById(@Param("id") int id);
+
+    Admin selectAdminByName(@Param("username") String username);
 }

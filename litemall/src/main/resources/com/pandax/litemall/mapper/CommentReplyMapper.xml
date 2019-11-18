@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.pandax.litemall.mapper.GoodsProductMapper">
-  <resultMap id="BaseResultMap" type="com.pandax.litemall.bean.GoodsProduct">
+<mapper namespace="com.pandax.litemall.mapper.CommentReplyMapper">
+  <resultMap id="BaseResultMap" type="com.pandax.litemall.bean.CommentReply">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="goods_id" jdbcType="INTEGER" property="goodsId" />
-    <result column="specifications" jdbcType="VARCHAR" property="specifications" typeHandler="com.pandax.litemall.handler.String2ArrayTypeHandler"/>
-    <result column="price" jdbcType="DECIMAL" property="price" />
-    <result column="number" jdbcType="INTEGER" property="number" />
-    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="comment_id" jdbcType="INTEGER" property="commentId" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="deleted" jdbcType="BIT" property="deleted" />
@@ -71,15 +68,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, goods_id, specifications, price, `number`, url, add_time, update_time, deleted
+    id, comment_id, content, add_time, update_time, deleted
   </sql>
-  <select id="selectByExample" parameterType="com.pandax.litemall.bean.GoodsProductExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.pandax.litemall.bean.CommentReplyExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from cskaoyan_mall_goods_product
+    from cskaoyan_mall_comment_reply
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -90,49 +87,38 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
-    from cskaoyan_mall_goods_product
+    from cskaoyan_mall_comment_reply
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from cskaoyan_mall_goods_product
+    delete from cskaoyan_mall_comment_reply
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.pandax.litemall.bean.GoodsProductExample">
-    delete from cskaoyan_mall_goods_product
+  <delete id="deleteByExample" parameterType="com.pandax.litemall.bean.CommentReplyExample">
+    delete from cskaoyan_mall_comment_reply
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.pandax.litemall.bean.GoodsProduct">
-    insert into cskaoyan_mall_goods_product (id, goods_id, specifications,
-      price, number, url,
+  <insert id="insert" parameterType="com.pandax.litemall.bean.CommentReply">
+    insert into cskaoyan_mall_comment_reply (id, comment_id, content,
       add_time, update_time, deleted
       )
-    values (#{id,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, #{specifications,jdbcType=VARCHAR},
-      #{price,jdbcType=DECIMAL}, #{number,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR},
+    values (#{id,jdbcType=INTEGER}, #{commentId,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR},
       #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.pandax.litemall.bean.GoodsProduct">
-    insert into cskaoyan_mall_goods_product
+  <insert id="insertSelective" parameterType="com.pandax.litemall.bean.CommentReply">
+    insert into cskaoyan_mall_comment_reply
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
       </if>
-      <if test="goodsId != null">
-        goods_id,
+      <if test="commentId != null">
+        comment_id,
       </if>
-      <if test="specifications != null">
-        specifications,
-      </if>
-      <if test="price != null">
-        price,
-      </if>
-      <if test="number != null">
-        number,
-      </if>
-      <if test="url != null">
-        url,
+      <if test="content != null">
+        content,
       </if>
       <if test="addTime != null">
         add_time,
@@ -148,20 +134,11 @@
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="goodsId != null">
-        #{goodsId,jdbcType=INTEGER},
+      <if test="commentId != null">
+        #{commentId,jdbcType=INTEGER},
       </if>
-      <if test="specifications != null">
-        #{specifications,jdbcType=VARCHAR,typeHandler=com.pandax.litemall.handler.String2ArrayTypeHandler},
-      </if>
-      <if test="price != null">
-        #{price,jdbcType=DECIMAL},
-      </if>
-      <if test="number != null">
-        #{number,jdbcType=INTEGER},
-      </if>
-      <if test="url != null">
-        #{url,jdbcType=VARCHAR},
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
       </if>
       <if test="addTime != null">
         #{addTime,jdbcType=TIMESTAMP},
@@ -174,32 +151,23 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.pandax.litemall.bean.GoodsProductExample" resultType="java.lang.Long">
-    select count(*) from cskaoyan_mall_goods_product
+  <select id="countByExample" parameterType="com.pandax.litemall.bean.CommentReplyExample" resultType="java.lang.Long">
+    select count(*) from cskaoyan_mall_comment_reply
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update cskaoyan_mall_goods_product
+    update cskaoyan_mall_comment_reply
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.goodsId != null">
-        goods_id = #{record.goodsId,jdbcType=INTEGER},
+      <if test="record.commentId != null">
+        comment_id = #{record.commentId,jdbcType=INTEGER},
       </if>
-      <if test="record.specifications != null">
-        specifications = #{record.specifications,jdbcType=VARCHAR},
-      </if>
-      <if test="record.price != null">
-        price = #{record.price,jdbcType=DECIMAL},
-      </if>
-      <if test="record.number != null">
-        number = #{record.number,jdbcType=INTEGER},
-      </if>
-      <if test="record.url != null">
-        url = #{record.url,jdbcType=VARCHAR},
+      <if test="record.content != null">
+        content = #{record.content,jdbcType=VARCHAR},
       </if>
       <if test="record.addTime != null">
         add_time = #{record.addTime,jdbcType=TIMESTAMP},
@@ -216,13 +184,10 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update cskaoyan_mall_goods_product
+    update cskaoyan_mall_comment_reply
     set id = #{record.id,jdbcType=INTEGER},
-      goods_id = #{record.goodsId,jdbcType=INTEGER},
-      specifications = #{record.specifications,jdbcType=VARCHAR,typeHandler=com.pandax.litemall.handler.String2ArrayTypeHandler},
-      price = #{record.price,jdbcType=DECIMAL},
-      number = #{record.number,jdbcType=INTEGER},
-      url = #{record.url,jdbcType=VARCHAR},
+      comment_id = #{record.commentId,jdbcType=INTEGER},
+      content = #{record.content,jdbcType=VARCHAR},
       add_time = #{record.addTime,jdbcType=TIMESTAMP},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP},
       deleted = #{record.deleted,jdbcType=BIT}
@@ -230,23 +195,14 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.pandax.litemall.bean.GoodsProduct">
-    update cskaoyan_mall_goods_product
+  <update id="updateByPrimaryKeySelective" parameterType="com.pandax.litemall.bean.CommentReply">
+    update cskaoyan_mall_comment_reply
     <set>
-      <if test="goodsId != null">
-        goods_id = #{goodsId,jdbcType=INTEGER},
+      <if test="commentId != null">
+        comment_id = #{commentId,jdbcType=INTEGER},
       </if>
-      <if test="specifications != null">
-        specifications = #{specifications,jdbcType=VARCHAR,typeHandler=com.pandax.litemall.handler.String2ArrayTypeHandler},
-      </if>
-      <if test="price != null">
-        price = #{price,jdbcType=DECIMAL},
-      </if>
-      <if test="number != null">
-        number = #{number,jdbcType=INTEGER},
-      </if>
-      <if test="url != null">
-        url = #{url,jdbcType=VARCHAR},
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
       </if>
       <if test="addTime != null">
         add_time = #{addTime,jdbcType=TIMESTAMP},
@@ -260,16 +216,25 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.pandax.litemall.bean.GoodsProduct">
-    update cskaoyan_mall_goods_product
-    set goods_id = #{goodsId,jdbcType=INTEGER},
-      specifications = #{specifications,jdbcType=VARCHAR,typeHandler=com.pandax.litemall.handler.String2ArrayTypeHandler},
-      price = #{price,jdbcType=DECIMAL},
-      number = #{number,jdbcType=INTEGER},
-      url = #{url,jdbcType=VARCHAR},
+  <update id="updateByPrimaryKey" parameterType="com.pandax.litemall.bean.CommentReply">
+    update cskaoyan_mall_comment_reply
+    set comment_id = #{commentId,jdbcType=INTEGER},
+      content = #{content,jdbcType=VARCHAR},
       add_time = #{addTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       deleted = #{deleted,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectReply" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from cskaoyan_mall_comment_reply
+    where comment_id = #{commentId}
+  </select>
+  <select id="selectCountByCommentId" resultType="integer">
+    select
+    count(0)
+    from cskaoyan_mall_comment_reply
+    where comment_id = #{commentId} and deleted=0
+  </select>
 </mapper>

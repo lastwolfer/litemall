@@ -25,10 +25,13 @@ public class AuthController {
         baseReqVo.setData("4b7d719e-53b7-4019-9677-6309b2445b45");
         baseReqVo.setErrmsg("成功");
         baseReqVo.setErrno(0);
+
+
+        /*
         String username = "admin123";
         Log log = new Log(username, "0:0:0:0:0:0:0:1", 1, "登录");
 
-        /*log.setAdmin(username);
+        *//*log.setAdmin(username);
         log.setIp("0:0:0:0:0:0:0:1");
         log.setType(1);
         log.setAction("登录");
@@ -37,9 +40,11 @@ public class AuthController {
         log.setComment("");
         log.setAddTime(new Date());
         log.setUpdateTime(new Date());
-        log.setDeleted(false);*/
+        log.setDeleted(false);*//*
 
         logService.record(log);
+        */
+
         return baseReqVo;
     }
 

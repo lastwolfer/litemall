@@ -15,8 +15,7 @@
             typeHandler="com.pandax.litemall.handler.String2IntArrayTypeHandler"/>
   </resultMap>
   <sql id="adminInfo">
-    id, username, password, last_login_ip, last_login_time, avatar, add_time, update_time
-    deleted, role_ids
+    id, username, password, last_login_ip, last_login_time, avatar, add_time, update_time, role_ids
   </sql>
   <select id="selectAdmins" resultMap="BaseResultMap">
     select <include refid="adminInfo"/> from cskaoyan_mall_admin
@@ -33,7 +32,8 @@
       username = #{username,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
       avatar = #{avatar,jdbcType=VARCHAR},
-      role_ids = #{roleIds}
+      role_ids = #{roleIds},
+      update_time = now()
       <where>
         id = #{id,jdbcType=INTEGER}
       </where>
@@ -44,4 +44,29 @@
       id = #{id}
     </where>
   </delete>
+    <insert id="createAdmin">
+      <!--<selectKey keyProperty="id" order="AFTER" resultType="int" keyColumn="id">
+        SELECT LAST_INSERT_ID()
+      </selectKey>-->
+      insert into cskaoyan_mall_admin
+      (username, password, avatar, add_time, update_time, deleted, role_ids)
+      values
+      (#{admin.username}, #{admin.password},
+       #{admin.avatar}, now(), now(), 0, #{admin.roleIds})
+    </insert>
+  <select id="selectAdminById" resultMap="BaseResultMap">
+    select <include refid="adminInfo"/> from cskaoyan_mall_admin
+    <where>
+      id = #{id}
+    </where>
+  </select>
+  <select id="selectLastInsertId" resultType="int">
+    SELECT LAST_INSERT_ID()
+  </select>
+  <select id="selectAdminByName" resultMap="BaseResultMap">
+    select <include refid="adminInfo"/> from cskaoyan_mall_admin
+    <where>
+      username = #{username}
+    </where>
+  </select>
 </mapper>

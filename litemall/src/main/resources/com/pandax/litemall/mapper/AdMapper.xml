@@ -204,6 +204,9 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
+  <select id="selectLastInsert" resultType="java.lang.Integer">
+    select  LAST_INSERT_ID()
+  </select>
   <update id="updateByExampleSelective" parameterType="map">
     update cskaoyan_mall_ad
     <set>

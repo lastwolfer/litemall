@@ -1,7 +1,6 @@
 package com.pandax.litemall.controller;
 
-import com.pandax.litemall.bean.Ad;
-import com.pandax.litemall.bean.BaseReqVo;
+import com.pandax.litemall.bean.*;
 import com.pandax.litemall.service.PromotionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -9,7 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
+
 @RestController
 public class PromotionController {
     @Autowired
@@ -32,13 +33,25 @@ public class PromotionController {
 
     @RequestMapping("admin/ad/create")
     public BaseReqVo createAd(@RequestBody Ad record){
-        //Date date = new SimpleDateFormat("yyyy-HH-dd hh:MM:ss").format(new Date());
-        record.setAddTime(new Date());
-        record.setUpdateTime(new Date());
-        int insert = promotionService.insertSelective(record);
+        Ad ad = promotionService.createAd(record);
         BaseReqVo baseReqVo = new BaseReqVo();
-        if(insert == 1){
-            baseReqVo.setData(record);
+        if(ad!=null){
+            baseReqVo.setData(ad);
+            baseReqVo.setErrmsg("成功");
+            baseReqVo.setErrno(0);
+            return baseReqVo;
+        }
+        baseReqVo.setErrmsg("失败");
+        baseReqVo.setErrno(-1);
+        return baseReqVo;
+    }
+
+    @RequestMapping("admin/ad/update")
+    public BaseReqVo updateCoupon(@RequestBody Ad record){
+        Ad ad = promotionService.updateAd(record);
+        BaseReqVo baseReqVo = new BaseReqVo();
+        if(ad!=null){
+            baseReqVo.setData(ad);
             baseReqVo.setErrmsg("成功");
             baseReqVo.setErrno(0);
             return baseReqVo;
@@ -77,4 +90,225 @@ public class PromotionController {
         return baseReqVo;
     }
 
+    @RequestMapping("admin/coupon/list")
+    public BaseReqVo listCoupon(Integer page, Integer limit, Coupon coupon){
+        Map<String, Object> map = promotionService.listCoupon(page, limit,coupon);
+        BaseReqVo baseReqVo = new BaseReqVo();
+        if(map!=null){
+            baseReqVo.setData(map);
+            baseReqVo.setErrmsg("成功");
+            baseReqVo.setErrno(0);
+            return baseReqVo;
+        }
+        baseReqVo.setErrmsg("失败");
+        baseReqVo.setErrno(-1);
+        return baseReqVo;
+    }
+
+    @RequestMapping("admin/coupon/create")
+    public BaseReqVo createCoupon(@RequestBody Coupon coupon){
+        Coupon coupon1 = promotionService.createCoupon(coupon);
+        BaseReqVo baseReqVo = new BaseReqVo();
+        if(coupon1!=null){
+            baseReqVo.setData(coupon1);
+            baseReqVo.setErrmsg("成功");
+            baseReqVo.setErrno(0);
+            return baseReqVo;
+        }
+        baseReqVo.setErrmsg("失败");
+        baseReqVo.setErrno(-1);
+        return baseReqVo;
+    }
+
+    @RequestMapping("admin/coupon/read")
+    public BaseReqVo readCoupon(Integer id){
+        Coupon coupon = promotionService.readCoupon(id);
+        BaseReqVo baseReqVo = new BaseReqVo();
+        if(coupon!=null){
+            baseReqVo.setData(coupon);
+            baseReqVo.setErrmsg("成功");
+            baseReqVo.setErrno(0);
+            return baseReqVo;
+        }
+        baseReqVo.setErrmsg("失败");
+        baseReqVo.setErrno(-1);
+        return baseReqVo;
+    }
+
+    @RequestMapping("admin/coupon/listuser")
+    public BaseReqVo listCouponUser(Integer page, Integer limit, CouponUser couponUser){
+        Map<String, Object> map = promotionService.listCouponUser(page, limit, couponUser);
+        BaseReqVo baseReqVo = new BaseReqVo();
+        if(map!=null){
+            baseReqVo.setData(map);
+            baseReqVo.setErrmsg("成功");
+            baseReqVo.setErrno(0);
+            return baseReqVo;
+        }
+        baseReqVo.setErrmsg("失败");
+        baseReqVo.setErrno(-1);
+        return baseReqVo;
+    }
+
+    @RequestMapping("admin/coupon/delete")
+    public BaseReqVo deleteCoupon(@RequestBody Coupon coupon){
+        int i = promotionService.deleteCoupon(coupon.getId());
+        BaseReqVo baseReqVo = new BaseReqVo();
+        if(i==1){
+            baseReqVo.setErrmsg("成功");
+            baseReqVo.setErrno(0);
+            return baseReqVo;
+        }
+        baseReqVo.setErrmsg("失败");
+        baseReqVo.setErrno(-1);
+        return baseReqVo;
+    }
+
+    @RequestMapping("admin/coupon/update")
+    public BaseReqVo updateCoupon(@RequestBody Coupon coupon){
+        Coupon i = promotionService.updateCoupon(coupon);
+        BaseReqVo baseReqVo = new BaseReqVo();
+        if(i!=null){
+            baseReqVo.setData(i);
+            baseReqVo.setErrmsg("成功");
+            baseReqVo.setErrno(0);
+            return baseReqVo;
+        }
+        baseReqVo.setErrmsg("失败");
+        baseReqVo.setErrno(-1);
+        return baseReqVo;
+    }
+
+    @RequestMapping("admin/topic/list")
+    public BaseReqVo listTopic(Integer page, Integer limit, Topic topic){
+        Map<String, Object> map = promotionService.listTopic(page, limit,topic);
+        BaseReqVo baseReqVo = new BaseReqVo();
+        if(map!=null){
+            baseReqVo.setData(map);
+            baseReqVo.setErrmsg("成功");
+            baseReqVo.setErrno(0);
+            return baseReqVo;
+        }
+        baseReqVo.setErrmsg("失败");
+        baseReqVo.setErrno(-1);
+        return baseReqVo;
+    }
+
+    @RequestMapping("admin/topic/create")
+    public BaseReqVo createCoupon(@RequestBody Topic topic){
+        Topic topic1 = promotionService.createTopic(topic);
+        BaseReqVo baseReqVo = new BaseReqVo();
+        if(topic1!=null){
+            baseReqVo.setData(topic1);
+            baseReqVo.setErrmsg("成功");
+            baseReqVo.setErrno(0);
+            return baseReqVo;
+        }
+        baseReqVo.setErrmsg("失败");
+        baseReqVo.setErrno(-1);
+        return baseReqVo;
+    }
+
+    @RequestMapping("admin/topic/update")
+    public BaseReqVo updateTopic(@RequestBody Topic topic){
+        Topic i = promotionService.updateTopic(topic);
+        BaseReqVo baseReqVo = new BaseReqVo();
+        if(i!=null){
+            baseReqVo.setData(i);
+            baseReqVo.setErrmsg("成功");
+            baseReqVo.setErrno(0);
+            return baseReqVo;
+        }
+        baseReqVo.setErrmsg("失败");
+        baseReqVo.setErrno(-1);
+        return baseReqVo;
+    }
+
+    @RequestMapping("admin/topic/delete")
+    public BaseReqVo deleteTopic(@RequestBody Topic record){
+        int result = promotionService.deleteTopic(record.getId());
+        BaseReqVo baseReqVo = new BaseReqVo();
+        if(result==1){
+            baseReqVo.setErrmsg("成功");
+            baseReqVo.setErrno(0);
+            return baseReqVo;
+        }
+        baseReqVo.setErrmsg("失败");
+        baseReqVo.setErrno(-1);
+        return baseReqVo;
+    }
+
+    @RequestMapping("admin/groupon/list")
+    public BaseReqVo listGroupon(Integer page, Integer limit, GrouponRules grouponRules){
+        Map<String, Object> map = promotionService.listGroupon(page, limit,grouponRules);
+        BaseReqVo baseReqVo = new BaseReqVo();
+        if(map!=null){
+            baseReqVo.setData(map);
+            baseReqVo.setErrmsg("成功");
+            baseReqVo.setErrno(0);
+            return baseReqVo;
+        }
+        baseReqVo.setErrmsg("失败");
+        baseReqVo.setErrno(-1);
+        return baseReqVo;
+    }
+
+    @RequestMapping("admin/groupon/create")
+    public BaseReqVo publishGroupon(@RequestBody GrouponRules grouponRules){
+        GrouponRules result = promotionService.createGrouponRules(grouponRules);
+        BaseReqVo baseReqVo = new BaseReqVo();
+        if(result!=null){
+            baseReqVo.setData(result);
+            baseReqVo.setErrmsg("成功");
+            baseReqVo.setErrno(0);
+            return baseReqVo;
+        }
+        baseReqVo.setErrmsg("商品id有误");
+        baseReqVo.setErrno(-1);
+        return baseReqVo;
+    }
+
+    @RequestMapping("admin/groupon/update")
+    public BaseReqVo editGroupon(@RequestBody GrouponRules grouponRules){
+        GrouponRules i = promotionService.editGroupon(grouponRules);
+        BaseReqVo baseReqVo = new BaseReqVo();
+        if(i!=null){
+            baseReqVo.setData(i);
+            baseReqVo.setErrmsg("成功");
+            baseReqVo.setErrno(0);
+            return baseReqVo;
+        }
+        baseReqVo.setErrmsg("失败");
+        baseReqVo.setErrno(-1);
+        return baseReqVo;
+    }
+
+    @RequestMapping("admin/groupon/delete")
+    public BaseReqVo deleteGroupon(@RequestBody GrouponRules record){
+        int result = promotionService.deleteGroupon(record.getId());
+        BaseReqVo baseReqVo = new BaseReqVo();
+        if(result==1){
+            baseReqVo.setErrmsg("成功");
+            baseReqVo.setErrno(0);
+            return baseReqVo;
+        }
+        baseReqVo.setErrmsg("失败");
+        baseReqVo.setErrno(-1);
+        return baseReqVo;
+    }
+
+    @RequestMapping("admin/groupon/listRecord")
+    public BaseReqVo listRecord(Integer page, Integer limit, Groupon groupon){
+        Map<String, Object> map = promotionService.listRecord(page, limit,groupon);
+        BaseReqVo baseReqVo = new BaseReqVo();
+        if(map!=null){
+            baseReqVo.setData(map);
+            baseReqVo.setErrmsg("成功");
+            baseReqVo.setErrno(0);
+            return baseReqVo;
+        }
+        baseReqVo.setErrmsg("失败");
+        baseReqVo.setErrno(-1);
+        return baseReqVo;
+    }
 }
