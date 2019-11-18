@@ -15,4 +15,41 @@
         add_time, update_time,deleted
         from cskaoyan_mall_role
     </select>
+    <select id="selectRoleList" resultMap="roleMap">
+        select id, name, `desc`, enabled,add_time, update_time,deleted from cskaoyan_mall_role
+        <where>
+            <if test="name!=null">
+                name like #{name}
+            </if>
+        </where>
+    </select>
+
+    <update id="updateRole" parameterType="com.pandax.litemall.bean.Role">
+        update cskaoyan_mall_role set
+          name = #{role.name},`desc` =#{role.desc},
+          enabled = #{role.enabled},update_time = now(),add_time = #{role.addTime},
+          deleted = #{role.deleted}
+      <where>
+          id = #{role.id}
+      </where>
+    </update>
+
+    <insert id="createRole">
+        insert into cskaoyan_mall_role (name,`desc`,enabled,add_time,update_time,deleted)
+        values (#{role.name},#{role.desc},1,now(),now(),0)
+    </insert>
+
+    <select id="getLastInsertId" resultType="java.lang.Integer">
+        select last_insert_Id()
+    </select>
+
+    <select id="getRole" resultMap="roleMap">
+        select id, name, `desc`, enabled, add_time, update_time,deleted from cskaoyan_mall_role
+        where id = #{id}
+    </select>
+
+    <delete id="deleteRole">
+        delete from cskaoyan_mall_role where id = #{role.id}
+    </delete>
+
 </mapper>

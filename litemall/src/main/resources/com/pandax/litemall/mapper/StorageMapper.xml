@@ -43,9 +43,11 @@
 
     <update id="updateStorage" parameterType="com.pandax.litemall.bean.Storage">
         update cskaoyan_mall_storage set
-          id = #{storage.id}, `key` = #{storage.key},name =#{storage.name},
-          type = #{storage.type},size = #{storage.size},url = #{storage.url},
+          `key` = #{storage.key},name =#{storage.name},type = #{storage.type},size = #{storage.size},url = #{storage.url},
           add_time = #{storage.addTime},update_time = #{storage.updateTime},deleted = #{storage.deleted}
+        <where>
+            id = #{storage.id}
+        </where>
     </update>
 
     <delete id="deleteStorage" parameterType="com.pandax.litemall.bean.Storage">
