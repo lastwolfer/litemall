@@ -2,8 +2,9 @@ package com.pandax.litemall.mapper;
 
 import com.pandax.litemall.bean.CouponUser;
 import com.pandax.litemall.bean.CouponUserExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface CouponUserMapper {
     long countByExample(CouponUserExample example);

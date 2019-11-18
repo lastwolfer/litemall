@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.Date;
 
+
 public class User {
 
     private Integer id;
@@ -170,4 +171,5 @@ public class User {
     public void setDeleted(Boolean deleted) {
         this.deleted = deleted;
     }
+
 }

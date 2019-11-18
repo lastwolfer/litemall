@@ -72,7 +72,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, goods_id, goods_name, pic_url, discount, discount_member, add_time, update_time, 
+    id, goods_id, goods_name, pic_url, discount, discount_member, add_time, update_time,
     expire_time, deleted
   </sql>
   <select id="selectByExample" parameterType="com.pandax.litemall.bean.GrouponRulesExample" resultMap="BaseResultMap">
@@ -90,7 +90,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from cskaoyan_mall_groupon_rules
     where id = #{id,jdbcType=INTEGER}
@@ -106,13 +106,13 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.pandax.litemall.bean.GrouponRules">
-    insert into cskaoyan_mall_groupon_rules (id, goods_id, goods_name, 
-      pic_url, discount, discount_member, 
-      add_time, update_time, expire_time, 
+    insert into cskaoyan_mall_groupon_rules (id, goods_id, goods_name,
+      pic_url, discount, discount_member,
+      add_time, update_time, expire_time,
       deleted)
-    values (#{id,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, #{goodsName,jdbcType=VARCHAR}, 
-      #{picUrl,jdbcType=VARCHAR}, #{discount,jdbcType=DECIMAL}, #{discountMember,jdbcType=INTEGER}, 
-      #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{expireTime,jdbcType=TIMESTAMP}, 
+    values (#{id,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, #{goodsName,jdbcType=VARCHAR},
+      #{picUrl,jdbcType=VARCHAR}, #{discount,jdbcType=DECIMAL}, #{discountMember,jdbcType=INTEGER},
+      #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{expireTime,jdbcType=TIMESTAMP},
       #{deleted,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="com.pandax.litemall.bean.GrouponRules">
@@ -288,4 +288,7 @@
       deleted = #{deleted,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+    <select id="selectLastInsert" resultType="int">
+      select LAST_INSERT_ID()
+    </select>
 </mapper>

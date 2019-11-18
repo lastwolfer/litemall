@@ -22,4 +22,9 @@ public interface GoodsService {
     int deleteGoods(Map map);
 
     List<Comment> commentList(QuerryCommentList querryCommentList);
+
+
+    int reply(CommentReply commentReply);
+
+    int deleteComment(Comment comment);
 }

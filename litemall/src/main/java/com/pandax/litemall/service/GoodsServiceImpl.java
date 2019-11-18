@@ -29,6 +29,8 @@ public class GoodsServiceImpl implements GoodsService {
     GoodsAttributeMapper goodsAttributeMapper;
     @Autowired
     CommentMapper commentMapper;
+    @Autowired
+    CommentReplyMapper commentReplyMapper;
 
     /**
      * 商品清单分页，排序
@@ -129,6 +131,12 @@ public class GoodsServiceImpl implements GoodsService {
         return insert;
     }
 
+    /**
+     * 查询商品信息
+     *
+     * @param id
+     * @return
+     */
     @Override
     public GoodsCreateBean selectGoodsById(Integer id) {
         GoodsCreateBean goodsCreateBean = new GoodsCreateBean();
@@ -209,6 +217,7 @@ public class GoodsServiceImpl implements GoodsService {
 
     /**
      * 删除商品
+     *
      * @param map
      * @return
      */
@@ -226,7 +235,7 @@ public class GoodsServiceImpl implements GoodsService {
         PageHelper.startPage(querryCommentList.getPage(), querryCommentList.getLimit());
         CommentExample commentExample = new CommentExample();
         CommentExample.Criteria criteria = commentExample.createCriteria();
-
+        criteria.andDeletedNotEqualTo(true);
         if (querryCommentList.getUserId() != null) {
             criteria.andUserIdEqualTo(querryCommentList.getUserId());
         }
@@ -237,11 +246,51 @@ public class GoodsServiceImpl implements GoodsService {
         commentExample.setOrderByClause(querryCommentList.getSort() + " " + querryCommentList.getOrder());
         List<Comment> commentList = commentMapper.selectByExample(commentExample);
         for (Comment comment : commentList) {
-            if ( !comment.getHasPicture()) {//如果没有图片则将图片
+            if (!comment.getHasPicture()) {//如果没有图片则将图片
                 comment.setPicUrls(null);
             }
         }
         return commentList;
+    }
+
+    /**
+     * 评论回复 返回0表示已经回复过，返回1表示回复成功
+     *
+     * @param commentReply
+     * @return
+     */
+    @Override
+    public int reply(CommentReply commentReply) {
+        Integer i = commentReplyMapper.selectCountByCommentId(commentReply.getCommentId());
+        System.out.println(i);
+        if (i != 0) {//已经回复
+            return 0;
+        }
+        commentReply.setAddTime(new Date());
+        commentReply.setDeleted(false);
+        int insert = commentReplyMapper.insert(commentReply);
+        return insert;
+    }
+
+    /**
+     * 删除评论
+     *
+     * @param comment
+     * @return
+     */
+    @Override
+    public int deleteComment(Comment comment) {
+        comment.setUpdateTime(new Date());
+        comment.setDeleted(true);
+        int update1 = commentMapper.updateByPrimaryKeySelective(comment);
+        CommentReply commentReply = commentReplyMapper.selectReply(comment.getId());
+        //判断是否有回复
+        if (commentReply != null) {
+            commentReply.setUpdateTime(new Date());
+            commentReply.setDeleted(true);
+            int update2 = commentReplyMapper.updateByPrimaryKeySelective(commentReply);
+        }
+        return update1;
     }
 
     /**
