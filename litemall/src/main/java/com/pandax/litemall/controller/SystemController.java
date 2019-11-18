@@ -1,10 +1,7 @@
 package com.pandax.litemall.controller;
 
-import com.pandax.litemall.bean.Admin;
-import com.pandax.litemall.bean.BaseReqVo;
-import com.pandax.litemall.bean.Log;
-import com.pandax.litemall.bean.RoleInfo;
-import com.pandax.litemall.bean.Storage;
+import com.pandax.litemall.exception.SystemException;
+import com.pandax.litemall.bean.*;
 import com.pandax.litemall.service.AdminService;
 import com.pandax.litemall.service.LogService;
 import com.pandax.litemall.service.RoleService;
@@ -14,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -78,15 +74,17 @@ public class SystemController {
      * @return
      */
     @RequestMapping("admin/update")
-    public BaseReqVo adminUpdate(@RequestBody Admin admin){
+    public BaseReqVo adminUpdate(@RequestBody Admin admin) throws SystemException {
         BaseReqVo baseReqVo = new BaseReqVo();
+        checkUsernameAndPassword(admin);
+        /*int count = adminService.queryUserCountByName(username);
+        if(count == 1) {
+            throw new SystemException(602, "管理员已经存在");
+        }
         String password = admin.getPassword();
         if(password.length() < 6){
-            baseReqVo.setData(null);
-            baseReqVo.setErrno(602);
-            baseReqVo.setErrmsg("管理员密码长度不能小于6");
-            return baseReqVo;
-        }
+            throw new SystemException(602, "管理员密码长度不能小于6");
+        }*/
         adminService.updateAdmin(admin);
         baseReqVo.setData(admin);
         baseReqVo.setErrmsg("成功");
@@ -94,24 +92,77 @@ public class SystemController {
 
 
         //日志操作
-        Log log = new Log("unknow admin", "0:0:0:0:0:0:0:1",
-                1, "编辑管理员");
+//        Log log = new Log("unknow admin", "0:0:0:0:0:0:0:1",
+//                1, "编辑管理员");
+//
+//        /*log.setAdmin(username);
+//        log.setIp("0:0:0:0:0:0:0:1");
+//        log.setType(1);
+//        log.setAction("编辑管理员");
+//        log.setStatus(true);
+//        log.setResult("");
+//        log.setComment("");
+//        log.setAddTime(new Date());
+//        log.setUpdateTime(new Date());
+//        log.setDeleted(false);*/
+//
+//        logService.record(log);
 
-        /*log.setAdmin(username);
-        log.setIp("0:0:0:0:0:0:0:1");
-        log.setType(1);
-        log.setAction("编辑管理员");
-        log.setStatus(true);
-        log.setResult("");
-        log.setComment("");
-        log.setAddTime(new Date());
-        log.setUpdateTime(new Date());
-        log.setDeleted(false);*/
-
-        logService.record(log);
 
         return baseReqVo;
     }
+
+
+    /**
+     * 添加管理员
+     * @param admin 管理员信息
+     * @return
+     */
+    @RequestMapping("admin/create")
+    public BaseReqVo adminCreate(@RequestBody Admin admin) throws SystemException {
+        BaseReqVo baseReqVo = new BaseReqVo();
+
+        checkUsernameAndPassword(admin);
+
+
+        Admin returnAdmin = adminService.createAdmin(admin);
+        baseReqVo.setData(returnAdmin);
+        baseReqVo.setErrmsg("成功");
+        baseReqVo.setErrno(0);
+
+
+        /*Log log = new Log("unknow admin", "0:0:0:0:0:0:0:1",
+                1, "添加管理员");
+        logService.record(log);*/
+
+        return baseReqVo;
+    }
+
+
+    /**
+     * 检验用户名和密码是否正确
+     * @param admin 用户
+     * @return true/false
+     */
+    private void checkUsernameAndPassword(Admin admin) throws SystemException {
+        //^[a-zA-Z0-9_-]{4,16}
+        Admin queryAdmin = adminService.queryUserCountById(admin.getId());
+        String username = admin.getUsername();
+        if (queryAdmin != null && !username.equals(queryAdmin.getUsername())) {
+            if(!username.matches("^[\\u4E00-\\u9FA5-a-zA-Z0-9_-]{6,20}")) {
+                throw new SystemException(601, "管理员名称不符合规定");
+            }
+            int count = adminService.queryUserCountByName(username);
+            if(count == 1) {
+                throw new SystemException(602, "管理员已经存在");
+            }
+        }
+        if(admin.getPassword().length() < 6){
+            throw new SystemException(602, "管理员密码长度不能小于6");
+        }
+    }
+
+
 
     /**
      * 删除管理员
@@ -124,12 +175,12 @@ public class SystemController {
         adminService.deleteAdmin(admin);
 
         //日志操作
-        Log log = new Log("unknow admin", "0:0:0:0:0:0:0:1",
+        /*Log log = new Log("unknow admin", "0:0:0:0:0:0:0:1",
                 1, "删除管理员");
 
-        logService.record(log);
+        logService.record(log);*/
 
-        baseReqVo.setErrmsg("成功");
+        baseReqVo.setErrmsg("成功删除：" + admin.getUsername());
         baseReqVo.setErrno(0);
         return baseReqVo;
     }
@@ -250,4 +301,158 @@ public class SystemController {
         }
         return baseReqVo;
     }
+
+    /**显示角色信息
+     * Request:
+     * page: 1
+     * limit: 20
+     * name:
+     * sort: add_time
+     * order: desc
+     * Response:
+     * {
+     *     "errno": 0,
+     *     "data": {
+     *         "total": 33,
+     *         "items": [
+     *             {
+     *                 "id": 124,
+     *                 "name": "iiiiiii",
+     *                 "desc": "????",
+     *                 "enabled": true,
+     *                 "addTime": "2019-11-17 20:58:45",
+     *                 "updateTime": "2019-11-17 20:58:45",
+     *                 "deleted": false
+     *             },
+     *             {
+     *                 "id": 123,
+     *                 "name": "21321",
+     *                 "desc": "321321",
+     *                 "enabled": true,
+     *                 "addTime": "2019-11-17 08:41:12",
+     *                 "updateTime": "2019-11-17 08:41:12",
+     *                 "deleted": false
+     *             }
+     *         ]
+     *     },
+     *     "errmsg": "成功"
+     * }
+     * @param page
+     * @param limit
+     * @param sort
+     * @param order
+     * @param name
+     * @return
+     */
+    @RequestMapping("role/list")
+    public BaseReqVo showRoleList(Integer page, Integer limit, String sort, String order,String name){
+        BaseReqVo baseReqVo = new BaseReqVo();
+        HashMap<String,Object> map = roleService.getRoles(page,limit,sort,order,name);
+        baseReqVo.setData(map);
+        baseReqVo.setErrmsg("成功");
+        baseReqVo.setErrno(0);
+        return baseReqVo;
+    }
+
+
+    /**修改角色信息
+     * Request:
+     * addTime: "2019-11-17 20:58:45"
+     * deleted: false
+     * desc: "hahaha"
+     * enabled: true
+     * id: 124
+     * name: "iiiiiii"
+     * updateTime: "2019-11-17 20:58:45"
+     * Response:
+     * {"errno":0,"errmsg":"成功"}
+     * @param role
+     * @return
+     */
+    @RequestMapping("role/update")
+    public BaseReqVo updateRole(@RequestBody Role role) throws SystemException {
+        BaseReqVo baseReqVo = new BaseReqVo();
+        if(isRepeatRole(role)){
+            throw new SystemException(640, "角色已经存在");
+        }
+        Role updateRole = roleService.updateRole(role);
+        baseReqVo.setData(updateRole);
+        baseReqVo.setErrmsg("成功");
+        baseReqVo.setErrno(0);
+        return baseReqVo;
+    }
+
+    private boolean isRepeatRole(Role role) {
+        Role r1 = null;
+        if(role.getId() != 0) {
+            r1 = roleService.selectRoleById(role.getId());
+        }
+        Role r2 = roleService.selectRoleByName(role.getName());
+        if(r1 == null) {
+            return r2 != null;
+        } else {
+            if(r1.getName().equals(role.getName())){
+                return false;
+            } else {
+                return r2 != null;
+            }
+        }
+    }
+
+    /**创建角色信息
+     * Request:
+     * {name: "xixixi234", desc: "hahaha"}
+     * Response:
+     * {
+     *     "errno": 0,
+     *     "data": {
+     *         "id": 128,
+     *         "name": "xixixi234",
+     *         "desc": "hahaha",
+     *         "addTime": "2019-11-18 03:19:10",
+     *         "updateTime": "2019-11-18 03:19:10"
+     *     },
+     *     "errmsg": "成功"
+     * }
+     * @param role
+     * @return BaseReqVo
+     */
+    @RequestMapping("role/create")
+    public BaseReqVo createRole(@RequestBody Role role) throws SystemException {
+        BaseReqVo baseReqVo = new BaseReqVo();
+        if(isRepeatRole(role)) {
+            throw new SystemException(640, "角色已经存在");
+        }
+        Map<String,Object> map = roleService.createRole(role);
+        baseReqVo.setData(map);
+        baseReqVo.setErrmsg("成功");
+        baseReqVo.setErrno(0);
+        return baseReqVo;
+    }
+
+    /**删除角色信息
+     * Request:
+     * addTime: "2019-11-18 02:53:03"
+     * deleted: false
+     * desc: "hahah"
+     * enabled: true
+     * id: 126
+     * name: "xixixi"
+     * updateTime: "2019-11-18 02:57:47"
+     * Response:
+     * {"errno":0,"errmsg":"成功"}
+     * @param role
+     * @return BaseReqVo
+     */
+    @RequestMapping("role/delete")
+    public BaseReqVo deleteRole(@RequestBody Role role){
+        BaseReqVo baseReqVo = new BaseReqVo();
+        int deleteStatus = roleService.deleteRole(role);
+        if(deleteStatus != -1){
+            baseReqVo.setErrno(0);
+            baseReqVo.setErrmsg("成功");
+        }
+        return baseReqVo;
+    }
+
 }

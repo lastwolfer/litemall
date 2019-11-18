@@ -12,11 +12,10 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import com.pandax.litemall.mapper.CouponUserMapper;
 
 
 /**
- * @author Da
+ * @author  bao
  * @version 1.0
  * @date 2019/11/15
  * @time 17:28
@@ -200,12 +199,9 @@ public class UserServiceImpl implements UserService{
         return map;
     }
 
-    @Autowired
-    CouponUserMapper couponUserMapper;
-
     @Override
     public int countUsers() {
-        return (int) couponUserMapper.countByExample(null);
+        return (int) userMapper.countByExample(null);
     }
 
 }

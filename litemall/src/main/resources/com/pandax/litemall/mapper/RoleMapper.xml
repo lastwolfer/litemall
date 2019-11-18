@@ -14,5 +14,69 @@
         select id, name, `desc`, enabled,
         add_time, update_time,deleted
         from cskaoyan_mall_role
+        <where>
+            deleted = false
+        </where>
     </select>
+    <select id="selectRoleList" resultMap="roleMap">
+        select id, name, `desc`, enabled,add_time, update_time,deleted from cskaoyan_mall_role
+        <where>
+            <trim suffixOverrides="and">
+                deleted = false and
+                <if test="name!=null">
+                    name like #{name}
+                </if>
+            </trim>
+        </where>
+    </select>
+
+    <update id="updateRole" parameterType="com.pandax.litemall.bean.Role">
+        update cskaoyan_mall_role set
+          name = #{role.name},`desc` =#{role.desc}, update_time = now()
+      <where>
+          id = #{role.id}
+      </where>
+    </update>
+
+    <insert id="createRole">
+        insert into cskaoyan_mall_role (name,`desc`,enabled,add_time,update_time,deleted)
+        values (#{role.name},#{role.desc},1,now(),now(),0)
+    </insert>
+
+    <select id="getLastInsertId" resultType="java.lang.Integer">
+        select last_insert_Id()
+    </select>
+
+    <select id="getRole" resultMap="roleMap">
+        select id, name, `desc`, enabled, add_time, update_time,deleted from cskaoyan_mall_role
+        where id = #{id}
+    </select>
+
+    <delete id="deleteRole">
+        <!--delete from cskaoyan_mall_role where id = #{role.id}-->
+        update cskaoyan_mall_role
+        set deleted = true
+        <where>
+            id = #{role.id}
+        </where>
+    </delete>
+    <select id="selectRoleById" resultMap="roleMap">
+        select id, name, `desc`, enabled,
+        add_time, update_time,deleted
+        from cskaoyan_mall_role
+        <where>
+            deleted = false and
+            id = #{id}
+        </where>
+    </select>
+    <select id="selectRoleByName" resultMap="roleMap">
+        select id, name, `desc`, enabled,
+        add_time, update_time,deleted
+        from cskaoyan_mall_role
+        <where>
+            deleted = false and
+            `name` = #{name}
+        </where>
+    </select>
+
 </mapper>

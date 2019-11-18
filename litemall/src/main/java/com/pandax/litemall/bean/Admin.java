@@ -26,7 +26,7 @@ public class Admin {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date updateTime;
 
-    private Boolean deleted;
+    //private Boolean deleted;
 
     private Integer[] roleIds;
 }
