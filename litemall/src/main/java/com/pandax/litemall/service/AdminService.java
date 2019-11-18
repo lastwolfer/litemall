@@ -1,6 +1,7 @@
 package com.pandax.litemall.service;
 
 import com.pandax.litemall.bean.Admin;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.HashMap;
 
@@ -19,4 +20,10 @@ public interface AdminService {
     void updateAdmin(Admin admin);
 
     void deleteAdmin(Admin admin);
+
+    Admin createAdmin(Admin admin);
+
+    int queryUserCountByName(String username);
+
+    Admin queryUserCountById(Integer id);
 }

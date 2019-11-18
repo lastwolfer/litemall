@@ -58,7 +58,9 @@ public class UploadController {
 
 
             // 设置文件存储路径
+            //String filePath = "E:/17th/17th/Repository-mall/litemall/static/img/";
             //String filePath = "D:/Develop/Coding WorkingSpace/static/img/";
+
 
             String newFileName = uuid + suffixName;
             //设置文件存储路径
