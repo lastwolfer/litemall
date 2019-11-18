@@ -40,7 +40,8 @@ public class GoodsServiceImpl implements GoodsService {
     @Override
     public List<Goods> goodsList(QuerryGoodsList querryGoodsList) {
         //分页查询
-        PageHelper.startPage(querryGoodsList.getPage(), querryGoodsList.getLimit());
+        Integer limit = querryGoodsList.getLimit() == null ? querryGoodsList.getSize() : querryGoodsList.getLimit();
+        PageHelper.startPage(querryGoodsList.getPage(), limit);
         GoodsExample goodsExample = new GoodsExample();
         GoodsExample.Criteria criteria = goodsExample.createCriteria();
         if (querryGoodsList.getGoodsSn() != null && !querryGoodsList.getGoodsSn().equals("".trim())) {
@@ -49,7 +50,18 @@ public class GoodsServiceImpl implements GoodsService {
         if (querryGoodsList.getName() != null) {
             criteria.andNameLike("%" + querryGoodsList.getName() + "%");
         }
-        goodsExample.setOrderByClause(querryGoodsList.getSort() + " " + querryGoodsList.getOrder());
+        if (querryGoodsList.getCategoryId() != null && querryGoodsList.getCategoryId() != 0) {
+            criteria.andCategoryIdEqualTo(querryGoodsList.getCategoryId());
+        }
+        if (querryGoodsList.getBrandId() != null) {
+            criteria.andBrandIdEqualTo(querryGoodsList.getBrandId());
+        }
+        if (querryGoodsList.getKeyword()!=null){
+            criteria.andKeywordsEqualTo(querryGoodsList.getKeyword());
+        }
+        if (querryGoodsList.getSort() != null && querryGoodsList.getOrder() != null) {
+            goodsExample.setOrderByClause(querryGoodsList.getSort()+" "+querryGoodsList.getOrder());
+        }
         List<Goods> goodsList = goodsMapper.selectByExampleWithBLOBs(goodsExample);
         return goodsList;
     }
@@ -229,6 +241,12 @@ public class GoodsServiceImpl implements GoodsService {
         return i;
     }
 
+    /**
+     * 评价查询
+     *
+     * @param querryCommentList
+     * @return
+     */
     @Override
     public List<Comment> commentList(QuerryCommentList querryCommentList) {
         //分页查询
@@ -236,20 +254,15 @@ public class GoodsServiceImpl implements GoodsService {
         CommentExample commentExample = new CommentExample();
         CommentExample.Criteria criteria = commentExample.createCriteria();
         criteria.andDeletedNotEqualTo(true);
+        //判断是否含有该条件
         if (querryCommentList.getUserId() != null) {
             criteria.andUserIdEqualTo(querryCommentList.getUserId());
         }
         if (querryCommentList.getValueId() != null) {
             criteria.andValueIdEqualTo(querryCommentList.getValueId());
         }
-
         commentExample.setOrderByClause(querryCommentList.getSort() + " " + querryCommentList.getOrder());
         List<Comment> commentList = commentMapper.selectByExample(commentExample);
-        for (Comment comment : commentList) {
-            if (!comment.getHasPicture()) {//如果没有图片则将图片
-                comment.setPicUrls(null);
-            }
-        }
         return commentList;
     }
 
@@ -262,7 +275,6 @@ public class GoodsServiceImpl implements GoodsService {
     @Override
     public int reply(CommentReply commentReply) {
         Integer i = commentReplyMapper.selectCountByCommentId(commentReply.getCommentId());
-        System.out.println(i);
         if (i != 0) {//已经回复
             return 0;
         }

@@ -171,4 +171,30 @@ public class ProductController {
         return baseReqVo;
     }
 
+    //微信小程序------------------------------------------
+
+    /**
+     * 商品总数
+     * @return
+     */
+    @RequestMapping("wx/goods/count")
+    public BaseReqVo countGoods(){
+        BaseReqVo baseReqVo = new BaseReqVo();
+        int i = goodsService.countGoods();
+        baseReqVo.setErrno(0);
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("goodsCount",i);
+        baseReqVo.setData(map);
+        baseReqVo.setErrmsg("成功");
+        return baseReqVo;
+    }
+
+    /**
+     * 商品列表
+     */
+    @RequestMapping("wx/goods/list")
+    public BaseReqVo wxGoodsList(QuerryGoodsList querryGoodsList){
+       return goodsList(querryGoodsList);
+    }
+
 }
