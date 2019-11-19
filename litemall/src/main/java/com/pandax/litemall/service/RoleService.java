@@ -2,6 +2,7 @@ package com.pandax.litemall.service;
 
 import com.pandax.litemall.bean.Role;
 import com.pandax.litemall.bean.RoleInfo;
+import com.pandax.litemall.bean.SystemPermissions;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -29,4 +30,8 @@ public interface RoleService {
     Role selectRoleById(int id);
 
     Role selectRoleByName(String name);
+
+    HashMap<String, Object> showPermissions(Integer roledId);
+
+    List<String> getRolesById(Integer[] roleIds);
 }

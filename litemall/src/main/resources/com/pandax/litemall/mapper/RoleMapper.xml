@@ -78,5 +78,26 @@
             `name` = #{name}
         </where>
     </select>
+    <select id="selectPermissionsByNoParId" resultType="com.pandax.litemall.bean.SystemPermissions">
+        select id, label, api, parentId from cskaoyan_mall_systempermissions
+        <where>
+            parentId = 0
+        </where>
+    </select>
+    <select id="selectPermissionsByParId" resultType="com.pandax.litemall.bean.SystemPermissions">
+        select id, label, api, parentId from cskaoyan_mall_systempermissions
+        <where>
+            parentId = #{id}
+        </where>
+    </select>
+    <select id="selectRolesById" resultType="java.lang.String">
+        select `name` from cskaoyan_mall_role
+        where
+        deleted = false and
+        id in
+        <foreach collection="roleIds" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </select>
 
 </mapper>

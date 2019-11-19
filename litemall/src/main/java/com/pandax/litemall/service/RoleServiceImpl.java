@@ -2,8 +2,8 @@ package com.pandax.litemall.service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.pandax.litemall.bean.Role;
-import com.pandax.litemall.bean.RoleInfo;
+import com.pandax.litemall.bean.*;
+import com.pandax.litemall.mapper.PermissionMapper;
 import com.pandax.litemall.mapper.RoleMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +26,9 @@ public class RoleServiceImpl implements RoleService{
 
     @Autowired
     RoleMapper roleMapper;
+
+    @Autowired
+    PermissionMapper permissionMapper;
 
     @Override
     public List<RoleInfo> selectRoles() {
@@ -93,5 +96,50 @@ public class RoleServiceImpl implements RoleService{
     @Override
     public Role selectRoleByName(String name) {
         return roleMapper.selectRoleByName(name);
+    }
+
+    @Override
+    public HashMap<String, Object> showPermissions(Integer roleId) {
+        HashMap<String, Object> map = new HashMap<>();
+        List<SystemPermissions> permissionsList =
+                roleMapper.selectPermissionsByNoParId();
+        for (SystemPermissions permissions : permissionsList) {
+            permissions.setChildren(getChildrenPermissionsList(permissions.getId()));
+        }
+        map.put("systemPermissions", permissionsList);
+        PermissionExample example = new PermissionExample();
+        example.createCriteria().andRoleIdEqualTo(roleId).andDeletedEqualTo(false);
+        List<Permission> permissions = permissionMapper.selectByExample(example);
+        List<String> permissionName = new ArrayList<>();
+        for (Permission permission : permissions) {
+            permissionName.add(permission.getPermission());
+        }
+        map.put("assignedPermissions", permissionName);
+        return map;
+    }
+
+    @Override
+    public List<String> getRolesById(Integer[] roleIds) {
+         return roleMapper.selectRolesById(roleIds);
+    }
+
+    private List<SystemPermissions> getChildrenPermissionsList(String id) {
+        List<SystemPermissions> permissionsList =
+                roleMapper.selectPermissionsByParId(id);
+        for (SystemPermissions permissions : permissionsList) {
+            if (permissions != null) {
+                permissions.setChildren(getChildrenPermissionsList(permissions.getId()));
+                if(permissions.getApi() != null) {
+                    String[] split = permissions.getApi().split("/");
+                    StringBuilder sb = new StringBuilder();
+                    for (int i = 1; i < split.length; i++) {
+                        sb.append(split[i]).append(":");
+                    }
+                    sb.delete(sb.length() - 1, sb.length());
+                    permissions.setId(sb.toString());
+                }
+            }
+        }
+        return permissionsList;
     }
 }

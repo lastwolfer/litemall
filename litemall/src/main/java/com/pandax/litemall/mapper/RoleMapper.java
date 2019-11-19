@@ -1,6 +1,7 @@
 package com.pandax.litemall.mapper;
 
 import com.pandax.litemall.bean.Role;
+import com.pandax.litemall.bean.SystemPermissions;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -30,4 +31,10 @@ public interface RoleMapper {
     Role selectRoleById(@Param("id") int id);
 
     Role selectRoleByName(@Param("name") String name);
+
+    List<SystemPermissions> selectPermissionsByNoParId();
+
+    List<SystemPermissions> selectPermissionsByParId(@Param("id") String id);
+
+    List<String> selectRolesById(@Param("roleIds") Integer[] roleIds);
 }

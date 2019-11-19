@@ -2,7 +2,10 @@ package com.pandax.litemall.mapper;
 
 import com.pandax.litemall.bean.Permission;
 import com.pandax.litemall.bean.PermissionExample;
+
+import java.util.ArrayList;
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface PermissionMapper {
@@ -27,4 +30,12 @@ public interface PermissionMapper {
     int updateByPrimaryKeySelective(Permission record);
 
     int updateByPrimaryKey(Permission record);
+
+    void deletePermissionByRoleId(@Param("roleId") Integer roleId);
+
+    void insertPermissionList(@Param("roleId") Integer roleId, @Param("list") List<String> list);
+
+    void deletePermissionList(@Param("deleteList") List<Integer> deleteList);
+
+    void resurgencePermissionList(@Param("resurgenceList") List<Integer> resurgenceList);
 }
