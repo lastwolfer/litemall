@@ -29,10 +29,13 @@ public class ShiroConfig {
         ShiroFilterFactoryBean factoryBean = new ShiroFilterFactoryBean();
         factoryBean.setSecurityManager(manager);
         //未认证通过的重定向
-        factoryBean.setLoginUrl("/admin/auth/login");
+        factoryBean.setLoginUrl("/admin/auth/fail");
         LinkedHashMap<String, String> map = new LinkedHashMap<>();
         //不用认证的url，(钥匙)
         map.put("/admin/auth/login", "anon");
+        map.put("wx/auth/login", "anon");
+        map.put("/**/*.jpg", "anon");
+        map.put("/**/*.png", "anon");
         //map.put("/admin/auth/logout", "logout");
         map.put("/**", "authc");
         factoryBean.setFilterChainDefinitionMap(map);

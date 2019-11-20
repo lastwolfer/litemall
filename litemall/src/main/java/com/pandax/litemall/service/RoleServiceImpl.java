@@ -123,6 +123,7 @@ public class RoleServiceImpl implements RoleService{
          return roleMapper.selectRolesById(roleIds);
     }
 
+
     private List<SystemPermissions> getChildrenPermissionsList(String id) {
         List<SystemPermissions> permissionsList =
                 roleMapper.selectPermissionsByParId(id);

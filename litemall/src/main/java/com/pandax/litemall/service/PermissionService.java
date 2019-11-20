@@ -2,6 +2,7 @@ package com.pandax.litemall.service;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author Da
@@ -14,4 +15,7 @@ public interface PermissionService {
     void updatePermission(Integer roleId, List<String> list);
 
     HashSet<String> selectPermissionsByRoleId(Integer[] roleIds);
+
+    HashSet<String> selectSysPermissions();
+
 }
