@@ -1,5 +1,9 @@
 package com.pandax.litemall.service;
 
+import com.pandax.litemall.bean.Order;
+
+import java.util.List;
+
 /**
  * @author Da
  * @version 1.0
@@ -9,4 +13,6 @@ package com.pandax.litemall.service;
 
 public interface OrderService {
     int countOrders();
+
+    List<Order> selectOrderByUserIdAndStatus(Integer userId, Short status);
 }

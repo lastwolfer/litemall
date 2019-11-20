@@ -2,6 +2,8 @@ package com.pandax.litemall.service;
 
 
 
+import com.pandax.litemall.bean.User;
+
 import java.util.Map;
 
 public interface UserService {
@@ -32,5 +34,6 @@ public interface UserService {
 
    int countUsers();
 
+    User selectUserByUsername(String usrname);
 }
 

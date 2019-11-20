@@ -45,7 +45,11 @@ public class WxRealm extends AuthorizingRealm {
         UserExample example = new UserExample();
         example.createCriteria().andUsernameEqualTo(token.getUsername()).andDeletedEqualTo(false);
         List<User> users = userMapper.selectByExample(example);
-        return null;
+        System.out.println(users);
+        User user = users.get(0);
+        String password = user.getPassword();
+        SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(user, password, getName());
+        return simpleAuthenticationInfo;
     }
 
     /**
@@ -55,7 +59,12 @@ public class WxRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        return null;
+        User user = (User) principalCollection.getPrimaryPrincipal();
+        SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
+        ArrayList<String> permissions = new ArrayList<>();
+        permissions.add("*");
+        authorizationInfo.addStringPermissions(permissions);
+        return authorizationInfo;
     }
 
 
