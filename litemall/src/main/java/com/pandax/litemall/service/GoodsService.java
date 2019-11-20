@@ -43,5 +43,15 @@ public interface GoodsService {
 
     GoodsDetail selectGoodsDetailByGoodsId(Integer id);
 
-    int addHistory(int id,String keyword);
+    Map selectAllBrand(Integer page, Integer size);
+
+    Map selectBrandById(Integer id);
+
+    Map selectGoodsByCategoryId(Integer categoryId, Integer page, Integer size);
+
+    Map selectGoodsRelatedByGoodsId(Integer id);
+
+    Map selectBrandByBrandId(Integer brandId, Integer page, Integer size);
+
+    Map selectGoodsByKeyword(String keyword, String sort, String order, Integer page, Integer size, Integer categoryId);
 }

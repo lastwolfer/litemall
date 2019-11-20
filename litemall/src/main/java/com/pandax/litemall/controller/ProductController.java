@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageInfo;
 import com.pandax.litemall.bean.*;
 import com.pandax.litemall.service.GoodsService;
+import com.pandax.litemall.service.SearchService;
 import com.pandax.reponseJson.GoodsDetail;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
@@ -23,6 +24,9 @@ public class ProductController {
 
     @Autowired
     GoodsService goodsService;
+
+    @Autowired
+    SearchService searchService;
 
     /**
      * 商品列表,分页和排序
@@ -209,6 +213,39 @@ public class ProductController {
         return baseReqVo;
     }
 
+
+    /**
+     * 宝
+     * 查询所属类别的商品
+     * @param categoryId 类别id
+     * @param page 页数
+     * @param size 每页个数
+     * @return json
+     */
+    //keyword=123&page=1&size=20&sort=name&order=desc&categoryId=0
+    @RequestMapping("/wx/goods/list")
+    public BaseReqVo wxGoodsList(String keyword,String sort,String order,Integer categoryId,Integer brandId,Integer page,Integer size){
+        BaseReqVo baseReqVo = new BaseReqVo();
+        Map map =null;
+        if(keyword != null){
+            Subject subject = SecurityUtils.getSubject();
+            User user = (User) subject.getPrincipal();
+            Integer id = user.getId();
+            int i = searchService.addHistory(id,keyword);
+            map = goodsService.selectGoodsByKeyword(keyword,sort,order,page,size,categoryId);
+        }
+        if(brandId == null) {
+            map = goodsService.selectGoodsByCategoryId(categoryId, page, size);
+        }else{
+            map = goodsService.selectBrandByBrandId(brandId,page, size);
+        }
+        baseReqVo.setErrmsg("成功");
+        baseReqVo.setData(map);
+        return baseReqVo;
+    }
+
+
+
     @RequestMapping("/wx/goods/detail")
     public BaseReqVo wxGoodsDetail(Integer id){
         BaseReqVo baseReqVo = new BaseReqVo();
@@ -220,46 +257,57 @@ public class ProductController {
         return baseReqVo;
     }
 
+
     @RequestMapping("wx/comment/list")
     public BaseReqVo wxCommentList(QuerryCommentList querryCommentList){
         return commentList(querryCommentList);
     }
 
-    @RequestMapping("wx/goods/list")
-    public BaseReqVo wxAddHistory(String keyword,int page,int size,String sort,String order,int categoryId){
-        Subject subject = SecurityUtils.getSubject();
-        User user = (User) subject.getPrincipal();
-        Integer id = user.getId();
-        int i = goodsService.addHistory(id,keyword);
 
+    /**
+     * 宝
+     * 查询所有品牌
+     * @param page 页数
+     * @param size 每页个数
+     * @return json数据
+     */
+    @RequestMapping("/wx/brand/list")
+    public BaseReqVo wxBrandList(Integer page,Integer size){
+        BaseReqVo baseReqVo = new BaseReqVo();
+        Map map = goodsService.selectAllBrand(page, size);
+        baseReqVo.setErrmsg("成功");
+        baseReqVo.setData(map);
+        return baseReqVo;
     }
-    //http://192.168.2.100:8081/wx/goods/list?keyword=123&page=1&size=20&sort=name&order=desc&categoryId=0
-    //{
-    //    "errno": 0,
-    //    "data": {
-    //        "goodsList": [
-    //            {
-    //                "id": 1181018,
-    //                "name": "测试123",
-    //                "brief": "",
-    //                "picUrl": "",
-    //                "isNew": false,
-    //                "isHot": false,
-    //                "counterPrice": 5,
-    //                "retailPrice": 5
-    //            },
-    //            {
-    //                "id": 1181128,
-    //                "name": "新裤子",
-    //                "brief": "",
-    //                "picUrl": "http://192.168.2.100:8081/wx/storage/fetch/4xwmjdj5v7hlu2o7puq7.png",
-    //                "isNew": true,
-    //                "isHot": true,
-    //                "counterPrice": 100,
-    //                "retailPrice": 80
-    //            }
-    //        ]
-    //    },
-    //    "errmsg": "成功"
-    //}
+
+    /**
+     * 宝
+     * 按照id传讯单个Brand
+     * @param id brandID
+     * @return 查询结果
+     */
+    @RequestMapping("/wx/brand/detail")
+    public BaseReqVo wxBrandDetail(Integer id){
+        BaseReqVo baseReqVo = new BaseReqVo();
+        Map map = goodsService.selectBrandById(id);
+        baseReqVo.setErrmsg("成功");
+        baseReqVo.setData(map);
+        return baseReqVo;
+    }
+
+    /**
+     * 查询关联商品
+     * @param id 商品id
+     * @return json数据
+     */
+    @RequestMapping("/wx/goods/related")
+    public BaseReqVo wxGoodsRelated(Integer id){
+        BaseReqVo baseReqVo = new BaseReqVo();
+        Map map = goodsService.selectGoodsRelatedByGoodsId(id);
+        baseReqVo.setErrmsg("成功");
+        baseReqVo.setData(map);
+        return baseReqVo;
+    }
+
+
 }

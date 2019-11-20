@@ -42,4 +42,13 @@ public class SearchServiceImpl implements SearchService {
     public String[] getHelper(String keyword) {
         return keywordMapper.getHelper(keyword);
     }
+
+    @Override
+    public int addHistory(int id,String keyword) {
+        Integer i = historyMapper.checkHistory(id,keyword);
+        if (i == null){
+            return historyMapper.addHistory(id,keyword);
+        }
+        return historyMapper.updateHistory(i);
+    }
 }

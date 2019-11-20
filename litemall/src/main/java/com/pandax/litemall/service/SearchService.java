@@ -14,4 +14,6 @@ public interface SearchService {
     List<Keyword> getHot();
 
     String[] getHelper(String keyword);
+
+    int addHistory(int id,String keyword);
 }
