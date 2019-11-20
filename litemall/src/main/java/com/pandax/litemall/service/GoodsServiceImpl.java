@@ -31,6 +31,10 @@ public class GoodsServiceImpl implements GoodsService {
     CommentMapper commentMapper;
     @Autowired
     CommentReplyMapper commentReplyMapper;
+    @Autowired
+    GrouponMapper grouponMapper;
+    @Autowired
+    GrouponRulesMapper  grouponRulesMapper;
 
     /**
      * 商品清单分页，排序
@@ -293,6 +297,8 @@ public class GoodsServiceImpl implements GoodsService {
         return update1;
     }
 
+
+
     /**
      * 删除商品相关信息
      */
@@ -307,6 +313,93 @@ public class GoodsServiceImpl implements GoodsService {
         goodsSpecificationExample.createCriteria().andGoodsIdEqualTo(goodsId);
         int i3 = goodsSpecificationMapper.deleteByExample(goodsSpecificationExample);
         return i1 + i2 + i3;
+    }
+
+
+    /**
+     * 查询所有的商品数目
+     * @return 封装到map中商品数目
+     */
+    @Override
+    public Map goodsCount() {
+        long count = goodsMapper.countByExample(null);
+        Map<String,Long> map = new HashMap<>();
+        map.put("goodsCount",count);
+        return map;
+    }
+
+    /**
+     查询商品：
+     * currentCategory:Object,
+     *  brotherCategory:Array,
+     *  parentCategory:Object
+     * @param id 当前商品id
+     * @return 查询结果
+     */
+    @Override
+    public Map selectCategoryByGoodsId(Integer id) {
+        //先查询当前商品：currentCategory
+        Category currentCategory = categoryMapper.selectByPrimaryKey(id);
+        //查询父类商品：parentCategory
+        Category parentCategory = categoryMapper.selectByPrimaryKey(currentCategory.getPid());
+        //查询所有同类产品：brotherCategory（包括自己）
+        CategoryExample example = new CategoryExample();
+        CategoryExample.Criteria criteria = example.createCriteria();
+        criteria.andPidEqualTo(parentCategory.getId());
+        List<Category> brotherCategory = categoryMapper.selectByExample(example);
+        Map<String,Object> map = new HashMap<>();
+        map.put("currentCategory",currentCategory);
+        map.put("brotherCategory",brotherCategory);
+        map.put("parentCategory",parentCategory);
+        return map;
+    }
+
+    /**
+     * json:
+     *  "specificationList":Array[1],
+     *         "groupon":Array[0],
+     *         "issue":Array[12],
+     *         "userHasCollect":1,
+     *         "comment":Object{...},
+     *         "attribute":Array[0],
+     *         "brand":Object{...},
+     *         "productList":Array[1],
+     *         "info":Object{...}
+     * @param id
+     * @return
+     */
+    @Override
+    public Map selectGoodsDetailByGoodsId(Integer id) {
+        //查询商品的所有规格:pecificationList
+        GoodsSpecificationExample example = new GoodsSpecificationExample();
+        example.createCriteria().andGoodsIdEqualTo(id);
+        List<GoodsSpecification> goodsSpecifications = goodsSpecificationMapper.selectByExample(example);
+        //查看团购：groupon
+        //先查询GrouponRules
+        GrouponRulesExample grouponRulesExample = new GrouponRulesExample();
+        grouponRulesExample.createCriteria().andGoodsIdEqualTo(id);
+        List<GrouponRules> grouponRules = grouponRulesMapper.selectByExample(grouponRulesExample);
+        //根据GrouponRules中的groupid查询所有Groupon
+        List<Groupon> groupons = null;
+        for (GrouponRules grouponRule : grouponRules) {
+            GrouponExample grouponExample = new GrouponExample();
+            grouponExample.createCriteria().andRulesIdEqualTo(grouponRule.getId());
+            List<Groupon> groupons1 = grouponMapper.selectByExample(grouponExample);
+        }
+
+        //查询issue
+
+        //查看用户收藏：userHasCollect
+        //查看评论：comment
+        //查询attribute
+        GoodsAttributeExample attributeExample = new GoodsAttributeExample();
+        attributeExample.createCriteria().andGoodsIdEqualTo(id);
+        List<GoodsAttribute> goodsAttributes = goodsAttributeMapper.selectByExample(attributeExample);
+
+        Map<String,Object> map = new HashMap<>();
+        map.put("goodsSpecifications",goodsSpecifications);
+
+        return null;
     }
 
 }

@@ -171,4 +171,51 @@ public class ProductController {
         return baseReqVo;
     }
 
+    /**
+     *查询所有的商品数目
+     * @return json的数据
+     */
+    @RequestMapping("/wx/goods/count")
+    public BaseReqVo wxGoodsCount(){
+        BaseReqVo baseReqVo = new BaseReqVo();
+        Map map = goodsService.goodsCount();
+        baseReqVo.setErrno(0);
+        baseReqVo.setErrmsg("成功");
+        baseReqVo.setData(map);
+        return baseReqVo;
+    }
+
+    /**
+     *查询商品：
+     * currentCategory:Object,
+     *  brotherCategory:Array,
+     *  parentCategory:Object
+     * @param id 当前商品的ID
+     * @return json数据
+     */
+    @RequestMapping("/wx/goods/category")
+    public BaseReqVo wxGoodsCategory(Integer id){
+        BaseReqVo baseReqVo = new BaseReqVo();
+        Map map = goodsService.selectCategoryByGoodsId(id);
+        baseReqVo.setErrno(0);
+        baseReqVo.setErrmsg("成功");
+        baseReqVo.setData(map);
+        System.out.println(baseReqVo);
+        return baseReqVo;
+    }
+
+@RequestMapping("/wx/goods/detail")
+    public BaseReqVo wxGoodsDetail(Integer id){
+        BaseReqVo baseReqVo = new BaseReqVo();
+        Map map = goodsService.selectGoodsDetailByGoodsId(id);
+        baseReqVo.setErrno(0);
+        baseReqVo.setErrmsg("成功");
+        baseReqVo.setData(map);
+        System.out.println(baseReqVo);
+        return baseReqVo;
+    }
+
+
+
+
 }

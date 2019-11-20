@@ -27,4 +27,10 @@ public interface GoodsService {
     int reply(CommentReply commentReply);
 
     int deleteComment(Comment comment);
+
+    Map goodsCount();
+
+    Map selectCategoryByGoodsId(Integer id);
+
+    Map selectGoodsDetailByGoodsId(Integer id);
 }
