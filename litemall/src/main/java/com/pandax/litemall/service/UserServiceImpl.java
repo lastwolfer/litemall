@@ -204,4 +204,12 @@ public class UserServiceImpl implements UserService{
         return (int) userMapper.countByExample(null);
     }
 
+    @Override
+    public User selectUserByUsername(String username) {
+        UserExample example = new UserExample();
+        example.createCriteria().andUsernameEqualTo(username).andDeletedEqualTo(false);
+        List<User> users = userMapper.selectByExample(example);
+        return users.get(0);
+    }
+
 }

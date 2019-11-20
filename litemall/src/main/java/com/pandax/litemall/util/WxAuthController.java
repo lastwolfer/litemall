@@ -12,10 +12,11 @@ import java.util.Map;
  * Created by little Stone
  * Date 2019/7/8 Time 20:55
  */
-@RestController
-@RequestMapping("/wx")
+//@RestController
+//@RequestMapping("/wx")
 public class WxAuthController {
 
+/*
 	@RequestMapping("/auth/login")
 	@ResponseBody
 	public Object login(@RequestBody String name, HttpServletRequest request) {
@@ -47,6 +48,7 @@ public class WxAuthController {
 		result.put("userInfo", userInfo);
 		return BaseRespVo.ok(result);
 	}
+*/
 
 	@GetMapping("user/index")
 	public Object list(HttpServletRequest request) {
