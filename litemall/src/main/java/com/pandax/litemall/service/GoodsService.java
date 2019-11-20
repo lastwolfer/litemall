@@ -35,4 +35,12 @@ public interface GoodsService {
     Map selectCategoryByGoodsId(Integer id);
 
     GoodsDetail selectGoodsDetailByGoodsId(Integer id);
+
+    Map selectAllBrand(Integer page, Integer size);
+
+    Map selectBrandById(Integer id);
+
+    Map selectGoodsByCategoryId(Integer categoryId, Integer page, Integer size);
+
+    Map selectGoodsGoodsRelatedByGoodsId(Integer id);
 }

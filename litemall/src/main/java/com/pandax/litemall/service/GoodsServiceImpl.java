@@ -10,6 +10,7 @@ import com.pandax.litemall.mapper.*;
 import com.pandax.reponseJson.Comments;
 import com.pandax.reponseJson.GoodsDetail;
 import com.pandax.reponseJson.SpecificationList;
+import org.omg.CORBA.OBJ_ADAPTER;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -463,6 +464,65 @@ public class GoodsServiceImpl implements GoodsService {
         goodsDetail.setInfo(goods);//ok
 
         return goodsDetail;
+    }
+    /**
+     * 宝
+     * 查询所有品牌
+     * @param page 页数
+     * @param size 每页个数
+     * @return 查询数据
+     */
+    @Override
+    public Map selectAllBrand(Integer page, Integer size) {
+        PageHelper.startPage(page,size);
+        List<Brand> brands = brandMapper.selectByExample(null);
+        PageInfo<Brand> pageInfo = new PageInfo<>(brands);
+        long total = pageInfo.getTotal();
+        Map<String, Object> map = new HashMap<>();
+        map.put("totalPages",total);
+        map.put("brandList",brands);
+        return map;
+    }
+
+    /**
+     * 宝
+     * 按照id传讯单个Brand
+     * @param id brandID
+     * @return 查询结果
+     */
+    @Override
+    public Map selectBrandById(Integer id) {
+        Brand brand = brandMapper.selectByPrimaryKey(id);
+        Map<String, Object> map = new HashMap<>();
+        map.put("brand",brand);
+        return map;
+    }
+
+    @Override
+    public Map selectGoodsByCategoryId(Integer categoryId, Integer page, Integer size) {
+        PageHelper.startPage(page,size);
+        GoodsExample example = new GoodsExample();
+        example.createCriteria().andCategoryIdEqualTo(categoryId);
+        List<Goods> goods = goodsMapper.selectByExample(example);
+        PageInfo<Goods> pageInfo = new PageInfo<>(goods);
+        long total = pageInfo.getTotal();
+        List<Category> categories = categoryMapper.selectByExample(null);
+        Map<String, Object> map = new HashMap<>();
+        map.put("count",total);
+        map.put("goodsList",goods);
+        map.put("filterCategoryList",categories);
+        return map;
+    }
+
+    @Override
+    public Map selectGoodsGoodsRelatedByGoodsId(Integer id) {
+        Goods goods = goodsMapper.selectByPrimaryKey(id);
+        GoodsExample example = new GoodsExample();
+        example.createCriteria().andCategoryIdEqualTo(goods.getCategoryId());
+        List<Goods> goods1 = goodsMapper.selectByExample(example);
+        Map<String, Object> map = new HashMap<>();
+        map.put("goodsList",goods1);
+        return map;
     }
 
 }
