@@ -33,15 +33,46 @@ public class LogAspect {
     /**
      * 定义切入点
      */
-    @Pointcut("execution(* com.pandax.litemall.controller.*.*(..))")
+    @Pointcut("execution(* com.pandax.litemall.controller.*.*(..)) &&" +
+            "!execution(* com.pandax.litemall.controller.AuthController.logout() )")
     public void log(){}
+
+    @Pointcut("execution(* com.pandax.litemall.controller.AuthController.logout())")
+    public void logoutPointcut(){}
+
+    @Before("logoutPointcut()")
+    public void beforeLogout(){
+        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        HttpServletRequest request = attributes.getRequest();
+        Log log = new Log();
+
+        Subject subject = SecurityUtils.getSubject();
+        Admin admin = (Admin) subject.getPrincipal();
+        if (admin != null) {
+            log.setAdmin(admin.getUsername());
+        } else {
+            log.setAdmin("代码错误了，请通知程序员更改");
+        }
+
+        log.setIp(getIpAddr(request));
+        log.setType(1);
+        log.setAction("登出");
+        log.setStatus(true);
+        log.setResult("");
+        log.setComment("");
+        log.setAddTime(new Date());
+        log.setUpdateTime(new Date());
+        log.setDeleted(false);
+
+        logService.record(log);
+    }
 
 
     /**
      * 后置通知： 在返回后执行的通知
      */
     @AfterReturning(pointcut = "log()", returning = "ret")
-    public void afterReturning( Object ret) {
+    public void afterReturning(Object ret) {
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
 
@@ -67,16 +98,15 @@ public class LogAspect {
         int errno = vo.getErrno();
         Subject subject = SecurityUtils.getSubject();
         Admin admin = (Admin) subject.getPrincipal();
-        String username ="wx";
-        if (admin!=null){
+        String username = "匿名用户";
+        if(admin != null) {
             username = admin.getUsername();
         }
+        log.setAdmin(username);
         if(errno != 0) {
-            log.setAdmin("匿名用户");
             log.setStatus(false);
             log.setResult(vo.getErrmsg());
         } else {
-            log.setAdmin(username);
             log.setStatus(true);
         }
 
