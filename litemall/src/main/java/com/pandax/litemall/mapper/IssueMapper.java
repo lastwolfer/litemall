@@ -29,4 +29,6 @@ public interface IssueMapper {
     int updateByPrimaryKey(Issue record);
 
     List<Issue> selectByCondition(@Param("question") String question,@Param("sort") String sort, @Param("order") String order);
+
+
 }

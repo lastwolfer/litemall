@@ -38,7 +38,7 @@ public interface TopicMapper {
 
     int selectLastInsert();
 
-    @Select("select * from cskaoyan_mall_topic where id = id")
+    @Select("select * from cskaoyan_mall_topic where id = #{id}")
     Topic getTopicDetail(int id);
 
     @Select("select * from cskaoyan_mall_topic where id in (1,2,3,4)")

@@ -9,7 +9,7 @@ public interface CommentService {
 
     int getPicComments(int valueId, int type);
 
-    List<Comment> getCommentsList(int valueId,int type,int size,int page,int showType);
+    List<Comment> getCommentsList(int valueId,int type,int size,int page);
 
-    List<Comment> getPicCommentsList(int valueId, int type, int size, int page, int showType);
+    List<Comment> getPicCommentsList(int valueId, int type, int size, int page);
 }

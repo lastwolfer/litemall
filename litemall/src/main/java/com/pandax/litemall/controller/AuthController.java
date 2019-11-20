@@ -3,13 +3,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.pandax.litemall.bean.Admin;
 import com.pandax.litemall.bean.BaseReqVo;
 import com.pandax.litemall.bean.InfoData;
 import com.pandax.litemall.bean.LoginVo;
-import com.pandax.litemall.mapper.PermissionMapper;
-import com.pandax.litemall.service.LogService;
 import com.pandax.litemall.service.PermissionService;
 import com.pandax.litemall.service.RoleService;
 import com.pandax.litemall.shiro.MallToken;
@@ -22,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("admin/auth")
 public class AuthController {
 
     @Autowired
@@ -31,7 +29,7 @@ public class AuthController {
     @Autowired
     PermissionService permissionService;
 
-    @RequestMapping("login")
+    @RequestMapping("admin/auth/login")
     public BaseReqVo login(@RequestBody LoginVo loginVo) {
         BaseReqVo baseReqVo = new BaseReqVo();
         Subject subject = SecurityUtils.getSubject();
@@ -54,7 +52,8 @@ public class AuthController {
         return baseReqVo;
     }
 
-    @RequestMapping("info")
+    @RequestMapping("admin/auth/info")
+    //@RequiresPermissions("admin:auth:info")
     public BaseReqVo info(String token){
         BaseReqVo baseReqVo = new BaseReqVo();
         Subject subject = SecurityUtils.getSubject();
@@ -65,10 +64,37 @@ public class AuthController {
         data.setName(admin.getUsername());
         Integer[] roleIds = admin.getRoleIds();
 
+        HashSet<String> urllist = permissionService.selectSysPermissions();
         HashSet<String> perms = permissionService.selectPermissionsByRoleId(roleIds);
-        data.setPerms(new ArrayList<>(perms));
+        ArrayList<String> arrayList = new ArrayList<>();
+        for (String s : urllist) {
+            String[] split = s.split("/");
+            StringBuilder sb = new StringBuilder();
+            for (int i = 1; i < split.length; i++) {
+                sb.append(split[i]).append(":");
+            }
+            sb.delete(sb.length() - 1, sb.length());
+            if(perms.contains(sb.toString())) {
+                arrayList.add(s);
+            }
+        }
+
+
+        if("admin123".equals(admin.getUsername())){
+            arrayList.clear();
+            arrayList.add("*");
+        }
+
+        data.setPerms(arrayList);
 
         //开发时候使用！！！！
+        //ArrayList<String> list = new ArrayList<>();
+
+        //一定要 "GET /admin/order/list", "POST /admin/ad/create" 格式
+        /*list.add("/admin/order/list");
+        list.add("/admin/ad/create");
+        list.add("/admin/topic/create");
+        data.setPerms(list);*/
         /*if("admin123".equals(admin.getUsername())){
             ArrayList<String> list = new ArrayList<>();
             list.add("*");
@@ -87,13 +113,22 @@ public class AuthController {
     }
 
 
-    @RequestMapping("logout")
+    @RequestMapping("admin/auth/logout")
     public BaseReqVo logout(){
         Subject subject = SecurityUtils.getSubject();
         subject.logout();
         BaseReqVo baseReqVo = new BaseReqVo();
         baseReqVo.setErrmsg("成功");
         baseReqVo.setErrno(0);
+        return baseReqVo;
+    }
+
+
+    @RequestMapping("admin/auth/fail")
+    public BaseReqVo authenticationFail(){
+        BaseReqVo baseReqVo = new BaseReqVo();
+        baseReqVo.setErrno(600);
+        baseReqVo.setErrmsg("认证失败，请重试。");
         return baseReqVo;
     }
 }

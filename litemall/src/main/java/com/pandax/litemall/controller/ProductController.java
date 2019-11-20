@@ -5,6 +5,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageInfo;
 import com.pandax.litemall.bean.*;
 import com.pandax.litemall.service.GoodsService;
+import com.pandax.reponseJson.GoodsDetail;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -171,30 +174,50 @@ public class ProductController {
         return baseReqVo;
     }
 
-    //微信小程序------------------------------------------
 
     /**
-     * 商品总数
-     * @return
+     *查询所有的商品数目
+     * @return json的数据
      */
-    @RequestMapping("wx/goods/count")
-    public BaseReqVo countGoods(){
+    @RequestMapping("/wx/goods/count")
+    public BaseReqVo wxGoodsCount(){
         BaseReqVo baseReqVo = new BaseReqVo();
-        int i = goodsService.countGoods();
+        Map map = goodsService.goodsCount();
         baseReqVo.setErrno(0);
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("goodsCount",i);
-        baseReqVo.setData(map);
         baseReqVo.setErrmsg("成功");
+        baseReqVo.setData(map);
         return baseReqVo;
     }
 
+
     /**
-     * 商品列表
+     *查询商品：
+     * currentCategory:Object,
+     *  brotherCategory:Array,
+     *  parentCategory:Object
+     * @param id 当前商品的ID
+     * @return json数据
      */
-    @RequestMapping("wx/goods/list")
-    public BaseReqVo wxGoodsList(QuerryGoodsList querryGoodsList){
-       return goodsList(querryGoodsList);
+    @RequestMapping("/wx/goods/category")
+    public BaseReqVo wxGoodsCategory(Integer id){
+        BaseReqVo baseReqVo = new BaseReqVo();
+        Map map = goodsService.selectCategoryByGoodsId(id);
+        baseReqVo.setErrno(0);
+        baseReqVo.setErrmsg("成功");
+        baseReqVo.setData(map);
+        System.out.println(baseReqVo);
+        return baseReqVo;
+    }
+
+    @RequestMapping("/wx/goods/detail")
+    public BaseReqVo wxGoodsDetail(Integer id){
+        BaseReqVo baseReqVo = new BaseReqVo();
+        GoodsDetail goodsDetail = goodsService.selectGoodsDetailByGoodsId(id);
+        baseReqVo.setErrno(0);
+        baseReqVo.setErrmsg("成功");
+        baseReqVo.setData(goodsDetail);
+        System.out.println(baseReqVo);
+        return baseReqVo;
     }
 
     @RequestMapping("wx/comment/list")
@@ -202,4 +225,41 @@ public class ProductController {
         return commentList(querryCommentList);
     }
 
+    @RequestMapping("wx/goods/list")
+    public BaseReqVo wxAddHistory(String keyword,int page,int size,String sort,String order,int categoryId){
+        Subject subject = SecurityUtils.getSubject();
+        User user = (User) subject.getPrincipal();
+        Integer id = user.getId();
+        int i = goodsService.addHistory(id,keyword);
+
+    }
+    //http://192.168.2.100:8081/wx/goods/list?keyword=123&page=1&size=20&sort=name&order=desc&categoryId=0
+    //{
+    //    "errno": 0,
+    //    "data": {
+    //        "goodsList": [
+    //            {
+    //                "id": 1181018,
+    //                "name": "测试123",
+    //                "brief": "",
+    //                "picUrl": "",
+    //                "isNew": false,
+    //                "isHot": false,
+    //                "counterPrice": 5,
+    //                "retailPrice": 5
+    //            },
+    //            {
+    //                "id": 1181128,
+    //                "name": "新裤子",
+    //                "brief": "",
+    //                "picUrl": "http://192.168.2.100:8081/wx/storage/fetch/4xwmjdj5v7hlu2o7puq7.png",
+    //                "isNew": true,
+    //                "isHot": true,
+    //                "counterPrice": 100,
+    //                "retailPrice": 80
+    //            }
+    //        ]
+    //    },
+    //    "errmsg": "成功"
+    //}
 }

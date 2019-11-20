@@ -29,15 +29,15 @@ public interface CommentMapper {
 
     int updateByPrimaryKey(Comment record);
 
-    @Select("select count(id) from cskaoyan_mall_comment where value_id = arg[0] and type = arg[1]")
+    @Select("select count(id) from cskaoyan_mall_comment where value_id = #{arg[0]} and type = #{arg[1]}")
     long getComments(int valueId, int type);
 
-    @Select("select count(id) from cskaoyan_mall_comment where value_id = arg[0] and type = arg[1] and has_picture = 1")
+    @Select("select count(id) from cskaoyan_mall_comment where value_id = #{arg[0]} and type = #{arg[1]} and has_picture = 1")
     long getPicComments(int valueId, int type);
 
-    @Select("select * from cskaoyan_mall_comment where value_id = arg[0] and type = arg[1]")
+    @Select("select * from cskaoyan_mall_comment where value_id = #{arg[0]} and type = #{arg[1]}")
     List<Comment> getCommentsList(int valueId, int type);
 
-    @Select("select * from cskaoyan_mall_comment where value_id = arg[0] and type = arg[1] and has_picture = 1")
+    @Select("select * from cskaoyan_mall_comment where value_id = #{arg[0]} and type = #{arg[1]} and has_picture = 1")
     List<Comment> getPicCommentsList(int valueId, int type);
 }

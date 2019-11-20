@@ -43,9 +43,9 @@ public class CommentController {
         PageHelper pageHelper = new PageHelper();
         List<Comment> comments = null;
         if (showType == 0) {
-            comments = commentService.getCommentsList(valueId,type,size,page,showType);
+            comments = commentService.getCommentsList(valueId,type,size,page);
         }else {
-            comments = commentService.getPicCommentsList(valueId,type,size,page,showType);
+            comments = commentService.getPicCommentsList(valueId,type,size,page);
         }
         BaseReqVo<Object> baseReqVo = new BaseReqVo<>();
         Map<String, Object> map = new HashMap<>();
