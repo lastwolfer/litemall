@@ -4,6 +4,7 @@ import com.pandax.litemall.bean.Comment;
 import com.pandax.litemall.bean.CommentExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 public interface CommentMapper {
     long countByExample(CommentExample example);
@@ -27,4 +28,16 @@ public interface CommentMapper {
     int updateByPrimaryKeySelective(Comment record);
 
     int updateByPrimaryKey(Comment record);
+
+    @Select("select count(id) from cskaoyan_mall_comment where value_id = arg[0] and type = arg[1]")
+    long getComments(int valueId, int type);
+
+    @Select("select count(id) from cskaoyan_mall_comment where value_id = arg[0] and type = arg[1] and has_picture = 1")
+    long getPicComments(int valueId, int type);
+
+    @Select("select * from cskaoyan_mall_comment where value_id = arg[0] and type = arg[1]")
+    List<Comment> getCommentsList(int valueId, int type);
+
+    @Select("select * from cskaoyan_mall_comment where value_id = arg[0] and type = arg[1] and has_picture = 1")
+    List<Comment> getPicCommentsList(int valueId, int type);
 }

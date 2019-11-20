@@ -197,4 +197,9 @@ public class ProductController {
        return goodsList(querryGoodsList);
     }
 
+    @RequestMapping("wx/comment/list")
+    public BaseReqVo wxCommentList(QuerryCommentList querryCommentList){
+        return commentList(querryCommentList);
+    }
+
 }

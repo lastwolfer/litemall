@@ -3,6 +3,7 @@ package com.pandax.litemall.mapper;
 import com.pandax.litemall.bean.Topic;
 import com.pandax.litemall.bean.TopicExample;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -37,4 +38,9 @@ public interface TopicMapper {
 
     int selectLastInsert();
 
+    @Select("select * from cskaoyan_mall_topic where id = id")
+    Topic getTopicDetail(int id);
+
+    @Select("select * from cskaoyan_mall_topic where id in (1,2,3,4)")
+    List<Topic> getTopicRelated(int id);
 }
