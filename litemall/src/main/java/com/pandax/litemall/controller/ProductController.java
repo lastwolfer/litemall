@@ -187,6 +187,7 @@ public class ProductController {
         return baseReqVo;
     }
 
+
     /**
      *查询商品：
      * currentCategory:Object,
@@ -206,7 +207,30 @@ public class ProductController {
         return baseReqVo;
     }
 
-@RequestMapping("/wx/goods/detail")
+    /**
+     * 宝
+     * 查询所属类别的商品
+     * @param categoryId 类别id
+     * @param page 页数
+     * @param size 每页个数
+     * @return json
+     */
+    @RequestMapping("/wx/goods/list")
+    public BaseReqVo wxGoodsList(Integer categoryId,Integer brandId,Integer page,Integer size){
+        BaseReqVo baseReqVo = new BaseReqVo();
+        Map map =null;
+        if(brandId == null) {
+            map = goodsService.selectGoodsByCategoryId(categoryId, page, size);
+        }else{
+            map = goodsService.selectBrandByBrandId(brandId,page, size);
+        }
+        baseReqVo.setErrmsg("成功");
+        baseReqVo.setData(map);
+        return baseReqVo;
+    }
+
+
+    @RequestMapping("/wx/goods/detail")
     public BaseReqVo wxGoodsDetail(Integer id){
         BaseReqVo baseReqVo = new BaseReqVo();
         GoodsDetail goodsDetail = goodsService.selectGoodsDetailByGoodsId(id);
@@ -248,15 +272,6 @@ public class ProductController {
         return baseReqVo;
     }
 
-    @RequestMapping("/wx/goods/list")
-    public BaseReqVo wxGoodsList(Integer categoryId,Integer page,Integer size){
-        BaseReqVo baseReqVo = new BaseReqVo();
-        Map map = goodsService.selectGoodsByCategoryId(categoryId, page, size);
-        baseReqVo.setErrmsg("成功");
-        baseReqVo.setData(map);
-        return baseReqVo;
-    }
-
     /**
      * 查询关联商品
      * @param id 商品id
@@ -265,7 +280,7 @@ public class ProductController {
     @RequestMapping("/wx/goods/related")
     public BaseReqVo wxGoodsRelated(Integer id){
         BaseReqVo baseReqVo = new BaseReqVo();
-        Map map = goodsService.selectGoodsGoodsRelatedByGoodsId(id);
+        Map map = goodsService.selectGoodsRelatedByGoodsId(id);
         baseReqVo.setErrmsg("成功");
         baseReqVo.setData(map);
         return baseReqVo;

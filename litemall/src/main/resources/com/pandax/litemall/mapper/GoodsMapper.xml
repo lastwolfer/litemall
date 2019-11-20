@@ -542,4 +542,11 @@
     <select id="selectCategory" resultType="com.pandax.litemall.bean.CategoryList">
       select id as value ,name as label from cskaoyan_mall_category where pid = #{value}
     </select>
+    <select id="selectGoodsByCategoryIds" resultMap="ResultMapWithBLOBs">
+      select <include refid="Base_Column_List"/>
+      from cskaoyan_mall_goods where category_id in
+      (<foreach collection="categories" item="category" separator=",">
+      #{category.id}
+    </foreach>)
+    </select>
 </mapper>

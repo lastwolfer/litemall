@@ -335,6 +335,56 @@ public class GoodsServiceImpl implements GoodsService {
         return i1 + i2 + i3;
     }
 
+    /**
+     * 查询新商品
+     * @return
+     */
+    @Override
+    public List<Goods> selectNewGoods() {
+        GoodsExample goodsExample = new GoodsExample();
+        goodsExample.createCriteria().andIsNewEqualTo(true);
+        return goodsMapper.selectByExampleWithBLOBs(goodsExample);
+    }
+
+    /**
+     * 查询一级分类
+     * @return
+     */
+    @Override
+    public List<Category> selectCategoryL1() {
+        CategoryExample categoryExample = new CategoryExample();
+        categoryExample.createCriteria().andPidEqualTo(0);
+        return categoryMapper.selectByExample(categoryExample);
+    }
+
+    /**
+     * 查询热门商品
+     * @return
+     */
+    @Override
+    public List<Goods> selectHotGoods() {
+        GoodsExample goodsExample = new GoodsExample();
+        goodsExample.createCriteria().andIsHotEqualTo(true);
+        return goodsMapper.selectByExample(goodsExample);
+    }
+
+    @Override
+    public List selectCategoryAndGoods() {
+        ArrayList<Map> floorGoodsList = new ArrayList<>();
+        List<Category> l1Categories = selectCategoryL1();
+        for (Category l1Category : l1Categories) {
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("name",l1Category.getName());
+            map.put("id",l1Category.getId());
+            CategoryExample categoryExample = new CategoryExample();
+            categoryExample.createCriteria().andPidEqualTo(l1Category.getId());
+            List<Category> categories = categoryMapper.selectByExample(categoryExample);
+            List<Goods> goodsList = goodsMapper.selectGoodsByCategoryIds(categories);
+            map.put("goodsList",goodsList);
+            floorGoodsList.add(map);
+        }
+        return floorGoodsList;
+    }
 
     /**
      * 查询所有的商品数目
@@ -354,19 +404,30 @@ public class GoodsServiceImpl implements GoodsService {
      *  brotherCategory:Array,
      *  parentCategory:Object
      * @param id 当前商品id
-     * @return 查询结果
+     * @return 查询结果c
      */
     @Override
     public Map selectCategoryByGoodsId(Integer id) {
-        //先查询当前商品：currentCategory
-        Category currentCategory = categoryMapper.selectByPrimaryKey(id);
-        //查询父类商品：parentCategory
-        Category parentCategory = categoryMapper.selectByPrimaryKey(currentCategory.getPid());
-        //查询所有同类产品：brotherCategory（包括自己）
-        CategoryExample example = new CategoryExample();
-        CategoryExample.Criteria criteria = example.createCriteria();
-        criteria.andPidEqualTo(parentCategory.getId());
-        List<Category> brotherCategory = categoryMapper.selectByExample(example);
+        //先判断是否是最高级别Category
+        Category parentCategory = null;
+        Category currentCategory = null;
+        List<Category> brotherCategory =null;
+        Category category = categoryMapper.selectByPrimaryKey(id);
+        if(category.getPid() == 0){//则该类别是最高级别:parentCategory
+           parentCategory = category;
+           CategoryExample example = new CategoryExample();
+           CategoryExample.Criteria criteria = example.createCriteria();
+           criteria.andPidEqualTo(parentCategory.getId());
+           brotherCategory = categoryMapper.selectByExample(example);
+           currentCategory = brotherCategory.get(0);
+        }else{//否则则该类别不是最高级别:currentCategory
+           currentCategory = category;
+           CategoryExample example = new CategoryExample();
+           CategoryExample.Criteria criteria = example.createCriteria();
+           criteria.andPidEqualTo(currentCategory.getPid());
+           brotherCategory = categoryMapper.selectByExample(example);
+           parentCategory = categoryMapper.selectByPrimaryKey(currentCategory.getPid());
+        }
         Map<String,Object> map = new HashMap<>();
         map.put("currentCategory",currentCategory);
         map.put("brotherCategory",brotherCategory);
@@ -405,22 +466,18 @@ public class GoodsServiceImpl implements GoodsService {
             List<GoodsSpecification> list= new ArrayList<>();
             specificationList.setName(goodsSpecification.getSpecification());
             list.add(goodsSpecification);
-            specificationList.setGoodsSpecifications(list);
+            specificationList.setValueList(list);
             specificationLists.add(specificationList);
         }
-        goodsDetail.setSpecificationLists(specificationLists);//ok
-    
+        goodsDetail.setSpecificationList(specificationLists);//ok
+
 
         //查看团购：groupon
         //先从groupRule中查询ruleId
         GrouponRulesExample grouponRulesExample = new GrouponRulesExample();
         grouponRulesExample.createCriteria().andGoodsIdEqualTo(id);
-        GrouponRules grouponRules1 = (GrouponRules) grouponRulesMapper.selectByExample(grouponRulesExample);
-        //再根据ruleId查询groupon
-        GrouponExample grouponExample = new GrouponExample();
-        grouponExample.createCriteria().andRulesIdEqualTo(grouponRules1.getId());
-        List<Groupon> groupons = grouponMapper.selectByExample(grouponExample);
-        goodsDetail.setGroupon(groupons);//ok
+        List<GrouponRules> grouponRules = grouponRulesMapper.selectByExample(grouponRulesExample);
+        goodsDetail.setGroupon(grouponRules);//ok
 
 
         //查询issue
@@ -515,13 +572,28 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
-    public Map selectGoodsGoodsRelatedByGoodsId(Integer id) {
+    public Map selectGoodsRelatedByGoodsId(Integer id) {
         Goods goods = goodsMapper.selectByPrimaryKey(id);
         GoodsExample example = new GoodsExample();
         example.createCriteria().andCategoryIdEqualTo(goods.getCategoryId());
         List<Goods> goods1 = goodsMapper.selectByExample(example);
         Map<String, Object> map = new HashMap<>();
         map.put("goodsList",goods1);
+        return map;
+    }
+
+    @Override
+    public Map selectBrandByBrandId(Integer brandId, Integer page, Integer size) {
+        PageHelper.startPage(page,size);
+        GoodsExample example = new GoodsExample();
+        example.createCriteria().andBrandIdEqualTo(brandId);
+        List<Goods> goods = goodsMapper.selectByExample(example);
+        PageInfo<Goods> pageInfo = new PageInfo<>(goods);
+        long total = pageInfo.getTotal();
+        Map<String,Object> map = new HashMap<>();
+        map.put("goodsList",goods);
+        map.put("count",total);
+        map.put("filterCategoryList",null);
         return map;
     }
 

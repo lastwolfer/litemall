@@ -7,10 +7,7 @@ import com.pandax.litemall.mapper.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class PromotionServiceImpl implements PromotionService {
@@ -273,5 +270,32 @@ public class PromotionServiceImpl implements PromotionService {
         return coupon1;
     }
 
+    /**
+     * 查询优惠券
+     * @return
+     */
+    @Override
+    public List<Coupon> selectCoupon() {
+        return couponMapper.selectByExample(null);
+    }
 
+    /**
+     * 团购信息
+     * @return
+     */
+    @Override
+    public List<GrouponList> selectGrouponList() {
+        ArrayList<GrouponList> grouponLists = new ArrayList<>();
+        List<GrouponRules> grouponRules = grouponRulesMapper.selectByExample(null);
+        for (GrouponRules grouponRule : grouponRules) {
+            GrouponList grouponList = new GrouponList();
+            Integer goodsId = grouponRule.getGoodsId();
+            Goods goods = goodsMapper.selectByPrimaryKey(goodsId);
+            grouponList.setGroupon_price(goods.getRetailPrice().subtract(grouponRule.getDiscount()));
+            grouponList.setGoods(goods);
+            grouponList.setGrouponMember(grouponRule.getDiscountMember());
+            grouponLists.add(grouponList);
+        }
+        return grouponLists;
+    }
 }

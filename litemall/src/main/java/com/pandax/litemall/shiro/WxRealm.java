@@ -1,10 +1,9 @@
 package com.pandax.litemall.shiro;
 
-import com.pandax.litemall.bean.Admin;
-import com.pandax.litemall.bean.Permission;
-import com.pandax.litemall.bean.PermissionExample;
+import com.pandax.litemall.bean.*;
 import com.pandax.litemall.mapper.AdminMapper;
 import com.pandax.litemall.mapper.PermissionMapper;
+import com.pandax.litemall.mapper.UserMapper;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -29,6 +28,9 @@ import java.util.List;
 @Component
 public class WxRealm extends AuthorizingRealm {
 
+    @Autowired
+    UserMapper userMapper;
+
 
     /**
      * 认证
@@ -38,6 +40,11 @@ public class WxRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
+        MallToken token = (MallToken) authenticationToken;
+
+        UserExample example = new UserExample();
+        example.createCriteria().andUsernameEqualTo(token.getUsername()).andDeletedEqualTo(false);
+        List<User> users = userMapper.selectByExample(example);
         return null;
     }
 

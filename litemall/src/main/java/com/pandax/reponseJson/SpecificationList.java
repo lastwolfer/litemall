@@ -9,5 +9,5 @@ import java.util.List;
 public class SpecificationList {
     String name;
 
-    List<GoodsSpecification> goodsSpecifications;
+    List<GoodsSpecification> valueList;
 }

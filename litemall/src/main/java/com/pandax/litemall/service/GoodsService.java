@@ -30,11 +30,20 @@ public interface GoodsService {
 
     int deleteComment(Comment comment);
 
+    List<Goods> selectNewGoods();
+
+    List<Category> selectCategoryL1();
+
+    List<Goods> selectHotGoods();
+
+    List selectCategoryAndGoods();
+
     Map goodsCount();
 
     Map selectCategoryByGoodsId(Integer id);
 
     GoodsDetail selectGoodsDetailByGoodsId(Integer id);
+
 
     Map selectAllBrand(Integer page, Integer size);
 
@@ -42,5 +51,7 @@ public interface GoodsService {
 
     Map selectGoodsByCategoryId(Integer categoryId, Integer page, Integer size);
 
-    Map selectGoodsGoodsRelatedByGoodsId(Integer id);
+    Map selectGoodsRelatedByGoodsId(Integer id);
+
+    Map selectBrandByBrandId(Integer brandId, Integer page, Integer size);
 }
