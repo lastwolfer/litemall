@@ -67,7 +67,10 @@ public class LogAspect {
         int errno = vo.getErrno();
         Subject subject = SecurityUtils.getSubject();
         Admin admin = (Admin) subject.getPrincipal();
-        String username = admin.getUsername();
+        String username ="wx";
+        if (admin!=null){
+            username = admin.getUsername();
+        }
         if(errno != 0) {
             log.setAdmin("匿名用户");
             log.setStatus(false);
