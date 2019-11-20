@@ -7,6 +7,9 @@ import com.github.pagehelper.PageInfo;
 import com.pandax.litemall.bean.*;
 import com.pandax.litemall.mapper.*;
 
+import com.pandax.reponseJson.Comments;
+import com.pandax.reponseJson.GoodsDetail;
+import com.pandax.reponseJson.SpecificationList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,6 +38,10 @@ public class GoodsServiceImpl implements GoodsService {
     GrouponMapper grouponMapper;
     @Autowired
     GrouponRulesMapper  grouponRulesMapper;
+    @Autowired
+    IssueMapper issueMapper;
+    @Autowired
+    CollectMapper collectMapper;
 
     /**
      * 商品清单分页，排序
@@ -44,7 +51,8 @@ public class GoodsServiceImpl implements GoodsService {
     @Override
     public List<Goods> goodsList(QuerryGoodsList querryGoodsList) {
         //分页查询
-        PageHelper.startPage(querryGoodsList.getPage(), querryGoodsList.getLimit());
+        Integer limit = querryGoodsList.getLimit() == null ? querryGoodsList.getSize() : querryGoodsList.getLimit();
+        PageHelper.startPage(querryGoodsList.getPage(), limit);
         GoodsExample goodsExample = new GoodsExample();
         GoodsExample.Criteria criteria = goodsExample.createCriteria();
         if (querryGoodsList.getGoodsSn() != null && !querryGoodsList.getGoodsSn().equals("".trim())) {
@@ -53,7 +61,18 @@ public class GoodsServiceImpl implements GoodsService {
         if (querryGoodsList.getName() != null) {
             criteria.andNameLike("%" + querryGoodsList.getName() + "%");
         }
-        goodsExample.setOrderByClause(querryGoodsList.getSort() + " " + querryGoodsList.getOrder());
+        if (querryGoodsList.getCategoryId() != null && querryGoodsList.getCategoryId() != 0) {
+            criteria.andCategoryIdEqualTo(querryGoodsList.getCategoryId());
+        }
+        if (querryGoodsList.getBrandId() != null) {
+            criteria.andBrandIdEqualTo(querryGoodsList.getBrandId());
+        }
+        if (querryGoodsList.getKeyword()!=null){
+            criteria.andKeywordsEqualTo(querryGoodsList.getKeyword());
+        }
+        if (querryGoodsList.getSort() != null && querryGoodsList.getOrder() != null) {
+            goodsExample.setOrderByClause(querryGoodsList.getSort()+" "+querryGoodsList.getOrder());
+        }
         List<Goods> goodsList = goodsMapper.selectByExampleWithBLOBs(goodsExample);
         return goodsList;
     }
@@ -233,6 +252,12 @@ public class GoodsServiceImpl implements GoodsService {
         return i;
     }
 
+    /**
+     * 评价查询
+     *
+     * @param querryCommentList
+     * @return
+     */
     @Override
     public List<Comment> commentList(QuerryCommentList querryCommentList) {
         //分页查询
@@ -240,20 +265,15 @@ public class GoodsServiceImpl implements GoodsService {
         CommentExample commentExample = new CommentExample();
         CommentExample.Criteria criteria = commentExample.createCriteria();
         criteria.andDeletedNotEqualTo(true);
+        //判断是否含有该条件
         if (querryCommentList.getUserId() != null) {
             criteria.andUserIdEqualTo(querryCommentList.getUserId());
         }
         if (querryCommentList.getValueId() != null) {
             criteria.andValueIdEqualTo(querryCommentList.getValueId());
         }
-
         commentExample.setOrderByClause(querryCommentList.getSort() + " " + querryCommentList.getOrder());
         List<Comment> commentList = commentMapper.selectByExample(commentExample);
-        for (Comment comment : commentList) {
-            if (!comment.getHasPicture()) {//如果没有图片则将图片
-                comment.setPicUrls(null);
-            }
-        }
         return commentList;
     }
 
@@ -266,7 +286,6 @@ public class GoodsServiceImpl implements GoodsService {
     @Override
     public int reply(CommentReply commentReply) {
         Integer i = commentReplyMapper.selectCountByCommentId(commentReply.getCommentId());
-        System.out.println(i);
         if (i != 0) {//已经回复
             return 0;
         }
@@ -355,6 +374,8 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     /**
+     * 查新商品详情
+     * 不要怀疑，这就是一个接口！
      * json:
      *  "specificationList":Array[1],
      *         "groupon":Array[0],
@@ -365,41 +386,83 @@ public class GoodsServiceImpl implements GoodsService {
      *         "brand":Object{...},
      *         "productList":Array[1],
      *         "info":Object{...}
-     * @param id
-     * @return
+     * @param id 商品id
+     * @return 商品详情
      */
     @Override
-    public Map selectGoodsDetailByGoodsId(Integer id) {
+    public GoodsDetail selectGoodsDetailByGoodsId(Integer id) {
+        GoodsDetail goodsDetail = new GoodsDetail();
         //查询商品的所有规格:pecificationList
         GoodsSpecificationExample example = new GoodsSpecificationExample();
         example.createCriteria().andGoodsIdEqualTo(id);
         List<GoodsSpecification> goodsSpecifications = goodsSpecificationMapper.selectByExample(example);
+        //转化为前台对应形式
+        List<SpecificationList> specificationLists = new ArrayList<>();
+        //每一个都是对应的数组（前台bug）
+        for (GoodsSpecification goodsSpecification : goodsSpecifications) {
+            SpecificationList specificationList = new SpecificationList();
+            List<GoodsSpecification> list= new ArrayList<>();
+            specificationList.setName(goodsSpecification.getSpecification());
+            list.add(goodsSpecification);
+            specificationList.setGoodsSpecifications(list);
+            specificationLists.add(specificationList);
+        }
+        goodsDetail.setSpecificationLists(specificationLists);//ok
+    
+
         //查看团购：groupon
-        //先查询GrouponRules
+        //先从groupRule中查询ruleId
         GrouponRulesExample grouponRulesExample = new GrouponRulesExample();
         grouponRulesExample.createCriteria().andGoodsIdEqualTo(id);
-        List<GrouponRules> grouponRules = grouponRulesMapper.selectByExample(grouponRulesExample);
-        //根据GrouponRules中的groupid查询所有Groupon
-        List<Groupon> groupons = null;
-        for (GrouponRules grouponRule : grouponRules) {
-            GrouponExample grouponExample = new GrouponExample();
-            grouponExample.createCriteria().andRulesIdEqualTo(grouponRule.getId());
-            List<Groupon> groupons1 = grouponMapper.selectByExample(grouponExample);
-        }
+        GrouponRules grouponRules1 = (GrouponRules) grouponRulesMapper.selectByExample(grouponRulesExample);
+        //再根据ruleId查询groupon
+        GrouponExample grouponExample = new GrouponExample();
+        grouponExample.createCriteria().andRulesIdEqualTo(grouponRules1.getId());
+        List<Groupon> groupons = grouponMapper.selectByExample(grouponExample);
+        goodsDetail.setGroupon(groupons);//ok
+
 
         //查询issue
+        List<Issue> issues = issueMapper.selectByExample(null);
+        goodsDetail.setIssue(issues);//ok
 
         //查看用户收藏：userHasCollect
+        CollectExample collectExample = new CollectExample();
+        collectExample.createCriteria().andTypeEqualTo((byte)0).andValueIdEqualTo(id);
+        long count = collectMapper.countByExample(collectExample);
+        goodsDetail.setUserHasCollect(count);//ok
+
         //查看评论：comment
+        CommentExample commentExample = new CommentExample();
+        commentExample.createCriteria().andValueIdEqualTo(id).andTypeEqualTo((byte) 0);
+        List<Comment> comments = commentMapper.selectByExample(commentExample);
+        long count1 = commentMapper.countByExample(commentExample);
+        Comments comments1 = new Comments();
+        comments1.setCount(count1);
+        comments1.setData(comments);
+        goodsDetail.setComment(comments1);//ok
+
         //查询attribute
         GoodsAttributeExample attributeExample = new GoodsAttributeExample();
         attributeExample.createCriteria().andGoodsIdEqualTo(id);
         List<GoodsAttribute> goodsAttributes = goodsAttributeMapper.selectByExample(attributeExample);
+        goodsDetail.setAttribute(goodsAttributes);//ok
 
-        Map<String,Object> map = new HashMap<>();
-        map.put("goodsSpecifications",goodsSpecifications);
+        //查询brand
+        Goods goods = goodsMapper.selectByPrimaryKey(id);
+        Brand brand = brandMapper.selectByPrimaryKey(goods.getBrandId());
+        goodsDetail.setBrand(brand);//ok
 
-        return null;
+        //查询productList
+        GoodsProductExample goodsProductExample = new GoodsProductExample();
+        goodsProductExample.createCriteria().andGoodsIdEqualTo(id);
+        List<GoodsProduct> goodsProducts = goodsProductMapper.selectByExample(goodsProductExample);
+        goodsDetail.setProductList(goodsProducts);
+
+        //传讯info
+        goodsDetail.setInfo(goods);//ok
+
+        return goodsDetail;
     }
 
 }

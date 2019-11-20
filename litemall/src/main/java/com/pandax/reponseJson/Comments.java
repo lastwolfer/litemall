@@ -10,5 +10,5 @@ public class Comments {
 
     List<Comment> data;
 
-    Integer count;
+    Long count;
 }

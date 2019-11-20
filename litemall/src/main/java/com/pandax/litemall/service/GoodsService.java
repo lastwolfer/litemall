@@ -1,6 +1,7 @@
 package com.pandax.litemall.service;
 
 import com.pandax.litemall.bean.*;
+import com.pandax.reponseJson.GoodsDetail;
 
 import java.util.List;
 import java.util.Map;
@@ -11,7 +12,8 @@ public interface GoodsService {
     List<CategoryList> QuerryCat();
 
     List QuerryBrand();
-    public int countGoods();
+
+    int countGoods();
 
     int createGoods(GoodsCreateBean goodsCreateBean);
 
@@ -32,5 +34,5 @@ public interface GoodsService {
 
     Map selectCategoryByGoodsId(Integer id);
 
-    Map selectGoodsDetailByGoodsId(Integer id);
+    GoodsDetail selectGoodsDetailByGoodsId(Integer id);
 }

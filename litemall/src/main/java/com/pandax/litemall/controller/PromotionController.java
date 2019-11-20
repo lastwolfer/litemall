@@ -17,8 +17,8 @@ public class PromotionController {
     PromotionService promotionService;
 
     @RequestMapping("admin/ad/list")
-    public BaseReqVo listAd(Integer page, Integer limit, Ad ad){
-        Map<String, Object> map = promotionService.selectByExample(page, limit,ad);
+    public BaseReqVo listAd(Integer page, Integer limit, String sort,String order,Ad ad){
+        Map<String, Object> map = promotionService.listAd(page, limit,sort,order,ad);
         BaseReqVo baseReqVo = new BaseReqVo();
         if(map!=null){
             baseReqVo.setData(map);
@@ -91,8 +91,8 @@ public class PromotionController {
     }
 
     @RequestMapping("admin/coupon/list")
-    public BaseReqVo listCoupon(Integer page, Integer limit, Coupon coupon){
-        Map<String, Object> map = promotionService.listCoupon(page, limit,coupon);
+    public BaseReqVo listCoupon(Integer page, Integer limit, String sort,String order,Coupon coupon){
+        Map<String, Object> map = promotionService.listCoupon(page, limit,sort,order,coupon);
         BaseReqVo baseReqVo = new BaseReqVo();
         if(map!=null){
             baseReqVo.setData(map);
@@ -136,8 +136,8 @@ public class PromotionController {
     }
 
     @RequestMapping("admin/coupon/listuser")
-    public BaseReqVo listCouponUser(Integer page, Integer limit, CouponUser couponUser){
-        Map<String, Object> map = promotionService.listCouponUser(page, limit, couponUser);
+    public BaseReqVo listCouponUser(Integer page, Integer limit, String sort,String order,CouponUser couponUser){
+        Map<String, Object> map = promotionService.listCouponUser(page, limit,sort,order,couponUser);
         BaseReqVo baseReqVo = new BaseReqVo();
         if(map!=null){
             baseReqVo.setData(map);
@@ -180,8 +180,8 @@ public class PromotionController {
     }
 
     @RequestMapping("admin/topic/list")
-    public BaseReqVo listTopic(Integer page, Integer limit, Topic topic){
-        Map<String, Object> map = promotionService.listTopic(page, limit,topic);
+    public BaseReqVo listTopic(Integer page, Integer limit, String sort,String order,Topic topic){
+        Map<String, Object> map = promotionService.listTopic(page, limit,sort,order,topic);
         BaseReqVo baseReqVo = new BaseReqVo();
         if(map!=null){
             baseReqVo.setData(map);
@@ -239,8 +239,8 @@ public class PromotionController {
     }
 
     @RequestMapping("admin/groupon/list")
-    public BaseReqVo listGroupon(Integer page, Integer limit, GrouponRules grouponRules){
-        Map<String, Object> map = promotionService.listGroupon(page, limit,grouponRules);
+    public BaseReqVo listGroupon(Integer page, Integer limit, String sort,String order,GrouponRules grouponRules){
+        Map<String, Object> map = promotionService.listGroupon(page, limit,sort,order,grouponRules);
         BaseReqVo baseReqVo = new BaseReqVo();
         if(map!=null){
             baseReqVo.setData(map);
@@ -298,8 +298,8 @@ public class PromotionController {
     }
 
     @RequestMapping("admin/groupon/listRecord")
-    public BaseReqVo listRecord(Integer page, Integer limit, Groupon groupon){
-        Map<String, Object> map = promotionService.listRecord(page, limit,groupon);
+    public BaseReqVo listRecord(Integer page, Integer limit, String sort,String order,Groupon groupon){
+        Map<String, Object> map = promotionService.listRecord(page, limit,sort,order,groupon);
         BaseReqVo baseReqVo = new BaseReqVo();
         if(map!=null){
             baseReqVo.setData(map);

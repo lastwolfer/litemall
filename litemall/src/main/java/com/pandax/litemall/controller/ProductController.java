@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageInfo;
 import com.pandax.litemall.bean.*;
 import com.pandax.litemall.service.GoodsService;
+import com.pandax.reponseJson.GoodsDetail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -171,6 +172,7 @@ public class ProductController {
         return baseReqVo;
     }
 
+
     /**
      *查询所有的商品数目
      * @return json的数据
@@ -207,15 +209,12 @@ public class ProductController {
 @RequestMapping("/wx/goods/detail")
     public BaseReqVo wxGoodsDetail(Integer id){
         BaseReqVo baseReqVo = new BaseReqVo();
-        Map map = goodsService.selectGoodsDetailByGoodsId(id);
+        GoodsDetail goodsDetail = goodsService.selectGoodsDetailByGoodsId(id);
         baseReqVo.setErrno(0);
         baseReqVo.setErrmsg("成功");
-        baseReqVo.setData(map);
+        baseReqVo.setData(goodsDetail);
         System.out.println(baseReqVo);
         return baseReqVo;
     }
-
-
-
 
 }

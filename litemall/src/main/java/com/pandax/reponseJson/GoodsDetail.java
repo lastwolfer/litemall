@@ -1,9 +1,6 @@
 package com.pandax.reponseJson;
 
-import com.pandax.litemall.bean.Brand;
-import com.pandax.litemall.bean.GoodsAttribute;
-import com.pandax.litemall.bean.Groupon;
-import com.pandax.litemall.bean.Issue;
+import com.pandax.litemall.bean.*;
 import lombok.Data;
 
 import java.util.List;
@@ -17,13 +14,17 @@ public class GoodsDetail {
 
     List<Issue> issue;
 
-    Integer userHasCollect;
+    Long userHasCollect;
 
     Comments comment;
 
-    GoodsAttribute attribute;
+    List<GoodsAttribute> attribute;
 
     Brand brand;
+
+    List<GoodsProduct> productList;
+
+    Goods info;
 
 
 

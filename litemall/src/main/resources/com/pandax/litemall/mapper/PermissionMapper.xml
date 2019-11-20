@@ -85,7 +85,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from cskaoyan_mall_permission
     where id = #{id,jdbcType=INTEGER}
@@ -101,10 +101,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.pandax.litemall.bean.Permission">
-    insert into cskaoyan_mall_permission (id, role_id, permission, 
+    insert into cskaoyan_mall_permission (id, role_id, permission,
       add_time, update_time, deleted
       )
-    values (#{id,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}, #{permission,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}, #{permission,jdbcType=VARCHAR},
       #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT}
       )
   </insert>
@@ -224,5 +224,41 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       deleted = #{deleted,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
+  </update>
+    <update id="deletePermissionByRoleId">
+      update cskaoyan_mall_permission set
+      deleted = true
+      <where>
+        role_id = #{roleId}
+      </where>
+    </update>
+  <insert id="insertPermissionList">
+    insert into cskaoyan_mall_permission
+    (role_id, permission, add_time, update_time, deleted)
+    values
+    <foreach collection="list" item="permission"  separator=",">
+      (#{roleId}, #{permission}, now(), now(), false )
+    </foreach>
+  </insert>
+  <update id="deletePermissionList">
+    <!--set 只能用逗号-->
+    update cskaoyan_mall_permission set
+    deleted = true ,
+    update_time = now()
+    where
+    id in
+    <foreach collection="deleteList" item="item" separator="," open="(" close=")">
+      #{item}
+    </foreach>
+  </update>
+  <update id="resurgencePermissionList">
+    update cskaoyan_mall_permission set
+    deleted = false ,
+    update_time = now()
+    where
+    id in
+    <foreach collection="resurgenceList" item="item" separator="," open="(" close=")">
+      #{item}
+    </foreach>
   </update>
 </mapper>

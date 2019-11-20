@@ -28,24 +28,27 @@
     <select id="selectStorage" resultMap="storageMap">
         select <include refid="baseSql"/>
         from cskaoyan_mall_storage
-        order by ${sort} ${order}
         <where>
             <trim suffixOverrides="and">
+                deleted = false and
                 <if test="key!=null">
-                    key like #{key} and
+                    `key` like #{key} and
                 </if>
                 <if test="name!=null">
-                    name like #{name}
+                    `name` like #{name}
                 </if>
             </trim>
         </where>
+        order by ${sort} ${order}
     </select>
 
     <update id="updateStorage" parameterType="com.pandax.litemall.bean.Storage">
         update cskaoyan_mall_storage set
-          id = #{storage.id}, `key` = #{storage.key},name =#{storage.name},
-          type = #{storage.type},size = #{storage.size},url = #{storage.url},
+          `key` = #{storage.key},name =#{storage.name},type = #{storage.type},size = #{storage.size},url = #{storage.url},
           add_time = #{storage.addTime},update_time = #{storage.updateTime},deleted = #{storage.deleted}
+        <where>
+            id = #{storage.id}
+        </where>
     </update>
 
     <delete id="deleteStorage" parameterType="com.pandax.litemall.bean.Storage">
