@@ -583,22 +583,6 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
-    public Map selectGoodsByKeyword(String keyword, String sort, String order, Integer page, Integer size, Integer categoryId) {
-        PageHelper.startPage(page,size);
-        GoodsExample example = new GoodsExample();
-        example.createCriteria().
-        example.setOrderByClause(sort + " " + order);
-        List<Goods> goods = goodsMapper.selectByExample(example);
-        PageInfo<Goods> pageInfo = new PageInfo<>(goods);
-        long total = pageInfo.getTotal();
-        Map<String,Object> map = new HashMap<>();
-        map.put("goodsList",goods);
-        map.put("count",total);
-        map.put("filterCategoryList",null);
-        return map;
-    }
-
-    @Override
     public Map selectBrandByBrandId(Integer brandId, Integer page, Integer size) {
         PageHelper.startPage(page,size);
         GoodsExample example = new GoodsExample();
@@ -611,6 +595,28 @@ public class GoodsServiceImpl implements GoodsService {
         map.put("count",total);
         map.put("filterCategoryList",null);
         return map;
+    }
+
+
+    @Override
+    public Map selectGoodsByKeyWord(String keyWord, String sort, String order, Integer categoryId,Integer page, Integer size) {
+        PageHelper.startPage(page,size);
+        keyWord = "%" + keyWord +"%";
+        GoodsExample goodsExample = new GoodsExample();
+        goodsExample.setOrderByClause(sort+" "+ order);
+        GoodsExample.Criteria criteria = goodsExample.createCriteria().andKeywordsLike(keyWord);
+        if(categoryId != 0){
+            criteria.andCategoryIdEqualTo(categoryId);
+        }
+        List<Goods> goods = goodsMapper.selectByExample(goodsExample);
+        PageInfo<Goods> pageInfo = new PageInfo<>(goods);
+        long total = pageInfo.getTotal();
+        List<Category> categories = categoryMapper.selectByExample(null);
+        Map<String,Object> map =new HashMap<>();
+        map.put("goodsList",goods);
+        map.put("count",total);
+        map.put("filterCategoryList",categories);
+        return null;
     }
 
 

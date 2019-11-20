@@ -25,8 +25,6 @@ public class ProductController {
     @Autowired
     GoodsService goodsService;
 
-    @Autowired
-    SearchService searchService;
 
     /**
      * 商品列表,分页和排序
@@ -224,19 +222,19 @@ public class ProductController {
      */
     //keyword=123&page=1&size=20&sort=name&order=desc&categoryId=0
     @RequestMapping("/wx/goods/list")
-    public BaseReqVo wxGoodsList(String keyword,String sort,String order,Integer categoryId,Integer brandId,Integer page,Integer size){
+
+    public BaseReqVo wxGoodsList(Integer categoryId,Integer brandId,Integer page,Integer size,
+                                 String keyWord,String sort,String order){
         BaseReqVo baseReqVo = new BaseReqVo();
         Map map =null;
-        if(keyword != null){
-            Subject subject = SecurityUtils.getSubject();
-            User user = (User) subject.getPrincipal();
-            Integer id = user.getId();
-            int i = searchService.addHistory(id,keyword);
-            map = goodsService.selectGoodsByKeyword(keyword,sort,order,page,size,categoryId);
+        if(keyWord != null ){
+            map = goodsService.selectGoodsByKeyWord(keyWord,sort,order,categoryId,page,size);
         }
-        if(brandId == null) {
+        if(categoryId != null) {
+
             map = goodsService.selectGoodsByCategoryId(categoryId, page, size);
-        }else{
+        }
+        if(brandId != null){
             map = goodsService.selectBrandByBrandId(brandId,page, size);
         }
         baseReqVo.setErrmsg("成功");
