@@ -2,7 +2,9 @@ package com.pandax.litemall.service;
 
 import com.pandax.litemall.bean.Permission;
 import com.pandax.litemall.bean.PermissionExample;
+import com.pandax.litemall.bean.SystemPermissions;
 import com.pandax.litemall.mapper.PermissionMapper;
+import com.pandax.litemall.mapper.RoleMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,9 @@ public class PermissionServiceImpl implements PermissionService{
 
     @Autowired
     PermissionMapper permissionMapper;
+
+    @Autowired
+    RoleMapper roleMapper;
 
     @Override
     public void updatePermission(Integer roleId, List<String> list) {
@@ -90,5 +95,31 @@ public class PermissionServiceImpl implements PermissionService{
             set.add(permission.getPermission());
         }
         return set;
+    }
+
+    @Override
+    public HashSet<String> selectSysPermissions() {
+        List<SystemPermissions> permissionsList =
+                roleMapper.selectPermissionsByNoParId();
+        HashSet<String> urlSet = new HashSet<String>();
+        for (SystemPermissions permissions : permissionsList) {
+            permissions.setChildren(getChildrenPermissionsList(permissions.getId(),urlSet));
+        }
+        return urlSet;
+    }
+
+
+    private List<SystemPermissions> getChildrenPermissionsList(String id,HashSet<String> urlSet) {
+        List<SystemPermissions> permissionsList =
+                roleMapper.selectPermissionsByParId(id);
+        for (SystemPermissions permissions : permissionsList) {
+            if (permissions != null) {
+                permissions.setChildren(getChildrenPermissionsList(permissions.getId(), urlSet));
+                if(permissions.getApi() != null) {
+                    urlSet.add(permissions.getApi());
+                }
+            }
+        }
+        return permissionsList;
     }
 }
