@@ -1,9 +1,12 @@
 package com.pandax.litemall.aspect;
 
+import com.pandax.litemall.bean.Admin;
 import com.pandax.litemall.bean.BaseReqVo;
 import com.pandax.litemall.bean.Log;
 import com.pandax.litemall.exception.SystemException;
 import com.pandax.litemall.service.LogService;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.aspectj.lang.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -62,12 +65,14 @@ public class LogAspect {
 
         BaseReqVo vo = (BaseReqVo) ret;
         int errno = vo.getErrno();
+        Subject subject = SecurityUtils.getSubject();
+        Admin admin = (Admin) subject.getPrincipal();
+        String username = admin.getUsername();
         if(errno != 0) {
             log.setAdmin("匿名用户");
             log.setStatus(false);
             log.setResult(vo.getErrmsg());
         } else {
-            String username = "unknow admin123";
             log.setAdmin(username);
             log.setStatus(true);
         }
@@ -133,7 +138,10 @@ public class LogAspect {
 
         //这里写获得username的相关逻辑
         //先设置成DEFAULT ADMIN
-        String username = "DEFAULT ADMIN";
+        Subject subject = SecurityUtils.getSubject();
+        Admin admin = (Admin) subject.getPrincipal();
+        String username = admin.getUsername();
+        //String username = "DEFAULT ADMIN";
         log.setAdmin(username);
         log.setStatus(false);
         log.setResult(e.getMessage());

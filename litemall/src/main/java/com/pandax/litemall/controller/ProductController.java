@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageInfo;
 import com.pandax.litemall.bean.*;
 import com.pandax.litemall.service.GoodsService;
+import com.pandax.reponseJson.GoodsDetail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -171,21 +172,50 @@ public class ProductController {
         return baseReqVo;
     }
 
-    //微信小程序------------------------------------------
 
     /**
-     * 商品总数
-     * @return
+     *查询所有的商品数目
+     * @return json的数据
      */
-    @RequestMapping("wx/goods/count")
-    public BaseReqVo countGoods(){
+    @RequestMapping("/wx/goods/count")
+    public BaseReqVo wxGoodsCount(){
         BaseReqVo baseReqVo = new BaseReqVo();
-        int i = goodsService.countGoods();
+        Map map = goodsService.goodsCount();
         baseReqVo.setErrno(0);
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("goodsCount",i);
-        baseReqVo.setData(map);
         baseReqVo.setErrmsg("成功");
+        baseReqVo.setData(map);
         return baseReqVo;
     }
+
+
+    /**
+     *查询商品：
+     * currentCategory:Object,
+     *  brotherCategory:Array,
+     *  parentCategory:Object
+     * @param id 当前商品的ID
+     * @return json数据
+     */
+    @RequestMapping("/wx/goods/category")
+    public BaseReqVo wxGoodsCategory(Integer id){
+        BaseReqVo baseReqVo = new BaseReqVo();
+        Map map = goodsService.selectCategoryByGoodsId(id);
+        baseReqVo.setErrno(0);
+        baseReqVo.setErrmsg("成功");
+        baseReqVo.setData(map);
+        System.out.println(baseReqVo);
+        return baseReqVo;
+    }
+
+@RequestMapping("/wx/goods/detail")
+    public BaseReqVo wxGoodsDetail(Integer id){
+        BaseReqVo baseReqVo = new BaseReqVo();
+        GoodsDetail goodsDetail = goodsService.selectGoodsDetailByGoodsId(id);
+        baseReqVo.setErrno(0);
+        baseReqVo.setErrmsg("成功");
+        baseReqVo.setData(goodsDetail);
+        System.out.println(baseReqVo);
+        return baseReqVo;
+    }
+
 }

@@ -60,7 +60,7 @@ public class AdminRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         Admin admin = (Admin) principalCollection.getPrimaryPrincipal();
-        System.out.println("----------调用啦----------");
+        //System.out.println("----------调用啦----------");
         Integer[] roleIds = admin.getRoleIds();
         List<Integer> list = new ArrayList<>();
         for (Integer roleId : roleIds) {
@@ -74,7 +74,7 @@ public class AdminRealm extends AuthorizingRealm {
         for (Permission permission : permissions) {
             permissionList.add(permission.getPermission());
         }
-        System.out.println(permissions);
+        //System.out.println(permissions);
         authorizationInfo.addStringPermissions(permissionList);
         return authorizationInfo;
     }
