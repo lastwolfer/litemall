@@ -33,7 +33,7 @@ public class ShiroConfig {
         LinkedHashMap<String, String> map = new LinkedHashMap<>();
         //不用认证的url，(钥匙)
         map.put("/admin/auth/login", "anon");
-        map.put("wx/auth/login", "anon");
+        map.put("/wx/auth/login", "anon");
         map.put("/**/*.jpg", "anon");
         map.put("/**/*.png", "anon");
         //map.put("/admin/auth/logout", "logout");
