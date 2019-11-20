@@ -321,4 +321,54 @@ public class GoodsServiceImpl implements GoodsService {
         return i1 + i2 + i3;
     }
 
+    /**
+     * 查询新商品
+     * @return
+     */
+    @Override
+    public List<Goods> selectNewGoods() {
+        GoodsExample goodsExample = new GoodsExample();
+        goodsExample.createCriteria().andIsNewEqualTo(true);
+        return goodsMapper.selectByExampleWithBLOBs(goodsExample);
+    }
+
+    /**
+     * 查询一级分类
+     * @return
+     */
+    @Override
+    public List<Category> selectCategoryL1() {
+        CategoryExample categoryExample = new CategoryExample();
+        categoryExample.createCriteria().andPidEqualTo(0);
+        return categoryMapper.selectByExample(categoryExample);
+    }
+
+    /**
+     * 查询热门商品
+     * @return
+     */
+    @Override
+    public List<Goods> selectHotGoods() {
+        GoodsExample goodsExample = new GoodsExample();
+        goodsExample.createCriteria().andIsHotEqualTo(true);
+        return goodsMapper.selectByExample(goodsExample);
+    }
+
+    @Override
+    public List selectCategoryAndGoods() {
+        ArrayList<Map> floorGoodsList = new ArrayList<>();
+        List<Category> l1Categories = selectCategoryL1();
+        for (Category l1Category : l1Categories) {
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("name",l1Category.getName());
+            map.put("id",l1Category.getId());
+            CategoryExample categoryExample = new CategoryExample();
+            categoryExample.createCriteria().andPidEqualTo(l1Category.getId());
+            List<Category> categories = categoryMapper.selectByExample(categoryExample);
+            List<Goods> goodsList = goodsMapper.selectGoodsByCategoryIds(categories);
+            map.put("goodsList",goodsList);
+            floorGoodsList.add(map);
+        }
+        return floorGoodsList;
+    }
 }

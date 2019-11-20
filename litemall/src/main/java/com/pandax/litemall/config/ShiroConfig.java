@@ -32,6 +32,7 @@ public class ShiroConfig {
         factoryBean.setLoginUrl("/admin/auth/login");
         LinkedHashMap<String, String> map = new LinkedHashMap<>();
         //不用认证的url，(钥匙)
+        map.put("/wx/**", "anon");
         map.put("/admin/auth/login", "anon");
         //map.put("/admin/auth/logout", "logout");
         map.put("/**", "authc");

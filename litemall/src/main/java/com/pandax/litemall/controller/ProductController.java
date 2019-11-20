@@ -188,13 +188,4 @@ public class ProductController {
         baseReqVo.setErrmsg("成功");
         return baseReqVo;
     }
-
-    /**
-     * 商品列表
-     */
-    @RequestMapping("wx/goods/list")
-    public BaseReqVo wxGoodsList(QuerryGoodsList querryGoodsList){
-       return goodsList(querryGoodsList);
-    }
-
 }

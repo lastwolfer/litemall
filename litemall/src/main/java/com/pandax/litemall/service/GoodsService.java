@@ -27,4 +27,13 @@ public interface GoodsService {
     int reply(CommentReply commentReply);
 
     int deleteComment(Comment comment);
+
+    List<Goods> selectNewGoods();
+
+    List<Category> selectCategoryL1();
+
+    List<Goods> selectHotGoods();
+
+    List selectCategoryAndGoods();
+
 }
