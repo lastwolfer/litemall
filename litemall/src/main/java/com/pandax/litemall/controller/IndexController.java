@@ -3,6 +3,8 @@ package com.pandax.litemall.controller;
 import com.pandax.litemall.bean.*;
 import com.pandax.litemall.service.*;
 import com.pandax.litemall.util.BaseRespVo;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -113,10 +115,17 @@ public class IndexController {
         return indexCatalog(id);
     }
 
+
+    /**
+     * 用户订单状态
+     * @return
+     */
     @RequestMapping("wx/user/index")
     public BaseReqVo userIndex(){
         BaseReqVo baseReqVo = new BaseReqVo();
-        Integer userId = 1;
+        Subject subject = SecurityUtils.getSubject();
+        User user = (User) subject.getPrincipal();
+        Integer userId = user.getId();
         Short status1 = 401;//未评论
         List<Order> orderList1 = orderService.selectOrderByUserIdAndStatus(userId, status1);
         Short status2 = 101;//未付款
