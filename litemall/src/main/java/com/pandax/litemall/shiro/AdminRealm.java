@@ -78,6 +78,4 @@ public class AdminRealm extends AuthorizingRealm {
         authorizationInfo.addStringPermissions(permissionList);
         return authorizationInfo;
     }
-
-
 }
