@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.pandax.litemall.bean.*;
 import com.pandax.litemall.mapper.*;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -297,5 +298,30 @@ public class PromotionServiceImpl implements PromotionService {
             grouponLists.add(grouponList);
         }
         return grouponLists;
+    }
+
+
+    @Override
+    public Map<String, Object> wxListCoupon(Integer page, Integer size, Coupon coupon) {
+        User user = (User) SecurityUtils.getSubject().getPrincipal();
+        PageHelper.startPage(page,size);
+        CouponExample example = new CouponExample();
+        example.createCriteria().andStatusEqualTo(coupon.getStatus());
+        List<Coupon> couponList = couponMapper.selectByExample(example);
+        for (Coupon coupon1 : couponList) {
+            if(coupon1.getStartTime()==null&&coupon1.getEndTime()==null){
+                coupon1.setStartTime(coupon1.getAddTime());
+                Calendar c = Calendar.getInstance();
+                c.setTime(coupon1.getAddTime());
+                c.add(Calendar.DAY_OF_MONTH,coupon1.getDays());//利用Calendar 实现 Date日期+1天  
+                coupon1.setEndTime(c.getTime());
+            }
+        }
+        PageInfo<Coupon> PageInfo = new PageInfo<>(couponList);
+        long total = PageInfo.getTotal();
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("count",total);
+        map.put("data",couponList);
+        return map;
     }
 }

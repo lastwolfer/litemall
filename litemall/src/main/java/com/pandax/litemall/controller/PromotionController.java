@@ -104,6 +104,20 @@ public class PromotionController {
         baseReqVo.setErrno(-1);
         return baseReqVo;
     }
+    @RequestMapping("wx/coupon/mylist")
+    public BaseReqVo wxListCoupon(Integer page,Integer size,Coupon coupon){
+        Map<String, Object> map = promotionService.wxListCoupon(page,size,coupon);
+        BaseReqVo baseReqVo = new BaseReqVo();
+        if(map!=null){
+            baseReqVo.setData(map);
+            baseReqVo.setErrmsg("成功");
+            baseReqVo.setErrno(0);
+            return baseReqVo;
+        }
+        baseReqVo.setErrmsg("失败");
+        baseReqVo.setErrno(-1);
+        return baseReqVo;
+    }
 
     @RequestMapping("admin/coupon/create")
     public BaseReqVo createCoupon(@RequestBody Coupon coupon){
