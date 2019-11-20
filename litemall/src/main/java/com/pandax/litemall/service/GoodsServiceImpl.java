@@ -516,7 +516,6 @@ public class GoodsServiceImpl implements GoodsService {
         goodsProductExample.createCriteria().andGoodsIdEqualTo(id);
         List<GoodsProduct> goodsProducts = goodsProductMapper.selectByExample(goodsProductExample);
         goodsDetail.setProductList(goodsProducts);
-
         //传讯info
         goodsDetail.setInfo(goods);//ok
 

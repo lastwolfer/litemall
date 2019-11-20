@@ -11,6 +11,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.io.File;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @SpringBootTest
@@ -35,8 +37,10 @@ class LitemallApplicationTests {
 
     @Test
     void mytest1(){
-        List<Coupon> coupons = couponMapper.selectByExample(null);
-        System.out.println(coupons);
+        String accessKeyId = "LTAI4Fi2VcFoNYJBTSJ6J2ny";
+        String accessSecret = "t4Beuo8Z3f1ehaHXWZZCgAaMM3xP1Y";
+        String bucket = "litemallpandax";
+        String endPoint = "oss-cn-shanghai.aliyuncs.com";
     }
 
 }
