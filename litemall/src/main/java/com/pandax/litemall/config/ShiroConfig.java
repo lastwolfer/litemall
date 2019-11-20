@@ -21,7 +21,7 @@ import java.util.LinkedHashMap;
  * @time 19:31
  */
 
-//@Configuration
+@Configuration
 public class ShiroConfig {
 
     @Bean
