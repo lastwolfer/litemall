@@ -30,6 +30,6 @@ public class OrderServiceImpl implements OrderService{
     public List<Order> selectOrderByUserIdAndStatus(Integer userId, Short status) {
         OrderExample orderExample = new OrderExample();
         orderExample.createCriteria().andUserIdEqualTo(userId).andOrderStatusEqualTo(status);
-        return null;
+        return orderMapper.selectByExample(orderExample);
     }
 }
