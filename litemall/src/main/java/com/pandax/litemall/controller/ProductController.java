@@ -216,12 +216,17 @@ public class ProductController {
      * @return json
      */
     @RequestMapping("/wx/goods/list")
-    public BaseReqVo wxGoodsList(Integer categoryId,Integer brandId,Integer page,Integer size){
+    public BaseReqVo wxGoodsList(Integer categoryId,Integer brandId,Integer page,Integer size,
+                                 String keyWord,String sort,String order){
         BaseReqVo baseReqVo = new BaseReqVo();
         Map map =null;
-        if(brandId == null) {
+        if(keyWord != null ){
+            map = goodsService.selectGoodsByKeyWord(keyWord,sort,order,categoryId,page,size);
+        }
+        if(categoryId != null) {
             map = goodsService.selectGoodsByCategoryId(categoryId, page, size);
-        }else{
+        }
+        if(brandId != null){
             map = goodsService.selectBrandByBrandId(brandId,page, size);
         }
         baseReqVo.setErrmsg("成功");
