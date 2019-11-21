@@ -6,9 +6,13 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.pandax.litemall.bean.*;
 import com.pandax.litemall.mapper.*;
+import com.pandax.reponseJson.UserAllAdress;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -210,6 +214,38 @@ public class UserServiceImpl implements UserService{
         example.createCriteria().andUsernameEqualTo(username).andDeletedEqualTo(false);
         List<User> users = userMapper.selectByExample(example);
         return users.get(0);
+    }
+
+    @Override
+    public Region[] selectRegionList(Integer pid) {
+        Region[] regions = regionMapper.selectByPid(pid);
+        return regions;
+    }
+
+    @Override
+    public List<UserAllAdress> selectAllAdress() {
+        Subject subject = SecurityUtils.getSubject();
+        User user = (User) subject.getPrincipal();
+        Integer id = user.getId();
+        AddressExample example = new AddressExample();
+        example.createCriteria().andUserIdEqualTo(id);
+        List<Address> addresses = addressMapper.selectByExample(example);
+        List<UserAllAdress> userAllAdresses= new ArrayList<>();
+        for (Address address : addresses) {
+            String province = regionMapper.selectNameById(address.getProvinceId());
+            String city = regionMapper.selectNameById(address.getCityId());
+            String area = regionMapper.selectNameById(address.getAreaId());
+            String detailedAddress = province+city+area+" "+address.getAddress();
+            UserAllAdress userAllAdress = new UserAllAdress();
+            userAllAdress.setDetailedAddress(detailedAddress);
+            userAllAdress.setId(address.getId());
+            userAllAdress.setMobile(address.getMobile());
+            userAllAdress.setName(address.getName());
+            userAllAdress.setIsDefault(address.getIsDefault());
+            userAllAdresses.add(userAllAdress);
+        }
+
+        return userAllAdresses;
     }
 
 }

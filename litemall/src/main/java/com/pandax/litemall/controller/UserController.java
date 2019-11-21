@@ -1,12 +1,16 @@
 package com.pandax.litemall.controller;
 
 
+import com.pandax.litemall.bean.Address;
 import com.pandax.litemall.bean.BaseReqVo;
+import com.pandax.litemall.bean.Region;
 import com.pandax.litemall.service.UserService;
+import com.pandax.reponseJson.UserAllAdress;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -134,6 +138,28 @@ public class UserController {
         baseReqVo.setErrmsg("成功");
         return baseReqVo;
     }
+
+    @RequestMapping("/wx/region/list")
+    public BaseReqVo wxRegionList(Integer pid){
+        BaseReqVo baseReqVo =new BaseReqVo();
+        Region[] regions =userService.selectRegionList(pid);
+        baseReqVo.setErrno(0);
+        baseReqVo.setData(regions);
+        baseReqVo.setErrmsg("成功");
+        return baseReqVo;
+    }
+
+
+    @RequestMapping("/wx/address/list")
+    public BaseReqVo wxAddressList(){
+        BaseReqVo baseReqVo =new BaseReqVo();
+        List<UserAllAdress> addresses= userService.selectAllAdress();
+        baseReqVo.setErrno(0);
+        baseReqVo.setData(addresses);
+        baseReqVo.setErrmsg("成功");
+        return baseReqVo;
+    }
+
 
 
 }
