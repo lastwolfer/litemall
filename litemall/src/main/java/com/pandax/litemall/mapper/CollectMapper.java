@@ -27,4 +27,8 @@ public interface CollectMapper {
     int updateByPrimaryKeySelective(Collect record);
 
     int updateByPrimaryKey(Collect record);
+
+    List<Collect> selectByType(@Param("type")Integer type);
+
+    List<Collect> selectAllCollect();
 }

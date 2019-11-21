@@ -365,10 +365,10 @@
     update cskaoyan_mall_coupon
     <set>
       <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
+        `name` = #{name,jdbcType=VARCHAR},
       </if>
       <if test="desc != null">
-        desc = #{desc,jdbcType=VARCHAR},
+        `desc` = #{desc,jdbcType=VARCHAR},
       </if>
       <if test="tag != null">
         tag = #{tag,jdbcType=VARCHAR},
@@ -380,13 +380,13 @@
         discount = #{discount,jdbcType=DECIMAL},
       </if>
       <if test="min != null">
-        min = #{min,jdbcType=DECIMAL},
+        `min` = #{min,jdbcType=DECIMAL},
       </if>
       <if test="limit != null">
-        limit = #{limit,jdbcType=SMALLINT},
+        `limit` = #{limit,jdbcType=SMALLINT},
       </if>
       <if test="type != null">
-        type = #{type,jdbcType=SMALLINT},
+        `type` = #{type,jdbcType=SMALLINT},
       </if>
       <if test="status != null">
         status = #{status,jdbcType=SMALLINT},

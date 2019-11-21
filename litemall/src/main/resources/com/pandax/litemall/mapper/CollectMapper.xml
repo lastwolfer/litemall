@@ -86,7 +86,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from cskaoyan_mall_collect
     where id = #{id,jdbcType=INTEGER}
@@ -102,11 +102,11 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.pandax.litemall.bean.Collect">
-    insert into cskaoyan_mall_collect (id, user_id, value_id, 
-      type, add_time, update_time, 
+    insert into cskaoyan_mall_collect (id, user_id, value_id,
+      type, add_time, update_time,
       deleted)
-    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{valueId,jdbcType=INTEGER}, 
-      #{type,jdbcType=TINYINT}, #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{valueId,jdbcType=INTEGER},
+      #{type,jdbcType=TINYINT}, #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
       #{deleted,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="com.pandax.litemall.bean.Collect">
@@ -240,4 +240,15 @@
       deleted = #{deleted,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectByType" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from cskaoyan_mall_collect
+    where type=#{type}
+  </select>
+  <select id="selectAllCollect" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from cskaoyan_mall_collect
+  </select>
 </mapper>
