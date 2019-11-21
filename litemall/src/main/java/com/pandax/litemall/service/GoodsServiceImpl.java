@@ -380,7 +380,11 @@ public class GoodsServiceImpl implements GoodsService {
             CategoryExample categoryExample = new CategoryExample();
             categoryExample.createCriteria().andPidEqualTo(l1Category.getId());
             List<Category> categories = categoryMapper.selectByExample(categoryExample);
+
+
             List<Goods> goodsList = goodsMapper.selectGoodsByCategoryIds(categories);
+
+
             map.put("goodsList",goodsList);
             floorGoodsList.add(map);
         }
@@ -619,5 +623,23 @@ public class GoodsServiceImpl implements GoodsService {
         return map;
     }
 
+<<<<<<< HEAD
 
+=======
+    /**
+     * 根据足迹里的goodsId获得goods
+     * @param footprints
+     * @return
+     */
+    @Override
+    public Map selectGodsByFootprint(List<Footprint> footprints, Integer page, Integer size) {
+        PageHelper.startPage(page,size);
+        List<Goods> footprintList = goodsMapper.selectGoodsByFootprint(footprints);
+        long totalPages = new PageInfo<>(footprintList).getTotal();
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("totalPages",totalPages);
+        map.put("footprintList",footprintList);
+        return map;
+    }
+>>>>>>> 3fc0124d39dc2ac2781043594bead23bf3012181
 }

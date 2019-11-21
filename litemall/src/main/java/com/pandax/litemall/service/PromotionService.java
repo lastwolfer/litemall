@@ -48,4 +48,7 @@ public interface PromotionService {
 
     List<GrouponList> selectGrouponList();
 
+    Map<String, Object> wxListCoupon(Integer page, Integer size, Coupon coupon);
+
+    int wxReceiveCoupon(Integer couponId);
 }

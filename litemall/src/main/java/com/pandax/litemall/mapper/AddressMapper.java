@@ -31,4 +31,5 @@ public interface AddressMapper {
 
     List<Address> selectAddressList(@Param("sort") String sort, @Param("desc") String order,
                                     @Param("name")String name,@Param("userId")Integer userId);
+
 }
