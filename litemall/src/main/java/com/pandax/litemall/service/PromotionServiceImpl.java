@@ -206,6 +206,8 @@ public class PromotionServiceImpl implements PromotionService {
             GrouponRules grouponRules = grouponRulesMapper.selectByGoodsId(goodsId);
             map1.put("rules",grouponRules);
             map1.put("groupon",groupon1);
+            Object[] objects = new Object[1];
+            map1.put("subGroupons",objects);//参与人数
         }
         PageInfo<Groupon> PageInfo = new PageInfo<>(list1);
         long total = PageInfo.getTotal();
