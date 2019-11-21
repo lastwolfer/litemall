@@ -6,11 +6,8 @@ import com.pandax.litemall.bean.User;
 import com.pandax.litemall.service.SmsService;
 import com.pandax.litemall.service.UserService;
 import com.pandax.litemall.shiro.MallToken;
-<<<<<<< HEAD
 
-=======
 import com.pandax.litemall.util.*;
->>>>>>> 3fc0124d39dc2ac2781043594bead23bf3012181
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.subject.Subject;
@@ -93,9 +90,7 @@ public class WxAuthController {
         subject.logout();
         return BaseReqVo.ok();
     }
-<<<<<<< HEAD
-    //@RequestMapping("auth/regCaptcha")
-=======
+
 
     /**
      * 用户获得验证码
@@ -245,5 +240,4 @@ public class WxAuthController {
         return BaseReqVo.ok(map);
     }
 
->>>>>>> 3fc0124d39dc2ac2781043594bead23bf3012181
 }
