@@ -7,7 +7,6 @@ public class BaseReqVo<T> {
     T data;
     String errmsg;
     int errno;
-
     public static BaseReqVo ok(Object object){
         BaseReqVo<Object> objectBaseReqVo = new BaseReqVo<>();
         objectBaseReqVo.setErrmsg("成功");
@@ -35,6 +34,5 @@ public class BaseReqVo<T> {
         baseReqVo.setErrno(errorNo);
         baseReqVo.setErrmsg(errorMsg);
         return baseReqVo;
-
     }
 }
