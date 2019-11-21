@@ -604,13 +604,13 @@ public class GoodsServiceImpl implements GoodsService {
         List<Goods> goods = goodsMapper.selectByExample(example);
         PageInfo<Goods> pageInfo = new PageInfo<>(goods);
         long total = pageInfo.getTotal();
-        Map<String, Object> map = new HashMap<>();
-        map.put("goodsList", goods);
-        map.put("count", total);
-        map.put("filterCategoryList", null);
+        List<Category> categories = categoryMapper.selectByExample(null);
+        Map<String,Object> map = new HashMap<>();
+        map.put("goodsList",goods);
+        map.put("count",total);
+        map.put("filterCategoryList",categories);
         return map;
     }
-
 
     @Override
     public Map selectGoodsByKeyWord(String keyWord, String sort, String order, Integer categoryId, Integer page, Integer size) {
@@ -632,5 +632,4 @@ public class GoodsServiceImpl implements GoodsService {
         map.put("filterCategoryList", categories);
         return map;
     }
-
 }

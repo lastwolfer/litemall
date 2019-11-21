@@ -62,5 +62,7 @@ public interface UserService {
     Integer insertFootprint(Integer goodsId, Integer userId);
 
     List<FootprintListBean> selectFootprint(Integer id, Integer page, Integer size);
+
+    User selectUserByWxId(String wxId);
 }
 

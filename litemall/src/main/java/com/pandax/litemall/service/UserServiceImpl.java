@@ -244,6 +244,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateUser(User user) {
+        user.setUpdateTime(new Date());
         userMapper.updateByPrimaryKey(user);
     }
 
@@ -402,5 +403,13 @@ public class UserServiceImpl implements UserService {
         PageHelper.startPage(page,size);
         List<FootprintListBean> listBeans = footprintMapper.selectFootprint(id);
         return listBeans;
+    }
+
+    @Override
+    public User selectUserByWxId(String wxId) {
+        UserExample example = new UserExample();
+        example.createCriteria().andDeletedEqualTo(false).andWeixinOpenidEqualTo(wxId);
+        List<User> users = userMapper.selectByExample(example);
+        return users.size() != 0? users.get(0) : null;
     }
 }

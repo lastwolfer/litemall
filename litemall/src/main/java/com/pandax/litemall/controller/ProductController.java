@@ -4,10 +4,14 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageInfo;
 import com.pandax.litemall.bean.*;
+import com.pandax.litemall.mapper.CouponMapper;
+import com.pandax.litemall.mapper.GrouponMapper;
 import com.pandax.litemall.service.GoodsService;
+import com.pandax.litemall.service.GrouponService;
 import com.pandax.litemall.service.SearchService;
 import com.pandax.litemall.service.UserService;
 import com.pandax.reponseJson.GoodsDetail;
+import com.pandax.reponseJson.GrouponGoods;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +35,10 @@ public class ProductController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    GrouponService grouponService;
+
 
     /**
      * 商品列表,分页和排序
@@ -228,7 +236,6 @@ public class ProductController {
      */
     //keyword=123&page=1&size=20&sort=name&order=desc&categoryId=0
     @RequestMapping("/wx/goods/list")
-
     public BaseReqVo wxGoodsList(Integer categoryId,Integer brandId,Integer page,Integer size,
                                  String keyword,String sort,String order){
         BaseReqVo baseReqVo = new BaseReqVo();
@@ -236,15 +243,15 @@ public class ProductController {
         if(keyword != null ){
             Subject subject = SecurityUtils.getSubject();
             User user = (User) subject.getPrincipal();
-            Integer id = user.getId();
-            searchService.addHistory(id,keyword);
+            if (user != null){
+                searchService.saveOrUpdateHistory(user.getId(),keyword);
+            }
             map = goodsService.selectGoodsByKeyWord(keyword,sort,order,categoryId,page,size);
             baseReqVo.setErrmsg("成功");
             baseReqVo.setData(map);
             return baseReqVo;
         }
         if(categoryId != null) {
-
             map = goodsService.selectGoodsByCategoryId(categoryId, page, size);
         }
         if(brandId != null){
@@ -319,6 +326,20 @@ public class ProductController {
         baseReqVo.setData(map);
         return baseReqVo;
     }
+
+
+    @RequestMapping("/wx/groupon/list")
+    public BaseReqVo wxGroupList(Integer page,Integer size){
+        BaseReqVo baseReqVo = new BaseReqVo();
+        List<GrouponGoods> grouponGoods = grouponService.selectAllGrouponList(page,size);
+        Map<String,Object> map = new HashMap<>();
+        map.put("data",grouponGoods);
+        baseReqVo.setErrmsg("成功");
+        baseReqVo.setData(map);
+        return baseReqVo;
+    }
+
+
 
 
 }

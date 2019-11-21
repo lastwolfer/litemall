@@ -1,14 +1,14 @@
 package com.pandax.litemall.service;
 
-import com.pandax.litemall.bean.Keyword;
-import com.pandax.litemall.mapper.GoodsMapper;
-import com.pandax.litemall.mapper.HistoryMapper;
-import com.pandax.litemall.mapper.KeywordMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+        import com.pandax.litemall.bean.Keyword;
+        import com.pandax.litemall.mapper.GoodsMapper;
+        import com.pandax.litemall.mapper.HistoryMapper;
+        import com.pandax.litemall.mapper.KeywordMapper;
+        import org.springframework.beans.factory.annotation.Autowired;
+        import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Random;
+        import java.util.List;
+        import java.util.Random;
 
 @Service
 public class SearchServiceImpl implements SearchService {
@@ -46,11 +46,7 @@ public class SearchServiceImpl implements SearchService {
     }
 
     @Override
-    public int addHistory(int id,String keyword) {
-        Integer i = historyMapper.checkHistory(id,keyword);
-        if (i == null){
-            return historyMapper.addHistory(id,keyword);
-        }
-        return historyMapper.updateHistory(i);
+    public int saveOrUpdateHistory(int id,String keyword) {
+        return historyMapper.saveOrUpdateHistory(id,keyword);
     }
 }

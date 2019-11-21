@@ -34,12 +34,10 @@ public interface KeywordMapper {
     @Select("select * from cskaoyan_mall_keyword where is_default = 1")
     List<Keyword> selectDefault();
 
-    @Select("select * from cskaoyan_mall_keyword where is_hot = 1")
+    @Select("select * from cskaoyan_mall_keyword where is_hot = 1 limit 20")
     List<Keyword> selectHot();
 
     @Select("select keyword from cskaoyan_mall_keyword where keyword like concat('%', #{keyword},'%') ")
     String[] getHelper(String keyword);
-
-
 
 }
