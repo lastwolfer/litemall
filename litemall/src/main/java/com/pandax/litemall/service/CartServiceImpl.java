@@ -1,5 +1,4 @@
 package com.pandax.litemall.service;
-import java.util.Date;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -11,23 +10,24 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 
 @Service
-public class CartServiceImpl implements CartService{
+public class CartServiceImpl implements CartService {
 
     @Autowired
     CartMapper cartMapper;
+
     @Override
     public Map<String, Object> cartIndex(User user) {
         CartTotal cartTotal = new CartTotal();
 
         //获取所有的Cart
-        List<Cart> cartList=cartMapper.selectAllCart(user.getId());
+        List<Cart> cartList = cartMapper.selectAllCart(user.getId());
         cartTotal.setGoodsCount(cartList.size());
         cartTotal.setCheckedGoodsCount(cartList.size());
-        Double sum=0.0;
-        if(cartList!=null){
+        Double sum = 0.0;
+        if (cartList != null) {
             for (Cart cart : cartList) {
-                if(cart.getChecked()){
-                    sum=sum+cart.getPrice().doubleValue()*cart.getNumber();
+                if (cart.getChecked()) {
+                    sum = sum + cart.getPrice().doubleValue() * cart.getNumber();
                     System.out.println(cart.getPrice());
                 }
             }
@@ -36,8 +36,8 @@ public class CartServiceImpl implements CartService{
         cartTotal.setGoodsAmount(sum);
         HashMap<String, Object> map = new HashMap<>();
 
-        map.put("cartTotal",cartTotal);
-        map.put("cartList",cartList);
+        map.put("cartTotal", cartTotal);
+        map.put("cartList", cartList);
         return map;
     }
 
@@ -45,6 +45,7 @@ public class CartServiceImpl implements CartService{
     GoodsMapper goodsMapper;
     @Autowired
     GoodsProductMapper productMapper;
+
     @Override
     public int cartAdd(Cart cart, User user) {
         cart.setUserId(user.getId());
@@ -61,7 +62,7 @@ public class CartServiceImpl implements CartService{
         cart.setGoodsName(goods.getName());
         Double i = cart.getNumber() * goods.getRetailPrice().doubleValue();
         cart.setPrice(i);
-        StringBuilder sb=new StringBuilder();
+        StringBuilder sb = new StringBuilder();
         for (String specification : goodsProduct.getSpecifications()) {
             sb.append(specification);
         }
@@ -71,10 +72,10 @@ public class CartServiceImpl implements CartService{
         cartMapper.insert(cart);
 
         //获取所有订单
-        List<Cart> cartList=cartMapper.selectAllCart(user.getId());
-        int number=0;
+        List<Cart> cartList = cartMapper.selectAllCart(user.getId());
+        int number = 0;
         for (Cart cart1 : cartList) {
-            number+=cart1.getNumber();
+            number += cart1.getNumber();
         }
         return number;
     }
@@ -95,20 +96,20 @@ public class CartServiceImpl implements CartService{
         cart.setGoodsName(goods.getName());
         Double i = cart.getNumber() * goods.getRetailPrice().doubleValue();
         cart.setPrice(i);
-        StringBuilder sb=new StringBuilder();
+        StringBuilder sb = new StringBuilder();
         for (String specification : goodsProduct.getSpecifications()) {
             sb.append(specification);
         }
         cart.setSpecifications(sb.toString());
         cart.setChecked(true);
         cart.setPicUrl(goods.getPicUrl());
-        int id=cartMapper.insert(cart);
+        int id = cartMapper.insert(cart);
 
         //获取所有订单
-        List<Cart> cartList=cartMapper.selectAllCart(user.getId());
-        int number=0;
+        List<Cart> cartList = cartMapper.selectAllCart(user.getId());
+        int number = 0;
         for (Cart cart1 : cartList) {
-            number+=cart1.getNumber();
+            number += cart1.getNumber();
         }
         return id;
     }
@@ -116,20 +117,20 @@ public class CartServiceImpl implements CartService{
     @Override
     public void cartUpdate(Cart cart, User user) {
         cart.setUserId(user.getId());
-        cartMapper.updateNumber(cart.getId(),cart.getNumber());
+        cartMapper.updateNumber(cart.getId(), cart.getNumber());
     }
 
     @Override
     public Map<String, Object> cartCheckde(CartCondition cartCondition, User user) {
         //将数组中所有的订单的checked改成true
         List<Integer> productIds = cartCondition.getProductIds();
-        boolean check=true;
-        if(cartCondition.getIsChecked()==0){
-            check=false;
+        boolean check = true;
+        if (cartCondition.getIsChecked() == 0) {
+            check = false;
         }
-        if(productIds!=null){
+        if (productIds != null) {
             for (Integer productId : productIds) {
-                cartMapper.updateCheckedByProductId(productId,check,user.getId());
+                cartMapper.updateCheckedByProductId(productId, check, user.getId());
             }
         }
         //返回所有的订单
@@ -141,9 +142,9 @@ public class CartServiceImpl implements CartService{
     public Map<String, Object> cartDelete(CartCondition cartCondition, User user) {
         List<Integer> productIds = cartCondition.getProductIds();
         //删除订单
-        if(productIds!=null){
+        if (productIds != null) {
             for (Integer productId : productIds) {
-                cartMapper.deleteByProductId(productId,user.getId());
+                cartMapper.deleteByProductId(productId, user.getId());
             }
         }
         Map<String, Object> map = cartIndex(user);
@@ -152,15 +153,16 @@ public class CartServiceImpl implements CartService{
 
     @Autowired
     CollectMapper collectMapper;
+
     @Override
     public Map<String, Object> collectList(Integer type, Integer page, Integer size, User user) {
-        PageHelper.startPage(page,size);
+        PageHelper.startPage(page, size);
         //通过type获取所有收藏的商品
-        List<Collect> list=collectMapper.selectAllCollect(user.getId());
+        List<Collect> list = collectMapper.selectAllCollect(user.getId());
         PageInfo<Collect> collectPageInfo = new PageInfo<>(list);
         long total = collectPageInfo.getTotal();
         ArrayList<Goods> goods = new ArrayList<>();
-        if(list!=null){
+        if (list != null) {
             for (Collect collect : list) {
                 Goods goods1 = goodsMapper.selectByPrimaryKey(collect.getValueId());
                 goods.add(goods1);
@@ -168,31 +170,31 @@ public class CartServiceImpl implements CartService{
         }
         //
         HashMap<String, Object> map = new HashMap<>();
-        map.put("totalPages",Math.ceil(1.0*total/size));
-        map.put("collectList",goods);
+        map.put("totalPages", Math.ceil(1.0 * total / size));
+        map.put("collectList", goods);
         return map;
     }
 
     @Override
     public Map<String, Object> collectAddOrDelete(Map<String, Integer> map, User user) {
         //首先去collect表中查询看是否存在表中
-        Integer id=collectMapper.selectIdByValueId(map.get("valueId"),user.getId());
+        Integer id = collectMapper.selectIdByValueId(map.get("valueId"), user.getId());
         //如果没有找到说明还未被收藏需要收藏一下
         HashMap<String, Object> map1 = new HashMap<>();
-        if(id==null){
+        if (id == null) {
             Collect collect = new Collect();
             collect.setUserId(user.getId());
             collect.setValueId(map.get("valueId"));
-            collect.setType((byte)0);
+            collect.setType((byte) 0);
             collect.setAddTime(new Date());
             collect.setUpdateTime(new Date());
             collect.setDeleted(false);
             collectMapper.insert(collect);
-            map1.put("type","add");
-        }else{
+            map1.put("type", "add");
+        } else {
             //如果找到说明已经被收藏应该被删除
             collectMapper.deleteByPrimaryKey(id);
-            map1.put("type","delete");
+            map1.put("type", "delete");
         }
         return map1;
     }
@@ -201,18 +203,23 @@ public class CartServiceImpl implements CartService{
     OrderGoodsMapper orderGoodsMapper;
     @Autowired
     AddressMapper addressMapper;
+    @Autowired
+    CouponMapper couponMapper;
+
+    @Autowired
+    CouponUserMapper couponUserMapper;
     @Override
     public CartCheckedCondition cartCheckout(Integer cartId, Integer addressId, Integer couponId, Integer grouponRulesId, User user) {
         Map<String, Object> map = cartIndex(user);
         CartCheckedCondition cartCheckedCondition = new CartCheckedCondition();
         List<Cart> cartList = (List<Cart>) map.get("cartList");
-        List<Cart>cartList1=new ArrayList<>();
+        List<Cart> cartList1 = new ArrayList<>();
         for (Cart cart : cartList) {
-            if(cart.getChecked()){
+            if (cart.getChecked()) {
                 cartList1.add(cart);
             }
         }
-        //查询地址
+
         Address address = addressMapper.selectByPrimaryKey(addressId);
         cartCheckedCondition.setCheckedAddress(address);
         cartCheckedCondition.setAddressId(addressId);
@@ -222,6 +229,18 @@ public class CartServiceImpl implements CartService{
         cartCheckedCondition.setActualPrice(checkedGoodsAmount);
         cartCheckedCondition.setOrderTotalPrice(checkedGoodsAmount);
         cartCheckedCondition.setGoodsTotalPrice(checkedGoodsAmount);
+
+        Integer number=couponUserMapper.selectNumberByUserId(user.getId());
+        cartCheckedCondition.setAvailableCouponLength(number!=null?number:0);
+        if (couponId != 0) {
+            //如果couponId不等于0，则去数据库中查询优惠券
+            Coupon coupon = couponMapper.selectByPrimaryKey(couponId);
+            //查询地址
+            int discount = coupon.getDiscount().intValue();
+            cartCheckedCondition.setCouponPrice(discount);
+            cartCheckedCondition.setActualPrice(checkedGoodsAmount-discount);
+            cartCheckedCondition.setOrderTotalPrice(checkedGoodsAmount - discount);
+        }
         return cartCheckedCondition;
     }
 
@@ -229,11 +248,11 @@ public class CartServiceImpl implements CartService{
     public Integer cartGoodscount(User user) {
         Map<String, Object> stringObjectMap = cartIndex(user);
         List<Cart> cartList = (List<Cart>) stringObjectMap.get("cartList");
-        int number=0;
-        if(cartList!=null){
+        int number = 0;
+        if (cartList != null) {
             for (Cart cart : cartList) {
-                if(cart.getNumber()!=0){
-                    number+=cart.getNumber();
+                if (cart.getNumber() != 0) {
+                    number += cart.getNumber();
                 }
             }
         }

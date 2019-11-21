@@ -198,7 +198,7 @@ public class WxAuthController {
         }
 
         Map<Object, Object> result = new HashMap<Object, Object>();
-        result.put("token", wxCode);
+        result.put("token", SecurityUtils.getSubject().getSession().getId());
         result.put("tokenExpire", new Date());
         Map<Object, Object> userInfo = new HashMap<Object, Object>();
         userInfo.put("nickName", user.getNickname());
@@ -219,6 +219,12 @@ public class WxAuthController {
         return BaseReqVo.ok(result);
     }
 
+    /**
+     * 用户密码重置
+     * @param map
+     * @param request
+     * @return
+     */
     @RequestMapping("auth/reset")
     public BaseReqVo reset(@RequestBody Map map,HttpServletRequest request){
         String password = (String) map.get("password");
@@ -295,9 +301,14 @@ public class WxAuthController {
 
         Subject subject = SecurityUtils.getSubject();
         MallToken mallToken = new MallToken(user.getUsername(),user.getPassword(), "wx");
-        subject.login(mallToken);
+        try {
+            subject.login(mallToken);
+        } catch (AuthenticationException e) {
+            return BaseReqVo.fail(600, "账号或者密码错误!");
+        }
+        User userFromSubject = (User) subject.getPrincipal();
 
-        map.put("token", code);
+        map.put("token", subject.getSession().getId());
         map.put("tokenExpire", new Date());
         map.remove("code");
         return BaseReqVo.ok(map);

@@ -36,4 +36,9 @@ public class CommentServiceImpl implements CommentService {
         return comments;
 
     }
+
+    @Override
+    public int commentPost(Comment comment) {
+        return commentMapper.updateComment(comment);
+    }
 }

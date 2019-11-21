@@ -78,7 +78,7 @@ public class CartController {
     public BaseReqVo cartCheckout(Integer cartId,Integer addressId,Integer couponId,Integer grouponRulesId){
         Subject subject = SecurityUtils.getSubject();
         User user = (User)subject.getPrincipal();
-        CartCheckedCondition map=cartService.cartCheckout(cartId,addressId,cartId,grouponRulesId,user);
+        CartCheckedCondition map=cartService.cartCheckout(cartId,addressId,couponId,grouponRulesId,user);
         return BaseReqVo.ok(map);
     }
 

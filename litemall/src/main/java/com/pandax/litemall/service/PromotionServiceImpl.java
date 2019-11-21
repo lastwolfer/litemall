@@ -302,6 +302,7 @@ public class PromotionServiceImpl implements PromotionService {
     public List<Coupon> selectCoupon() {
         CouponExample couponExample = new CouponExample();
         Short status = 0;
+        PageHelper.startPage(1,4);
         couponExample.createCriteria().andTotalGreaterThan(0).andStatusEqualTo(status);
         return couponMapper.selectByExample(couponExample);
     }
@@ -312,6 +313,7 @@ public class PromotionServiceImpl implements PromotionService {
      */
     @Override
     public List<GrouponList> selectGrouponList() {
+        PageHelper.startPage(1,4);
         ArrayList<GrouponList> grouponLists = new ArrayList<>();
         List<GrouponRules> grouponRules = grouponRulesMapper.selectByExample(null);
         for (GrouponRules grouponRule : grouponRules) {

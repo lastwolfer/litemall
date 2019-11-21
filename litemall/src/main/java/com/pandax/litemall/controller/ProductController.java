@@ -9,6 +9,7 @@ import com.pandax.litemall.mapper.GrouponMapper;
 import com.pandax.litemall.service.GoodsService;
 import com.pandax.litemall.service.GrouponService;
 import com.pandax.litemall.service.SearchService;
+import com.pandax.litemall.service.UserService;
 import com.pandax.reponseJson.GoodsDetail;
 import com.pandax.reponseJson.GrouponGoods;
 import org.apache.shiro.SecurityUtils;
@@ -33,7 +34,11 @@ public class ProductController {
     SearchService searchService;
 
     @Autowired
+    UserService userService;
+
+    @Autowired
     GrouponService grouponService;
+
 
     /**
      * 商品列表,分页和排序
@@ -263,6 +268,11 @@ public class ProductController {
     public BaseReqVo wxGoodsDetail(Integer id){
         BaseReqVo baseReqVo = new BaseReqVo();
         GoodsDetail goodsDetail = goodsService.selectGoodsDetailByGoodsId(id);
+        //添加足迹
+        User user = (User) SecurityUtils.getSubject().getPrincipal();
+        if (user!=null){
+            Integer i = userService.insertFootprint(id,user.getId());
+        }
         baseReqVo.setErrno(0);
         baseReqVo.setErrmsg("成功");
         baseReqVo.setData(goodsDetail);
