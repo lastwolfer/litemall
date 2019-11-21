@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -118,20 +119,6 @@ public class PromotionController {
         baseReqVo.setErrno(-1);
         return baseReqVo;
     }
-    @RequestMapping("wx/coupon/selectlist")
-    public BaseReqVo wxSelectListCoupon(Integer page,Integer size,Coupon coupon){
-        Map<String, Object> map = promotionService.wxListCoupon(page,size,coupon);
-        BaseReqVo baseReqVo = new BaseReqVo();
-        if(map!=null){
-            baseReqVo.setData(map);
-            baseReqVo.setErrmsg("成功");
-            baseReqVo.setErrno(0);
-            return baseReqVo;
-        }
-        baseReqVo.setErrmsg("失败");
-        baseReqVo.setErrno(-1);
-        return baseReqVo;
-    }
     @RequestMapping("wx/coupon/receive")
     public BaseReqVo wxReceiveCoupon(@RequestBody Map<String,Integer> map){
         int result = promotionService.wxReceiveCoupon(map.get("couponId"));
@@ -159,6 +146,20 @@ public class PromotionController {
         return baseReqVo;
     }
 
+    @RequestMapping("wx/coupon/selectlist")
+    public BaseReqVo wxSelectListCoupon1(Integer cartId,Integer grouponRulesId){
+        List<Coupon> list = promotionService.wxSelectListCoupon1(cartId, grouponRulesId);
+        BaseReqVo baseReqVo = new BaseReqVo();
+        if(list!=null){
+            baseReqVo.setData(list);
+            baseReqVo.setErrmsg("成功");
+            baseReqVo.setErrno(0);
+            return baseReqVo;
+        }
+        baseReqVo.setErrmsg("失败");
+        baseReqVo.setErrno(-1);
+        return baseReqVo;
+    }
     @RequestMapping("admin/coupon/create")
     public BaseReqVo createCoupon(@RequestBody Coupon coupon){
         Coupon coupon1 = promotionService.createCoupon(coupon);

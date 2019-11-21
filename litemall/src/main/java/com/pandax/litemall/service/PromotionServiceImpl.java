@@ -395,4 +395,30 @@ public class PromotionServiceImpl implements PromotionService {
         }
         return 0;
     }
+
+    @Override
+    public List<Coupon> wxSelectListCoupon1(Integer cartId, Integer grouponRulesId) {
+        //通过userId来取得用户的优惠券id
+        User user = (User) SecurityUtils.getSubject().getPrincipal();
+        List<CouponUser> list = couponUserMapper.selectByUserId(user.getId());
+        List<Coupon> couponList = new ArrayList<>();
+        for (CouponUser couponUser : list) {
+            Integer couponId = couponUser.getCouponId();
+            CouponExample example = new CouponExample();
+            Short status = 0;
+            example.createCriteria().andStatusEqualTo(status).andIdEqualTo(couponId);
+            List<Coupon> couponList1 = couponMapper.selectByExample(example);
+            for (Coupon coupon1 : couponList1) {
+                if(coupon1.getStartTime()==null&&coupon1.getEndTime()==null){
+                    coupon1.setStartTime(coupon1.getAddTime());
+                    Calendar c = Calendar.getInstance();
+                    c.setTime(coupon1.getAddTime());
+                    c.add(Calendar.DAY_OF_MONTH,coupon1.getDays());//利用Calendar 实现 Date日期+1天  
+                    coupon1.setEndTime(c.getTime());
+                }
+                couponList.add(coupon1);
+            }
+        }
+        return couponList;
+    }
 }

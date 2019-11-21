@@ -53,4 +53,6 @@ public interface PromotionService {
     int wxReceiveCoupon(Integer couponId);
 
     int wxexchangeCoupon(String code);
+
+    List<Coupon> wxSelectListCoupon1(Integer cartId, Integer grouponRulesId);
 }
