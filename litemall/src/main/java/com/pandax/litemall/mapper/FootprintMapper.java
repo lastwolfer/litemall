@@ -3,6 +3,8 @@ package com.pandax.litemall.mapper;
 import com.pandax.litemall.bean.Footprint;
 import com.pandax.litemall.bean.FootprintExample;
 import java.util.List;
+
+import com.pandax.litemall.bean.FootprintListBean;
 import org.apache.ibatis.annotations.Param;
 
 public interface FootprintMapper {
@@ -29,4 +31,6 @@ public interface FootprintMapper {
     int updateByPrimaryKey(Footprint record);
 
     Footprint selectByGoodsId(Integer id);
+
+    List<FootprintListBean> selectFootprint(Integer id);
 }

@@ -3,6 +3,7 @@ package com.pandax.litemall.service;
 import com.pandax.litemall.bean.Banner;
 import com.pandax.litemall.bean.Brand;
 import com.pandax.litemall.bean.Category;
+import com.pandax.litemall.bean.Topic;
 
 import java.util.List;
 
@@ -16,4 +17,7 @@ public interface IndexService {
     List<Category> selectCategoryByPid(Integer id);
 
     Category selectCategoryL1ById(Integer id);
+
+    List<Topic> selectTopic();
+
 }

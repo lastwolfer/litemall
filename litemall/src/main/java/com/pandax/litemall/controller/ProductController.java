@@ -6,6 +6,7 @@ import com.github.pagehelper.PageInfo;
 import com.pandax.litemall.bean.*;
 import com.pandax.litemall.service.GoodsService;
 import com.pandax.litemall.service.SearchService;
+import com.pandax.litemall.service.UserService;
 import com.pandax.reponseJson.GoodsDetail;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
@@ -27,6 +28,9 @@ public class ProductController {
 
     @Autowired
     SearchService searchService;
+
+    @Autowired
+    UserService userService;
 
     /**
      * 商品列表,分页和排序
@@ -257,6 +261,11 @@ public class ProductController {
     public BaseReqVo wxGoodsDetail(Integer id){
         BaseReqVo baseReqVo = new BaseReqVo();
         GoodsDetail goodsDetail = goodsService.selectGoodsDetailByGoodsId(id);
+        //添加足迹
+        User user = (User) SecurityUtils.getSubject().getPrincipal();
+        if (user!=null){
+            Integer i = userService.insertFootprint(id,user.getId());
+        }
         baseReqVo.setErrno(0);
         baseReqVo.setErrmsg("成功");
         baseReqVo.setData(goodsDetail);
