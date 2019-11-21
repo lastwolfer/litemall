@@ -3,7 +3,7 @@ package com.pandax.reponseJson;
 import lombok.Data;
 
 @Data
-public class UserAllAdress {
+public class UserAllAddress {
 
     Boolean isDefault;
     String detailedAddress;

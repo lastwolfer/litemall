@@ -1,15 +1,7 @@
 package com.pandax.litemall.service;
 
-
-
-
-import com.pandax.litemall.bean.Address;
-import com.pandax.litemall.bean.Region;
-
-import com.pandax.litemall.bean.Feedback;
-import com.pandax.litemall.bean.Footprint;
-import com.pandax.litemall.bean.User;
-import com.pandax.reponseJson.UserAllAdress;
+import com.pandax.litemall.bean.*;
+import com.pandax.reponseJson.UserAllAddress;
 
 import java.util.List;
 import java.util.Map;
@@ -45,13 +37,18 @@ public interface UserService {
     User selectUserByUsername(String usrname);
 
 
-    Region[] selectRegionList(Integer pid);
+    List<Region> selectRegionList(Integer pid);
 
-    List<UserAllAdress> selectAllAdress();
+    List<UserAllAddress> selectAllAddress();
 
    int insertFeedBack(Feedback feedback);
 
    List<Footprint> selectFootprintByUserId(Integer id);
 
+    Map selectAddressById(Integer id);
+
+    Integer updateAddressSave(Address address);
+
+    void deleteAddress(Integer id);
 }
 

@@ -2,15 +2,13 @@ package com.pandax.litemall.controller;
 
 
 
-import com.pandax.litemall.bean.Address;
 import com.pandax.litemall.bean.BaseReqVo;
 import com.pandax.litemall.bean.Region;
 import com.pandax.litemall.service.UserService;
-import com.pandax.reponseJson.UserAllAdress;
+import com.pandax.reponseJson.UserAllAddress;
 
 import com.pandax.litemall.bean.*;
 import com.pandax.litemall.service.GoodsService;
-import com.pandax.litemall.service.UserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 
@@ -153,24 +151,68 @@ public class UserController {
         return baseReqVo;
     }
 
-
+    /**
+     * 宝
+     * 根据pid查询区域
+     * @param pid region中的pid
+     * @return json
+     */
     @RequestMapping("/wx/region/list")
     public BaseReqVo wxRegionList(Integer pid){
         BaseReqVo baseReqVo =new BaseReqVo();
-        Region[] regions =userService.selectRegionList(pid);
+        List<Region> regions =userService.selectRegionList(pid);
         baseReqVo.setErrno(0);
         baseReqVo.setData(regions);
         baseReqVo.setErrmsg("成功");
         return baseReqVo;
     }
 
-
+    /**
+     * 宝
+     * 用户的所有收货地址
+     * @return
+     */
     @RequestMapping("/wx/address/list")
     public BaseReqVo wxAddressList(){
         BaseReqVo baseReqVo =new BaseReqVo();
-        List<UserAllAdress> addresses= userService.selectAllAdress();
+        List<UserAllAddress> addresses= userService.selectAllAddress();
         baseReqVo.setErrno(0);
         baseReqVo.setData(addresses);
+        baseReqVo.setErrmsg("成功");
+        return baseReqVo;
+    }
+
+    /**
+     * 宝
+     * @param id 收货地址id
+     * @return json数据
+     */
+    @RequestMapping("/wx/address/detail")
+    public BaseReqVo wxAddressDetail(Integer id){
+        BaseReqVo baseReqVo =new BaseReqVo();
+        Map map= userService.selectAddressById(id);
+        baseReqVo.setErrno(0);
+        baseReqVo.setData(map);
+        baseReqVo.setErrmsg("成功");
+        return baseReqVo;
+    }
+
+    @RequestMapping("/wx/address/save")
+    public BaseReqVo wxAddressSave(@RequestBody Address address){
+        BaseReqVo baseReqVo =new BaseReqVo();
+        Integer id = userService.updateAddressSave(address);
+        baseReqVo.setErrno(0);
+        baseReqVo.setData(id);
+        baseReqVo.setErrmsg("成功");
+        return baseReqVo;
+    }
+
+    @RequestMapping("/wx/address/delete")
+    public BaseReqVo wxAddressDelete(@RequestBody Map map){
+        Integer id= (Integer) map.get("id");
+        BaseReqVo baseReqVo =new BaseReqVo();
+         userService.deleteAddress(id);
+        baseReqVo.setErrno(0);
         baseReqVo.setErrmsg("成功");
         return baseReqVo;
     }
@@ -212,5 +254,6 @@ public class UserController {
         Map dataMap = goodsService.selectGodsByFootprint(footprints,page,size);
         return BaseReqVo.ok(dataMap);
     }
+
 
 }
