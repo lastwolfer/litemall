@@ -1,6 +1,7 @@
 package com.pandax.litemall.mapper;
 
 import com.pandax.litemall.bean.Cart;
+import com.pandax.litemall.bean.CartCondition;
 import com.pandax.litemall.bean.CartExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
@@ -27,4 +28,10 @@ public interface CartMapper {
     int updateByPrimaryKeySelective(Cart record);
 
     int updateByPrimaryKey(Cart record);
+
+    List<Cart> selectAllCart();
+
+    void updateCheckedByProductId(@Param("productId") Integer productId, @Param("check")boolean check);
+
+    void deleteByProductId(@Param("productId")Integer productId);
 }

@@ -1,5 +1,8 @@
 package com.pandax.litemall.bean;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Data;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -38,8 +41,10 @@ public class Goods {
 
     private BigDecimal retailPrice;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GTM+8")
     private Date addTime;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GTM+8")
     private Date updateTime;
 
     private Boolean deleted;

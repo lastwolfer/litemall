@@ -378,7 +378,11 @@ public class GoodsServiceImpl implements GoodsService {
             CategoryExample categoryExample = new CategoryExample();
             categoryExample.createCriteria().andPidEqualTo(l1Category.getId());
             List<Category> categories = categoryMapper.selectByExample(categoryExample);
+
+
             List<Goods> goodsList = goodsMapper.selectGoodsByCategoryIds(categories);
+
+
             map.put("goodsList",goodsList);
             floorGoodsList.add(map);
         }
