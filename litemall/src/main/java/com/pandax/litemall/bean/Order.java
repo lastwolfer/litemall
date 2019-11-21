@@ -2,8 +2,18 @@ package com.pandax.litemall.bean;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 public class Order {
+
+    private String orderStatusText;
+
+    private Boolean isGroupin;
+
+    private List<OrderGoods> goodsList;
+
+    private HandleOption handleOption;
+
     private Integer id;
 
     private Integer userId;
@@ -262,5 +272,37 @@ public class Order {
 
     public void setDeleted(Boolean deleted) {
         this.deleted = deleted;
+    }
+
+    public String getOrderStatusText() {
+        return orderStatusText;
+    }
+
+    public void setOrderStatusText(String orderStatusText) {
+        this.orderStatusText = orderStatusText;
+    }
+
+    public Boolean getGroupin() {
+        return isGroupin;
+    }
+
+    public void setGroupin(Boolean groupin) {
+        isGroupin = groupin;
+    }
+
+    public List<OrderGoods> getGoodsList() {
+        return goodsList;
+    }
+
+    public void setGoodsList(List<OrderGoods> goodsList) {
+        this.goodsList = goodsList;
+    }
+
+    public HandleOption getHandleOption() {
+        return handleOption;
+    }
+
+    public void setHandleOption(HandleOption handleOption) {
+        this.handleOption = handleOption;
     }
 }

@@ -558,4 +558,50 @@
     </where>
     order by #{sort} #{order}
   </select>
+
+  <select id="getOrderStatusText" resultType="java.lang.String">
+    select order_status_text from cskaoyan_mall_order_status
+    where id = #{showType}
+
+  </select>
+  <select id="getHandleOption" resultType="com.pandax.litemall.bean.HandleOption">
+    select cancel,`delete`,pay,comment,confirm,refund,rebuy
+    from cskaoyan_mall_order_handle_option where status_id = #{statusId}
+  </select>
+
+  <select id="getOrderGoods" resultType="com.pandax.litemall.bean.OrderGoods">
+    select id,
+    order_id as orderId,
+    goods_id as goodsId,
+    goods_name as goodsName,
+    goods_sn as goodsSn,
+    product_id as productId,
+    number,price,specifications,picUrl,comment,
+    add_time as addTime,
+    update_time as updateTime,
+    deleted
+    from cskaoyan_mall_order_goods
+    <where>
+      order_id = #{orderId}
+    </where>
+  </select>
+
+  <select id="selectLastInsertId" resultType="java.lang.Integer">
+    select last_insert_id()
+  </select>
+
+  <update id="updateCancel">
+    update from cskaoyan_mall_order set deleted = 1,status_id = 102,end_time = now(),update_time = now()
+    where id = #{orderId}
+  </update>
+
+  <update id="updateDelete">
+    update from cskaoyan_mall_order set deleted = 1,status_id = 401,end_time = now(),update_time = now()
+    where id = #{orderId}
+  </update>
+
+  <update id="updateConfirm">
+    update from cskaoyan_mall_order set status_id = 401,update_time = now()
+    where id = #{orderId}
+  </update>
 </mapper>

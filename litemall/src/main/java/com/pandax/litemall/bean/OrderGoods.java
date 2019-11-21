@@ -2,6 +2,7 @@ package com.pandax.litemall.bean;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 public class OrderGoods {
     private Integer id;
@@ -20,7 +21,7 @@ public class OrderGoods {
 
     private BigDecimal price;
 
-    private String specifications;
+    private List<String> specifications;
 
     private String picUrl;
 
@@ -96,12 +97,12 @@ public class OrderGoods {
         this.price = price;
     }
 
-    public String getSpecifications() {
+    public List<String> getSpecifications() {
         return specifications;
     }
 
-    public void setSpecifications(String specifications) {
-        this.specifications = specifications == null ? null : specifications.trim();
+    public void setSpecifications(List<String> specifications) {
+        this.specifications = specifications;
     }
 
     public String getPicUrl() {
