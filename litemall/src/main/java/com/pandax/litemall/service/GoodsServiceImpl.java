@@ -594,10 +594,11 @@ public class GoodsServiceImpl implements GoodsService {
         List<Goods> goods = goodsMapper.selectByExample(example);
         PageInfo<Goods> pageInfo = new PageInfo<>(goods);
         long total = pageInfo.getTotal();
+        List<Category> categories = categoryMapper.selectByExample(null);
         Map<String,Object> map = new HashMap<>();
         map.put("goodsList",goods);
         map.put("count",total);
-        map.put("filterCategoryList",null);
+        map.put("filterCategoryList",categories);
         return map;
     }
 

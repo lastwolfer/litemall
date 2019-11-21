@@ -15,5 +15,5 @@ public interface SearchService {
 
     String[] getHelper(String keyword);
 
-    int addHistory(int id,String keyword);
+    int saveOrUpdateHistory(int id,String keyword);
 }

@@ -12,6 +12,7 @@ import com.pandax.litemall.bean.LoginVo;
 import com.pandax.litemall.service.PermissionService;
 import com.pandax.litemall.service.RoleService;
 import com.pandax.litemall.shiro.MallToken;
+import com.pandax.litemall.util.Md5Utils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.subject.Subject;
@@ -39,7 +40,10 @@ public class AuthController {
         BaseReqVo baseReqVo = new BaseReqVo();
         Subject subject = SecurityUtils.getSubject();
         //admin得小写
-        MallToken mallToken = new MallToken(loginVo.getUsername(), loginVo.getPassword(), "admin");
+
+        String password = loginVo.getPassword();
+        password = Md5Utils.getMultiMd5(password);
+        MallToken mallToken = new MallToken(loginVo.getUsername(), password, "admin");
         //里面放自己定义的Token
         try {
             subject.login(mallToken);

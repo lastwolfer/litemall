@@ -1,20 +1,32 @@
 package com.pandax.litemall.service;
 
-import com.pandax.litemall.bean.Groupon;
-import com.pandax.litemall.bean.GrouponExample;
-import com.pandax.litemall.bean.User;
+import com.github.pagehelper.PageHelper;
+import com.pandax.litemall.bean.*;
+import com.pandax.litemall.mapper.GoodsMapper;
 import com.pandax.litemall.mapper.GrouponMapper;
+import com.pandax.litemall.mapper.GrouponRulesMapper;
+import com.pandax.reponseJson.GrouponGoods;
+import com.pandax.reponseJson.ResponseGrouponGoods;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class GrouponServiceImpl implements GrouponService{
     @Autowired
     GrouponMapper grouponMapper;
+    @Autowired
+    GrouponRulesMapper grouponRulesMapper;
+    @Autowired
+    GoodsMapper goodsMapper;
+
 
     @Override
     public List<Groupon> selectGrouponMy(Integer showType) {
@@ -37,5 +49,34 @@ public class GrouponServiceImpl implements GrouponService{
             }
         }
         return groupons;
+    }
+
+    @Override
+    public List<GrouponGoods> selectAllGrouponList(Integer page, Integer size) {
+        PageHelper.startPage(page,size);
+        List<GrouponRules> grouponRules = grouponRulesMapper.selectByExample(null);
+        List<GrouponGoods> grouponGoods = new ArrayList<>();
+        GrouponGoods groupon = null;
+        for (GrouponRules grouponRule : grouponRules) {
+            Integer goodsId = grouponRule.getGoodsId();
+            Goods goods = goodsMapper.selectByPrimaryKey(goodsId);
+            ResponseGrouponGoods responseGrouponGoods= new ResponseGrouponGoods();
+            responseGrouponGoods.setId(goods.getId());
+            responseGrouponGoods.setBrief(goods.getBrief());
+            responseGrouponGoods.setName(goods.getName());
+            responseGrouponGoods.setCounterPrice(goods.getCounterPrice());
+            responseGrouponGoods.setRetailPrice(goods.getRetailPrice());
+            responseGrouponGoods.setPicUrl(goods.getPicUrl());
+            groupon = new GrouponGoods();
+            groupon.setGoods(responseGrouponGoods);//goods  ok
+            BigDecimal subtract = goods.getRetailPrice().subtract(grouponRule.getDiscount());
+            groupon.setGroupon_price(subtract);//groupon_price   ok
+            GrouponExample grouponExample = new GrouponExample();
+            grouponExample.createCriteria().andRulesIdEqualTo(grouponRule.getId());
+            long count = grouponMapper.countByExample(grouponExample);
+            groupon.setGroupon_member(count);//groupon_price   ok
+            grouponGoods.add(groupon);//
+        }
+        return grouponGoods;
     }
 }

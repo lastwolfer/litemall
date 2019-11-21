@@ -30,18 +30,11 @@ public interface HistoryMapper {
 
     int updateByPrimaryKey(History record);
 
-    @Delete("delete from cskaoyan_mall_search_history where user_id = #{id}")
+    @Update("update cskaoyan_mall_search_history  set deleted = 1 where user_id = #{id} and deleted = 0")
     int deleleById(int id);
 
-    @Select("select keyword from cskaoyan_mall_search_history where user_id = #{id}")
+    @Select("select keyword from cskaoyan_mall_search_history where user_id = #{id} and deleted = 0")
     String[] getHistoryList(int id);
 
-    @Insert("insert into cskaoyan_mall_search_history value (null,#{id},#{keyword},'',now(),now(),null);")
-    int addHistory(@Param("id") int id, @Param("keyword") String keyword);
-
-    @Select("select id from cskaoyan_mall_search_history where user_id = #{id} and keyword = #{keyword}")
-    Integer checkHistory(@Param("id") int id, @Param("keyword") String keyword);
-
-    @Update("update cskaoyan_mall_search_history set update_time = now() where id = #{id}")
-    int updateHistory(int id);
+    int saveOrUpdateHistory(@Param("id")int id,@Param("keyword") String keyword);
 }
