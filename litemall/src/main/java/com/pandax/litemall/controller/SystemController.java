@@ -3,6 +3,7 @@ package com.pandax.litemall.controller;
 import com.pandax.litemall.exception.SystemException;
 import com.pandax.litemall.bean.*;
 import com.pandax.litemall.service.*;
+import com.pandax.litemall.util.Md5Utils;
 import com.sun.org.apache.bcel.internal.generic.NEW;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -127,7 +128,10 @@ public class SystemController {
         BaseReqVo baseReqVo = new BaseReqVo();
 
         checkUsernameAndPassword(admin);
-
+        String password = admin.getPassword();
+        //MD5加密
+        password = Md5Utils.getMultiMd5(password);
+        admin.setPassword(password);
 
         Admin returnAdmin = adminService.createAdmin(admin);
         baseReqVo.setData(returnAdmin);

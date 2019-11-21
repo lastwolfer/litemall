@@ -169,7 +169,7 @@ public class UserController {
     @RequestMapping("/wx/region/list")
     public BaseReqVo wxRegionList(Integer pid){
         BaseReqVo baseReqVo =new BaseReqVo();
-        List<Region> regions =userService.selectRegionList(pid);
+        List<Region> regions =userService.selectRegionsList(pid);
         baseReqVo.setErrno(0);
         baseReqVo.setData(regions);
         baseReqVo.setErrmsg("成功");

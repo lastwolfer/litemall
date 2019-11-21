@@ -3,6 +3,7 @@ package com.pandax.litemall.service;
 import com.pandax.litemall.bean.*;
 import com.pandax.reponseJson.UserAllAddress;
 
+
 import java.util.List;
 import java.util.Map;
 
@@ -36,8 +37,15 @@ public interface UserService {
 
     User selectUserByUsername(String usrname);
 
+    int insertUser(User user);
 
-    List<Region> selectRegionList(Integer pid);
+    boolean checkUsernameExist(String username);
+
+    void updateUser(User user);
+
+    User selectUserByMobile(String mobile);
+
+    List<Region> selectRegionsList(Integer pid);
 
     List<UserAllAddress> selectAllAddress();
 

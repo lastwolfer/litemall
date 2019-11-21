@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -220,12 +221,49 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public List<Region> selectRegionList(Integer pid) {
+    public List<Region> selectRegionsList(Integer pid) {
         RegionExample example = new RegionExample();
         example.createCriteria().andPidEqualTo(pid);
         List<Region> regions = regionMapper.selectByExample(example);
-        return regions;
+        return  regions;
     }
+
+    @Override
+    public int insertUser(User user) {
+        int insert = userMapper.insert(user);
+        return insert;
+    }
+
+    @Override
+    public boolean checkUsernameExist(String username) {
+        UserExample example = new UserExample();
+        example.createCriteria().andDeletedEqualTo(false).andUsernameEqualTo(username);
+        List<User> users = userMapper.selectByExample(example);
+        return users.size() != 0;
+    }
+
+    @Override
+    public void updateUser(User user) {
+        userMapper.updateByPrimaryKey(user);
+    }
+
+    @Override
+    public User selectUserByMobile(String mobile) {
+        UserExample example = new UserExample();
+        example.createCriteria().andDeletedEqualTo(false).andMobileEqualTo(mobile);
+        List<User> users = userMapper.selectByExample(example);
+        if (users.size() > 0) {
+            return users.get(0);
+        } else {
+            return null;
+        }
+    }
+
+//    @Override
+//    public Region[] selectRegionList(Integer pid) {
+//        Region[] regions = regionMapper.selectByPid(pid);
+//        return regions;
+//    }
 
     @Override
     public List<UserAllAddress> selectAllAddress() {
@@ -249,7 +287,6 @@ public class UserServiceImpl implements UserService {
             userAllAddress.setIsDefault(address.getIsDefault());
             userAllAddresses.add(userAllAddress);
         }
-
         return userAllAddresses;
     }
 
