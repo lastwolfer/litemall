@@ -38,4 +38,7 @@ public interface GoodsMapper {
     List<CategoryList> selectCategory(Integer value);
 
     List<Goods> selectGoodsByCategoryIds(@Param("categories") List<Category> categories);
+
+    List<Goods> selectGoodsByFootprint(@Param("footprints") List<Footprint> footprints);
+
 }

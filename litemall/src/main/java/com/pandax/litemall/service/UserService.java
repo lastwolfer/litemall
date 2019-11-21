@@ -2,8 +2,11 @@ package com.pandax.litemall.service;
 
 
 
+import com.pandax.litemall.bean.Feedback;
+import com.pandax.litemall.bean.Footprint;
 import com.pandax.litemall.bean.User;
 
+import java.util.List;
 import java.util.Map;
 
 public interface UserService {
@@ -35,5 +38,9 @@ public interface UserService {
    int countUsers();
 
     User selectUserByUsername(String usrname);
+
+   int insertFeedBack(Feedback feedback);
+
+   List<Footprint> selectFootprintByUserId(Integer id);
 }
 

@@ -1,19 +1,25 @@
 package com.pandax.litemall.controller;
 
 
-import com.pandax.litemall.bean.BaseReqVo;
+import com.pandax.litemall.bean.*;
+import com.pandax.litemall.service.GoodsService;
 import com.pandax.litemall.service.UserService;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Map;
+import java.util.*;
 
 @RestController
 public class UserController {
 
     @Autowired
     UserService userService;
+    @Autowired
+    GoodsService goodsService;
 
     /**
      * 查詢所有的用戶
@@ -135,5 +141,40 @@ public class UserController {
         return baseReqVo;
     }
 
+    /**
+     * 反馈信息
+     * @param feedback
+     * @return
+     */
+    @RequestMapping("wx/feedback/submit")
+    public BaseReqVo submitFeedBack(@RequestBody Feedback feedback){
+        Subject subject = SecurityUtils.getSubject();
+        User user = (User) subject.getPrincipal();
+        if (user==null){
+            return BaseReqVo.fail(500,"请先登录");
+        }
+        feedback.setUserId(user.getId());
+        feedback.setUsername(user.getUsername());
+        feedback.setAddTime(new Date());
+        int i = userService.insertFeedBack(feedback);
+        return BaseReqVo.ok();
+    }
+
+    /**
+     * 足迹信息
+     * @param page
+     * @param size
+     * @return
+     */
+    @RequestMapping("wx/footprint/list")
+    public BaseReqVo listFootprint(Integer page,Integer size){
+        User user = (User) SecurityUtils.getSubject().getPrincipal();
+        if (user==null){
+            return BaseReqVo.fail(500,"请登录");
+        }
+        List<Footprint> footprints = userService.selectFootprintByUserId(user.getId());
+        Map dataMap = goodsService.selectGodsByFootprint(footprints,page,size);
+        return BaseReqVo.ok(dataMap);
+    }
 
 }

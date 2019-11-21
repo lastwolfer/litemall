@@ -79,11 +79,7 @@ public class IndexController {
         dataMap.put("hotGoodsList", hotGoodsList);
         List floorGoodsList = goodsService.selectCategoryAndGoods();
         dataMap.put("floorGoodsList", floorGoodsList);
-        BaseReqVo<Object> baseReqVo = new BaseReqVo<>();
-        baseReqVo.setErrmsg("成功");
-        baseReqVo.setErrno(0);
-        baseReqVo.setData(dataMap);
-        return baseReqVo;
+        return BaseReqVo.ok(dataMap);
     }
 
     /**
@@ -103,11 +99,7 @@ public class IndexController {
         dataMap.put("currentCategory", currentCategory);
         dataMap.put("currentSubCategory", currentSubCategory);
         dataMap.put("categoryList", categoryList);
-        BaseReqVo baseReqVo = new BaseReqVo();
-        baseReqVo.setErrno(0);
-        baseReqVo.setData(dataMap);
-        baseReqVo.setErrmsg("成功");
-        return baseReqVo;
+        return BaseReqVo.ok(dataMap);
     }
 
     @RequestMapping("wx/catalog/current")
@@ -118,32 +110,32 @@ public class IndexController {
 
     /**
      * 用户订单状态
+     *
      * @return
      */
     @RequestMapping("wx/user/index")
-    public BaseReqVo userIndex(){
-        BaseReqVo baseReqVo = new BaseReqVo();
+    public BaseReqVo userIndex() {
         Subject subject = SecurityUtils.getSubject();
         User user = (User) subject.getPrincipal();
+        if (user == null) {
+            return BaseReqVo.fail(0,"请登录");
+        }
         Integer userId = user.getId();
         Short status1 = 401;//未评论
         List<Order> orderList1 = orderService.selectOrderByUserIdAndStatus(userId, status1);
         Short status2 = 101;//未付款
-        List<Order> orderList2 = orderService.selectOrderByUserIdAndStatus(userId,status2);
+        List<Order> orderList2 = orderService.selectOrderByUserIdAndStatus(userId, status2);
         Short status3 = 201;//未发货
-        List<Order> orderList3 = orderService.selectOrderByUserIdAndStatus(userId,status3);
-        Short status4= 301;//未收货
-        List<Order> orderList4 = orderService.selectOrderByUserIdAndStatus(userId,status4);
+        List<Order> orderList3 = orderService.selectOrderByUserIdAndStatus(userId, status3);
+        Short status4 = 301;//未收货
+        List<Order> orderList4 = orderService.selectOrderByUserIdAndStatus(userId, status4);
         HashMap<String, Object> map = new HashMap<>();
-        map.put("uncomment",orderList1.size());
-        map.put("unrecv",orderList4.size());
-        map.put("unpaid",orderList2.size());
-        map.put("unship",orderList3.size());
+        map.put("uncomment", orderList1.size());
+        map.put("unrecv", orderList4.size());
+        map.put("unpaid", orderList2.size());
+        map.put("unship", orderList3.size());
         HashMap<String, Object> data = new HashMap<>();
-        data.put("order",map);
-        baseReqVo.setData(data);
-        baseReqVo.setErrno(0);
-        baseReqVo.setErrmsg("成功");
-        return baseReqVo;
+        data.put("order", map);
+        return BaseReqVo.ok(data);
     }
 }

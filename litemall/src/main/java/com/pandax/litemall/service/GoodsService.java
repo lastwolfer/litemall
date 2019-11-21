@@ -44,4 +44,5 @@ public interface GoodsService {
 
     GoodsDetail selectGoodsDetailByGoodsId(Integer id);
 
+    Map selectGodsByFootprint(List<Footprint> footprints, Integer page, Integer size);
 }
