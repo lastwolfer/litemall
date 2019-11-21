@@ -43,7 +43,7 @@ public class SystemController {
      * @return
      */
     @RequestMapping("admin/list")
-    @RequiresPermissions(value = "admin:admin:read")
+    @RequiresPermissions("admin:admin:read")
     public BaseReqVo showAdmins(Integer page, Integer limit,
                                 String sort, String order, String username) {
         BaseReqVo baseReqVo = new BaseReqVo();
@@ -60,7 +60,7 @@ public class SystemController {
      * @return options数组，以及基本信息
      */
     @RequestMapping("role/options")
-    @RequiresPermissions(value = "admin:role:read")
+    @RequiresPermissions("admin:role:read")
     public BaseReqVo adminOptions() {
         BaseReqVo baseReqVo = new BaseReqVo();
         List<RoleInfo> roleList = roleService.selectRoles();
@@ -76,7 +76,7 @@ public class SystemController {
      * @return
      */
     @RequestMapping("admin/update")
-    @RequiresPermissions(value = "admin:admin:update")
+    @RequiresPermissions("admin:admin:update")
     public BaseReqVo adminUpdate(@RequestBody Admin admin) throws SystemException {
         BaseReqVo baseReqVo = new BaseReqVo();
         checkUsernameAndPassword(admin);
@@ -122,7 +122,7 @@ public class SystemController {
      * @return
      */
     @RequestMapping("admin/create")
-    @RequiresPermissions(value = "admin:admin:create")
+    @RequiresPermissions("admin:admin:create")
     public BaseReqVo adminCreate(@RequestBody Admin admin) throws SystemException {
         BaseReqVo baseReqVo = new BaseReqVo();
 
@@ -174,7 +174,7 @@ public class SystemController {
      * @return
      */
     @RequestMapping("admin/delete")
-    @RequiresPermissions(value = "admin:admin:delete")
+    @RequiresPermissions("admin:admin:delete")
     public BaseReqVo deleteAdmin(@RequestBody Admin admin){
         BaseReqVo baseReqVo = new BaseReqVo();
         adminService.deleteAdmin(admin);
@@ -191,6 +191,7 @@ public class SystemController {
     }
 
     @RequestMapping("log/list")
+    @RequiresPermissions("admin:log:list")
     public BaseReqVo showLogList(Integer page, Integer limit,
                                  String sort, String order,  String name){
         BaseReqVo baseReqVo = new BaseReqVo();
@@ -231,7 +232,7 @@ public class SystemController {
      * @return
      */
     @RequestMapping("storage/list")
-    @RequiresPermissions(value = "admin:storage:read")
+    @RequiresPermissions("admin:storage:read")
     public BaseReqVo showStorageList(Integer page, Integer limit, String sort, String order,String key,String name){
         BaseReqVo baseReqVo = new BaseReqVo();
         HashMap<String,Object> map = storageService.queryStorage(page,limit,sort,order,key,name);
@@ -272,7 +273,7 @@ public class SystemController {
      * @return BaseReqVo
      */
     @RequestMapping("storage/update")
-    @RequiresPermissions(value = "admin:storage:update")
+    @RequiresPermissions("admin:storage:update")
     public BaseReqVo updateStorage(@RequestBody Storage storage){
         BaseReqVo baseReqVo = new BaseReqVo();
         Storage updateStorage = storageService.updateStorage(storage);
@@ -299,7 +300,7 @@ public class SystemController {
      * @return BaseReqVo
      */
     @RequestMapping("storage/delete")
-    @RequiresPermissions(value = "admin:storage:delete")
+    @RequiresPermissions("admin:storage:delete")
     public BaseReqVo deleteStorage(@RequestBody Storage storage){
         BaseReqVo baseReqVo = new BaseReqVo();
         int deleteStatus = storageService.deleteStorage(storage);
@@ -353,7 +354,7 @@ public class SystemController {
      * @return
      */
     @RequestMapping("role/list")
-    @RequiresPermissions(value = "admin:role:read")
+    @RequiresPermissions("admin:role:read")
     public BaseReqVo showRoleList(Integer page, Integer limit, String sort, String order,String name){
         BaseReqVo baseReqVo = new BaseReqVo();
         HashMap<String,Object> map = roleService.getRoles(page,limit,sort,order,name);
@@ -379,7 +380,7 @@ public class SystemController {
      * @return
      */
     @RequestMapping("role/update")
-    @RequiresPermissions(value = "admin:role:update")
+    @RequiresPermissions("admin:role:update")
     public BaseReqVo updateRole(@RequestBody Role role) throws SystemException {
         BaseReqVo baseReqVo = new BaseReqVo();
         if(isRepeatRole(role)){
@@ -428,7 +429,7 @@ public class SystemController {
      * @return BaseReqVo
      */
     @RequestMapping("role/create")
-    @RequiresPermissions(value = "admin:role:create")
+    @RequiresPermissions("admin:role:create")
     public BaseReqVo createRole(@RequestBody Role role) throws SystemException {
         BaseReqVo baseReqVo = new BaseReqVo();
         if(isRepeatRole(role)) {
@@ -456,7 +457,7 @@ public class SystemController {
      * @return BaseReqVo
      */
     @RequestMapping("role/delete")
-    @RequiresPermissions(value = "admin:role:delete")
+    @RequiresPermissions("admin:role:delete")
     public BaseReqVo deleteRole(@RequestBody Role role){
         BaseReqVo baseReqVo = new BaseReqVo();
         int deleteStatus = roleService.deleteRole(role);
@@ -473,7 +474,7 @@ public class SystemController {
      * @return
      */
     @RequestMapping(value = "role/permissions", method = RequestMethod.GET)
-    @RequiresPermissions(value = "admin:role:permissions")
+    @RequiresPermissions("admin:role:permissions")
     public BaseReqVo showPermissions(Integer roleId){
         BaseReqVo<Object> baseReqVo = new BaseReqVo<>();
         HashMap<String, Object> map = roleService.showPermissions(roleId);
@@ -492,7 +493,7 @@ public class SystemController {
      * @return
      */
     @RequestMapping(value = "role/permissions", method = RequestMethod.POST)
-    @RequiresPermissions(value = "admin:role:permission")
+    @RequiresPermissions("admin:role:permission")
     public BaseReqVo updatePermissions(@RequestBody Map map){
         BaseReqVo<Object> baseReqVo = new BaseReqVo<>();
         Integer roleId = (Integer) map.get("roleId");

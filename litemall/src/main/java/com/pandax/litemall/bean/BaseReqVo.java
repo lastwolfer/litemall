@@ -35,6 +35,7 @@ public class BaseReqVo<T> {
         baseReqVo.setErrmsg(errorMsg);
         return baseReqVo;
     }
+
     public static BaseReqVo updatedDataFailed() {
         return fail(505, "更新数据失败");
     }
@@ -46,3 +47,4 @@ public class BaseReqVo<T> {
     }
 
 }
+

@@ -1,10 +1,9 @@
 package com.pandax.litemall.shiro;
 
-import com.pandax.litemall.bean.Admin;
-import com.pandax.litemall.bean.Permission;
-import com.pandax.litemall.bean.PermissionExample;
+import com.pandax.litemall.bean.*;
 import com.pandax.litemall.mapper.AdminMapper;
 import com.pandax.litemall.mapper.PermissionMapper;
+import com.pandax.litemall.mapper.UserMapper;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -29,6 +28,9 @@ import java.util.List;
 @Component
 public class WxRealm extends AuthorizingRealm {
 
+    @Autowired
+    UserMapper userMapper;
+
 
     /**
      * 认证
@@ -38,7 +40,16 @@ public class WxRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
-        return null;
+        MallToken token = (MallToken) authenticationToken;
+
+        UserExample example = new UserExample();
+        example.createCriteria().andUsernameEqualTo(token.getUsername()).andDeletedEqualTo(false);
+        List<User> users = userMapper.selectByExample(example);
+        System.out.println(users);
+        User user = users.get(0);
+        String password = user.getPassword();
+        SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(user, password, getName());
+        return simpleAuthenticationInfo;
     }
 
     /**
@@ -48,7 +59,12 @@ public class WxRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        return null;
+        User user = (User) principalCollection.getPrimaryPrincipal();
+        SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
+        ArrayList<String> permissions = new ArrayList<>();
+        permissions.add("*");
+        authorizationInfo.addStringPermissions(permissions);
+        return authorizationInfo;
     }
 
 

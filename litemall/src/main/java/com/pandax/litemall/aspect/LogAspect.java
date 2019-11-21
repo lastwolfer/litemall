@@ -1,9 +1,12 @@
 package com.pandax.litemall.aspect;
 
+import com.pandax.litemall.bean.Admin;
 import com.pandax.litemall.bean.BaseReqVo;
 import com.pandax.litemall.bean.Log;
 import com.pandax.litemall.exception.SystemException;
 import com.pandax.litemall.service.LogService;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.aspectj.lang.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -30,15 +33,46 @@ public class LogAspect {
     /**
      * 定义切入点
      */
-    @Pointcut("execution(* com.pandax.litemall.controller.*.*(..))")
+    @Pointcut("execution(* com.pandax.litemall.controller.*.*(..)) &&" +
+            "!execution(* com.pandax.litemall.controller.AuthController.logout() )")
     public void log(){}
+
+    @Pointcut("execution(* com.pandax.litemall.controller.AuthController.logout())")
+    public void logoutPointcut(){}
+
+    @Before("logoutPointcut()")
+    public void beforeLogout(){
+        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        HttpServletRequest request = attributes.getRequest();
+        Log log = new Log();
+
+        Subject subject = SecurityUtils.getSubject();
+        Admin admin = (Admin) subject.getPrincipal();
+        if (admin != null) {
+            log.setAdmin(admin.getUsername());
+        } else {
+            log.setAdmin("代码错误了，请通知程序员更改");
+        }
+
+        log.setIp(getIpAddr(request));
+        log.setType(1);
+        log.setAction("登出");
+        log.setStatus(true);
+        log.setResult("");
+        log.setComment("");
+        log.setAddTime(new Date());
+        log.setUpdateTime(new Date());
+        log.setDeleted(false);
+
+        logService.record(log);
+    }
 
 
     /**
      * 后置通知： 在返回后执行的通知
      */
     @AfterReturning(pointcut = "log()", returning = "ret")
-    public void afterReturning( Object ret) {
+    public void afterReturning(Object ret) {
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
 
@@ -62,13 +96,21 @@ public class LogAspect {
 
         BaseReqVo vo = (BaseReqVo) ret;
         int errno = vo.getErrno();
+        Subject subject = SecurityUtils.getSubject();
+        if(!(subject.getPrincipal() instanceof Admin)) {
+            return;
+        }
+        Admin admin = (Admin) subject.getPrincipal();
+
+        String username = "匿名用户";
+        if(admin != null) {
+            username = admin.getUsername();
+        }
+        log.setAdmin(username);
         if(errno != 0) {
-            log.setAdmin("匿名用户");
             log.setStatus(false);
             log.setResult(vo.getErrmsg());
         } else {
-            String username = "unknow admin123";
-            log.setAdmin(username);
             log.setStatus(true);
         }
 
@@ -133,7 +175,10 @@ public class LogAspect {
 
         //这里写获得username的相关逻辑
         //先设置成DEFAULT ADMIN
-        String username = "DEFAULT ADMIN";
+        Subject subject = SecurityUtils.getSubject();
+        Admin admin = (Admin) subject.getPrincipal();
+        String username = admin.getUsername();
+        //String username = "DEFAULT ADMIN";
         log.setAdmin(username);
         log.setStatus(false);
         log.setResult(e.getMessage());

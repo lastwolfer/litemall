@@ -11,6 +11,13 @@ import org.springframework.stereotype.Service;
 import java.lang.reflect.Array;
 import java.math.BigDecimal;
 import java.util.*;
+import com.pandax.litemall.bean.Order;
+import com.pandax.litemall.bean.OrderExample;
+import com.pandax.litemall.mapper.OrderMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author Da
@@ -103,7 +110,7 @@ public class OrderServiceImpl implements OrderService{
             for (GoodsSpecification goodsSpecification : goodsSpecifications) {
                 specificationsList.add(goodsSpecification.getSpecification());
             }
-            orderGoods.setSpecifications(specificationsList);
+            orderGoods.setSpecifications((String[]) specificationsList.toArray());
         }
         dataMap.put("orderInfo", order);
         dataMap.put("orderGoods", orderGoodsList);
@@ -147,7 +154,7 @@ public class OrderServiceImpl implements OrderService{
         BigDecimal productPrice;
         Short number;
         for (Cart cart : cartList) {
-            productPrice = cart.getPrice();
+            productPrice = BigDecimal.valueOf(cart.getPrice());
             number = cart.getNumber();
             goodsPrice.add(productPrice.multiply(BigDecimal.valueOf(number)));
         }
@@ -196,4 +203,9 @@ public class OrderServiceImpl implements OrderService{
     }
 
 
+    public List<Order> selectOrderByUserIdAndStatus(Integer userId, Short status) {
+        OrderExample orderExample = new OrderExample();
+        orderExample.createCriteria().andUserIdEqualTo(userId).andOrderStatusEqualTo(status);
+        return orderMapper.selectByExample(orderExample);
+    }
 }

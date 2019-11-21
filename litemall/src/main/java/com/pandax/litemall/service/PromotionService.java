@@ -2,6 +2,7 @@ package com.pandax.litemall.service;
 
 import com.pandax.litemall.bean.*;
 
+import java.util.List;
 import java.util.Map;
 
 public interface PromotionService {
@@ -42,4 +43,12 @@ public interface PromotionService {
     int deleteGroupon(Integer id);
 
     Map<String, Object> listRecord(Integer page, Integer limit, String sort,String order,Groupon groupon);
+
+    List<Coupon> selectCoupon();
+
+    List<GrouponList> selectGrouponList();
+
+    Map<String, Object> wxListCoupon(Integer page, Integer size, Coupon coupon);
+
+    int wxReceiveCoupon(Integer couponId);
 }

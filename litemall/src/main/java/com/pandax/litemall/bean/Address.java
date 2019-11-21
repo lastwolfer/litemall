@@ -6,11 +6,11 @@ import java.util.Date;
 
 public class Address {
 
-    //先添加的内容
+
     private String province;
     private String city;
     private String area;
-    //------------
+
     private Integer id;
 
     private String name;
@@ -29,10 +29,10 @@ public class Address {
 
     private Boolean isDefault;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date addTime;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date updateTime;
 
     private Boolean deleted;
