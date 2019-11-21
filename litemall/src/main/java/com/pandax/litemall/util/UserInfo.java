@@ -1,5 +1,8 @@
 package com.pandax.litemall.util;
 
+//有用到
+
+
 public class UserInfo {
     private String nickName;
     private String avatarUrl;

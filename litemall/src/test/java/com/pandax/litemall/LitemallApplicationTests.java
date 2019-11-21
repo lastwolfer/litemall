@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Random;
 
 
 @SpringBootTest
@@ -39,6 +40,10 @@ class LitemallApplicationTests {
         String accessSecret = "t4Beuo8Z3f1ehaHXWZZCgAaMM3xP1Y";
         String bucket = "litemallpandax";
         String endPoint = "oss-cn-shanghai.aliyuncs.com";
+    }
+    @Test
+    void mytest2(){
+        Random r = new Random();
     }
 
 }

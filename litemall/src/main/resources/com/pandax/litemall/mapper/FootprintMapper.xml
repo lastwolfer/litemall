@@ -85,7 +85,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from cskaoyan_mall_footprint
     where id = #{id,jdbcType=INTEGER}
@@ -101,10 +101,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.pandax.litemall.bean.Footprint">
-    insert into cskaoyan_mall_footprint (id, user_id, goods_id, 
+    insert into cskaoyan_mall_footprint (id, user_id, goods_id,
       add_time, update_time, deleted
       )
-    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, 
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER},
       #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT}
       )
   </insert>
@@ -225,4 +225,8 @@
       deleted = #{deleted,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+    <select id="selectByGoodsId" resultMap="BaseResultMap">
+      select <include refid="Base_Column_List"/> from cskaoyan_mall_footprint
+      where goods_id = #{id}
+    </select>
 </mapper>

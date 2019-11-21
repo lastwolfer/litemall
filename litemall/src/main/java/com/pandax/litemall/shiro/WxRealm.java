@@ -47,6 +47,11 @@ public class WxRealm extends AuthorizingRealm {
         List<User> users = userMapper.selectByExample(example);
         User user = users.get(0);
         String password = user.getPassword();
+        //System.out.println(users);
+        if(users.size() != 0) {
+            user = users.get(0);
+            password = user.getPassword();
+        }
         SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(user, password, getName());
         return simpleAuthenticationInfo;
     }

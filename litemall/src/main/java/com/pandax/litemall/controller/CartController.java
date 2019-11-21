@@ -1,8 +1,6 @@
 package com.pandax.litemall.controller;
 
 import com.pandax.litemall.bean.*;
-import com.pandax.litemall.mapper.AddressMapper;
-import com.pandax.litemall.service.AddressService;
 import com.pandax.litemall.service.CartService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
@@ -11,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -83,15 +80,6 @@ public class CartController {
         User user = (User)subject.getPrincipal();
         CartCheckedCondition map=cartService.cartCheckout(cartId,addressId,cartId,grouponRulesId,user);
         return BaseReqVo.ok(map);
-    }
-    @Autowired
-    AddressService addressService;
-    @RequestMapping("wx/address/list")
-    public BaseReqVo addressList(){
-        Subject subject = SecurityUtils.getSubject();
-        User user = (User) subject.getPrincipal();
-        List<Address> list=addressService.addressList(user);
-        return BaseReqVo.ok(list);
     }
 
     @RequestMapping("wx/cart/goodscount")

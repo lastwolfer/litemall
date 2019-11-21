@@ -5,9 +5,15 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.pandax.litemall.bean.*;
 import com.pandax.litemall.mapper.*;
+import com.pandax.reponseJson.UserAllAddress;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -213,6 +219,78 @@ public class UserServiceImpl implements UserService {
         return users.get(0);
     }
 
+
+    @Override
+    public List<Region> selectRegionsList(Integer pid) {
+        RegionExample example = new RegionExample();
+        example.createCriteria().andPidEqualTo(pid);
+        List<Region> regions = regionMapper.selectByExample(example);
+        return  regions;
+    }
+
+    @Override
+    public int insertUser(User user) {
+        int insert = userMapper.insert(user);
+        return insert;
+    }
+
+    @Override
+    public boolean checkUsernameExist(String username) {
+        UserExample example = new UserExample();
+        example.createCriteria().andDeletedEqualTo(false).andUsernameEqualTo(username);
+        List<User> users = userMapper.selectByExample(example);
+        return users.size() != 0;
+    }
+
+    @Override
+    public void updateUser(User user) {
+        userMapper.updateByPrimaryKey(user);
+    }
+
+    @Override
+    public User selectUserByMobile(String mobile) {
+        UserExample example = new UserExample();
+        example.createCriteria().andDeletedEqualTo(false).andMobileEqualTo(mobile);
+        List<User> users = userMapper.selectByExample(example);
+        if (users.size() > 0) {
+            return users.get(0);
+        } else {
+            return null;
+        }
+    }
+
+//    @Override
+//    public Region[] selectRegionList(Integer pid) {
+//        Region[] regions = regionMapper.selectByPid(pid);
+//        return regions;
+//    }
+
+    @Override
+    public List<UserAllAddress> selectAllAddress() {
+        Subject subject = SecurityUtils.getSubject();
+        User user = (User) subject.getPrincipal();
+        Integer userId = user.getId();
+        AddressExample example = new AddressExample();
+        example.createCriteria().andUserIdEqualTo(userId);
+        List<Address> addresses = addressMapper.selectByExample(example);
+        List<UserAllAddress> userAllAddresses = new ArrayList<>();
+        for (Address address : addresses) {
+            String province = regionMapper.selectNameById(address.getProvinceId());
+            String city = regionMapper.selectNameById(address.getCityId());
+            String area = regionMapper.selectNameById(address.getAreaId());
+            String detailedAddress = province+city+area+" "+address.getAddress();
+            UserAllAddress userAllAddress = new UserAllAddress();
+            userAllAddress.setDetailedAddress(detailedAddress);
+            userAllAddress.setId(address.getId());
+            userAllAddress.setMobile(address.getMobile());
+            userAllAddress.setName(address.getName());
+            userAllAddress.setIsDefault(address.getIsDefault());
+            userAllAddresses.add(userAllAddress);
+        }
+        return userAllAddresses;
+    }
+
+
     /**
      * 新增反馈
      *
@@ -232,7 +310,68 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<Footprint> selectFootprintByUserId(Integer id) {
         FootprintExample footprintExample = new FootprintExample();
-        footprintExample.createCriteria().andUserIdEqualTo(id);
+        footprintExample.createCriteria().andUserIdEqualTo(id).andDeletedNotEqualTo(true);
         return footprintMapper.selectByExample(footprintExample);
     }
+
+
+    /**
+     *宝
+     * 按照地址id查询收货地址
+     * @param id 收货地址id
+     * @return 查询地址数据
+     */
+    @Override
+    public Map selectAddressById(Integer id) {
+        Address address = addressMapper.selectByPrimaryKey(id);
+        String provinceName = regionMapper.selectNameById(address.getProvinceId());
+        String cityName = regionMapper.selectNameById(address.getCityId());
+        String areaName = regionMapper.selectNameById(address.getAreaId());
+        Map<String,Object> map = new HashMap<>();
+        map.put("isDefault",address.getIsDefault());
+        map.put("areaId",address.getAreaId());
+        map.put("id",address.getId());
+        map.put("mobile",address.getMobile());
+        map.put("name",address.getName());
+        map.put("provinceId",address.getProvinceId());
+        map.put("provinceName",provinceName);
+        map.put("cityId",address.getCityId());
+        map.put("cityName",cityName);
+        map.put("areaId",address.getAreaId());
+        map.put("areaName",areaName);
+        map.put("address",address.getAddress());
+        return map;
+    }
+
+    @Override
+    public Integer updateAddressSave(Address address) {
+        Subject subject = SecurityUtils.getSubject();
+        User user = (User) subject.getPrincipal();
+        address.setUserId(user.getId());
+        //查询id和插入/修改数据
+        Integer id = null;
+        if(address.getId() == 0) {//新的数据插入，返回id
+            addressMapper.insertSelective(address);
+            id = address.getId();
+        }else{
+            addressMapper.updateByPrimaryKey(address);
+            id = address.getId();
+        }
+        return id;
+    }
+
+    @Override
+    public void deleteAddress(Integer id) {
+        addressMapper.deleteByPrimaryKey(id);
+    }
+
+
+    @Override
+    public int deleteFootprint(Integer id) {
+        Footprint footprint = footprintMapper.selectByGoodsId(id);
+        footprint.setDeleted(true);
+        footprint.setUpdateTime(new Date());
+        return footprintMapper.updateByPrimaryKey(footprint);
+    }
+
 }

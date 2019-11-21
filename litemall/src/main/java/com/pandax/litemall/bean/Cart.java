@@ -1,10 +1,12 @@
 package com.pandax.litemall.bean;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.Data;
 
 import java.math.BigDecimal;
 import java.util.Date;
+
 @Data
 public class Cart {
     private Integer id;
@@ -29,7 +31,8 @@ public class Cart {
 
     private String picUrl;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GTM+8")
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date addTime;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GTM+8")

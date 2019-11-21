@@ -65,7 +65,7 @@ public class UploadController {
             //String filePath = "D:/Develop/Coding WorkingSpace/static/img/";
 
 
-            String newFileName = uuid + suffixName;
+            String newFileName = uuid.toString().replace("-", "") + suffixName;
             //设置文件存储路径
 //            StringBuilder path = new StringBuilder();
 //            for (int i = 0; i < hexString.length(); i++) {

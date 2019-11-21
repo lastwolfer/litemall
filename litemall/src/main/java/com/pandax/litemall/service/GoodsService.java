@@ -25,7 +25,6 @@ public interface GoodsService {
 
     List<Comment> commentList(QuerryCommentList querryCommentList);
 
-
     int reply(CommentReply commentReply);
 
     int deleteComment(Comment comment);

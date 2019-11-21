@@ -14,14 +14,13 @@ public class BaseReqVo<T> {
         objectBaseReqVo.setData(object);
         return objectBaseReqVo;
     }
+    public static BaseReqVo ok() {
+        BaseReqVo<Object> objectBaseReqVo = new BaseReqVo<>();
+        objectBaseReqVo.setErrmsg("成功");
+        objectBaseReqVo.setErrno(0);
+        return objectBaseReqVo;
 
-    public static BaseReqVo ok(){
-        BaseReqVo baseReqVo = new BaseReqVo();
-        baseReqVo.setErrmsg("成功");
-        baseReqVo.setErrno(0);
-        return baseReqVo;
     }
-
 
 
     public static BaseReqVo fail() {

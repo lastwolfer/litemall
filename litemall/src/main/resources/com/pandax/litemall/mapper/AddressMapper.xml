@@ -119,7 +119,11 @@
       #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT}
       )
   </insert>
+
   <insert id="insertSelective" parameterType="com.pandax.litemall.bean.Address">
+    <selectKey order="AFTER" resultType="int" keyProperty="id" keyColumn="id" >
+      select last_insert_id() as id
+    </selectKey>
     insert into cskaoyan_mall_address
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
