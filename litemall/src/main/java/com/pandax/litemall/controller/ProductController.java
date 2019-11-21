@@ -232,15 +232,15 @@ public class ProductController {
         if(keyword != null ){
             Subject subject = SecurityUtils.getSubject();
             User user = (User) subject.getPrincipal();
-            Integer id = user.getId();
-            searchService.addHistory(id,keyword);
+            if (user != null){
+                searchService.addHistory(user.getId(),keyword);
+            }
             map = goodsService.selectGoodsByKeyWord(keyword,sort,order,categoryId,page,size);
             baseReqVo.setErrmsg("成功");
             baseReqVo.setData(map);
             return baseReqVo;
         }
         if(categoryId != null) {
-
             map = goodsService.selectGoodsByCategoryId(categoryId, page, size);
         }
         if(brandId != null){

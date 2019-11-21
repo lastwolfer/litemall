@@ -623,9 +623,7 @@ public class GoodsServiceImpl implements GoodsService {
         return map;
     }
 
-<<<<<<< HEAD
 
-=======
     /**
      * 根据足迹里的goodsId获得goods
      * @param footprints
@@ -641,5 +639,5 @@ public class GoodsServiceImpl implements GoodsService {
         map.put("footprintList",footprintList);
         return map;
     }
->>>>>>> 3fc0124d39dc2ac2781043594bead23bf3012181
+
 }
