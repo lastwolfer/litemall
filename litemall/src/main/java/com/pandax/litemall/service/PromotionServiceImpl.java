@@ -278,7 +278,7 @@ public class PromotionServiceImpl implements PromotionService {
     public List<Coupon> selectCoupon() {
         CouponExample couponExample = new CouponExample();
         Short status = 0;
-        couponExample.createCriteria().andTotalNotEqualTo(0).andStatusEqualTo(status);
+        couponExample.createCriteria().andTotalGreaterThan(0).andStatusEqualTo(status);
         return couponMapper.selectByExample(couponExample);
     }
 

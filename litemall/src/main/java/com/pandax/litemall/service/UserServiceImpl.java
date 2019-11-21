@@ -8,6 +8,7 @@ import com.pandax.litemall.mapper.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -232,7 +233,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<Footprint> selectFootprintByUserId(Integer id) {
         FootprintExample footprintExample = new FootprintExample();
-        footprintExample.createCriteria().andUserIdEqualTo(id);
+        footprintExample.createCriteria().andUserIdEqualTo(id).andDeletedNotEqualTo(true);
         return footprintMapper.selectByExample(footprintExample);
+    }
+
+    @Override
+    public int deleteFootprint(Integer id) {
+        Footprint footprint = footprintMapper.selectByGoodsId(id);
+        footprint.setDeleted(true);
+        footprint.setUpdateTime(new Date());
+        return footprintMapper.updateByPrimaryKey(footprint);
     }
 }
