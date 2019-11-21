@@ -30,5 +30,7 @@ public interface CollectMapper {
 
     List<Collect> selectByType(@Param("type")Integer type);
 
-    List<Collect> selectAllCollect();
+    List<Collect> selectAllCollect(@Param("id")Integer id);
+
+    Integer selectIdByValueId(@Param("valueId")Integer valueId, @Param("id")Integer id);
 }

@@ -20,7 +20,7 @@ public interface OrderService {
 
     Map<String,Object> getOrderList(Short showType, Integer page, Integer size);
 
-    Map<String, Object> getOrderDetail(Short orderId);
+    Map<String, Object> getOrderDetail(Integer orderId);
 
     Integer orderSubmit(OrderSubmitInfo orderSubmitInfo);
 
@@ -32,4 +32,7 @@ public interface OrderService {
 
     List<Order> selectOrderByUserIdAndStatus(Integer userId, Short status);
 
+    int refundOrder(Integer orderIdX);
+
+    int prePay(Integer orderIdX);
 }

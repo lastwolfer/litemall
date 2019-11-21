@@ -16,6 +16,7 @@ import com.pandax.litemall.service.UserService;
 import com.pandax.litemall.shiro.MallToken;
 
 import com.pandax.litemall.util.*;
+
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.subject.Subject;
@@ -127,6 +128,7 @@ public class WxAuthController {
         subject.logout();
         return BaseReqVo.ok();
     }
+
 
     /**
      * 用户获得验证码
@@ -275,5 +277,6 @@ public class WxAuthController {
         map.remove("code");
         return BaseReqVo.ok(map);
     }
+
 
 }

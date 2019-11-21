@@ -2,9 +2,6 @@ package com.pandax.litemall.bean;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import lombok.Data;
-
-
 import java.math.BigDecimal;
 import java.util.Date;
 

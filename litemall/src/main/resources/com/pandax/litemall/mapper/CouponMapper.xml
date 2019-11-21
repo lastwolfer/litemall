@@ -447,4 +447,7 @@
       deleted = #{deleted,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+    <update id="updateDeleted">
+      update cskaoyan_mall_coupon_user set deleted = 1 where coupon_id = #{couponId}
+    </update>
 </mapper>

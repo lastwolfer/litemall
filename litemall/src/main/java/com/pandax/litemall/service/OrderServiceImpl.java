@@ -1,8 +1,11 @@
 package com.pandax.litemall.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.pandax.litemall.bean.*;
+import com.pandax.litemall.handler.String2ArrayTypeHandler;
 import com.pandax.litemall.mapper.*;
 import com.sun.org.apache.bcel.internal.generic.NEW;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +54,12 @@ public class OrderServiceImpl implements OrderService{
         return (int) orderMapper.countByExample(null);
     }
 
+    public List<Order> selectOrderByUserIdAndStatus(Integer userId, Short status) {
+        OrderExample orderExample = new OrderExample();
+        orderExample.createCriteria().andUserIdEqualTo(userId).andOrderStatusEqualTo(status);
+        return orderMapper.selectByExample(orderExample);
+    }
+
     @Override
     public Map<String,Object> getOrderList(Short showType, Integer page, Integer size) {
         PageHelper.startPage(page, size);
@@ -59,9 +68,27 @@ public class OrderServiceImpl implements OrderService{
         OrderGoodsExample orderGoodsExample = new OrderGoodsExample();
         GrouponExample grouponExample = new GrouponExample();
         OrderExample.Criteria criteria = example.createCriteria();
-        criteria.andOrderStatusEqualTo(showType);
-        List<Order> orders = orderMapper.selectByExample(example);
-        String orderStatusText = orderMapper.getOrderStatusText(showType);
+        List<Short> statusList = new ArrayList<>();
+        List<Order> orders = new ArrayList<>();
+        if(showType == 0) {
+            orders = orderMapper.getAllOrders();
+        }else {
+            if(showType == 1){
+                statusList.add((short) 101);
+            }else if(showType == 2){
+                statusList.add((short) 201);
+                statusList.add((short) 202);
+            }else if(showType == 3){
+                statusList.add((short) 301);
+            }else if(showType == 4){
+                statusList.add((short)401);
+                statusList.add((short)402);
+            }
+            for (Short status : statusList) {
+                List<Order> sOrderList = orderMapper.getOrders(status);
+                orders.addAll(sOrderList);
+            }
+        }
         HandleOption handleOption = orderMapper.getHandleOption(showType);
         for (Order order : orders) {
             Integer orderId = order.getId();
@@ -78,6 +105,7 @@ public class OrderServiceImpl implements OrderService{
                 order.setGroupin(false);
             }
             /*设置订单状态信息*/
+            String orderStatusText = orderMapper.getOrderStatusText(order.getOrderStatus());
             order.setOrderStatusText(orderStatusText);
             /*设置订单可操作状态*/
             order.setHandleOption(handleOption);
@@ -91,27 +119,17 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public Map<String, Object> getOrderDetail(Short orderId) {
+    public Map<String, Object> getOrderDetail(Integer orderId) {
         /*获取基本订单信息*/
         Map<String,Object> dataMap = new HashMap<>();
-        OrderExample orderExample = new OrderExample();
-        orderExample.createCriteria().andOrderStatusEqualTo(orderId);
-        Order order = orderMapper.selectByExample(orderExample).get(0);
+        Order order = orderMapper.selectByPrimaryKey(orderId);
+        String orderStatusText = orderMapper.getOrderStatusText(order.getOrderStatus());
+        order.setOrderStatusText(orderStatusText);
         /*添加订单可操作状态*/
         HandleOption handleOption = orderMapper.getHandleOption(order.getOrderStatus());
         order.setHandleOption(handleOption);
         /*添加订单商品信息*/
         List<OrderGoods> orderGoodsList = orderMapper.getOrderGoods(orderId);
-        GoodsSpecificationExample goodsSpecificationExample = new GoodsSpecificationExample();
-        for (OrderGoods orderGoods : orderGoodsList) {
-            goodsSpecificationExample.createCriteria().andGoodsIdEqualTo(orderGoods.getGoodsId());
-            List<GoodsSpecification> goodsSpecifications = goodsSpecificationMapper.selectByExample(goodsSpecificationExample);
-            List<String> specificationsList = new ArrayList<>();
-            for (GoodsSpecification goodsSpecification : goodsSpecifications) {
-                specificationsList.add(goodsSpecification.getSpecification());
-            }
-            orderGoods.setSpecifications((String[]) specificationsList.toArray());
-        }
         dataMap.put("orderInfo", order);
         dataMap.put("orderGoods", orderGoodsList);
         return dataMap;
@@ -134,17 +152,16 @@ public class OrderServiceImpl implements OrderService{
             cartExample.createCriteria().andIdEqualTo(cartId);
         }
         List<Cart> cartList = cartMapper.selectByExample(cartExample);
+        System.out.println(cartList);
         Cart cartX = cartList.get(0);
-        /*通过addressId获取Address对象*/
-        AddressExample addressExample = new AddressExample();
-        addressExample.createCriteria().andAddressEqualTo(addressId.toString());
-        Address address = addressMapper.selectByExample(addressExample).get(0);
         /*拼接订单基本信息*/
         Order order = new Order();
-        //order.setOrderSn
+        //先给一个orderSn，之后根据订单号补充
+        order.setOrderSn("0");
         order.setOrderStatus((short) 101);
         order.setMessage(message);
         /*拼接订单用户地址信息*/
+        Address address = addressMapper.selectByPrimaryKey(addressId);
         order.setUserId(cartX.getUserId());
         order.setConsignee(address.getName());
         order.setMobile(address.getMobile());
@@ -154,18 +171,21 @@ public class OrderServiceImpl implements OrderService{
         BigDecimal productPrice;
         Short number;
         for (Cart cart : cartList) {
-            productPrice = BigDecimal.valueOf(cart.getPrice());
+            productPrice = new BigDecimal(cart.getPrice());
             number = cart.getNumber();
-            goodsPrice.add(productPrice.multiply(BigDecimal.valueOf(number)));
+            BigDecimal multiply = productPrice.multiply(new BigDecimal(Integer.valueOf(number)));
+            goodsPrice = goodsPrice.add(multiply);
         }
         order.setGoodsPrice(goodsPrice);
         order.setFreightPrice(new BigDecimal(0));
-        Coupon coupon = couponMapper.selectByPrimaryKey(couponId);
-        order.setCouponPrice(coupon.getDiscount());
+//        Coupon coupon = couponMapper.selectByPrimaryKey(couponId);
+//        order.setCouponPrice(coupon.getDiscount());
+        order.setCouponPrice(new BigDecimal("0"));
         order.setIntegralPrice(new BigDecimal(0));
-        Groupon groupon = grouponMapper.selectByPrimaryKey(grouponLinkId);
-        GrouponRules grouponRules = grouponRulesMapper.selectByPrimaryKey(grouponRulesId);
-        order.setGrouponPrice(grouponRules.getDiscount());
+//        Groupon groupon = grouponMapper.selectByPrimaryKey(grouponLinkId);
+//        GrouponRules grouponRules = grouponRulesMapper.selectByPrimaryKey(grouponRulesId);
+//        order.setGrouponPrice(grouponRules.getDiscount());
+        order.setGrouponPrice(new BigDecimal("0"));
         BigDecimal orderPrice = goodsPrice.add(order.getFreightPrice()).subtract(order.getCouponPrice());
         order.setOrderPrice(orderPrice);
         BigDecimal actualPrice = orderPrice.subtract(order.getIntegralPrice());
@@ -175,8 +195,38 @@ public class OrderServiceImpl implements OrderService{
         order.setComments((short) 0);
         order.setAddTime(new Date());
         order.setUpdateTime(new Date());
+        order.setDeleted(false);
         int insert = orderMapper.insert(order);
         Integer orderId = orderMapper.selectLastInsertId();
+        String orderSn = String.valueOf(orderId) + cartX.getUserId() + addressId + cartId;
+        order.setOrderSn(orderSn);
+        order.setId(orderId);
+        orderMapper.updateByPrimaryKeySelective(order);
+        /*把orderGoods数据传入数据库*/
+        for (Cart cart : cartList) {
+            OrderGoods orderGoods = new OrderGoods();
+            orderGoods.setOrderId(orderId);
+            orderGoods.setGoodsId(cart.getGoodsId());
+            orderGoods.setGoodsName(cart.getGoodsName());
+            orderGoods.setGoodsSn(cart.getGoodsSn());
+            orderGoods.setProductId(cart.getProductId());
+            orderGoods.setNumber(cart.getNumber());
+            orderGoods.setPrice(new BigDecimal(cart.getPrice()));
+            orderGoods.setSpecifications(cart.getSpecifications());
+            orderGoods.setPicUrl(cart.getPicUrl());
+            orderGoods.setComment(0);
+            orderGoods.setAddTime(new Date());
+            orderGoods.setUpdateTime(new Date());
+            orderGoods.setDeleted(false);
+            orderGoodsMapper.insert(orderGoods);
+        }
+        /*把对应cartId的deleted改为1*/
+        for (Cart cart : cartList) {
+           int cartDeletedStatus = cartMapper.updateDeleted(cart.getId());
+        }
+        /*把使用了的coupon券的deleted改为1*/
+        int couponDeletedStatus = couponMapper.updateDeleted(couponId);
+
         if(insert != -1){
             return orderId;
         }
@@ -197,15 +247,24 @@ public class OrderServiceImpl implements OrderService{
 
     @Override
     public int confirmOrder(Short orderId) {
-        int confirmStatus = orderMapper.updateConfirm(orderId);
-
+        List<OrderGoods> orderGoods = orderMapper.getOrderGoods(Integer.valueOf(orderId));
+        Integer comments = orderGoods.size();
+        int confirmStatus = orderMapper.updateConfirm(orderId,comments);
         return confirmStatus;
     }
 
-
-    public List<Order> selectOrderByUserIdAndStatus(Integer userId, Short status) {
-        OrderExample orderExample = new OrderExample();
-        orderExample.createCriteria().andUserIdEqualTo(userId).andOrderStatusEqualTo(status);
-        return orderMapper.selectByExample(orderExample);
+    @Override
+    public int refundOrder(Integer orderIdX) {
+        int refundStatus = orderMapper.refundOrder(orderIdX);
+        return refundStatus;
     }
+
+    @Override
+    public int prePay(Integer orderIdX) {
+        String payId = String.valueOf(orderIdX + 2019);
+        int prePayStatus = orderMapper.updatePrePay(orderIdX,payId);
+        return prePayStatus;
+    }
+
+
 }

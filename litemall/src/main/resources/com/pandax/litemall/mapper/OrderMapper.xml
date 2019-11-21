@@ -561,7 +561,7 @@
 
   <select id="getOrderStatusText" resultType="java.lang.String">
     select order_status_text from cskaoyan_mall_order_status
-    where id = #{showType}
+    where id = #{orderStatus}
 
   </select>
   <select id="getHandleOption" resultType="com.pandax.litemall.bean.HandleOption">
@@ -576,7 +576,7 @@
     goods_name as goodsName,
     goods_sn as goodsSn,
     product_id as productId,
-    number,price,specifications,picUrl,comment,
+    number,price,specifications,pic_Url as picUrl,comment,
     add_time as addTime,
     update_time as updateTime,
     deleted
@@ -591,17 +591,45 @@
   </select>
 
   <update id="updateCancel">
-    update from cskaoyan_mall_order set deleted = 1,status_id = 102,end_time = now(),update_time = now()
+    update cskaoyan_mall_order set order_status = 102,end_time = now(),update_time = now()
     where id = #{orderId}
   </update>
 
   <update id="updateDelete">
-    update from cskaoyan_mall_order set deleted = 1,status_id = 401,end_time = now(),update_time = now()
+    update cskaoyan_mall_order set deleted = 1,order_status = 401,end_time = now(),update_time = now()
     where id = #{orderId}
   </update>
 
   <update id="updateConfirm">
-    update from cskaoyan_mall_order set status_id = 401,update_time = now()
+    update cskaoyan_mall_order set order_status = 401,update_time = now(),comments = #{comments}
+    where id = #{orderId}
+  </update>
+
+  <select id="getOrders" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/>
+    from cskaoyan_mall_order
+    where order_status = #{status} and deleted = 0
+  </select>
+
+  <select id="getAllOrders" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/>
+    from cskaoyan_mall_order
+    where deleted = 0
+  </select>
+
+  <update id="updateShipInfo">
+    update cskaoyan_mall_order
+    set order_status = 301, ship_channel = #{shipChannel},ship_sn = #{shipSn},ship_time = now()
+    where id = #{orderId}
+  </update>
+
+  <update id="refundOrder">
+    update cskaoyan_mall_order set order_status = 202,update_time = now()
+    where id = #{orderId}
+  </update>
+
+  <update id="updatePrePay">
+    update cskaoyan_mall_order set order_status = 201,update_time = now(),pay_id = #{payId},pay_time = now()
     where id = #{orderId}
   </update>
 </mapper>

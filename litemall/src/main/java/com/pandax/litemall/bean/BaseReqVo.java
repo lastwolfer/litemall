@@ -9,12 +9,13 @@ public class BaseReqVo<T> {
     String errmsg;
     int errno;
 
-    public static BaseReqVo ok(){
+    public static BaseReqVo ok() {
         BaseReqVo baseReqVo = new BaseReqVo();
         baseReqVo.setErrmsg("成功");
         baseReqVo.setErrno(0);
         return baseReqVo;
     }
+
     public static BaseReqVo ok(Object data){
         BaseReqVo baseReqVo = BaseReqVo.ok();
         baseReqVo.setData(data);

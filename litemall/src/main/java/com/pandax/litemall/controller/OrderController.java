@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.HashMap;
 import java.util.Map;
 
 @RestController
@@ -19,11 +21,20 @@ public class OrderController {
     @RequestMapping("order/submit")
     public BaseReqVo orderSubmit(@RequestBody OrderSubmitInfo orderSubmitInfo){
         Integer orderId = orderService.orderSubmit(orderSubmitInfo);
-        return BaseReqVo.ok(orderId);
+        Map<String,Object> map = new HashMap<>();
+        map.put("orderId", orderId);
+        return BaseReqVo.ok(map);
     }
 
     @RequestMapping("order/prepay")
-    public BaseReqVo orderPrepay(@RequestBody Short orderId){
+    public BaseReqVo orderPrepay(@RequestBody Map orderId){
+        Object orderIdX = orderId.get("orderId");
+       if(orderIdX instanceof String){
+           int orderIdY = Integer.valueOf((String)orderIdX);
+           int prePayStatus = orderService.prePay(orderIdY);
+       }else if(orderIdX instanceof Integer) {
+           int prePayStatus = orderService.prePay((Integer) orderIdX);
+       }
         return BaseReqVo.ok();
     }
 
@@ -130,7 +141,7 @@ public class OrderController {
      * @return BaseRespVo
      */
     @RequestMapping("order/detail")
-    public BaseReqVo orderDetail(Short orderId){
+    public BaseReqVo orderDetail(Integer orderId){
         Map<String,Object> dataMap = orderService.getOrderDetail(orderId);
         return BaseReqVo.ok(dataMap);
     }
@@ -141,8 +152,9 @@ public class OrderController {
      * @return BaseReqVo
      */
     @RequestMapping("order/cancel")
-    public BaseReqVo orderCancel(@RequestBody Short orderId){
-        int cancelStatus = orderService.cancelOrder(orderId);
+    public BaseReqVo orderCancel(@RequestBody Map orderId){
+        int orderIdX = (int) orderId.get("orderId");
+        int cancelStatus = orderService.cancelOrder((short) orderIdX);
         if(cancelStatus != -1){
             return BaseReqVo.ok();
         }
@@ -150,8 +162,9 @@ public class OrderController {
     }
 
     @RequestMapping("order/delete")
-    public BaseReqVo orderDelete(@RequestBody Short orderId){
-        int deleteStatus = orderService.deleteOrder(orderId);
+    public BaseReqVo orderDelete(@RequestBody Map orderId){
+        int orderIdX = (int) orderId.get("orderId");
+        int deleteStatus = orderService.deleteOrder((short) orderIdX);
         if(deleteStatus != -1){
             return BaseReqVo.ok();
         }
@@ -159,25 +172,31 @@ public class OrderController {
     }
 
     @RequestMapping("order/refund")
-    public BaseReqVo orderRefund(){
-        return BaseReqVo.ok();
+    public BaseReqVo orderRefund(@RequestBody Map orderId){
+        Integer orderIdX = (Integer) orderId.get("orderId");
+        int refundStatus = orderService.refundOrder(orderIdX);
+        if(refundStatus!= -1){
+            return BaseReqVo.ok();
+        }else{
+            return BaseReqVo.fail();
+        }
     }
 
-
-
     @RequestMapping("order/confirm")
-    public BaseReqVo orderConfirm(@RequestBody Short orderId){
-        int confirmStatus = orderService.confirmOrder(orderId);
+    public BaseReqVo orderConfirm(@RequestBody Map orderId){
+        int orderIdX = (int) orderId.get("orderId");
+        int confirmStatus = orderService.confirmOrder((short) orderIdX);
         if(confirmStatus != -1){
             return BaseReqVo.ok();
         }
         return BaseReqVo.fail();
     }
 
-//    @RequestMapping("order/goods")
-//    public BaseReqVo orderGoods(){
-//        return BaseReqVo.ok();
-//    }
+    @RequestMapping("order/goods")
+    public BaseReqVo orderGoods(Integer orderId,Integer goodsId){
+
+        return BaseReqVo.ok();
+    }
 //
 //    @RequestMapping("order/comment")
 //    public BaseReqVo orderComment(){

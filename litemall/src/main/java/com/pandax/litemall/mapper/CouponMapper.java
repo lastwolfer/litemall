@@ -30,4 +30,6 @@ public interface CouponMapper {
     int updateByPrimaryKey(Coupon record);
 
     int selectLastInsert();
+
+    int updateDeleted(Integer couponId);
 }
