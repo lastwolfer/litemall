@@ -4,6 +4,7 @@ package com.pandax.litemall.controller;
 
 import com.pandax.litemall.bean.BaseReqVo;
 import com.pandax.litemall.bean.Region;
+import com.pandax.litemall.service.GrouponService;
 import com.pandax.litemall.service.UserService;
 import com.pandax.reponseJson.UserAllAddress;
 
@@ -30,6 +31,8 @@ public class UserController {
     UserService userService;
     @Autowired
     GoodsService goodsService;
+    @Autowired
+    GrouponService grouponService;
 
     /**
      * 查詢所有的用戶
@@ -253,6 +256,22 @@ public class UserController {
         List<Footprint> footprints = userService.selectFootprintByUserId(user.getId());
         Map dataMap = goodsService.selectGodsByFootprint(footprints,page,size);
         return BaseReqVo.ok(dataMap);
+    }
+
+    /**
+     * 宝
+     * 查看团购
+     * @param showType 团购类型
+     * @return json
+     */
+    @RequestMapping("/wx/groupon/my")
+    public BaseReqVo wxGrouponMy(Integer showType){
+        BaseReqVo baseReqVo = new BaseReqVo();
+        List<Groupon> groupons = grouponService.selectGrouponMy(showType);
+        baseReqVo.setErrno(0);
+        baseReqVo.setData(groupons);
+        baseReqVo.setErrmsg("成功");
+        return baseReqVo;
     }
 
 
