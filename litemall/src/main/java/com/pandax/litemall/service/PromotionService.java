@@ -51,4 +51,6 @@ public interface PromotionService {
     Map<String, Object> wxListCoupon(Integer page, Integer size, Coupon coupon);
 
     int wxReceiveCoupon(Integer couponId);
+
+    int wxexchangeCoupon(String code);
 }
