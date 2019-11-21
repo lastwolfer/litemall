@@ -306,7 +306,7 @@ public class WxAuthController {
     private void updateUserByLoginTimeAndIp(User user,HttpServletRequest request) {
         user.setLastLoginIp(HttpUtils.getIpAddr(request));
         user.setLastLoginTime(new Date());
-        userService.insertUser(user);
+        userService.updateUser(user);
     }
 
 

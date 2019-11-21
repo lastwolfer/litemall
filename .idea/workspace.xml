@@ -2,91 +2,35 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9157ea12-ac81-46f2-aa0e-723da7824ba5" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__ch_qos_logback_logback_classic_1_2_3.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__ch_qos_logback_logback_core_1_2_3.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_alibaba_druid_1_1_20.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_classmate_1_5_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_annotations_2_10_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_core_2_10_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_databind_2_10_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_datatype_jackson_datatype_jdk8_2_10_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_datatype_jackson_datatype_jsr310_2_10_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_module_jackson_module_parameter_names_2_10_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_jsqlparser_jsqlparser_2_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_pagehelper_pagehelper_5_1_10.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_pagehelper_pagehelper_spring_boot_autoconfigure_1_2_12.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_pagehelper_pagehelper_spring_boot_starter_1_2_12.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_jayway_jsonpath_json_path_2_4_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_vaadin_external_google_android_json_0_0_20131108_vaadin1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_zaxxer_HikariCP_3_4_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__jakarta_activation_jakarta_activation_api_1_2_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__jakarta_annotation_jakarta_annotation_api_1_3_5.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__jakarta_validation_jakarta_validation_api_2_0_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__jakarta_xml_bind_jakarta_xml_bind_api_2_3_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__mysql_mysql_connector_java_5_1_47.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__net_bytebuddy_byte_buddy_1_10_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__net_bytebuddy_byte_buddy_agent_1_10_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__net_minidev_accessors_smart_1_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__net_minidev_json_smart_2_3.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_logging_log4j_log4j_api_2_12_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_logging_log4j_log4j_to_slf4j_2_12_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_core_9_0_27.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_el_9_0_27.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_websocket_9_0_27.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apiguardian_apiguardian_api_1_1_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_assertj_assertj_core_3_13_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_hamcrest_hamcrest_2_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_validator_hibernate_validator_6_0_18_Final.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_jboss_logging_jboss_logging_3_4_1_Final.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_5_5_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_api_5_5_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_engine_5_5_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_params_5_5_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_commons_1_5_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_engine_1_5_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_mockito_mockito_core_3_1_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_mockito_mockito_junit_jupiter_3_1_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_mybatis_mybatis_3_5_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_mybatis_mybatis_spring_2_0_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_mybatis_spring_boot_mybatis_spring_boot_autoconfigure_2_1_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_mybatis_spring_boot_mybatis_spring_boot_starter_2_1_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_objenesis_objenesis_2_6.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_opentest4j_opentest4j_1_2_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_ow2_asm_asm_5_0_4.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_projectlombok_lombok_1_18_10.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_skyscreamer_jsonassert_1_5_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_jul_to_slf4j_1_7_29.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_slf4j_api_1_7_29.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_2_2_1_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_autoconfigure_2_2_1_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_configuration_processor_2_2_1_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_2_2_1_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_jdbc_2_2_1_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_json_2_2_1_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_logging_2_2_1_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_test_2_2_1_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_tomcat_2_2_1_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_validation_2_2_1_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_web_2_2_1_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_test_2_2_1_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_test_autoconfigure_2_2_1_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_aop_5_2_1_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_beans_5_2_1_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_context_5_2_1_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_core_5_2_1_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_expression_5_2_1_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_jcl_5_2_1_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_jdbc_5_2_1_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_test_5_2_1_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_tx_5_2_1_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_web_5_2_1_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_webmvc_5_2_1_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_xmlunit_xmlunit_core_2_6_3.xml" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/bean/CartCheckedCondition.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/service/AddressService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/service/AddressServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/controller/AuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/litemall/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/litemall/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/bean/BaseReqVo.java" beforeDir="false" afterPath="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/bean/BaseReqVo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/bean/Goods.java" beforeDir="false" afterPath="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/bean/Goods.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/bean/OrderGoods.java" beforeDir="false" afterPath="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/bean/OrderGoods.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/controller/CartController.java" beforeDir="false" afterPath="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/controller/CartController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/controller/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/controller/ProductController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/controller/PromotionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/controller/PromotionController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/controller/WxAuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/controller/WxAuthController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/service/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/service/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/mapper/AddressMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/mapper/AddressMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/mapper/CartMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/mapper/CartMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/mapper/CollectMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/mapper/CollectMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/mapper/CouponUserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/mapper/CouponUserMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/mapper/HistoryMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/mapper/HistoryMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/mapper/KeywordMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/mapper/KeywordMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/service/CartService.java" beforeDir="false" afterPath="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/service/CartService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/service/CartServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/service/CartServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/service/PromotionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/service/PromotionService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/service/PromotionServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/service/PromotionServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/service/SearchService.java" beforeDir="false" afterPath="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/service/SearchService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/service/SearchServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/service/SearchServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/shiro/WxRealm.java" beforeDir="false" afterPath="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/shiro/WxRealm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/litemall/src/main/resources/com/pandax/litemall/mapper/AddressMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/litemall/src/main/resources/com/pandax/litemall/mapper/AddressMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/litemall/src/main/resources/com/pandax/litemall/mapper/CartMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/litemall/src/main/resources/com/pandax/litemall/mapper/CartMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/litemall/src/main/resources/com/pandax/litemall/mapper/CollectMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/litemall/src/main/resources/com/pandax/litemall/mapper/CollectMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/litemall/src/main/resources/com/pandax/litemall/mapper/HistoryMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/litemall/src/main/resources/com/pandax/litemall/mapper/HistoryMapper.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/classes/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -106,8 +50,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/controller/WxAuthController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-407">
-              <caret line="281" column="39" lean-forward="true" selection-start-line="281" selection-start-column="39" selection-end-line="281" selection-end-column="39" />
+            <state relative-caret-position="-528">
+              <caret line="265" selection-start-line="265" selection-end-line="265" />
             </state>
           </provider>
         </entry>
@@ -116,7 +60,7 @@
         <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/util/UserInfo.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="84">
-              <caret line="10" column="24" lean-forward="true" selection-start-line="10" selection-start-column="24" selection-end-line="10" selection-end-column="24" />
+              <caret line="10" column="24" selection-start-line="10" selection-start-column="24" selection-end-line="10" selection-end-column="24" />
             </state>
           </provider>
         </entry>
@@ -242,7 +186,7 @@
       <select />
     </treeState>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="16" />
     <option name="width" value="1934" />
     <option name="height" value="975" />
@@ -333,7 +277,7 @@
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1574342134273" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1574342647830" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../mall-admin" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -417,7 +361,7 @@
       <workItem from="1574239112550" duration="14410000" />
       <workItem from="1574299610344" duration="601000" />
       <workItem from="1574316748731" duration="3691000" />
-      <workItem from="1574328623618" duration="10150000" />
+      <workItem from="1574328623618" duration="10751000" />
     </task>
     <servers />
   </component>
@@ -427,7 +371,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="81380000" />
+    <option name="totallyTimeSpent" value="81981000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -439,8 +383,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="840" extended-state="6" />
-    <editor active="true" />
+    <frame x="-7" y="-7" width="1550" height="840" extended-state="7" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26206434" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -453,7 +396,7 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4973262" weight="0.6362229" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.5938417" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.68328446" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32921174" />
@@ -843,7 +786,7 @@
     <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/util/UserInfo.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="84">
-          <caret line="10" column="24" lean-forward="true" selection-start-line="10" selection-start-column="24" selection-end-line="10" selection-end-column="24" />
+          <caret line="10" column="24" selection-start-line="10" selection-start-column="24" selection-end-line="10" selection-end-column="24" />
         </state>
       </provider>
     </entry>
@@ -856,8 +799,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/controller/WxAuthController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-407">
-          <caret line="281" column="39" lean-forward="true" selection-start-line="281" selection-start-column="39" selection-end-line="281" selection-end-column="39" />
+        <state relative-caret-position="-528">
+          <caret line="265" selection-start-line="265" selection-end-line="265" />
         </state>
       </provider>
     </entry>
