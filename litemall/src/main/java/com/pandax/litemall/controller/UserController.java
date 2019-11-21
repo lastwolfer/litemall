@@ -2,6 +2,7 @@ package com.pandax.litemall.controller;
 
 
 
+import com.github.pagehelper.PageInfo;
 import com.pandax.litemall.bean.BaseReqVo;
 import com.pandax.litemall.bean.Region;
 import com.pandax.litemall.service.GrouponService;
@@ -261,8 +262,11 @@ public class UserController {
         if (user == null) {
             return BaseReqVo.fail(500, "请登录");
         }
-        List<Footprint> footprints = userService.selectFootprintByUserId(user.getId());
-        Map dataMap = goodsService.selectGodsByFootprint(footprints, page, size);
+        List<FootprintListBean> footprintList = userService.selectFootprint(user.getId(),page,size);
+        long totalPages = new PageInfo<>(footprintList).getTotal();
+        Map dataMap = new HashMap();
+        dataMap.put("footprintList",footprintList);
+        dataMap.put("totalPages",totalPages);
         return BaseReqVo.ok(dataMap);
     }
 
@@ -283,6 +287,11 @@ public class UserController {
         return baseReqVo;
     }
 
+    /**
+     * 删除足迹
+     * @param map
+     * @return
+     */
     @RequestMapping("wx/footprint/delete")
     public BaseReqVo deleteFootprint(@RequestBody Map map){
         Integer id = (Integer) map.get("id");

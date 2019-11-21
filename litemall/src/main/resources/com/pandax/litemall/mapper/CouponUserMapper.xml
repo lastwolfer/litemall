@@ -309,4 +309,9 @@
       deleted = #{deleted,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectNumberByUserId" resultType="integer">
+    select count(id)
+    from cskaoyan_mall_coupon_user
+    where user_id=#{id}
+  </select>
 </mapper>

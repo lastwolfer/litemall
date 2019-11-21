@@ -7,20 +7,23 @@ import com.pandax.litemall.service.SmsService;
 import com.pandax.litemall.service.UserService;
 import com.pandax.litemall.shiro.MallToken;
 
+import com.pandax.litemall.shiro.WxRealm;
 import com.pandax.litemall.util.*;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.SimpleAuthenticationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
+import org.apache.shiro.mgt.SecurityManager;
+import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.subject.SimplePrincipalCollection;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
-
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequestMapping("/wx")
@@ -60,7 +63,7 @@ public class WxAuthController {
         }
 
         User user = userService.selectUserByUsername(username);
-
+        updateUserByLoginTimeAndIp(user, request);
         Map<Object, Object> result = new HashMap<Object, Object>();
         result.put("token", subject.getSession().getId());
         result.put("tokenExpire", new Date());
@@ -195,18 +198,35 @@ public class WxAuthController {
         }
 
         Map<Object, Object> result = new HashMap<Object, Object>();
-        result.put("token", wxCode);
+        result.put("token", SecurityUtils.getSubject().getSession().getId());
         result.put("tokenExpire", new Date());
         Map<Object, Object> userInfo = new HashMap<Object, Object>();
         userInfo.put("nickName", user.getNickname());
 
         userInfo.put("avatarUrl", user.getAvatar());
         result.put("userInfo", userInfo);
+
+        //认证下
+        Subject subject = SecurityUtils.getSubject();
+        MallToken token = new MallToken(username, password, "wx");
+        try {
+            subject.login(token);
+        } catch (AuthenticationException e) {
+            return BaseReqVo.fail(600, "账号或者密码错误!");
+        }
+
+
         return BaseReqVo.ok(result);
     }
 
+    /**
+     * 用户密码重置
+     * @param map
+     * @param request
+     * @return
+     */
     @RequestMapping("auth/reset")
-    public BaseReqVo reset(@RequestBody Map map){
+    public BaseReqVo reset(@RequestBody Map map,HttpServletRequest request){
         String password = (String) map.get("password");
         String mobile = (String) map.get("mobile");
         String code = (String) map.get("code");
@@ -223,6 +243,7 @@ public class WxAuthController {
         password = Md5Utils.getMultiMd5(password);
         user.setPassword(password);
         userService.updateUser(user);
+        updateUserByLoginTimeAndIp(user, request);
         return BaseReqVo.ok();
     }
 
@@ -232,13 +253,71 @@ public class WxAuthController {
      * @return
      */
     @RequestMapping("auth/login_by_weixin")
-    public BaseReqVo loginByWx(@RequestBody Map map) {
+    public BaseReqVo loginByWx(@RequestBody Map map,HttpServletRequest request) {
         String code = (String) map.get("code");
-        UserInfo usrInfo = (UserInfo) map.get("usrInfo");
-        map.put("token", code);
+        Map userMap = (Map) map.get("userInfo");
+        String nickName = (String) userMap.get("nickName");
+        String avatarUrl = (String) userMap.get("avatarUrl");
+        Integer gender = (Integer) userMap.get("gender");
+        String language = (String) userMap.get("language");
+        String province = (String) userMap.get("province");
+        String city = (String) userMap.get("city");
+        String country = (String) userMap.get("country");
+
+        //String avatarUrl = userInfo.getAvatarUrl();
+        //String nickName = userInfo.getNickName();
+        String md51 = Md5Utils.getMd5(avatarUrl);
+        String md52 = Md5Utils.getMd5(nickName);
+        String wxId = Md5Utils.getMd5(md51 + md52);
+        User user = userService.selectUserByWxId(wxId);
+
+
+        if (user == null) {
+            user = new User();
+
+            UUID uuid = UUID.randomUUID();
+            String username = uuid.toString();
+            user.setUsername(username);
+            String password = Md5Utils.getMd5(username);
+            user.setPassword(password);
+            user.setGender(new Byte(gender.toString()));
+            user.setBirthday(new Date());
+            user.setLastLoginTime(new Date());
+            user.setLastLoginIp(HttpUtils.getIpAddr(request));
+            user.setUserLevel(new Byte("0"));
+            user.setNickname(nickName);
+            user.setMobile("unknow");
+            user.setAvatar(avatarUrl);
+            user.setWeixinOpenid(wxId);
+            user.setStatus(new Byte("0"));
+            user.setAddTime(new Date());
+            user.setUpdateTime(new Date());
+            user.setDeleted(false);
+
+            userService.insertUser(user);
+        } else {
+            updateUserByLoginTimeAndIp(user,request);
+        }
+
+        Subject subject = SecurityUtils.getSubject();
+        MallToken mallToken = new MallToken(user.getUsername(),user.getPassword(), "wx");
+        try {
+            subject.login(mallToken);
+        } catch (AuthenticationException e) {
+            return BaseReqVo.fail(600, "账号或者密码错误!");
+        }
+        User userFromSubject = (User) subject.getPrincipal();
+
+        map.put("token", subject.getSession().getId());
         map.put("tokenExpire", new Date());
         map.remove("code");
         return BaseReqVo.ok(map);
+    }
+
+    private void updateUserByLoginTimeAndIp(User user,HttpServletRequest request) {
+        user.setLastLoginIp(HttpUtils.getIpAddr(request));
+        user.setLastLoginTime(new Date());
+        userService.updateUser(user);
     }
 
 

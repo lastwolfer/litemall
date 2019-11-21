@@ -229,4 +229,13 @@
       select <include refid="Base_Column_List"/> from cskaoyan_mall_footprint
       where goods_id = #{id}
     </select>
+  <resultMap id="FootprintMap" type="com.pandax.litemall.bean.FootprintListBean">
+    <result column="update_time" property="addTime"/>
+  </resultMap>
+  <select id="selectFootprint" resultMap="FootprintMap">
+    SELECT g.brief as brief ,g.pic_url as picUrl ,f.update_time,
+    f.goods_id as goodsId,g.name as name, f.id as id, g.retail_price as retailPrice
+    FROM cskaoyan_mall_goods g LEFT JOIN cskaoyan_mall_footprint f ON g.id = f.goods_id
+    where f.user_id = #{id} ORDER BY update_time DESC
+  </select>
 </mapper>
