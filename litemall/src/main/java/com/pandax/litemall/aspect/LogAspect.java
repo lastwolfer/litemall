@@ -97,7 +97,11 @@ public class LogAspect {
         BaseReqVo vo = (BaseReqVo) ret;
         int errno = vo.getErrno();
         Subject subject = SecurityUtils.getSubject();
+        if(!(subject.getPrincipal() instanceof Admin)) {
+            return;
+        }
         Admin admin = (Admin) subject.getPrincipal();
+
         String username = "匿名用户";
         if(admin != null) {
             username = admin.getUsername();

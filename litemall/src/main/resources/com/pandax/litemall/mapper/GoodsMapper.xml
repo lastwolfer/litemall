@@ -549,4 +549,11 @@
       #{category.id}
     </foreach>)
     </select>
+    <select id="selectGoodsByFootprint" resultMap="BaseResultMap">
+      select <include refid="Base_Column_List"/>
+      from cskaoyan_mall_goods where id in
+      (<foreach collection="footprints" item="footprint" separator=",">
+      #{footprint.goodsId}
+    </foreach>)
+    </select>
 </mapper>

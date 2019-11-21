@@ -276,7 +276,10 @@ public class PromotionServiceImpl implements PromotionService {
      */
     @Override
     public List<Coupon> selectCoupon() {
-        return couponMapper.selectByExample(null);
+        CouponExample couponExample = new CouponExample();
+        Short status = 0;
+        couponExample.createCriteria().andTotalNotEqualTo(0).andStatusEqualTo(status);
+        return couponMapper.selectByExample(couponExample);
     }
 
     /**

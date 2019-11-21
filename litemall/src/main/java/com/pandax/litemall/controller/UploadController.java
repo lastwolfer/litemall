@@ -1,5 +1,9 @@
 package com.pandax.litemall.controller;
 
+import com.aliyun.oss.OSSClient;
+import com.aliyun.oss.model.ObjectMetadata;
+import com.aliyun.oss.model.PutObjectRequest;
+import com.aliyun.oss.model.PutObjectResult;
 import com.pandax.litemall.bean.BaseReqVo;
 import com.pandax.litemall.bean.Storage;
 import com.pandax.litemall.service.StorageService;
@@ -23,24 +27,23 @@ import java.util.UUID;
  */
 
 @RestController
-@RequestMapping("admin")
 public class UploadController {
 
     @Autowired
     StorageService storageService;
 
-    @Value("${my.Storage.path}")
-    private String prefix;
-
-    @Value("${my.filePath}")
-    private String filePath ;
+//    @Value("${my.Storage.path}")
+//    private String prefix;
+//
+//    @Value("${my.filePath}")
+//    private String filePath ;
 
     /**
      * 保存静态资源（比如图片）
      * @param file 上传的静态资源
      * @return 状态码
      */
-    @RequestMapping("storage/create")
+    @RequestMapping("admin/storage/create")
     public BaseReqVo storageResource(@RequestParam("file") MultipartFile file) {
         BaseReqVo<Object> baseReqVo = new BaseReqVo<>();
         try {
@@ -64,23 +67,34 @@ public class UploadController {
 
             String newFileName = uuid + suffixName;
             //设置文件存储路径
-            StringBuilder path = new StringBuilder();
-            for (int i = 0; i < hexString.length(); i++) {
-                path.append(hexString.charAt(i)).append("/");
-            }
-            File dest = new File(filePath + path.toString(), newFileName);
+//            StringBuilder path = new StringBuilder();
+//            for (int i = 0; i < hexString.length(); i++) {
+//                path.append(hexString.charAt(i)).append("/");
+//            }
+            String accessKeyId = "LTAI4Fi2VcFoNYJBTSJ6J2ny";
+            String accessSecret = "t4Beuo8Z3f1ehaHXWZZCgAaMM3xP1Y";
+            String bucket = "litemallpandax";
+            String endPoint = "oss-cn-shanghai.aliyuncs.com";
+            OSSClient ossClient = new OSSClient(endPoint, accessKeyId,accessSecret);
+
+            //设置参数...
+            ObjectMetadata metadata = new ObjectMetadata();
+            PutObjectResult putObjectResult = ossClient.putObject(new PutObjectRequest(bucket, newFileName, file.getInputStream(), metadata));
+           // File dest = new File(filePath + path.toString(), newFileName);
             // 检测是否存在目录
-            if (!dest.exists() && !dest.isDirectory()) {
-                dest.mkdirs();
-            }
-            file.transferTo(dest);// 文件写入
+//            if (!dest.exists() && !dest.isDirectory()) {
+//                dest.mkdirs();
+//            }
+//
+//            file.transferTo(dest);// 文件写入
 
             Storage storage = new Storage();
             storage.setKey(newFileName);
             storage.setName(fileName);
             storage.setType(file.getContentType());
             storage.setSize(file.getSize());
-            storage.setUrl(prefix + path.toString() + newFileName);
+//            storage.setUrl(prefix + path.toString() + newFileName);
+            storage.setUrl("https://"+bucket+"."+endPoint+"/"+ newFileName);
             storage.setAddTime(new Date());
             storage.setUpdateTime(new Date());
             int id = storageService.saveStorage(storage);
@@ -124,4 +138,9 @@ public class UploadController {
         File finalFile = new File(path);
         file.transferTo(finalFile);
     }*/
+
+    @RequestMapping("wx/storage/upload")
+    public BaseReqVo wxUpload(@RequestParam("file") MultipartFile file){
+        return storageResource(file);
+    }
 }

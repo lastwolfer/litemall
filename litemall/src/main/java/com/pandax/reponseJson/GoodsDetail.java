@@ -8,11 +8,13 @@ import java.util.List;
 @Data
 public class GoodsDetail {
 
-    List<SpecificationList> specificationLists;
+    List<SpecificationList> specificationList;
 
-    List<Groupon> groupon;
+    List<GrouponRules> groupon;
 
     List<Issue> issue;
+
+    String shareImage;
 
     Long userHasCollect;
 
