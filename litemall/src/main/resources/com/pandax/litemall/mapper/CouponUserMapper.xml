@@ -73,7 +73,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, user_id, coupon_id, status, used_time, start_time, end_time, order_id, add_time, 
+    id, user_id, coupon_id, status, used_time, start_time, end_time, order_id, add_time,
     update_time, deleted
   </sql>
   <select id="selectByExample" parameterType="com.pandax.litemall.bean.CouponUserExample" resultMap="BaseResultMap">
@@ -91,10 +91,16 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from cskaoyan_mall_coupon_user
     where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from cskaoyan_mall_coupon_user
+    where user_id = #{userId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from cskaoyan_mall_coupon_user
@@ -107,13 +113,13 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.pandax.litemall.bean.CouponUser">
-    insert into cskaoyan_mall_coupon_user (id, user_id, coupon_id, 
-      status, used_time, start_time, 
-      end_time, order_id, add_time, 
+    insert into cskaoyan_mall_coupon_user (id, user_id, coupon_id,
+      status, used_time, start_time,
+      end_time, order_id, add_time,
       update_time, deleted)
-    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{couponId,jdbcType=INTEGER}, 
-      #{status,jdbcType=SMALLINT}, #{usedTime,jdbcType=TIMESTAMP}, #{startTime,jdbcType=TIMESTAMP}, 
-      #{endTime,jdbcType=TIMESTAMP}, #{orderId,jdbcType=INTEGER}, #{addTime,jdbcType=TIMESTAMP}, 
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{couponId,jdbcType=INTEGER},
+      #{status,jdbcType=SMALLINT}, #{usedTime,jdbcType=TIMESTAMP}, #{startTime,jdbcType=TIMESTAMP},
+      #{endTime,jdbcType=TIMESTAMP}, #{orderId,jdbcType=INTEGER}, #{addTime,jdbcType=TIMESTAMP},
       #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="com.pandax.litemall.bean.CouponUser">

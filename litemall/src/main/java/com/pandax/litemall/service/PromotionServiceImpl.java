@@ -246,8 +246,8 @@ public class PromotionServiceImpl implements PromotionService {
         criteria.andCouponIdEqualTo(couponUser.getCouponId());
         example.setOrderByClause(sort+" "+order);
         List<CouponUser> couponUserList = couponUserMapper.selectByExample(example);
-        PageInfo<CouponUser> PageInfo = new PageInfo<>(couponUserList);
-        long total = PageInfo.getTotal();
+        PageInfo<CouponUser> pageInfo = new PageInfo<>(couponUserList);
+        long total = pageInfo.getTotal();
         HashMap<String, Object> map = new HashMap<>();
         map.put("total",total);
         map.put("items",couponUserList);
@@ -303,10 +303,13 @@ public class PromotionServiceImpl implements PromotionService {
 
     @Override
     public Map<String, Object> wxListCoupon(Integer page, Integer size, Coupon coupon) {
+        //通过userId来取得用户的优惠券
         User user = (User) SecurityUtils.getSubject().getPrincipal();
+        CouponUser couponUser = couponUserMapper.selectByUserId(user.getId());
+        Integer couponId = couponUser.getCouponId();
         PageHelper.startPage(page,size);
         CouponExample example = new CouponExample();
-        example.createCriteria().andStatusEqualTo(coupon.getStatus());
+        example.createCriteria().andStatusEqualTo(coupon.getStatus()).andIdEqualTo(couponId);
         List<Coupon> couponList = couponMapper.selectByExample(example);
         for (Coupon coupon1 : couponList) {
             if(coupon1.getStartTime()==null&&coupon1.getEndTime()==null){
@@ -323,5 +326,35 @@ public class PromotionServiceImpl implements PromotionService {
         map.put("count",total);
         map.put("data",couponList);
         return map;
+    }
+
+    @Override
+    public int wxReceiveCoupon(Integer couponId) {
+        User user = (User) SecurityUtils.getSubject().getPrincipal();
+        Coupon coupon = couponMapper.selectByPrimaryKey(couponId);
+        if(coupon.getStartTime()==null&&coupon.getEndTime()==null){
+            coupon.setStartTime(coupon.getAddTime());
+            Calendar c = Calendar.getInstance();
+            c.setTime(coupon.getAddTime());
+            c.add(Calendar.DAY_OF_MONTH,coupon.getDays());//利用Calendar 实现 Date日期+1天  
+            coupon.setEndTime(c.getTime());
+        }
+        CouponUser couponUser = new CouponUser();
+
+        couponUser.setUserId(user.getId());
+        couponUser.setCouponId(couponId);
+        couponUser.setStatus(coupon.getStatus());
+        couponUser.setStartTime(coupon.getStartTime());
+        couponUser.setEndTime(coupon.getEndTime());
+        couponUser.setAddTime(new Date());
+        couponUser.setUpdateTime(new Date());
+        couponUser.setDeleted(coupon.getDeleted());
+        int i = couponUserMapper.insertSelective(couponUser);
+        //如果插入成功，就相应减去优惠券数量1
+        if(i == 1){
+            coupon.setTotal(coupon.getTotal()-1);
+            couponMapper.updateByPrimaryKeySelective(coupon);
+        }
+        return i;
     }
 }
