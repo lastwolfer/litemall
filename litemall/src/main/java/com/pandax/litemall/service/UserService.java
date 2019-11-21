@@ -62,5 +62,6 @@ public interface UserService {
 
    int deleteFootprint(Integer id);
 
+    User selectUserByWxId(String wxId);
 }
 
