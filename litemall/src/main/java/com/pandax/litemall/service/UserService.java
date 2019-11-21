@@ -4,6 +4,7 @@ package com.pandax.litemall.service;
 
 import com.pandax.litemall.bean.User;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 public interface UserService {
@@ -35,5 +36,13 @@ public interface UserService {
    int countUsers();
 
     User selectUserByUsername(String usrname);
+
+    int insertUser(User user);
+
+    boolean checkUsernameExist(String username);
+
+    void updateUser(User user);
+
+    User selectUserByMobile(String mobile);
 }
 

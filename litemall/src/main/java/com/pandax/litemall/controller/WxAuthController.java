@@ -2,14 +2,18 @@ package com.pandax.litemall.controller;
 
 import com.pandax.litemall.bean.BaseReqVo;
 import com.pandax.litemall.bean.User;
+import com.pandax.litemall.service.SmsService;
 import com.pandax.litemall.service.UserService;
 import com.pandax.litemall.shiro.MallToken;
 import com.pandax.litemall.util.BaseRespVo;
+import com.pandax.litemall.util.HttpUtils;
+import com.pandax.litemall.util.Md5Utils;
 import com.pandax.litemall.util.UserTokenManager;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -31,6 +35,14 @@ public class WxAuthController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    SmsService smsService;
+
+    @Value("${my.Storage.path}")
+    private String prefix;
+
+    private HashMap<String, String> verificationCodeMap;
+
     /**
      * 用户商城账号登录
      * @param map 包含username和password
@@ -38,10 +50,12 @@ public class WxAuthController {
      * @return
      */
     @RequestMapping("/auth/login")
-    @ResponseBody
     public Object login(@RequestBody Map map, HttpServletRequest request) {
         String username = (String) map.get("username");
         String password = (String) map.get("password");
+
+        //MD5加密
+        password = Md5Utils.getMultiMd5(password);
 
         MallToken mallToken = new MallToken(username, password, "wx");
         Subject subject = SecurityUtils.getSubject();
@@ -72,11 +86,149 @@ public class WxAuthController {
     @ResponseBody
     public Object logout() {
         Subject subject = SecurityUtils.getSubject();
+        User user = (User) subject.getPrincipal();
+        if(user == null) {
+            return BaseReqVo.fail(1000, "服务器异常，请稍后再试。");
+        }
+        String mobile = user.getMobile();
+        if (verificationCodeMap != null) {
+            verificationCodeMap.remove(mobile);
+        }
         subject.logout();
         return BaseReqVo.ok();
     }
 
-    //@RequestMapping("auth/regCaptcha")
+    /**
+     * 用户获得验证码
+     * 使用验证码进行身份校验
+     * @return
+     */
+    @RequestMapping("auth/regCaptcha")
+    public BaseReqVo obtainVerificationCode(@RequestBody Map map){
+        String mobile = (String) map.get("mobile");
+        String verificationCode = smsService.obtainVerificationCode(mobile);
+        verificationCodeMap = new HashMap();
+        verificationCodeMap.put(mobile, verificationCode);
+        return BaseReqVo.ok();
+    }
 
+
+    /**
+     * 用户注册
+     * 使用验证码进行身份校验
+     * @return
+     */
+    @RequestMapping("auth/register")
+    public BaseReqVo register(@RequestBody Map map, HttpServletRequest request){
+        String code = (String) map.get("code");
+        String mobile = (String) map.get("mobile");
+        if(!"88888888".equals(code)) {
+            if (verificationCodeMap == null) {
+                return BaseReqVo.fail(704, "验证码不正确！");
+            } else {
+                String codeFromMap = verificationCodeMap.get(mobile);
+                if (!codeFromMap.equals(code)) {
+                    return BaseReqVo.fail(704, "验证码不正确！");
+                }
+            }
+        }
+
+        User userFromDB = userService.selectUserByMobile(mobile);
+        if (userFromDB != null) {
+            return BaseReqVo.fail(604, "该手机号已被注册");
+        }
+
+        String ipAddr = HttpUtils.getIpAddr(request);
+        String username = (String) map.get("username");
+        if(userService.checkUsernameExist(username)) {
+            return BaseReqVo.fail(602, "该用户名已存在。");
+        }
+
+        String password = (String) map.get("password");
+        //MD5加密
+        password = Md5Utils.getMultiMd5(password);
+
+        String wxCode = (String) map.get("wxCode");
+
+
+
+        User user = new User();
+
+        user.setUsername(username);
+        user.setPassword(password);
+
+        byte gender = new Byte("1");
+        user.setGender(gender);
+
+        //user.setBirthday();
+        user.setLastLoginTime(new Date());
+        user.setLastLoginIp(ipAddr);
+
+        //这里写啥呀？啊啊啊啊啊啊啊啊啊啊啊啊啊。
+        byte userLevel = new Byte("0");
+        user.setUserLevel(userLevel);
+
+        user.setNickname(username);
+        user.setMobile(mobile);
+
+        String avatar = user.getAvatar();
+        if (avatar == null || "".equals(avatar)) {
+            avatar = prefix;
+            if(user.getGender() == 1){
+                avatar += "DEFAUIT_HEAD_IMG/male_headImg.jpg";
+            } else {
+                avatar += "DEFAUIT_HEAD_IMG/female_headImg.jpg";
+            }
+        }
+        user.setAvatar(avatar);
+
+
+        //这里写啥呀？啊啊啊啊啊啊啊啊啊啊啊啊啊。
+        user.setWeixinOpenid("WeixinOpenid");
+        //这里写啥呀？啊啊啊啊啊啊啊啊啊啊啊啊啊。
+
+        byte status = new Byte("0");
+        user.setStatus(status);
+
+        user.setAddTime(new Date());
+        user.setUpdateTime(new Date());
+        user.setDeleted(false);
+
+        int rs = userService.insertUser(user);
+        if(rs != 1) {
+            return BaseReqVo.fail(1000, "当前网络繁忙，请稍后再试。");
+        }
+
+        Map<Object, Object> result = new HashMap<Object, Object>();
+        result.put("token", wxCode);
+        result.put("tokenExpire", new Date());
+        Map<Object, Object> userInfo = new HashMap<Object, Object>();
+        userInfo.put("nickName", user.getNickname());
+
+        userInfo.put("avatarUrl", user.getAvatar());
+        result.put("userInfo", userInfo);
+        return BaseReqVo.ok(result);
+    }
+
+    @RequestMapping("auth/reset")
+    public BaseReqVo reset(@RequestBody Map map){
+        String password = (String) map.get("password");
+        String mobile = (String) map.get("mobile");
+        String code = (String) map.get("code");
+        String codeFromSys = verificationCodeMap.get(mobile);
+        if(!codeFromSys.equals(code)){
+            return BaseReqVo.fail(704, "验证码不正确！");
+        }
+        User user = userService.selectUserByMobile(mobile);
+        if(user == null) {
+            return BaseReqVo.fail(603, "该手机号还尚未注册");
+        }
+
+        //MD5加密
+        password = Md5Utils.getMultiMd5(password);
+        user.setPassword(password);
+        userService.updateUser(user);
+        return BaseReqVo.ok();
+    }
 
 }

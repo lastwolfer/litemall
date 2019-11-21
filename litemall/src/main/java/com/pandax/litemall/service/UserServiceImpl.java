@@ -9,6 +9,8 @@ import com.pandax.litemall.mapper.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -210,6 +212,37 @@ public class UserServiceImpl implements UserService{
         example.createCriteria().andUsernameEqualTo(username).andDeletedEqualTo(false);
         List<User> users = userMapper.selectByExample(example);
         return users.get(0);
+    }
+
+    @Override
+    public int insertUser(User user) {
+        int insert = userMapper.insert(user);
+        return insert;
+    }
+
+    @Override
+    public boolean checkUsernameExist(String username) {
+        UserExample example = new UserExample();
+        example.createCriteria().andDeletedEqualTo(false).andUsernameEqualTo(username);
+        List<User> users = userMapper.selectByExample(example);
+        return users.size() != 0;
+    }
+
+    @Override
+    public void updateUser(User user) {
+        userMapper.updateByPrimaryKey(user);
+    }
+
+    @Override
+    public User selectUserByMobile(String mobile) {
+        UserExample example = new UserExample();
+        example.createCriteria().andDeletedEqualTo(false).andMobileEqualTo(mobile);
+        List<User> users = userMapper.selectByExample(example);
+        if(users.size() > 0) {
+            return users.get(0);
+        } else {
+            return null;
+        }
     }
 
 }

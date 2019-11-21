@@ -5,6 +5,7 @@ import com.pandax.litemall.bean.BaseReqVo;
 import com.pandax.litemall.bean.Log;
 import com.pandax.litemall.exception.SystemException;
 import com.pandax.litemall.service.LogService;
+import com.pandax.litemall.util.HttpUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.aspectj.lang.annotation.*;
@@ -54,7 +55,7 @@ public class LogAspect {
             log.setAdmin("代码错误了，请通知程序员更改");
         }
 
-        log.setIp(getIpAddr(request));
+        log.setIp(HttpUtils.getIpAddr(request));
         log.setType(1);
         log.setAction("登出");
         log.setStatus(true);
@@ -92,7 +93,7 @@ public class LogAspect {
 
         //本机地址获取为了IPV6的IP，这现象只有在服务器和客户端都在同一台电脑上才会出现
         //System.out.println(getIpAddr(request));
-        log.setIp(getIpAddr(request));
+        log.setIp(HttpUtils.getIpAddr(request));
 
         BaseReqVo vo = (BaseReqVo) ret;
         int errno = vo.getErrno();
@@ -169,7 +170,7 @@ public class LogAspect {
         String methodName = uri.replace("/admin/", "");
 
         Log log = new Log();
-        log.setIp(getIpAddr(request));
+        log.setIp(HttpUtils.getIpAddr(request));
 
         int errno = e.getErrorNo();
 
@@ -221,7 +222,7 @@ public class LogAspect {
      * @param request
      * @return
      */
-    private String getIpAddr(HttpServletRequest request) {
+    /*private String getIpAddr(HttpServletRequest request) {
         String ip = request.getHeader("x-forwarded-for");
         if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
             ip = request.getHeader("Proxy-Client-IP");
@@ -233,5 +234,5 @@ public class LogAspect {
             ip = request.getRemoteAddr();
         }
         return ip;
-    }
+    }*/
 }
