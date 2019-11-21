@@ -7,7 +7,6 @@ import com.pandax.litemall.service.SmsService;
 import com.pandax.litemall.service.UserService;
 import com.pandax.litemall.shiro.MallToken;
 
-
 import com.pandax.litemall.util.*;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
