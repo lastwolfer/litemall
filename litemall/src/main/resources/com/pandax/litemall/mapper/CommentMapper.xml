@@ -303,4 +303,19 @@
       deleted = #{deleted,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <resultMap id="WxCommentMap" type="com.pandax.litemall.bean.WxCommentData">
+    <result property="content" column="content" jdbcType="VARCHAR"/>
+    <result property="picList" column="pic_urls" jdbcType="VARCHAR" typeHandler="com.pandax.litemall.handler.String2ArrayTypeHandler" />
+    <result property="addTime" column="addTime" jdbcType="TIMESTAMP"/>
+    <collection property="userInfo" ofType="com.pandax.litemall.utils.UserInfo">
+      <result property="nickName" column="nickname"/>
+      <result property="avatarUrl" column="avatar"/>
+    </collection>
+  </resultMap>
+  <select id = "getPicCommentsList" resultMap="WxCommentMap">
+    select content,user_id,pic_urls,c.add_time as addTime,nickname,avatar from cskaoyan_mall_comment c
+    join cskaoyan_mall_user u on u.id = c.user_id and
+    c.value_id = #{valueId} and c.type = #{type} and c.has_picture = 1
+  </select>
 </mapper>

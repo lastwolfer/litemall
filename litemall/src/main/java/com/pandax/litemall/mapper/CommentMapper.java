@@ -3,6 +3,9 @@ package com.pandax.litemall.mapper;
 import com.pandax.litemall.bean.Comment;
 import com.pandax.litemall.bean.CommentExample;
 import java.util.List;
+import java.util.Map;
+
+import com.pandax.litemall.bean.WxCommentData;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
@@ -30,14 +33,13 @@ public interface CommentMapper {
     int updateByPrimaryKey(Comment record);
 
     @Select("select count(id) from cskaoyan_mall_comment where value_id = #{valueId} and type = #{type}")
-    long getComments(@Param("valueId")int valueId, @Param("type")int type);
+    long getComments(@Param("valueId")int valueId, @Param("type")byte type);
 
     @Select("select count(id) from cskaoyan_mall_comment where value_id = #{valueId} and type = #{type} and has_picture = 1")
-    long getPicComments(@Param("valueId")int valueId, @Param("type")int type);
+    long getPicComments(@Param("valueId")int valueId, @Param("type")byte type);
 
     @Select("select * from cskaoyan_mall_comment where value_id = #{valueId} and type = #{type}")
-    List<Comment> getCommentsList(@Param("valueId")int valueId, @Param("type")int type);
+    List<Comment> getCommentsList(@Param("valueId")int valueId, @Param("type")byte type);
 
-    @Select("select * from cskaoyan_mall_comment where value_id = #{valueId} and type = #{type} and has_picture = 1")
-    List<Comment> getPicCommentsList(@Param("valueId")int valueId, @Param("type")int type);
+    List<WxCommentData> getPicCommentsList(@Param("valueId")int valueId, @Param("type")byte type);
 }
