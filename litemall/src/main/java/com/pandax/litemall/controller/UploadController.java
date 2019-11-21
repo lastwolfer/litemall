@@ -27,7 +27,6 @@ import java.util.UUID;
  */
 
 @RestController
-@RequestMapping("admin")
 public class UploadController {
 
     @Autowired
@@ -44,7 +43,7 @@ public class UploadController {
      * @param file 上传的静态资源
      * @return 状态码
      */
-    @RequestMapping("storage/create")
+    @RequestMapping("admin/storage/create")
     public BaseReqVo storageResource(@RequestParam("file") MultipartFile file) {
         BaseReqVo<Object> baseReqVo = new BaseReqVo<>();
         try {
@@ -139,4 +138,9 @@ public class UploadController {
         File finalFile = new File(path);
         file.transferTo(finalFile);
     }*/
+
+    @RequestMapping("wx/storage/upload")
+    public BaseReqVo wxUpload(@RequestParam("file") MultipartFile file){
+        return storageResource(file);
+    }
 }

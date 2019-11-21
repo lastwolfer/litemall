@@ -8,21 +8,21 @@ public class BaseReqVo<T> {
     String errmsg;
     int errno;
 
-    public static BaseReqVo ok(){
-        BaseReqVo baseReqVo = new BaseReqVo();
-        baseReqVo.setErrmsg("成功");
-        baseReqVo.setErrno(0);
-        return baseReqVo;
+    public static BaseReqVo ok(Object object){
+        BaseReqVo<Object> objectBaseReqVo = new BaseReqVo<>();
+        objectBaseReqVo.setErrmsg("成功");
+        objectBaseReqVo.setErrno(0);
+        objectBaseReqVo.setData(object);
+        return objectBaseReqVo;
+    }
+    public static BaseReqVo ok() {
+        BaseReqVo<Object> objectBaseReqVo = new BaseReqVo<>();
+        objectBaseReqVo.setErrmsg("成功");
+        objectBaseReqVo.setErrno(0);
+        return objectBaseReqVo;
+
     }
 
-
-    public static BaseReqVo ok(Object data){
-        BaseReqVo baseReqVo = new BaseReqVo();
-        baseReqVo.setData(data);
-        baseReqVo.setErrmsg("成功");
-        baseReqVo.setErrno(0);
-        return baseReqVo;
-    }
 
     public static BaseReqVo fail() {
         BaseReqVo baseReqVo = new BaseReqVo();
@@ -35,5 +35,6 @@ public class BaseReqVo<T> {
         baseReqVo.setErrno(errorNo);
         baseReqVo.setErrmsg(errorMsg);
         return baseReqVo;
+
     }
 }

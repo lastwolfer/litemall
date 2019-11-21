@@ -76,7 +76,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, user_id, goods_id, goods_sn, goods_name, product_id, price, number, specifications, 
+    id, user_id, goods_id, goods_sn, goods_name, product_id, price, number, specifications,
     checked, pic_url, add_time, update_time, deleted
   </sql>
   <select id="selectByExample" parameterType="com.pandax.litemall.bean.CartExample" resultMap="BaseResultMap">
@@ -94,7 +94,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from cskaoyan_mall_cart
     where id = #{id,jdbcType=INTEGER}
@@ -110,15 +110,18 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.pandax.litemall.bean.Cart">
-    insert into cskaoyan_mall_cart (id, user_id, goods_id, 
-      goods_sn, goods_name, product_id, 
-      price, number, specifications, 
-      checked, pic_url, add_time, 
+    <selectKey keyColumn="id" keyProperty="id" resultType="int">
+      select LAST_INSERT_ID() as id;
+    </selectKey>
+    insert into cskaoyan_mall_cart (id, user_id, goods_id,
+      goods_sn, goods_name, product_id,
+      price, number, specifications,
+      checked, pic_url, add_time,
       update_time, deleted)
-    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, 
-      #{goodsSn,jdbcType=VARCHAR}, #{goodsName,jdbcType=VARCHAR}, #{productId,jdbcType=INTEGER}, 
-      #{price,jdbcType=DECIMAL}, #{number,jdbcType=SMALLINT}, #{specifications,jdbcType=VARCHAR}, 
-      #{checked,jdbcType=BIT}, #{picUrl,jdbcType=VARCHAR}, #{addTime,jdbcType=TIMESTAMP}, 
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER},
+      #{goodsSn,jdbcType=VARCHAR}, #{goodsName,jdbcType=VARCHAR}, #{productId,jdbcType=INTEGER},
+      #{price,jdbcType=DECIMAL}, #{number,jdbcType=SMALLINT}, #{specifications,jdbcType=VARCHAR},
+      #{checked,jdbcType=BIT}, #{picUrl,jdbcType=VARCHAR}, #{addTime,jdbcType=TIMESTAMP},
       #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="com.pandax.litemall.bean.Cart">
@@ -341,7 +344,7 @@
       goods_name = #{goodsName,jdbcType=VARCHAR},
       product_id = #{productId,jdbcType=INTEGER},
       price = #{price,jdbcType=DECIMAL},
-      number = #{number,jdbcType=SMALLINT},
+      `number` = #{number,jdbcType=SMALLINT},
       specifications = #{specifications,jdbcType=VARCHAR},
       checked = #{checked,jdbcType=BIT},
       pic_url = #{picUrl,jdbcType=VARCHAR},
@@ -350,4 +353,17 @@
       deleted = #{deleted,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectAllCart" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from cskaoyan_mall_cart
+  </select>
+  <update id="updateCheckedByProductId">
+    update cskaoyan_mall_cart set checked=#{check}
+    where product_id=#{productId}
+  </update>
+  <delete id="deleteByProductId">
+    delete from cskaoyan_mall_cart
+    where product_id=#{productId}
+  </delete>
 </mapper>
