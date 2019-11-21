@@ -78,8 +78,6 @@ public class AuthController {
                 arrayList.add(s);
             }
         }
-
-
         if("admin123".equals(admin.getUsername())){
             arrayList.clear();
             arrayList.add("*");

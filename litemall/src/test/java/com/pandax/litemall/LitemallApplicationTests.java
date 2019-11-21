@@ -1,6 +1,6 @@
 package com.pandax.litemall;
 
-import com.pandax.litemall.bean.Coupon;
+
 import com.pandax.litemall.mapper.CouponMapper;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -11,9 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.io.File;
-import java.time.LocalDateTime;
-import java.util.List;
+
 
 @SpringBootTest
 class LitemallApplicationTests {
