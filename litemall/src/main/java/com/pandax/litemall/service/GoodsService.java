@@ -44,4 +44,18 @@ public interface GoodsService {
 
     GoodsDetail selectGoodsDetailByGoodsId(Integer id);
 
+    Map selectGodsByFootprint(List<Footprint> footprints, Integer page, Integer size);
+
+    Map selectAllBrand(Integer page, Integer size);
+
+    Map selectBrandById(Integer id);
+
+    Map selectGoodsByCategoryId(Integer categoryId, Integer page, Integer size);
+
+    Map selectGoodsRelatedByGoodsId(Integer id);
+
+    Map selectBrandByBrandId(Integer brandId, Integer page, Integer size);
+
+    Map selectGoodsByKeyWord(String keyWord, String sort, String order, Integer categoryId, Integer page, Integer size);
+
 }

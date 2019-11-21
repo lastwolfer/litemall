@@ -374,4 +374,10 @@
   <delete id="deleteByPid">
     delete from cskaoyan_mall_category where pid=#{pid}
   </delete>
+    <select id="selectOneL1" resultMap="BaseResultMap">
+      select <include refid="Base_Column_List" />
+      from cskaoyan_mall_category
+      where level='L1'
+      limit 1
+    </select>
 </mapper>

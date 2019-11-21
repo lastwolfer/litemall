@@ -19,11 +19,11 @@ public class WxAuthController {
 /*
 	@RequestMapping("/auth/login")
 	@ResponseBody
-	public Object login(@RequestBody String body, HttpServletRequest request) {
+	public Object login(@RequestBody String name, HttpServletRequest request) {
 //		String username = JacksonUtil.parseString(body, "username");
 //		String password = JacksonUtil.parseString(body, "password");
-		String username = "wx";
-		String password = "admin123";
+		String username = name;
+//		String password = "admin123";
 
 		//*******************************
 		//根据username和password查询user信息
@@ -55,7 +55,7 @@ public class WxAuthController {
 		//前端写了一个token放在请求头中
 		//*************************
 		//获得请求头
-		String tokenKey = request.getHeader("X-cskaoyanmall-Admin-Token");
+		String tokenKey = request.getHeader("X-Litemall-Admin-Token");
 		Integer userId = UserTokenManager.getUserId(tokenKey);
 		//通过请求头获得userId，进而可以获得一切关于user的信息
 		//**************************

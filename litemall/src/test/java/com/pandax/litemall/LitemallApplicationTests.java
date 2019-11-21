@@ -1,6 +1,6 @@
 package com.pandax.litemall;
 
-import com.pandax.litemall.bean.Coupon;
+
 import com.pandax.litemall.mapper.CouponMapper;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.List;
+
 
 @SpringBootTest
 class LitemallApplicationTests {
@@ -35,8 +35,10 @@ class LitemallApplicationTests {
 
     @Test
     void mytest1(){
-        List<Coupon> coupons = couponMapper.selectByExample(null);
-        System.out.println(coupons);
+        String accessKeyId = "LTAI4Fi2VcFoNYJBTSJ6J2ny";
+        String accessSecret = "t4Beuo8Z3f1ehaHXWZZCgAaMM3xP1Y";
+        String bucket = "litemallpandax";
+        String endPoint = "oss-cn-shanghai.aliyuncs.com";
     }
 
 }
