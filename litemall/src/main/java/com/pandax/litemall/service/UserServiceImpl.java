@@ -244,6 +244,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateUser(User user) {
+        user.setUpdateTime(new Date());
         userMapper.updateByPrimaryKey(user);
     }
 
@@ -372,6 +373,14 @@ public class UserServiceImpl implements UserService {
         footprint.setDeleted(true);
         footprint.setUpdateTime(new Date());
         return footprintMapper.updateByPrimaryKey(footprint);
+    }
+
+    @Override
+    public User selectUserByWxId(String wxId) {
+        UserExample example = new UserExample();
+        example.createCriteria().andDeletedEqualTo(false).andWeixinOpenidEqualTo(wxId);
+        List<User> users = userMapper.selectByExample(example);
+        return users.size() != 0? users.get(0) : null;
     }
 
 }
