@@ -43,11 +43,8 @@ public interface GoodsService {
 
     GoodsDetail selectGoodsDetailByGoodsId(Integer id);
 
-<<<<<<< HEAD
-=======
     Map selectGodsByFootprint(List<Footprint> footprints, Integer page, Integer size);
 
->>>>>>> 3fc0124d39dc2ac2781043594bead23bf3012181
     Map selectAllBrand(Integer page, Integer size);
 
     Map selectBrandById(Integer id);
