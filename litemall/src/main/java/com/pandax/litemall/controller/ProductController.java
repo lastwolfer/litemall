@@ -207,7 +207,35 @@ public class ProductController {
         return baseReqVo;
     }
 
-@RequestMapping("/wx/goods/detail")
+    /**
+     * 宝
+     * 查询所属类别的商品
+     * @param categoryId 类别id
+     * @param page 页数
+     * @param size 每页个数
+     * @return json
+     */
+    @RequestMapping("/wx/goods/list")
+    public BaseReqVo wxGoodsList(Integer categoryId,Integer brandId,Integer page,Integer size,
+                                 String keyWord,String sort,String order){
+        BaseReqVo baseReqVo = new BaseReqVo();
+        Map map =null;
+        if(keyWord != null ){
+            map = goodsService.selectGoodsByKeyWord(keyWord,sort,order,categoryId,page,size);
+        }
+        if(categoryId != null) {
+            map = goodsService.selectGoodsByCategoryId(categoryId, page, size);
+        }
+        if(brandId != null){
+            map = goodsService.selectBrandByBrandId(brandId,page, size);
+        }
+        baseReqVo.setErrmsg("成功");
+        baseReqVo.setData(map);
+        return baseReqVo;
+    }
+
+
+    @RequestMapping("/wx/goods/detail")
     public BaseReqVo wxGoodsDetail(Integer id){
         BaseReqVo baseReqVo = new BaseReqVo();
         GoodsDetail goodsDetail = goodsService.selectGoodsDetailByGoodsId(id);
@@ -215,6 +243,51 @@ public class ProductController {
         baseReqVo.setErrmsg("成功");
         baseReqVo.setData(goodsDetail);
         System.out.println(baseReqVo);
+        return baseReqVo;
+    }
+
+    /**
+     * 宝
+     * 查询所有品牌
+     * @param page 页数
+     * @param size 每页个数
+     * @return json数据
+     */
+    @RequestMapping("/wx/brand/list")
+    public BaseReqVo wxBrandList(Integer page,Integer size){
+        BaseReqVo baseReqVo = new BaseReqVo();
+        Map map = goodsService.selectAllBrand(page, size);
+        baseReqVo.setErrmsg("成功");
+        baseReqVo.setData(map);
+        return baseReqVo;
+    }
+
+    /**
+     * 宝
+     * 按照id传讯单个Brand
+     * @param id brandID
+     * @return 查询结果
+     */
+    @RequestMapping("/wx/brand/detail")
+    public BaseReqVo wxBrandDetail(Integer id){
+        BaseReqVo baseReqVo = new BaseReqVo();
+        Map map = goodsService.selectBrandById(id);
+        baseReqVo.setErrmsg("成功");
+        baseReqVo.setData(map);
+        return baseReqVo;
+    }
+
+    /**
+     * 查询关联商品
+     * @param id 商品id
+     * @return json数据
+     */
+    @RequestMapping("/wx/goods/related")
+    public BaseReqVo wxGoodsRelated(Integer id){
+        BaseReqVo baseReqVo = new BaseReqVo();
+        Map map = goodsService.selectGoodsRelatedByGoodsId(id);
+        baseReqVo.setErrmsg("成功");
+        baseReqVo.setData(map);
         return baseReqVo;
     }
 

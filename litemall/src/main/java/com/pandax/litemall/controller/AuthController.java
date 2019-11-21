@@ -29,6 +29,11 @@ public class AuthController {
     @Autowired
     PermissionService permissionService;
 
+    /**
+     * 管理员账号登录
+     * @param loginVo
+     * @return
+     */
     @RequestMapping("admin/auth/login")
     public BaseReqVo login(@RequestBody LoginVo loginVo) {
         BaseReqVo baseReqVo = new BaseReqVo();
@@ -52,6 +57,11 @@ public class AuthController {
         return baseReqVo;
     }
 
+    /**
+     * 获得后台信息
+     * @param token
+     * @return
+     */
     @RequestMapping("admin/auth/info")
     //@RequiresPermissions("admin:auth:info")
     public BaseReqVo info(String token){
@@ -78,8 +88,6 @@ public class AuthController {
                 arrayList.add(s);
             }
         }
-
-
         if("admin123".equals(admin.getUsername())){
             arrayList.clear();
             arrayList.add("*");
@@ -113,6 +121,10 @@ public class AuthController {
     }
 
 
+    /**
+     * 管理员账号登出
+     * @return
+     */
     @RequestMapping("admin/auth/logout")
     public BaseReqVo logout(){
         Subject subject = SecurityUtils.getSubject();
@@ -124,6 +136,10 @@ public class AuthController {
     }
 
 
+    /**
+     * 认证失败后的重定向
+     * @return
+     */
     @RequestMapping("admin/auth/fail")
     public BaseReqVo authenticationFail(){
         BaseReqVo baseReqVo = new BaseReqVo();

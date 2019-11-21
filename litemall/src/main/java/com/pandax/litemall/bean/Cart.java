@@ -1,8 +1,13 @@
 package com.pandax.litemall.bean;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import lombok.Data;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
+@Data
 public class Cart {
     private Integer id;
 
@@ -16,7 +21,7 @@ public class Cart {
 
     private Integer productId;
 
-    private BigDecimal price;
+    private Double price;
 
     private Short number;
 
@@ -26,8 +31,11 @@ public class Cart {
 
     private String picUrl;
 
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date addTime;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GTM+8")
     private Date updateTime;
 
     private Boolean deleted;
@@ -80,11 +88,11 @@ public class Cart {
         this.productId = productId;
     }
 
-    public BigDecimal getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 

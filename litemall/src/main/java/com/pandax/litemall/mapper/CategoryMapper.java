@@ -34,4 +34,7 @@ public interface CategoryMapper {
     Category[] categoryL1();
 
     void deleteByPid(@Param("pid") Integer id);
+
+    Category selectOneL1();
+
 }

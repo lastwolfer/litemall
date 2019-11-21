@@ -5,10 +5,7 @@ import com.pandax.litemall.bean.User;
 import com.pandax.litemall.service.SmsService;
 import com.pandax.litemall.service.UserService;
 import com.pandax.litemall.shiro.MallToken;
-import com.pandax.litemall.util.BaseRespVo;
-import com.pandax.litemall.util.HttpUtils;
-import com.pandax.litemall.util.Md5Utils;
-import com.pandax.litemall.util.UserTokenManager;
+import com.pandax.litemall.util.*;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.subject.Subject;
@@ -62,7 +59,7 @@ public class WxAuthController {
         try {
             subject.login(mallToken);
         } catch (AuthenticationException e) {
-            return BaseReqVo.fail(1000, "账号或者密码错误!");
+            return BaseReqVo.fail(600, "账号或者密码错误!");
         }
 
         User user = userService.selectUserByUsername(username);
@@ -229,6 +226,21 @@ public class WxAuthController {
         user.setPassword(password);
         userService.updateUser(user);
         return BaseReqVo.ok();
+    }
+
+    /**
+     * 用户使用微信登录
+     * @param map
+     * @return
+     */
+    @RequestMapping("auth/login_by_weixin")
+    public BaseReqVo loginByWx(@RequestBody Map map) {
+        String code = (String) map.get("code");
+        UserInfo usrInfo = (UserInfo) map.get("usrInfo");
+        map.put("token", code);
+        map.put("tokenExpire", new Date());
+        map.remove("code");
+        return BaseReqVo.ok(map);
     }
 
 }
