@@ -233,7 +233,7 @@ public class ProductController {
             Subject subject = SecurityUtils.getSubject();
             User user = (User) subject.getPrincipal();
             if (user != null){
-                searchService.addHistory(user.getId(),keyword);
+                searchService.saveOrUpdateHistory(user.getId(),keyword);
             }
             map = goodsService.selectGoodsByKeyWord(keyword,sort,order,categoryId,page,size);
             baseReqVo.setErrmsg("成功");

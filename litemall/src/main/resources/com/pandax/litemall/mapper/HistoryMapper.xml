@@ -240,4 +240,19 @@
       deleted = #{deleted,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+
+  <insert id="saveOrUpdateHistory">
+    <selectKey  keyProperty="count"  resultType="int" keyColumn="id" order="BEFORE">
+      select count(*) from cskaoyan_mall_search_history where user_id = #{id} and keyword = #{keyword}
+    </selectKey>
+    <choose>
+      <when test="count == 1">
+        update cskaoyan_mall_search_history set update_time = now(),deleted = 0 where user_id = #{id} and keyword = #{keyword}
+      </when>
+      <otherwise>
+        insert into cskaoyan_mall_search_history value (null,#{id},#{keyword},'',now(),now(),0)
+      </otherwise>
+    </choose>
+  </insert>
 </mapper>
