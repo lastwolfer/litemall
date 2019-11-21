@@ -43,7 +43,8 @@ public class GoodsServiceImpl implements GoodsService {
     IssueMapper issueMapper;
     @Autowired
     CollectMapper collectMapper;
-
+    @Autowired
+    HistoryMapper historyMapper;
     /**
      * 商品清单分页，排序
      *
@@ -600,13 +601,14 @@ public class GoodsServiceImpl implements GoodsService {
         return map;
     }
 
+
     @Override
     public Map selectGoodsByKeyWord(String keyWord, String sort, String order, Integer categoryId,Integer page, Integer size) {
         PageHelper.startPage(page,size);
         keyWord = "%" + keyWord +"%";
         GoodsExample goodsExample = new GoodsExample();
         goodsExample.setOrderByClause(sort+" "+ order);
-        GoodsExample.Criteria criteria = goodsExample.createCriteria().andKeywordsLike(keyWord);
+        GoodsExample.Criteria criteria = goodsExample.createCriteria().andNameLike(keyWord);
         if(categoryId != 0){
             criteria.andCategoryIdEqualTo(categoryId);
         }
@@ -618,8 +620,9 @@ public class GoodsServiceImpl implements GoodsService {
         map.put("goodsList",goods);
         map.put("count",total);
         map.put("filterCategoryList",categories);
-        return null;
+        return map;
     }
+
 
     /**
      * 根据足迹里的goodsId获得goods
@@ -636,4 +639,5 @@ public class GoodsServiceImpl implements GoodsService {
         map.put("footprintList",footprintList);
         return map;
     }
+
 }

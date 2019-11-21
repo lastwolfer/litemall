@@ -29,7 +29,7 @@ public interface RegionMapper {
     int updateByPrimaryKey(Region record);
 
 
-    String selectNameById(@Param("code") Integer Id);
+    String selectNameById(@Param("id") Integer code);
 
     Region[] setlectAllRegion();
 

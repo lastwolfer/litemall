@@ -220,7 +220,7 @@
   </resultMap>
 
   <select id="selectNameById" resultType="java.lang.String">
-    select name from cskaoyan_mall_region where code = #{code}
+    select name from cskaoyan_mall_region where id = #{id}
   </select>
 
   <select id="setlectAllRegion" resultMap="allRegion1">

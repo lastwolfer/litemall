@@ -35,3 +35,15 @@ my:
   Storage:
     path: http://localhost:8081/
   filePath: D:/Develop/Coding WorkingSpace/static/img/
+
+mall:
+  aliyun:
+    oss:
+      bucket:
+      end-point:
+    sms:
+      sign-name: 王道训练营
+      template-code: SMS_173765187
+      region-id: cn-hangzhou
+    access-key-id: LTAI4Fr5gfYhcVjLMqeRGbuT
+    access-secret: IrkcHu6dZyrjPZRushgO76P5392HJ1
