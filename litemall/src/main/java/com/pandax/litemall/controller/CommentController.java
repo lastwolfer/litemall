@@ -8,6 +8,7 @@ import com.pandax.litemall.bean.WxCommentData;
 import com.pandax.litemall.service.CommentService;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -52,15 +53,9 @@ public class CommentController {
 
         return baseReqVo;
     }
-//wx/comment/post
-    //content: "123"
-    //hasPicture: false
-    //picUrls: []
-    //star: 4
-    //type: 1
-    //valueId: "358"
+
     @RequestMapping("wx/comment/post")
-    public BaseReqVo commentPost(Comment comment) throws ParseException {
+    public BaseReqVo commentPost(@RequestBody Comment comment) throws ParseException {
         User user = (User) SecurityUtils.getSubject().getPrincipal();
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = df.parse(df.format(new Date()));
@@ -76,20 +71,5 @@ public class CommentController {
         baseReqVo.setErrmsg("成功");
         return baseReqVo;
     }
-    //{
-    //    "errno": 0,
-    //    "data": {
-    //        "id": 1114,
-    //        "valueId": 358,
-    //        "type": 1,
-    //        "content": "123",
-    //        "userId": 7,
-    //        "hasPicture": false,
-    //        "picUrls": [],
-    //        "star": 4,
-    //        "addTime": "2019-11-21 09:23:23",
-    //        "updateTime": "2019-11-21 09:23:23"
-    //    },
-    //    "errmsg": "成功"
-    //}
+
 }
