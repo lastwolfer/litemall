@@ -604,7 +604,7 @@ public class GoodsServiceImpl implements GoodsService {
         keyWord = "%" + keyWord +"%";
         GoodsExample goodsExample = new GoodsExample();
         goodsExample.setOrderByClause(sort+" "+ order);
-        GoodsExample.Criteria criteria = goodsExample.createCriteria().andKeywordsLike(keyWord);
+        GoodsExample.Criteria criteria = goodsExample.createCriteria().andNameLike(keyWord);
         if(categoryId != 0){
             criteria.andCategoryIdEqualTo(categoryId);
         }
@@ -616,7 +616,7 @@ public class GoodsServiceImpl implements GoodsService {
         map.put("goodsList",goods);
         map.put("count",total);
         map.put("filterCategoryList",categories);
-        return null;
+        return map;
     }
 
 

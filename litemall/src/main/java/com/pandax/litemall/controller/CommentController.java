@@ -32,11 +32,6 @@ public class CommentController {
         baseReqVo.setErrmsg("成功");
         return baseReqVo;
     }
-//http://192.168.2.100:8081/wx/comment/list?valueId=1114011&type=0&size=20&page=1&showType=0
-    //{"errno":0,"data":{"data":
-// [{"userInfo":{"nickName":"dr lan","avatarUrl":""},"addTime":"2019-11-20 02:08:50","picList":["http://192.168.2.100:8081/wx/storage/fetch/qt1kc5766scz6fg5ja7q.png"],"content":"laji"},
-// {"userInfo":{"nickName":"dr lan","avatarUrl":""},"addTime":"2019-11-19 22:47:28","picList":[],"content":"123"}],"count":2,"currentPage":1}
-// ,"errmsg":"成功"}
 
     @RequestMapping("wx/comment/list")
     public BaseReqVo commentList(int valueId,int type,int size,int page,int showType){

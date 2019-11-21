@@ -36,11 +36,11 @@ public interface HistoryMapper {
     @Select("select keyword from cskaoyan_mall_search_history where user_id = #{id}")
     String[] getHistoryList(int id);
 
-    @Insert("insert into cskaoyan_mall_search_history value (null,#{arg[0]},#{arg[1]},null,now(),now(),null);")
-    int addHistory(int id, String keyword);
+    @Insert("insert into cskaoyan_mall_search_history value (null,#{id},#{keyword},'',now(),now(),null);")
+    int addHistory(@Param("id") int id, @Param("keyword") String keyword);
 
-    @Select("select id from cskaoyan_mall_search_history where user_id = #{arg[0]} and keyword = #{arg[1]}")
-    int checkHistory(int id, String keyword);
+    @Select("select id from cskaoyan_mall_search_history where user_id = #{id} and keyword = #{keyword}")
+    Integer checkHistory(@Param("id") int id, @Param("keyword") String keyword);
 
     @Update("update cskaoyan_mall_search_history set update_time = now() where id = #{id}")
     int updateHistory(int id);

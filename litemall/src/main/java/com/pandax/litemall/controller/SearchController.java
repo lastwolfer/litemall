@@ -35,20 +35,6 @@ public class SearchController {
         return baseReqVo;
     }
 
-    @RequestMapping("wx/search/clearhistory")
-    public BaseReqVo clearHistory(QuerryGoodsList querryGoodsList){
-        BaseReqVo baseReqVo = new BaseReqVo();
-        List<Goods> goodsList = goodsService.goodsList(querryGoodsList);
-        long total = new PageInfo<>(goodsList).getTotal();
-        Map<String, Object> map = new HashMap<>();
-        map.put("total", total);
-        map.put("items", goodsList);
-
-        baseReqVo.setErrno(0);
-        baseReqVo.setErrmsg("成功");
-        baseReqVo.setData(map);
-        return baseReqVo;
-    }
 
 //http://192.168.2.100:8081/wx/search/index
     //{

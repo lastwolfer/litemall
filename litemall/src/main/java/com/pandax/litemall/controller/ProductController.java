@@ -25,6 +25,8 @@ public class ProductController {
     @Autowired
     GoodsService goodsService;
 
+    @Autowired
+    SearchService searchService;
 
     /**
      * 商品列表,分页和排序
@@ -224,11 +226,18 @@ public class ProductController {
     @RequestMapping("/wx/goods/list")
 
     public BaseReqVo wxGoodsList(Integer categoryId,Integer brandId,Integer page,Integer size,
-                                 String keyWord,String sort,String order){
+                                 String keyword,String sort,String order){
         BaseReqVo baseReqVo = new BaseReqVo();
         Map map =null;
-        if(keyWord != null ){
-            map = goodsService.selectGoodsByKeyWord(keyWord,sort,order,categoryId,page,size);
+        if(keyword != null ){
+            Subject subject = SecurityUtils.getSubject();
+            User user = (User) subject.getPrincipal();
+            Integer id = user.getId();
+            searchService.addHistory(id,keyword);
+            map = goodsService.selectGoodsByKeyWord(keyword,sort,order,categoryId,page,size);
+            baseReqVo.setErrmsg("成功");
+            baseReqVo.setData(map);
+            return baseReqVo;
         }
         if(categoryId != null) {
 
@@ -255,11 +264,6 @@ public class ProductController {
         return baseReqVo;
     }
 
-
-    @RequestMapping("wx/comment/list")
-    public BaseReqVo wxCommentList(QuerryCommentList querryCommentList){
-        return commentList(querryCommentList);
-    }
 
 
     /**
