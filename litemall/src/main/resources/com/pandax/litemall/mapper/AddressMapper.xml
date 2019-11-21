@@ -74,7 +74,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, user_id, province_id, city_id, area_id, address, mobile, is_default, add_time, 
+    id, name, user_id, province_id, city_id, area_id, address, mobile, is_default, add_time,
     update_time, deleted
   </sql>
   <select id="selectByExample" parameterType="com.pandax.litemall.bean.AddressExample" resultMap="BaseResultMap">
@@ -92,7 +92,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from cskaoyan_mall_address
     where id = #{id,jdbcType=INTEGER}
@@ -108,14 +108,14 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.pandax.litemall.bean.Address">
-    insert into cskaoyan_mall_address (id, name, user_id, 
-      province_id, city_id, area_id, 
-      address, mobile, is_default, 
+    insert into cskaoyan_mall_address (id, name, user_id,
+      province_id, city_id, area_id,
+      address, mobile, is_default,
       add_time, update_time, deleted
       )
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, 
-      #{provinceId,jdbcType=INTEGER}, #{cityId,jdbcType=INTEGER}, #{areaId,jdbcType=INTEGER}, 
-      #{address,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{isDefault,jdbcType=BIT}, 
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER},
+      #{provinceId,jdbcType=INTEGER}, #{cityId,jdbcType=INTEGER}, #{areaId,jdbcType=INTEGER},
+      #{address,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{isDefault,jdbcType=BIT},
       #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT}
       )
   </insert>
@@ -342,4 +342,10 @@
       </where>
       order by #{sort}  #{desc}
     </select>
+  <select id="selectByUserId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from cskaoyan_mall_address
+    where user_id=#{id}
+  </select>
 </mapper>

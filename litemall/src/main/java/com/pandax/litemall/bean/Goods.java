@@ -1,10 +1,6 @@
 package com.pandax.litemall.bean;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-<<<<<<< HEAD
-import lombok.Data;
-=======
->>>>>>> 6fbbdbe24720a1c9cde64f1eb137361b5e6858ae
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -44,17 +40,11 @@ public class Goods {
 
     private BigDecimal retailPrice;
 
-<<<<<<< HEAD
+
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GTM+8")
     private Date addTime;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GTM+8")
-=======
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Date addTime;
-
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
->>>>>>> 6fbbdbe24720a1c9cde64f1eb137361b5e6858ae
     private Date updateTime;
 
     private Boolean deleted;
