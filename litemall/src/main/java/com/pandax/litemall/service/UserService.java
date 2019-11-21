@@ -60,5 +60,7 @@ public interface UserService {
    int insertFeedBack(Feedback feedback);
 
    List<Footprint> selectFootprintByUserId(Integer id);
+
+   int deleteFootprint(Integer id);
 }
 
