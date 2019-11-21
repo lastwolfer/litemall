@@ -45,10 +45,14 @@ public interface UserService {
 
    List<Footprint> selectFootprintByUserId(Integer id);
 
+
     Map selectAddressById(Integer id);
 
     Integer updateAddressSave(Address address);
 
     void deleteAddress(Integer id);
+
+   int deleteFootprint(Integer id);
+
 }
 

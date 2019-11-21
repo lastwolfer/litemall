@@ -11,6 +11,7 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -272,9 +273,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<Footprint> selectFootprintByUserId(Integer id) {
         FootprintExample footprintExample = new FootprintExample();
-        footprintExample.createCriteria().andUserIdEqualTo(id);
+        footprintExample.createCriteria().andUserIdEqualTo(id).andDeletedNotEqualTo(true);
         return footprintMapper.selectByExample(footprintExample);
     }
+
 
     /**
      *宝
@@ -324,6 +326,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteAddress(Integer id) {
         addressMapper.deleteByPrimaryKey(id);
+    }
+
+
+    @Override
+    public int deleteFootprint(Integer id) {
+        Footprint footprint = footprintMapper.selectByGoodsId(id);
+        footprint.setDeleted(true);
+        footprint.setUpdateTime(new Date());
+        return footprintMapper.updateByPrimaryKey(footprint);
     }
 
 }
