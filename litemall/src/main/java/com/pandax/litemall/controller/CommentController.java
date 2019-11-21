@@ -3,6 +3,7 @@ package com.pandax.litemall.controller;
 import com.github.pagehelper.PageHelper;
 import com.pandax.litemall.bean.BaseReqVo;
 import com.pandax.litemall.bean.Comment;
+import com.pandax.litemall.bean.WxCommentData;
 import com.pandax.litemall.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,8 +25,8 @@ public class CommentController {
         int j = commentService.getPicComments(valueId,type);
         BaseReqVo<Object> baseReqVo = new BaseReqVo<>();
         Map<String, Object> map = new HashMap<>();
-        map.put("hasPicCount", i);
-        map.put("allCount", j);
+        map.put("hasPicCount", j);
+        map.put("allCount", i);
         baseReqVo.setErrno(0);
         baseReqVo.setData(map);
         baseReqVo.setErrmsg("成功");
@@ -48,38 +49,9 @@ public class CommentController {
 //    },
 //    "errmsg": "成功"
 //}
-    //{
-//    "data": {
-//        "data": [
-//            {
-//   2             "id": 241,  2
-//   2             "valueId": 1009024,
-//   2             "type": 0,
-//   1             "content": "好舒服！可以变换各种形状！比我之前在朋友家看到的懒人沙发好很多啊！",
-//       1         "userId": 1,
-//                "hasPicture": true,
-//        1        "picUrls": ["https://yanxuan.nosdn.127.net/a3bd6f130fe3ee340037a37b6c721d16.jpg"],
-//                "star": 1,
-//        1        "addTime": "2018-01-04 16:00:00",
-//                "updateTime": "2018-01-04 16:00:00",
-//                "deleted": false
-//            }
-//        ],
-//        "count": 20,
-//        "currentPage": 1
-//    },
-//    "errmsg": "成功",
-//    "errno": 0
-//}
     @RequestMapping("wx/comment/list")
     public BaseReqVo commentList(int valueId,byte type,int size,int page,int showType){
-        PageHelper pageHelper = new PageHelper();
-        List<Comment> comments = null;
-        if (showType == 0) {
-            comments = commentService.getCommentsList(valueId,type,size,page);
-        }else {
-            Map result = commentService.getPicCommentsList(valueId,type,size,page);
-        }
+        List<WxCommentData> comments = commentService.getCommentsList(valueId,type,size,page,showType);
         BaseReqVo<Object> baseReqVo = new BaseReqVo<>();
         Map<String, Object> map = new HashMap<>();
         map.put("data", comments);
@@ -88,6 +60,7 @@ public class CommentController {
         baseReqVo.setErrno(0);
         baseReqVo.setData(map);
         baseReqVo.setErrmsg("成功");
+
         return baseReqVo;
     }
 

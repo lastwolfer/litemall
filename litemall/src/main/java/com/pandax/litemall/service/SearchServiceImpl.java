@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Random;
 
 @Service
 public class SearchServiceImpl implements SearchService {
@@ -31,8 +32,7 @@ public class SearchServiceImpl implements SearchService {
     @Override
     public Keyword getDefault() {
         List<Keyword> keywords = keywordMapper.selectDefault();
-        int index = (int)(Math.random()*(keywords.size()));
-        return keywords.get(0);
+        return keywords.get(new Random().nextInt(keywords.size()));
     }
 
     @Override

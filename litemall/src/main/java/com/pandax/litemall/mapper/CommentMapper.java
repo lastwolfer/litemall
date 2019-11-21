@@ -38,8 +38,7 @@ public interface CommentMapper {
     @Select("select count(id) from cskaoyan_mall_comment where value_id = #{valueId} and type = #{type} and has_picture = 1")
     long getPicComments(@Param("valueId")int valueId, @Param("type")byte type);
 
-    @Select("select * from cskaoyan_mall_comment where value_id = #{valueId} and type = #{type}")
-    List<Comment> getCommentsList(@Param("valueId")int valueId, @Param("type")byte type);
 
-    List<WxCommentData> getPicCommentsList(@Param("valueId")int valueId, @Param("type")byte type);
+
+    List<WxCommentData> getPicCommentsList(@Param("valueId")int valueId, @Param("type")byte type,int showType);
 }

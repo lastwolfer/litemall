@@ -316,6 +316,9 @@
   <select id = "getPicCommentsList" resultMap="WxCommentMap">
     select content,user_id,pic_urls,c.add_time as addTime,nickname,avatar from cskaoyan_mall_comment c
     join cskaoyan_mall_user u on u.id = c.user_id and
-    c.value_id = #{valueId} and c.type = #{type} and c.has_picture = 1
+    c.value_id = #{valueId} and c.type = #{type}
+    <if test="showType == 1">
+      and c.has_picture = 1
+  </if>
   </select>
 </mapper>

@@ -1,11 +1,14 @@
 package com.pandax.litemall.service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.pandax.litemall.bean.Topic;
 import com.pandax.litemall.mapper.TopicMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Random;
 
 @Service
 public class WxTopicServiceImpl implements WxTopicService {
@@ -20,6 +23,20 @@ public class WxTopicServiceImpl implements WxTopicService {
 
     @Override
     public List<Topic> getTopicRelated(int id) {
-        return topicMapper.getTopicRelated(id);
+        List<Integer> ints = topicMapper.getTopicIdList();
+        int[] r = new int[4];
+        for (int i = 0; i < 4; i++) {
+            r[i] = ints.remove(new Random().nextInt(ints.size()));
+        }
+        List<Topic> topicRelated = topicMapper.getTopicRelated(r);
+        return topicRelated;
+    }
+
+    @Override
+    public List<Topic> getTopic(int page,int size) {
+        PageHelper.startPage(page,size);
+        List<Topic> topic = topicMapper.getTopic();
+        PageInfo<Topic> topicPageInfo = new PageInfo<>(topic);
+        return topic;
     }
 }

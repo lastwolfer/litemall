@@ -17,6 +17,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Autowired
     CommentMapper commentMapper;
+
     @Override
     public int getComments(int valueId, byte type) {
         return (int)commentMapper.getComments(valueId,type);
@@ -28,23 +29,11 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public List<Comment> getCommentsList(int valueId,byte type,int size,int page) {
+    public List<WxCommentData> getCommentsList(int valueId, byte type, int size, int page,int showType) {
         PageHelper.startPage(page,size);
-        CommentExample commentExample = new CommentExample();
-        CommentExample.Criteria criteria = commentExample.createCriteria();
-        criteria.andValueIdEqualTo(valueId).andTypeEqualTo(type);
-        List<Comment> comments = commentMapper.selectByExample(commentExample);
-        PageInfo<Comment> commentPageInfo = new PageInfo<>(comments);
+        List<WxCommentData> comments = commentMapper.getPicCommentsList(valueId, type,showType);
+        PageInfo<WxCommentData> commentPageInfo = new PageInfo<>(comments);
         return comments;
-
-    }
-
-    @Override
-    public Map getPicCommentsList(int valueId, byte type, int size, int page) {
-        PageHelper.startPage(page,size);
-        List<WxCommentData> picCommentsList = commentMapper.getPicCommentsList(valueId, type);
-        PageInfo<WxCommentData> commentPageInfo = new PageInfo<>(picCommentsList);
-        return null;
 
     }
 }

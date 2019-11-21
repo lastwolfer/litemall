@@ -1,6 +1,7 @@
 package com.pandax.litemall.service;
 
 import com.pandax.litemall.bean.Comment;
+import com.pandax.litemall.bean.WxCommentData;
 
 import java.util.List;
 import java.util.Map;
@@ -10,7 +11,6 @@ public interface CommentService {
 
     int getPicComments(int valueId, byte type);
 
-    List<Comment> getCommentsList(int valueId,byte type,int size,int page);
 
-    Map getPicCommentsList(int valueId, byte type, int size, int page);
+    List<WxCommentData> getCommentsList(int valueId, byte type, int size, int page,int showType);
 }
