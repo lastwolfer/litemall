@@ -22,10 +22,10 @@ public class OrderController {
         return BaseReqVo.ok(orderId);
     }
 
-//    @RequestMapping("order/prepay")
-//    public BaseReqVo orderPrepay(@RequestBody Short orderId){
-//        return BaseReqVo.ok();
-//    }
+    @RequestMapping("order/prepay")
+    public BaseReqVo orderPrepay(@RequestBody Short orderId){
+        return BaseReqVo.ok();
+    }
 
     /**按状态显示订单列表
      * Response:
@@ -157,11 +157,11 @@ public class OrderController {
         }
         return BaseReqVo.fail();
     }
-//
-//    @RequestMapping("order/refund")
-//    public BaseRespVo orderRefund(){
-//        return BaseRespVo.ok();
-//    }
+
+    @RequestMapping("order/refund")
+    public BaseReqVo orderRefund(){
+        return BaseReqVo.ok();
+    }
 
 
 

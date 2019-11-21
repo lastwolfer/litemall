@@ -12,6 +12,7 @@ import com.pandax.litemall.bean.LoginVo;
 import com.pandax.litemall.service.PermissionService;
 import com.pandax.litemall.service.RoleService;
 import com.pandax.litemall.shiro.MallToken;
+import com.pandax.litemall.util.Md5Utils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.subject.Subject;
@@ -29,12 +30,19 @@ public class AuthController {
     @Autowired
     PermissionService permissionService;
 
+    /**
+     * 管理员账号登录
+     * @param loginVo
+     * @return
+     */
     @RequestMapping("admin/auth/login")
     public BaseReqVo login(@RequestBody LoginVo loginVo) {
         BaseReqVo baseReqVo = new BaseReqVo();
         Subject subject = SecurityUtils.getSubject();
         //admin得小写
-        MallToken mallToken = new MallToken(loginVo.getUsername(), loginVo.getPassword(), "admin");
+        String password = loginVo.getPassword();
+        password = Md5Utils.getMultiMd5(password);
+        MallToken mallToken = new MallToken(loginVo.getUsername(), password, "admin");
         //里面放自己定义的Token
         try {
             subject.login(mallToken);
@@ -52,6 +60,11 @@ public class AuthController {
         return baseReqVo;
     }
 
+    /**
+     * 获得后台信息
+     * @param token
+     * @return
+     */
     @RequestMapping("admin/auth/info")
     //@RequiresPermissions("admin:auth:info")
     public BaseReqVo info(String token){
@@ -111,6 +124,10 @@ public class AuthController {
     }
 
 
+    /**
+     * 管理员账号登出
+     * @return
+     */
     @RequestMapping("admin/auth/logout")
     public BaseReqVo logout(){
         Subject subject = SecurityUtils.getSubject();
@@ -122,6 +139,10 @@ public class AuthController {
     }
 
 
+    /**
+     * 认证失败后的重定向
+     * @return
+     */
     @RequestMapping("admin/auth/fail")
     public BaseReqVo authenticationFail(){
         BaseReqVo baseReqVo = new BaseReqVo();

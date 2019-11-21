@@ -1,7 +1,4 @@
-package com.pandax.litemall.util;
-
-//有用到
-
+package com.pandax.litemall.utils;
 
 public class UserInfo {
     private String nickName;

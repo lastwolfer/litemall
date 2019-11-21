@@ -5,7 +5,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageInfo;
 import com.pandax.litemall.bean.*;
 import com.pandax.litemall.service.GoodsService;
+import com.pandax.litemall.service.SearchService;
 import com.pandax.reponseJson.GoodsDetail;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +24,9 @@ public class ProductController {
 
     @Autowired
     GoodsService goodsService;
+
+    @Autowired
+    SearchService searchService;
 
     /**
      * 商品列表,分页和排序
@@ -207,6 +213,7 @@ public class ProductController {
         return baseReqVo;
     }
 
+
     /**
      * 宝
      * 查询所属类别的商品
@@ -215,15 +222,25 @@ public class ProductController {
      * @param size 每页个数
      * @return json
      */
+    //keyword=123&page=1&size=20&sort=name&order=desc&categoryId=0
     @RequestMapping("/wx/goods/list")
+
     public BaseReqVo wxGoodsList(Integer categoryId,Integer brandId,Integer page,Integer size,
-                                 String keyWord,String sort,String order){
+                                 String keyword,String sort,String order){
         BaseReqVo baseReqVo = new BaseReqVo();
         Map map =null;
-        if(keyWord != null ){
-            map = goodsService.selectGoodsByKeyWord(keyWord,sort,order,categoryId,page,size);
+        if(keyword != null ){
+            Subject subject = SecurityUtils.getSubject();
+            User user = (User) subject.getPrincipal();
+            Integer id = user.getId();
+            searchService.addHistory(id,keyword);
+            map = goodsService.selectGoodsByKeyWord(keyword,sort,order,categoryId,page,size);
+            baseReqVo.setErrmsg("成功");
+            baseReqVo.setData(map);
+            return baseReqVo;
         }
         if(categoryId != null) {
+
             map = goodsService.selectGoodsByCategoryId(categoryId, page, size);
         }
         if(brandId != null){
@@ -233,6 +250,7 @@ public class ProductController {
         baseReqVo.setData(map);
         return baseReqVo;
     }
+
 
 
     @RequestMapping("/wx/goods/detail")
@@ -245,6 +263,8 @@ public class ProductController {
         System.out.println(baseReqVo);
         return baseReqVo;
     }
+
+
 
     /**
      * 宝
@@ -290,5 +310,6 @@ public class ProductController {
         baseReqVo.setData(map);
         return baseReqVo;
     }
+
 
 }

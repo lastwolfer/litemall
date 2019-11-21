@@ -118,7 +118,7 @@ public class IndexController {
         Subject subject = SecurityUtils.getSubject();
         User user = (User) subject.getPrincipal();
         if (user == null) {
-            return BaseReqVo.fail(0,"请登录");
+            return BaseReqVo.fail(500,"请登录");
         }
         Integer userId = user.getId();
         Short status1 = 401;//未评论
