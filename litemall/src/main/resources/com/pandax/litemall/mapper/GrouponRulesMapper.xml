@@ -291,4 +291,11 @@
     <select id="selectLastInsert" resultType="int">
       select LAST_INSERT_ID()
     </select>
+  <select id="selectByGoodsId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from cskaoyan_mall_groupon_rules
+    where goods_id = #{goodsId,jdbcType=INTEGER}
+    </select>
+
 </mapper>

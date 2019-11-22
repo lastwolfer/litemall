@@ -27,6 +27,8 @@ public class PromotionServiceImpl implements PromotionService {
     GoodsMapper goodsMapper;
     @Autowired
     GrouponMapper grouponMapper;
+    @Autowired
+    OrderGoodsMapper orderGoodsMapper;
 
     @Override
     public Map<String,Object> listAd(Integer page, Integer limit, String sort,String order,Ad ad) {
@@ -179,14 +181,37 @@ public class PromotionServiceImpl implements PromotionService {
         PageHelper.startPage(page,limit);
         GrouponExample example = new GrouponExample();
         GrouponExample.Criteria criteria = example.createCriteria();
-        if(groupon.getGoodsId()!=null) {
-            //未完待续 等写前端的时候再说吧。。。。。。
-        }
-        example.setOrderByClause(sort+" "+order);
-        List<Groupon> list = grouponMapper.selectByExample(example);
-        PageInfo<Groupon> PageInfo = new PageInfo<>(list);
-        long total = PageInfo.getTotal();
+        List<Map<String,Object>> list = new ArrayList<>();
         HashMap<String, Object> map = new HashMap<>();
+        HashMap<String, Object> map1 = new HashMap<>();
+        if(groupon.getGoodsId()!=null) {
+            Integer goodsId = groupon.getGoodsId();
+            Goods goods = goodsMapper.selectByPrimaryKey(goodsId);
+            GrouponRules grouponRules = grouponRulesMapper.selectByGoodsId(goodsId);
+            if(goods == null){
+                return null;
+            }
+            map1.put("goods",goods);
+            map1.put("rules",grouponRules);
+            example.setOrderByClause(sort+" "+order);
+        }
+        List<Groupon> list1 = grouponMapper.selectByExample(example);
+        for (Groupon groupon1 : list1) {
+            //通过团购活动取得订单id
+            Integer orderId = groupon1.getOrderId();
+            //通过订单id获得goodsId
+            OrderGoods orderGoods = orderGoodsMapper.selectByOrderId(orderId);
+            Integer goodsId = orderGoods.getGoodsId();
+            //
+            GrouponRules grouponRules = grouponRulesMapper.selectByGoodsId(goodsId);
+            map1.put("rules",grouponRules);
+            map1.put("groupon",groupon1);
+            Object[] objects = new Object[1];
+            map1.put("subGroupons",objects);//参与人数
+        }
+        PageInfo<Groupon> PageInfo = new PageInfo<>(list1);
+        long total = PageInfo.getTotal();
+        list.add(map1);
         map.put("total",total);
         map.put("items",list);
         return map;

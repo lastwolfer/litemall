@@ -1,8 +1,12 @@
 package com.pandax.litemall.service;
 
-import com.pandax.litemall.bean.Order;
 
+import com.pandax.litemall.bean.OrderSubmitInfo;
+
+import java.util.Map;
+import com.pandax.litemall.bean.Order;
 import java.util.List;
+
 
 /**
  * @author Da
@@ -14,5 +18,21 @@ import java.util.List;
 public interface OrderService {
     int countOrders();
 
+    Map<String,Object> getOrderList(Short showType, Integer page, Integer size);
+
+    Map<String, Object> getOrderDetail(Integer orderId);
+
+    Integer orderSubmit(OrderSubmitInfo orderSubmitInfo);
+
+    int cancelOrder(Short orderId);
+
+    int deleteOrder(Short orderId);
+
+    int confirmOrder(Short orderId);
+
     List<Order> selectOrderByUserIdAndStatus(Integer userId, Short status);
+
+    int refundOrder(Integer orderIdX);
+
+    int prePay(Integer orderIdX);
 }

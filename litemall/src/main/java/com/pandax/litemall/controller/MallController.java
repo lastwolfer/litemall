@@ -1,6 +1,7 @@
 package com.pandax.litemall.controller;
 
 import com.pandax.litemall.bean.*;
+import com.pandax.litemall.mapper.OrderMapper;
 import com.pandax.litemall.service.MallService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -9,11 +10,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class MallController {
     @Autowired
     MallService mallService;
+    @Autowired
+    OrderMapper orderMapper;
 
     @RequestMapping("admin/region/list")
     public BaseReqVo region() {
@@ -168,5 +172,18 @@ public class MallController {
         baseReqVo.setErrmsg("成功");
         baseReqVo.setErrno(0);
         return baseReqVo;
+    }
+
+    @RequestMapping("admin/order/ship")
+    public BaseReqVo orderShip(@RequestBody Map map) {
+        Integer orderId = (Integer) map.get("orderId");
+        String shipChannel = (String) map.get("shipChannel");
+        String shipSn = (String) map.get("shipSn");
+        int updateStatus = orderMapper.updateShipInfo(orderId,shipChannel,shipSn);
+        if (updateStatus != -1) {
+            return BaseReqVo.ok();
+        }else{
+            return BaseReqVo.fail();
+        }
     }
 }
