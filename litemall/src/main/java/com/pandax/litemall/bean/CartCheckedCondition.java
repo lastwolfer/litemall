@@ -30,7 +30,7 @@ public class CartCheckedCondition {
     private Integer couponPrice = 0;
     private Integer availableCouponLength;
     private Integer couponId =0;
-    private Integer freightPrice;
+    private Integer freightPrice = 0;
     private List<Cart> checkedGoodsList;
     private Double goodsTotalPrice;
     private int addressId=0;

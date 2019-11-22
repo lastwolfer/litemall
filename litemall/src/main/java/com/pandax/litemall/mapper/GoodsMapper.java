@@ -5,6 +5,7 @@ import com.pandax.litemall.bean.*;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 public interface GoodsMapper {
     long countByExample(GoodsExample example);
@@ -41,4 +42,6 @@ public interface GoodsMapper {
 
     List<Goods> selectGoodsByFootprint(@Param("footprints") List<Footprint> footprints);
 
+    @Select("select name from cskaoyan_mall_goods where name like concat('%', #{keyword},'%')")
+    String[] getHelper(@Param("keyword") String keyword);
 }
