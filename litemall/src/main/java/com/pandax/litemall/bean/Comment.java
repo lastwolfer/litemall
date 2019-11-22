@@ -9,6 +9,8 @@ public class Comment {
 
     private Integer valueId;
 
+    private Integer orderGoodsId;
+
     private Byte type;
 
     private String content;
@@ -43,6 +45,14 @@ public class Comment {
 
     public void setValueId(Integer valueId) {
         this.valueId = valueId;
+    }
+
+    public Integer getOrderGoodsId() {
+        return orderGoodsId;
+    }
+
+    public void setOrderGoodsId(Integer orderGoodsId) {
+        this.orderGoodsId = orderGoodsId;
     }
 
     public Byte getType() {

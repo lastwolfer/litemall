@@ -1,13 +1,17 @@
 package com.pandax.litemall.controller;
 
-import com.pandax.litemall.bean.BaseReqVo;
-import com.pandax.litemall.bean.OrderSubmitInfo;
+import com.pandax.litemall.bean.*;
+import com.pandax.litemall.service.CommentService;
 import com.pandax.litemall.service.OrderService;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -194,13 +198,30 @@ public class OrderController {
 
     @RequestMapping("order/goods")
     public BaseReqVo orderGoods(Integer orderId,Integer goodsId){
-
-        return BaseReqVo.ok();
+        OrderGoods orderGoods = orderService.getOrderGoods(orderId,goodsId);
+        return BaseReqVo.ok(orderGoods);
     }
-//
-//    @RequestMapping("order/comment")
-//    public BaseReqVo orderComment(){
-//        return BaseReqVo.ok();
-//    }
+
+    @RequestMapping("order/comment")
+    public BaseReqVo orderComment(@RequestBody Comment comment){
+        User user = (User) SecurityUtils.getSubject().getPrincipal();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = null;
+        try {
+            date = df.parse(df.format(new Date()));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        comment.setUserId(user.getId());
+        comment.setAddTime(date);
+        comment.setUpdateTime(date);
+        comment.setValueId(comment.getOrderGoodsId());
+        comment.setType((byte) 3);
+        int commentPostStatus = orderService.commentPost(comment);
+        if(commentPostStatus != -1){
+            return BaseReqVo.ok();
+        }
+        return BaseReqVo.fail();
+    }
 
 }
