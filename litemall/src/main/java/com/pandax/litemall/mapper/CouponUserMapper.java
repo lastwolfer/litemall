@@ -29,5 +29,7 @@ public interface CouponUserMapper {
 
     int updateByPrimaryKey(CouponUser record);
 
-    CouponUser selectByUserId(Integer userId);
+    List<CouponUser> selectByUserId(Integer userId);
+
+    Integer selectNumberByUserId(@Param("id")Integer id);
 }

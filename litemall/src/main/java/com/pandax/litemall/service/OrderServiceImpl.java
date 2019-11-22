@@ -65,9 +65,8 @@ public class OrderServiceImpl implements OrderService{
         PageHelper.startPage(page, size);
         /*查询订单信息*/
         OrderExample example = new OrderExample();
-        OrderGoodsExample orderGoodsExample = new OrderGoodsExample();
         GrouponExample grouponExample = new GrouponExample();
-        OrderExample.Criteria criteria = example.createCriteria();
+//        OrderExample.Criteria criteria = example.createCriteria();
         List<Short> statusList = new ArrayList<>();
         List<Order> orders = new ArrayList<>();
         if(showType == 0) {
@@ -93,6 +92,7 @@ public class OrderServiceImpl implements OrderService{
         for (Order order : orders) {
             Integer orderId = order.getId();
             /*查询订单的商品列表*/
+            OrderGoodsExample orderGoodsExample = new OrderGoodsExample();
             orderGoodsExample.createCriteria().andOrderIdEqualTo(orderId);
             List<OrderGoods> orderGoodsList = orderGoodsMapper.selectByExample(orderGoodsExample);
             order.setGoodsList(orderGoodsList);

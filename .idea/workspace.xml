@@ -23,71 +23,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/LitemallApplication.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="207">
-              <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
-              <folding>
-                <element signature="e#561#562#0" expanded="true" />
-                <element signature="e#631#632#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/litemall/src/main/resources/com/pandax/litemall/mapper/OrderMapper.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="287">
-              <caret line="635" lean-forward="true" selection-start-line="635" selection-end-line="635" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/service/OrderServiceImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="199">
-              <caret line="265" column="28" lean-forward="true" selection-start-line="265" selection-start-column="28" selection-end-line="265" selection-end-column="28" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="method#selectOrderByUserIdAndStatus#0;class#OrderServiceImpl#0" />
-                <element signature="method#getOrderList#0;class#OrderServiceImpl#0" />
-                <element signature="method#getOrderDetail#0;class#OrderServiceImpl#0" />
-                <element signature="method#orderSubmit#0;class#OrderServiceImpl#0" />
-                <element signature="method#cancelOrder#0;class#OrderServiceImpl#0" />
-                <element signature="method#deleteOrder#0;class#OrderServiceImpl#0" />
-                <element signature="method#confirmOrder#0;class#OrderServiceImpl#0" />
-                <element signature="method#refundOrder#0;class#OrderServiceImpl#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/mapper/OrderMapper.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="57" lean-forward="true" selection-start-line="57" selection-end-line="57" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/bean/Order.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="23">
-              <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/service/OrderService.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="402">
-              <caret line="36" column="11" selection-start-line="36" selection-start-column="11" selection-end-line="36" selection-end-column="11" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="299">
+              <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
             </state>
           </provider>
         </entry>
@@ -95,20 +32,41 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/controller/OrderController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="336">
-              <caret line="36" column="8" lean-forward="true" selection-start-line="36" selection-start-column="8" selection-end-line="36" selection-end-column="8" />
+            <state relative-caret-position="342">
+              <caret line="83" column="56" lean-forward="true" selection-start-line="83" selection-start-column="56" selection-end-line="83" selection-end-column="56" />
               <folding>
-                <element signature="method#orderSubmit#0;class#OrderController#0" />
+                <element signature="method#orderPrepay#0;class#OrderController#0" />
                 <element signature="docComment;method#orderList#0;class#OrderController#0" />
-                <element signature="method#orderList#0;class#OrderController#0" />
                 <element signature="docComment;method#orderDetail#0;class#OrderController#0" />
-                <element signature="method#orderDetail#0;class#OrderController#0" />
-                <element signature="docComment;method#orderCancel#0;class#OrderController#0" />
-                <element signature="method#orderCancel#0;class#OrderController#0" />
-                <element signature="method#orderDelete#0;class#OrderController#0" />
-                <element signature="method#orderRefund#0;class#OrderController#0" />
-                <element signature="method#orderConfirm#0;class#OrderController#0" />
+                <element signature="method#orderGoods#0;class#OrderController#0" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/service/OrderService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="213">
+              <caret line="20" column="23" selection-start-line="20" selection-start-column="23" selection-end-line="20" selection-end-column="23" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/service/OrderServiceImpl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="144">
+              <caret line="91" column="36" lean-forward="true" selection-start-line="91" selection-start-column="36" selection-end-line="91" selection-end-column="36" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/controller/AuthController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-2004">
+              <caret line="50" column="43" lean-forward="true" selection-start-line="50" selection-start-column="43" selection-end-line="50" selection-end-column="43" />
             </state>
           </provider>
         </entry>
@@ -131,7 +89,6 @@
       <find>com.cskaoyan</find>
       <find>updateByPrimaryKeySelective</find>
       <find>com/pandax/litemall/mapper/CouponMapper.xml</find>
-      <find>SHART</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -144,6 +101,15 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/pandax/litemall/bean/Goods.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/pandax/litemall/bean/GoodsProduct.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/pandax/litemall/handler/String2ArrayTypeHandler.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/pandax/litemall/mapper/GoodsMapper.java" />
+        <option value="$PROJECT_DIR$/src/test/java/com/pandax/litemall/LitemallApplicationTests.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/com/pandax/litemall/mapper/CategoryMapper.xml" />
+        <option value="$PROJECT_DIR$/src/main/resources/com/pandax/litemall/mapper/GoodsAttributeMapper.xml" />
+        <option value="$PROJECT_DIR$/src/main/resources/com/pandax/litemall/mapper/GoodsSpecificationMapper.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/pandax/litemall/bean/GoodsCreateBean.java" />
         <option value="$PROJECT_DIR$/src/main/resources/com/pandax/litemall/mapper/GoodsMapper.xml" />
         <option value="$PROJECT_DIR$/src/main/resources/com/pandax/litemall/mapper/GoodsProductMapper.xml" />
@@ -154,6 +120,7 @@
         <option value="$PROJECT_DIR$/src/main/resources/com/pandax/litemall/mapper/CommentMapper.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/pandax/litemall/bean/Brand.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/pandax/litemall/bean/Comment.java" />
+        <option value="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/mapper/CouponMapper.java" />
         <option value="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/mapper/AdMapper.java" />
         <option value="$PROJECT_DIR$/litemall/src/main/resources/com/pandax/litemall/mapper/AdMapper.xml" />
         <option value="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/bean/User.java" />
@@ -170,31 +137,13 @@
         <option value="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/aspect/LogAspect.java" />
         <option value="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/service/PromotionService.java" />
         <option value="$PROJECT_DIR$/litemall/src/main/resources/com/pandax/litemall/mapper/CouponUserMapper.xml" />
+        <option value="$PROJECT_DIR$/litemall/src/main/resources/com/pandax/litemall/mapper/CouponMapper.xml" />
         <option value="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/bean/Coupon.java" />
         <option value="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/controller/PromotionController.java" />
         <option value="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/mapper/CouponUserMapper.java" />
         <option value="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/service/PromotionServiceImpl.java" />
-        <option value="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/config/ShiroConfig.java" />
-        <option value="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/handler/String2ListTypeHandler.java" />
-        <option value="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/controller/WxAuthController.java" />
-        <option value="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/shiro/AdminRealm.java" />
-        <option value="$PROJECT_DIR$/litemall/src/test/java/com/pandax/litemall/LitemallApplicationTests.java" />
         <option value="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/controller/AuthController.java" />
-        <option value="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/bean/BaseReqVo.java" />
-        <option value="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/handler/String2ArrayTypeHandler.java" />
-        <option value="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/bean/OrderGoods.java" />
-        <option value="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/bean/OrderExample.java" />
-        <option value="$PROJECT_DIR$/litemall/src/main/resources/com/pandax/litemall/mapper/OrderGoodsMapper.xml" />
-        <option value="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/mapper/CartMapper.java" />
-        <option value="$PROJECT_DIR$/litemall/src/main/resources/com/pandax/litemall/mapper/CartMapper.xml" />
-        <option value="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/mapper/CouponMapper.java" />
-        <option value="$PROJECT_DIR$/litemall/src/main/resources/com/pandax/litemall/mapper/CouponMapper.xml" />
-        <option value="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/controller/MallController.java" />
-        <option value="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/service/OrderService.java" />
         <option value="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/service/OrderServiceImpl.java" />
-        <option value="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/mapper/OrderMapper.java" />
-        <option value="$PROJECT_DIR$/litemall/src/main/resources/com/pandax/litemall/mapper/OrderMapper.xml" />
-        <option value="$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/controller/OrderController.java" />
       </list>
     </option>
   </component>
@@ -219,11 +168,6 @@
           <item name="litemall" type="9519ce18:MavenProjectsStructure$ProjectNode" />
           <item name="Lifecycle" type="58874e2:MavenProjectsStructure$LifecycleNode" />
         </path>
-        <path>
-          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
-          <item name="litemall" type="9519ce18:MavenProjectsStructure$ProjectNode" />
-          <item name="Dependencies" type="f4be9f2a:MavenProjectsStructure$DependenciesNode" />
-        </path>
       </expand>
       <select />
     </treeState>
@@ -231,7 +175,7 @@
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="8" />
     <option name="y" value="35" />
-    <option name="width" value="1943" />
+    <option name="width" value="1940" />
     <option name="height" value="973" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -314,17 +258,6 @@
               <item name="com" type="462c0819:PsiDirectoryNode" />
               <item name="pandax" type="462c0819:PsiDirectoryNode" />
               <item name="litemall" type="462c0819:PsiDirectoryNode" />
-              <item name="handler" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="litemall" type="b2602c69:ProjectViewProjectNode" />
-              <item name="litemall" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="pandax" type="462c0819:PsiDirectoryNode" />
-              <item name="litemall" type="462c0819:PsiDirectoryNode" />
               <item name="service" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -332,27 +265,6 @@
               <item name="litemall" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="pandax" type="462c0819:PsiDirectoryNode" />
-              <item name="litemall" type="462c0819:PsiDirectoryNode" />
-              <item name="shiro" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="litemall" type="b2602c69:ProjectViewProjectNode" />
-              <item name="litemall" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="pandax" type="462c0819:PsiDirectoryNode" />
-              <item name="reponseJson" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="litemall" type="b2602c69:ProjectViewProjectNode" />
-              <item name="litemall" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -371,34 +283,13 @@
               <item name="resources" type="462c0819:PsiDirectoryNode" />
               <item name="com" type="462c0819:PsiDirectoryNode" />
               <item name="pandax" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="litemall" type="b2602c69:ProjectViewProjectNode" />
-              <item name="litemall" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="pandax" type="462c0819:PsiDirectoryNode" />
-              <item name="litemall" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="litemall" type="b2602c69:ProjectViewProjectNode" />
-              <item name="litemall" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="pandax" type="462c0819:PsiDirectoryNode" />
-              <item name="litemall" type="462c0819:PsiDirectoryNode" />
-              <item name="mapper" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -408,7 +299,7 @@
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1574363820798" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1574385358485" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -417,11 +308,10 @@
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
     <property name="restartRequiresConfirmation" value="false" />
-    <property name="settings.editor.selected.configurable" value="spring.boot" />
+    <property name="settings.editor.selected.configurable" value="MavenSettings" />
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.pandax.litemall.handler" />
       <recent name="com.pandax.litemall.controller" />
       <recent name="com.pandax.litemall.mapper" />
     </key>
@@ -462,22 +352,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="LitemallApplicationTests.mytest2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="litemall" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.pandax.litemall.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.pandax.litemall" />
-      <option name="MAIN_CLASS_NAME" value="com.pandax.litemall.LitemallApplicationTests" />
-      <option name="METHOD_NAME" value="mytest2" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="LitemallApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="litemall" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.pandax.litemall.LitemallApplication" />
@@ -487,7 +361,6 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.LitemallApplicationTests.mytest2" />
         <item itemvalue="JUnit.LitemallApplicationTests.contextLoads" />
       </list>
     </recent_temporary>
@@ -510,10 +383,7 @@
       <workItem from="1574239112550" duration="14410000" />
       <workItem from="1574299610344" duration="601000" />
       <workItem from="1574316748731" duration="6709000" />
-      <workItem from="1574323937090" duration="125000" />
-      <workItem from="1574324154881" duration="2896000" />
-      <workItem from="1574327083061" duration="5714000" />
-      <workItem from="1574335579267" duration="28214000" />
+      <workItem from="1574384630670" duration="716000" />
     </task>
     <servers />
   </component>
@@ -521,18 +391,9 @@
     <history-entry file="LitemallApplicationTests_contextLoads - 2019.11.16 at 15h 25m 09s.xml">
       <configuration name="LitemallApplicationTests.contextLoads" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="LitemallApplicationTests_mytest2 - 2019.11.21 at 17h 48m 26s.xml">
-      <configuration name="LitemallApplicationTests.mytest2" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="LitemallApplicationTests_mytest2 - 2019.11.21 at 17h 50m 47s.xml">
-      <configuration name="LitemallApplicationTests.mytest2" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="LitemallApplicationTests_mytest2 - 2019.11.21 at 17h 52m 37s.xml">
-      <configuration name="LitemallApplicationTests.mytest2" configurationId="JUnit" />
-    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="111197000" />
+    <option name="totallyTimeSpent" value="74964000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -547,7 +408,7 @@
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21979167" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.23020834" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="UI Designer" order="3" />
@@ -557,15 +418,15 @@
       <window_info id="Image Layers" order="7" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.496875" weight="0.20064725" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.3398058" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.4973262" visible="true" weight="0.26860842" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.25386998" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32817337" />
       <window_info anchor="bottom" id="FindBugs-IDEA" order="7" />
       <window_info anchor="bottom" id="Spring" order="8" weight="0.32817337" />
       <window_info anchor="bottom" id="Terminal" order="9" weight="0.7941176" />
-      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.503125" side_tool="true" weight="0.69795036" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5026738" side_tool="true" weight="0.837963" />
       <window_info anchor="bottom" id="Java Enterprise" order="11" weight="0.32921174" />
       <window_info anchor="bottom" id="Database Changes" order="12" />
       <window_info anchor="bottom" id="Version Control" order="13" weight="0.32921174" />
@@ -574,7 +435,7 @@
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Maven" order="3" weight="0.35416666" />
+      <window_info anchor="right" id="Maven" order="3" weight="0.09947917" />
       <window_info anchor="right" id="Palette" order="4" />
       <window_info anchor="right" id="Capture Analysis" order="5" />
       <window_info anchor="right" id="Key Promoter X" order="6" />
@@ -590,6 +451,235 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/bean/User.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="5" column="16" selection-start-line="5" selection-start-column="16" selection-end-line="5" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/bean/TopicExample.java">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/mapper/RegionMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-91">
+          <caret line="7" column="17" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/service/AdminServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="151">
+          <caret line="32" column="31" lean-forward="true" selection-start-line="32" selection-start-column="31" selection-end-line="32" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/service/GoodsServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-342">
+          <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/mapper/TopicMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="19" column="16" selection-start-line="19" selection-start-column="16" selection-end-line="19" selection-end-column="16" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/litemall/src/main/resources/com/pandax/litemall/mapper/TopicMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="13" column="78" lean-forward="true" selection-start-line="13" selection-start-column="78" selection-end-line="13" selection-end-column="78" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/bean/AddressExample.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/bean/AdExample.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-209">
+          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/litemall/src/main/resources/com/pandax/litemall/mapper/GrouponRulesMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="358">
+          <caret line="291" column="28" selection-start-line="291" selection-start-column="28" selection-end-line="291" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/bean/Order.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/service/GoodsService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="7" column="17" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/service/UserService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/bean/Topic.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="418">
+          <caret line="25" selection-start-line="25" selection-end-line="25" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/litemall/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="361">
+          <caret line="19" selection-start-line="19" selection-end-line="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/litemall/src/test/java/com/pandax/litemall/LitemallApplicationTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="6" column="30" selection-start-line="6" selection-start-column="30" selection-end-line="6" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/bean/GrouponExample.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1862">
+          <caret line="120" column="9" selection-start-line="120" selection-start-column="9" selection-end-line="120" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/mapper/GrouponRulesMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="513">
+          <caret line="30" column="8" selection-start-line="30" selection-start-column="8" selection-end-line="30" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/litemall/src/main/resources/application.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19">
+          <caret line="1" column="12" selection-start-line="1" selection-start-column="12" selection-end-line="1" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/bean/Admin.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="23" column="25" selection-start-line="23" selection-start-column="25" selection-end-line="23" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/bean/Address.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/aspect/LogAspect.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-323">
+          <caret line="96" column="39" selection-start-line="96" selection-start-column="39" selection-end-line="96" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/shiro/MallRealmAuthenticator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="124">
+          <caret line="31" selection-start-line="31" selection-end-line="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/shiro/AdminRealm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="49" column="32" lean-forward="true" selection-start-line="49" selection-start-column="32" selection-end-line="49" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/config/ShiroConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-341">
+          <caret line="24" column="13" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/bean/BaseReqVo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/util/BaseRespVo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-380">
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/shiro/shiro-core/1.4.1/shiro-core-1.4.1.jar!/org/apache/shiro/subject/support/DelegatingSubject.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="67">
+          <caret line="184" selection-start-line="184" selection-end-line="184" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-core/5.2.1.RELEASE/spring-core-5.2.1.RELEASE.jar!/org/springframework/cglib/proxy/MethodProxy.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="104" selection-start-line="104" selection-end-line="104" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/bean/Storage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/bean/StatUserDb.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/shiro/WxRealm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="684">
+          <caret line="52" selection-start-line="52" selection-end-line="52" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/bean/Groupon.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="95">
@@ -611,6 +701,48 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/mapper/CouponMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-47">
+          <caret line="13" column="8" selection-start-line="13" selection-start-column="8" selection-end-line="13" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/controller/PromotionController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2254">
+          <caret line="108" selection-start-line="108" selection-end-line="108" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/controller/IndexController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1242">
+          <caret line="67" column="57" selection-start-line="67" selection-start-column="57" selection-end-line="67" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/service/IndexServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="161">
+          <caret line="17" column="26" selection-start-line="17" selection-start-column="26" selection-end-line="17" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/bean/Coupon.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="966">
+          <caret line="46" column="25" selection-start-line="46" selection-start-column="25" selection-end-line="46" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/service/PromotionServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6900">
+          <caret line="312" selection-start-line="312" selection-end-line="312" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/litemall/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
@@ -618,405 +750,72 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/reponseJson/Comments.java">
+    <entry file="file://$PROJECT_DIR$/litemall/src/main/resources/com/pandax/litemall/mapper/CouponMapper.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="115">
-          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/service/PromotionServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="287">
-          <caret line="317" column="73" lean-forward="true" selection-start-line="317" selection-start-column="73" selection-end-line="317" selection-end-column="73" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/bean/Coupon.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="521">
-          <caret line="46" column="25" selection-start-line="46" selection-start-column="25" selection-end-line="46" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/controller/PromotionController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-7069">
-          <caret line="16" column="38" lean-forward="true" selection-start-line="16" selection-start-column="38" selection-end-line="16" selection-end-column="38" />
+        <state relative-caret-position="23">
+          <caret line="385" column="15" selection-start-line="385" selection-start-column="15" selection-end-line="385" selection-end-column="15" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/service/PromotionService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="820">
+        <state relative-caret-position="355">
           <caret line="46" column="17" selection-start-line="46" selection-start-column="17" selection-end-line="46" selection-end-column="17" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/mapper/CouponUserMapper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="621">
+        <state relative-caret-position="539">
           <caret line="31" column="20" selection-start-line="31" selection-start-column="20" selection-end-line="31" selection-end-column="20" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/litemall/src/main/resources/com/pandax/litemall/mapper/CouponUserMapper.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="820">
+        <state relative-caret-position="57">
           <caret line="102" column="46" selection-start-line="102" selection-start-column="46" selection-end-line="102" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/config/ShiroConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-716">
-          <caret line="39" column="37" selection-start-line="39" selection-start-column="37" selection-end-line="39" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/mybatis/mybatis/3.5.2/mybatis-3.5.2.jar!/org/apache/ibatis/builder/xml/XMLMapperBuilder.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="106" selection-start-line="106" selection-end-line="106" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/controller/IndexController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2136">
-          <caret line="19" column="13" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/handler/String2IntArrayTypeHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="138">
-          <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/handler/String2ListTypeHandler.java" />
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-autoconfigure/2.2.1.RELEASE/spring-boot-autoconfigure-2.2.1.RELEASE.jar!/org/springframework/boot/autoconfigure/web/servlet/WebMvcAutoConfiguration.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="94">
-          <caret line="263" column="44" selection-start-line="263" selection-start-column="44" selection-end-line="263" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/../../../java/jdk1.8.0_111/src.zip!/java/util/LinkedHashMap.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="683" selection-start-line="683" selection-end-line="683" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/litemall/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="124" column="20" selection-start-line="124" selection-start-column="20" selection-end-line="124" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/component/AliyunComponent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="207">
-          <caret line="9" selection-start-line="9" selection-end-line="9" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/service/IndexServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-213">
-          <caret line="27" selection-start-line="27" selection-end-line="27" />
-          <folding>
-            <element signature="e#894#895#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/service/SmsService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="92">
-          <caret line="4" column="31" selection-start-line="4" selection-start-column="31" selection-end-line="4" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/controller/WxAuthController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3335">
-          <caret line="37" selection-start-line="37" selection-end-line="37" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/shiro/MallRealmAuthenticator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="529">
-          <caret line="31" selection-start-line="31" selection-end-line="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/litemall/src/test/java/com/pandax/litemall/LitemallApplicationTests.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="307">
-          <caret line="47" column="30" selection-start-line="47" selection-start-column="30" selection-end-line="47" selection-end-column="30" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/util/Md5Utils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-46">
-          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/shiro/AdminRealm.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="287">
-          <caret line="54" column="38" selection-start-line="54" selection-start-column="38" selection-end-line="54" selection-end-column="38" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/controller/AuthController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="23">
-          <caret line="49" column="43" selection-start-line="49" selection-start-column="43" selection-end-line="49" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/../../../java/jdk1.8.0_111/src.zip!/java/math/BigDecimal.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="227">
-          <caret line="1080" column="11" selection-start-line="1080" selection-start-column="11" selection-end-line="1080" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/service/CartServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="115">
-          <caret line="23" column="49" lean-forward="true" selection-start-line="23" selection-start-column="49" selection-end-line="23" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/controller/CartController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="29" selection-start-line="29" selection-end-line="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/bean/Cart.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-23">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/handler/String2ArrayTypeHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="109">
-          <caret line="60" selection-start-line="60" selection-end-line="60" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/litemall/src/main/resources/com/pandax/litemall/mapper/OrderGoodsMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="10" column="68" lean-forward="true" selection-start-line="10" selection-start-column="68" selection-end-line="10" selection-end-column="68" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/mapper/OrderGoodsMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="18" column="21" selection-start-line="18" selection-start-column="21" selection-end-line="18" selection-end-column="21" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/bean/GrouponExample.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="97">
-          <caret line="177" column="24" selection-start-line="177" selection-start-column="24" selection-end-line="177" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/bean/OrderExample.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="248">
-          <caret line="303" column="24" selection-start-line="303" selection-start-column="24" selection-end-line="303" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/bean/OrderGoods.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-132">
-          <caret line="24" column="27" lean-forward="true" selection-start-line="24" selection-start-column="27" selection-end-line="24" selection-end-column="27" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1832#1833#0" expanded="true" />
-            <element signature="e#1869#1870#0" expanded="true" />
-            <element signature="e#1929#1930#0" expanded="true" />
-            <element signature="e#1981#1982#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/litemall/src/main/resources/com/pandax/litemall/mapper/CartMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="298">
-          <caret line="371" column="24" lean-forward="true" selection-start-line="371" selection-start-column="24" selection-end-line="371" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/mapper/CartMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="344">
-          <caret line="36" column="76" selection-start-line="36" selection-start-column="76" selection-end-line="36" selection-end-column="76" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/bean/BaseReqVo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="115">
-          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-          <folding>
-            <element signature="e#997#998#0" expanded="true" />
-            <element signature="e#1039#1040#0" expanded="true" />
-            <element signature="e#1088#1089#0" expanded="true" />
-            <element signature="e#1130#1131#0" expanded="true" />
-            <element signature="e#1174#1175#0" expanded="true" />
-            <element signature="e#1214#1215#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/litemall/src/main/resources/com/pandax/litemall/mapper/CouponMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="376">
-          <caret line="450" column="83" selection-start-line="450" selection-start-column="83" selection-end-line="450" selection-end-column="83" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/mapper/CouponMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="367">
-          <caret line="33" column="15" selection-start-line="33" selection-start-column="15" selection-end-line="33" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/controller/MallController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="181" column="48" selection-start-line="181" selection-start-column="48" selection-end-line="181" selection-end-column="48" />
-          <folding>
-            <element signature="method#region#0;class#MallController#0" />
-            <element signature="method#brandList#0;class#MallController#0" />
-            <element signature="method#brandUpdate#0;class#MallController#0" />
-            <element signature="method#brandDelete#0;class#MallController#0" />
-            <element signature="method#brandCreate#0;class#MallController#0" />
-            <element signature="method#categoryList#0;class#MallController#0" />
-            <element signature="method#categoryL1#0;class#MallController#0" />
-            <element signature="method#categoryCreate#0;class#MallController#0" />
-            <element signature="method#categoryUpdate#0;class#MallController#0" />
-            <element signature="method#categoryDelete#0;class#MallController#0" />
-            <element signature="method#orderList#0;class#MallController#0" />
-            <element signature="method#orderDetail#0;class#MallController#0" />
-            <element signature="method#issueList#0;class#MallController#0" />
-            <element signature="method#keywordList#0;class#MallController#0" />
-            <element signature="method#keywordUpdate#0;class#MallController#0" />
-            <element signature="method#keywordDelete#0;class#MallController#0" />
-            <element signature="method#keywordCreate#0;class#MallController#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/bean/Order.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="23">
-          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/service/OrderService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="402">
-          <caret line="36" column="11" selection-start-line="36" selection-start-column="11" selection-end-line="36" selection-end-column="11" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="-2004">
+          <caret line="50" column="43" lean-forward="true" selection-start-line="50" selection-start-column="43" selection-end-line="50" selection-end-column="43" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/service/OrderServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="199">
-          <caret line="265" column="28" lean-forward="true" selection-start-line="265" selection-start-column="28" selection-end-line="265" selection-end-column="28" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#selectOrderByUserIdAndStatus#0;class#OrderServiceImpl#0" />
-            <element signature="method#getOrderList#0;class#OrderServiceImpl#0" />
-            <element signature="method#getOrderDetail#0;class#OrderServiceImpl#0" />
-            <element signature="method#orderSubmit#0;class#OrderServiceImpl#0" />
-            <element signature="method#cancelOrder#0;class#OrderServiceImpl#0" />
-            <element signature="method#deleteOrder#0;class#OrderServiceImpl#0" />
-            <element signature="method#confirmOrder#0;class#OrderServiceImpl#0" />
-            <element signature="method#refundOrder#0;class#OrderServiceImpl#0" />
-          </folding>
+        <state relative-caret-position="144">
+          <caret line="91" column="36" lean-forward="true" selection-start-line="91" selection-start-column="36" selection-end-line="91" selection-end-column="36" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/mapper/OrderMapper.java">
+    <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/service/OrderService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="57" lean-forward="true" selection-start-line="57" selection-end-line="57" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/litemall/src/main/resources/com/pandax/litemall/mapper/OrderMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="287">
-          <caret line="635" lean-forward="true" selection-start-line="635" selection-end-line="635" />
+        <state relative-caret-position="213">
+          <caret line="20" column="23" selection-start-line="20" selection-start-column="23" selection-end-line="20" selection-end-column="23" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/controller/OrderController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="36" column="8" lean-forward="true" selection-start-line="36" selection-start-column="8" selection-end-line="36" selection-end-column="8" />
+        <state relative-caret-position="342">
+          <caret line="83" column="56" lean-forward="true" selection-start-line="83" selection-start-column="56" selection-end-line="83" selection-end-column="56" />
           <folding>
-            <element signature="method#orderSubmit#0;class#OrderController#0" />
+            <element signature="method#orderPrepay#0;class#OrderController#0" />
             <element signature="docComment;method#orderList#0;class#OrderController#0" />
-            <element signature="method#orderList#0;class#OrderController#0" />
             <element signature="docComment;method#orderDetail#0;class#OrderController#0" />
-            <element signature="method#orderDetail#0;class#OrderController#0" />
-            <element signature="docComment;method#orderCancel#0;class#OrderController#0" />
-            <element signature="method#orderCancel#0;class#OrderController#0" />
-            <element signature="method#orderDelete#0;class#OrderController#0" />
-            <element signature="method#orderRefund#0;class#OrderController#0" />
-            <element signature="method#orderConfirm#0;class#OrderController#0" />
+            <element signature="method#orderGoods#0;class#OrderController#0" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/litemall/src/main/java/com/pandax/litemall/LitemallApplication.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="207">
-          <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
-          <folding>
-            <element signature="e#561#562#0" expanded="true" />
-            <element signature="e#631#632#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="299">
+          <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
         </state>
       </provider>
     </entry>
@@ -1073,7 +872,7 @@
       </state>
       <state key="ModuleStructureConfigurable.UI">
         <settings>
-          <last-edited>litemall</last-edited>
+          <last-edited>project2_4</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

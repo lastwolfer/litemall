@@ -40,6 +40,7 @@ public class AuthController {
         BaseReqVo baseReqVo = new BaseReqVo();
         Subject subject = SecurityUtils.getSubject();
         //admin得小写
+
         String password = loginVo.getPassword();
         password = Md5Utils.getMultiMd5(password);
         MallToken mallToken = new MallToken(loginVo.getUsername(), password, "admin");

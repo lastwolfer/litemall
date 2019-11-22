@@ -13,4 +13,6 @@ public interface CommentService {
 
 
     List<WxCommentData> getCommentsList(int valueId, byte type, int size, int page,int showType);
+
+    int commentPost(Comment comment);
 }

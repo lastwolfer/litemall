@@ -6,8 +6,10 @@ import java.util.List;
 import java.util.Map;
 
 import com.pandax.litemall.bean.WxCommentData;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 public interface CommentMapper {
     long countByExample(CommentExample example);
@@ -38,7 +40,8 @@ public interface CommentMapper {
     @Select("select count(id) from cskaoyan_mall_comment where value_id = #{valueId} and type = #{type} and has_picture = 1")
     long getPicComments(@Param("valueId")int valueId, @Param("type")byte type);
 
-
-
     List<WxCommentData> getPicCommentsList(@Param("valueId")int valueId, @Param("type")byte type,int showType);
+
+    @Insert("insert into cskaoyan_mall_comment value (null,#{comment.valueId},#{comment.type},#{comment.content},#{comment.userId},#{comment.hasPicture},#{comment.picUrls},#{comment.star},#{comment.addTime},#{comment.updateTime} ,0)")
+    int updateComment(@Param("comment") Comment comment);
 }

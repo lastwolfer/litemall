@@ -29,4 +29,6 @@ public interface GrouponRulesMapper {
     int updateByPrimaryKey(GrouponRules record);
 
     int selectLastInsert();
+
+    GrouponRules selectByGoodsId(Integer goodsId);
 }
