@@ -48,9 +48,9 @@ public interface OrderMapper {
 
     int updateConfirm(@Param("orderId") Short orderId,@Param("comments") Integer comments);
 
-    List<Order> getOrders(@Param("status") Short status);
+    List<Order> getOrders(@Param("status") Short status,@Param("userId") Integer userId);
 
-    List<Order> getAllOrders();
+    List<Order> getAllOrders(@Param("userId") Integer userId);
 
     int updateShipInfo(@Param("orderId") Integer orderId,
                        @Param("shipChannel") String shipChannel,
@@ -59,4 +59,6 @@ public interface OrderMapper {
     int refundOrder(@Param("orderId") Integer orderIdX);
 
     int updatePrePay(@Param("orderId") Integer orderIdX, @Param("payId") String payId);
+
+    int updateOrderComment(Integer orderId);
 }

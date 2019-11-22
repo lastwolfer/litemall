@@ -8,6 +8,8 @@ import com.pandax.litemall.bean.*;
 import com.pandax.litemall.handler.String2ArrayTypeHandler;
 import com.pandax.litemall.mapper.*;
 import com.sun.org.apache.bcel.internal.generic.NEW;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -48,6 +50,8 @@ public class OrderServiceImpl implements OrderService{
     GrouponMapper grouponMapper;
     @Autowired
     GrouponRulesMapper grouponRulesMapper;
+    @Autowired
+    CommentMapper commentMapper;
 
     @Override
     public int countOrders() {
@@ -63,6 +67,9 @@ public class OrderServiceImpl implements OrderService{
     @Override
     public Map<String,Object> getOrderList(Short showType, Integer page, Integer size) {
         PageHelper.startPage(page, size);
+        /*确认当前用户id*/
+        User user = (User) SecurityUtils.getSubject().getPrincipal();
+        Integer userId = user.getId();
         /*查询订单信息*/
         OrderExample example = new OrderExample();
         GrouponExample grouponExample = new GrouponExample();
@@ -70,7 +77,7 @@ public class OrderServiceImpl implements OrderService{
         List<Short> statusList = new ArrayList<>();
         List<Order> orders = new ArrayList<>();
         if(showType == 0) {
-            orders = orderMapper.getAllOrders();
+            orders = orderMapper.getAllOrders(userId);
         }else {
             if(showType == 1){
                 statusList.add((short) 101);
@@ -84,7 +91,7 @@ public class OrderServiceImpl implements OrderService{
                 statusList.add((short)402);
             }
             for (Short status : statusList) {
-                List<Order> sOrderList = orderMapper.getOrders(status);
+                List<Order> sOrderList = orderMapper.getOrders(status,userId);
                 orders.addAll(sOrderList);
             }
         }
@@ -264,6 +271,35 @@ public class OrderServiceImpl implements OrderService{
         String payId = String.valueOf(orderIdX + 2019);
         int prePayStatus = orderMapper.updatePrePay(orderIdX,payId);
         return prePayStatus;
+    }
+
+    @Override
+    public OrderGoods getOrderGoods(Integer orderId, Integer goodsId) {
+        OrderGoodsExample orderGoodsExample = new OrderGoodsExample();
+        orderGoodsExample.createCriteria().andOrderIdEqualTo(orderId).andGoodsIdEqualTo(goodsId);
+        List<OrderGoods> orderGoodsList = orderGoodsMapper.selectByExample(orderGoodsExample);
+        if(orderGoodsList == null){
+            return null;
+        }else{
+            return orderGoodsList.get(0);
+        }
+
+    }
+
+    @Override
+    public int commentPost(Comment comment) {
+        int updateCommentStatus = commentMapper.updateComment(comment);
+        Integer orderGoodsId = comment.getOrderGoodsId();
+        Integer commentId = comment.getId();
+        int updateOrderGoodsComment = orderGoodsMapper.updateComment(orderGoodsId,commentId);
+        OrderGoods orderGoods = orderGoodsMapper.selectByPrimaryKey(orderGoodsId);
+        Integer orderId = orderGoods.getOrderId();
+        int updateOrderComment = orderMapper.updateOrderComment(orderId);
+        if(updateCommentStatus!= -1 && updateOrderGoodsComment != -1 && updateOrderComment!= -1){
+            return 1;
+        }else{
+            return -1;
+        }
     }
 
 
