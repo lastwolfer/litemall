@@ -352,4 +352,8 @@
     from cskaoyan_mall_address
     where user_id=#{id}
   </select>
+
+    <update id="updateIsDefaultFalse">
+      update cskaoyan_mall_address set is_default = 0 where user_id = #{userId}
+    </update>
 </mapper>
