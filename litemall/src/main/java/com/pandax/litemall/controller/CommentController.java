@@ -50,7 +50,6 @@ public class CommentController {
         baseReqVo.setErrno(0);
         baseReqVo.setData(map);
         baseReqVo.setErrmsg("成功");
-
         return baseReqVo;
     }
 
