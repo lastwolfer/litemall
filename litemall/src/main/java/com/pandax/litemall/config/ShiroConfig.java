@@ -35,7 +35,6 @@ public class ShiroConfig {
         map.put("/wx/**", "anon");
         map.put("/admin/auth/login", "anon");
         map.put("/wx/auth/login","anon");
-        map.put("/**", "anon");
         map.put("/**/*.jpg", "anon");
         map.put("/**/*.png", "anon");
         //map.put("/admin/auth/logout", "logout");

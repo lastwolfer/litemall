@@ -153,13 +153,8 @@ public class OrderServiceImpl implements OrderService{
         String message = orderSubmitInfo.getMessage();
         /*通过cartId获取cart信息*/
         CartExample cartExample = new CartExample();
-        if(cartId == 0) {
-            cartExample.createCriteria().andCheckedEqualTo(true);
-        }else{
-            cartExample.createCriteria().andIdEqualTo(cartId);
-        }
+        cartExample.createCriteria().andCheckedEqualTo(true);
         List<Cart> cartList = cartMapper.selectByExample(cartExample);
-        System.out.println(cartList);
         Cart cartX = cartList.get(0);
         /*拼接订单基本信息*/
         Order order = new Order();

@@ -186,4 +186,16 @@ public class MallController {
             return BaseReqVo.fail();
         }
     }
+
+    @RequestMapping("admin/order/refund")
+    public BaseReqVo orderRefund(@RequestBody Map map){
+        Integer orderId = (Integer) map.get("orderId");
+        Integer refundMoney = (Integer) map.get("refundMoney");
+        int updateRefundStatus = orderMapper.updateRefund(orderId,refundMoney);
+        if (updateRefundStatus != -1) {
+            return BaseReqVo.ok();
+        }else{
+            return BaseReqVo.fail();
+        }
+    }
 }

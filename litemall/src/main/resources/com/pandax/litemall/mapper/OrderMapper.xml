@@ -637,4 +637,8 @@
     update cskaoyan_mall_order set update_time = now(),comments = comments-1
     where id = #{orderId}
   </update>
+
+  <update id="updateRefund">
+    update cskaoyan_mall_order set order_status = 203,update_time = now(),end_time = now(), deleted = 1
+  </update>
 </mapper>

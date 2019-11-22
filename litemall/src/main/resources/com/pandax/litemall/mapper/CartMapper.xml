@@ -357,7 +357,7 @@
     select
     <include refid="Base_Column_List" />
     from cskaoyan_mall_cart
-    where user_id=#{id}
+    where user_id=#{id} and deleted = 0
   </select>
   <update id="updateCheckedByProductId">
     update cskaoyan_mall_cart set checked=#{check}

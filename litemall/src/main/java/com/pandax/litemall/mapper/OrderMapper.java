@@ -61,4 +61,6 @@ public interface OrderMapper {
     int updatePrePay(@Param("orderId") Integer orderIdX, @Param("payId") String payId);
 
     int updateOrderComment(Integer orderId);
+
+    int updateRefund(Integer orderId, Integer refundMoney);
 }
