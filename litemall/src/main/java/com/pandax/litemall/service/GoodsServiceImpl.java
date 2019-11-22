@@ -546,7 +546,6 @@ public class GoodsServiceImpl implements GoodsService {
         goodsDetail.setProductList(goodsProducts);
         //传讯info
         goodsDetail.setInfo(goods);//ok
-
         return goodsDetail;
     }
 

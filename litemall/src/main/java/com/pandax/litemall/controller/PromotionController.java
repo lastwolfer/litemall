@@ -2,7 +2,11 @@ package com.pandax.litemall.controller;
 
 import com.pandax.litemall.bean.*;
 import com.pandax.litemall.service.PromotionService;
+
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+
 import org.apache.shiro.SecurityUtils;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

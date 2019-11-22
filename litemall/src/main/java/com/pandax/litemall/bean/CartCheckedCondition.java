@@ -2,6 +2,7 @@ package com.pandax.litemall.bean;
 
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Data
@@ -26,10 +27,10 @@ public class CartCheckedCondition {
     private Address checkedAddress;
     private Double actualPrice;
     private Double orderTotalPrice;
-    private Integer couponPrice=0;
-    private Integer availableCouponLength=0;
-    private Integer couponId=0;
-    private Integer freightPrice=0;
+    private Integer couponPrice = 0;
+    private Integer availableCouponLength;
+    private Integer couponId =0;
+    private Integer freightPrice = 0;
     private List<Cart> checkedGoodsList;
     private Double goodsTotalPrice;
     private int addressId=0;

@@ -115,6 +115,10 @@ public class LogAspect {
             log.setStatus(true);
         }
 
+<<<<<<< HEAD
+=======
+        //根据方法名字分类
+>>>>>>> 7937bb74ec0f00bb3c201c5df6a74f553854dc87
         log.setType(1);
 
         //自定义修改
@@ -141,6 +145,7 @@ public class LogAspect {
                 action = "删除管理员";
                 log.setResult(vo.getErrmsg());
                 break;
+<<<<<<< HEAD
             case "brand/update":
                 action="品牌内容修改";
                 break;
@@ -160,6 +165,32 @@ public class LogAspect {
                 action="问题删除";
                 break;
 
+=======
+            case "user/list":
+                action = "会员管理";
+                log.setType(0);
+                break;
+             case "address/list":
+                action = "收获地址";
+                log.setType(0);
+                break;
+             case "collect/list":
+                action = "会员收藏";
+                log.setType(0);
+                break;
+             case "footprint/list":
+                action = "会员足迹";
+                log.setType(0);
+                break;
+             case "history/listt":
+                action = "搜索历史";
+                log.setType(0);
+                break;
+             case "feedback/list":
+                action = "意见反馈";
+                log.setType(0);
+                break;
+>>>>>>> 7937bb74ec0f00bb3c201c5df6a74f553854dc87
         }
         log.setAction(action);
 
