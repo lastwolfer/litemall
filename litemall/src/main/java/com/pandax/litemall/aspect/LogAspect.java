@@ -115,6 +115,7 @@ public class LogAspect {
             log.setStatus(true);
         }
 
+        log.setType(1);
 
         //自定义修改
         String comment = "";
@@ -140,11 +141,29 @@ public class LogAspect {
                 action = "删除管理员";
                 log.setResult(vo.getErrmsg());
                 break;
+            case "brand/update":
+                action="品牌内容修改";
+                break;
+            case "brand/delete":
+                action="删除该品牌";
+                break;
+            case "category/update":
+                action="修改商品";
+                break;
+            case "category/delete":
+                action="删除商品";
+                break;
+            case "issue/update":
+                action="问题修改";
+                break;
+            case "issue/delete":
+                action="问题删除";
+                break;
+
         }
         log.setAction(action);
 
-        //根据方法名字分类
-        log.setType(1);
+
 
         log.setAddTime(new Date());
         log.setUpdateTime(new Date());

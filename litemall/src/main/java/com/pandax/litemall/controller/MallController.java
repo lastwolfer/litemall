@@ -3,6 +3,7 @@ package com.pandax.litemall.controller;
 import com.pandax.litemall.bean.*;
 import com.pandax.litemall.mapper.OrderMapper;
 import com.pandax.litemall.service.MallService;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -134,6 +135,23 @@ public class MallController {
         BaseReqVo<Object> baseReqVo = new BaseReqVo<>();
         HashMap<String, Object> map = mallService.issueList(page,limit,question,sort,order);
         baseReqVo.setData(map);
+        baseReqVo.setErrmsg("成功");
+        baseReqVo.setErrno(0);
+        return baseReqVo;
+    }
+    @RequestMapping("admin/issue/update")
+    public BaseReqVo issueUpdate(@RequestBody Issue issue) {
+        BaseReqVo<Object> baseReqVo = new BaseReqVo<>();
+        Issue issue1 = mallService.issueUpdate(issue);
+        baseReqVo.setData(issue1);
+        baseReqVo.setErrmsg("成功");
+        baseReqVo.setErrno(0);
+        return baseReqVo;
+    }
+    @RequestMapping("admin/issue/delete")
+    public BaseReqVo issueDelete(@RequestBody Issue issue) {
+        BaseReqVo<Object> baseReqVo = new BaseReqVo<>();
+        mallService.issueDelete(issue);
         baseReqVo.setErrmsg("成功");
         baseReqVo.setErrno(0);
         return baseReqVo;

@@ -212,4 +212,16 @@ public class MallServiceImpl implements MallService {
         return keyword1;
     }
 
+    @Override
+    public Issue issueUpdate(Issue issue) {
+        issue.setUpdateTime(new Date());
+        issueMapper.updateByPrimaryKey(issue);
+        return issue;
+    }
+
+    @Override
+    public void issueDelete(Issue issue) {
+        issueMapper.deleteByPrimaryKey(issue.getId());
+    }
+
 }
