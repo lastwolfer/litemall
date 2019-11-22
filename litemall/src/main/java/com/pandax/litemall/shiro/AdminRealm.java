@@ -47,6 +47,9 @@ public class AdminRealm extends AuthorizingRealm {
         MallToken token = (MallToken) authenticationToken;
         //Subject subject = SecurityUtils.getSubject();
         Admin admin = adminMapper.selectAdminByName(token.getUsername());
+        if(admin == null) {
+            return null;
+        }
         String password = admin.getPassword();
         SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(admin, password, getName());
         return authenticationInfo;
