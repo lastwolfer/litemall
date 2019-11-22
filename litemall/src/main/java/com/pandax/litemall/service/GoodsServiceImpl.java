@@ -9,6 +9,7 @@ import com.pandax.litemall.mapper.*;
 
 import com.pandax.reponseJson.Comments;
 import com.pandax.reponseJson.GoodsDetail;
+import com.pandax.reponseJson.SingleComment;
 import com.pandax.reponseJson.SpecificationList;
 import org.omg.CORBA.OBJ_ADAPTER;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +48,8 @@ public class GoodsServiceImpl implements GoodsService {
     HistoryMapper historyMapper;
     @Autowired
     FootprintMapper footprintMapper;
+    @Autowired
+    UserMapper userMapper;
 
     /**
      * 商品清单分页，排序
@@ -508,8 +511,21 @@ public class GoodsServiceImpl implements GoodsService {
         List<Comment> comments = commentMapper.selectByExample(commentExample);
         long count1 = commentMapper.countByExample(commentExample);
         Comments comments1 = new Comments();
+        List<SingleComment> list = new ArrayList<>();
+        for (Comment comment : comments) {
+            SingleComment singleComment = new SingleComment();
+            singleComment.setId(comment.getId());
+            //获得用户昵称
+            User user = userMapper.selectByPrimaryKey(comment.getUserId());
+            singleComment.setNickname(user.getNickname());
+            singleComment.setContent(comment.getContent());
+            singleComment.setPicList(comment.getPicUrls());
+            singleComment.setAddTime(comment.getAddTime());
+            singleComment.setAvatar(user.getAvatar());
+            list.add(singleComment);
+        }
         comments1.setCount(count1);
-        comments1.setData(comments);
+        comments1.setData(list);
         goodsDetail.setComment(comments1);//ok
 
         //查询attribute
@@ -630,6 +646,40 @@ public class GoodsServiceImpl implements GoodsService {
         map.put("goodsList", goods);
         map.put("count", total);
         map.put("filterCategoryList", categories);
+        return map;
+    }
+
+    @Override
+    public Map selectAllNewGoods(Boolean isNew,Integer page,Integer size,String order,String sort,Integer categoryId) {
+        PageHelper.startPage(page,size);
+        GoodsExample goodsExample = new GoodsExample();
+        goodsExample.setOrderByClause(sort + " "+ order);
+        goodsExample.createCriteria().andIsNewEqualTo(isNew);
+        List<Goods> goods = goodsMapper.selectByExample(goodsExample);
+        PageInfo<Goods> pageInfo = new PageInfo<>(goods);
+        long total = pageInfo.getTotal();
+        List<Category> categories = categoryMapper.selectByExample(null);
+        Map<String,Object> map = new HashMap<>();
+        map.put("goodsList",goods);
+        map.put("count",total);
+        map.put("filterCategoryList",categories);
+        return map;
+    }
+
+    @Override
+    public Map selectAllHotGoods(Boolean isHot, Integer page, Integer size, String order, String sort, Integer categoryId) {
+        PageHelper.startPage(page,size);
+        GoodsExample goodsExample = new GoodsExample();
+        goodsExample.setOrderByClause(sort + " "+ order);
+        goodsExample.createCriteria().andIsHotEqualTo(isHot);
+        List<Goods> goods = goodsMapper.selectByExample(goodsExample);
+        PageInfo<Goods> pageInfo = new PageInfo<>(goods);
+        long total = pageInfo.getTotal();
+        List<Category> categories = categoryMapper.selectByExample(null);
+        Map<String,Object> map = new HashMap<>();
+        map.put("goodsList",goods);
+        map.put("count",total);
+        map.put("filterCategoryList",categories);
         return map;
     }
 }

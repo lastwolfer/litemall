@@ -54,4 +54,8 @@ public interface GoodsService {
     Map selectBrandByBrandId(Integer brandId, Integer page, Integer size);
 
     Map selectGoodsByKeyWord(String keyWord, String sort, String order, Integer categoryId, Integer page, Integer size);
+
+    Map selectAllNewGoods(Boolean isNew,Integer page,Integer size,String order,String sort,Integer categoryId);
+
+    Map selectAllHotGoods(Boolean isHot, Integer page, Integer size, String order, String sort, Integer categoryId);
 }

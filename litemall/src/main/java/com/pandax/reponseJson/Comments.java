@@ -8,7 +8,6 @@ import java.util.List;
 @Data
 public class Comments {
 
-    List<Comment> data;
-
+    List<SingleComment> data;
     Long count;
 }
