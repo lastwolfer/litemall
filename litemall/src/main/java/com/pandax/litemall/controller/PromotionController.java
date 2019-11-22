@@ -2,7 +2,11 @@ package com.pandax.litemall.controller;
 
 import com.pandax.litemall.bean.*;
 import com.pandax.litemall.service.PromotionService;
+
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+
+import org.apache.shiro.SecurityUtils;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -95,6 +99,25 @@ public class PromotionController {
     @RequestMapping("admin/coupon/list")
     public BaseReqVo listCoupon(Integer page, Integer limit, String sort,String order,Coupon coupon){
         Map<String, Object> map = promotionService.listCoupon(page, limit,sort,order,coupon);
+        BaseReqVo baseReqVo = new BaseReqVo();
+        if(map!=null){
+            baseReqVo.setData(map);
+            baseReqVo.setErrmsg("成功");
+            baseReqVo.setErrno(0);
+            return baseReqVo;
+        }
+        baseReqVo.setErrmsg("失败");
+        baseReqVo.setErrno(-1);
+        return baseReqVo;
+    }
+    @RequestMapping("wx/coupon/list")
+    public BaseReqVo listCoupon(Integer page, Integer size){
+        User user = (User) SecurityUtils.getSubject().getPrincipal();
+        Coupon coupon = new Coupon();
+        coupon.setId(user.getId());
+        Short status = 0;
+        coupon.setStatus(status);
+        Map<String, Object> map = promotionService.wxListCoupon(page,size,coupon);
         BaseReqVo baseReqVo = new BaseReqVo();
         if(map!=null){
             baseReqVo.setData(map);

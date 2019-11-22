@@ -1,16 +1,17 @@
 package com.pandax.litemall.controller;
 
 
-import com.pandax.litemall.bean.BaseReqVo;
+import com.google.gson.Gson;
+import com.pandax.litemall.bean.*;
 import com.pandax.litemall.bean.UserInfo;
 import com.pandax.litemall.shiro.UserToken;
 import com.pandax.litemall.shiro.UserTokenManager;
+import net.sf.json.JSON;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
 import com.pandax.litemall.bean.BaseReqVo;
-import com.pandax.litemall.bean.User;
 import com.pandax.litemall.service.SmsService;
 import com.pandax.litemall.service.UserService;
 import com.pandax.litemall.shiro.MallToken;
@@ -31,40 +32,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.Serializable;
 import java.util.*;
-
-/**
-<<<<<<< HEAD
- * Created by little Stone
- * Date 2019/7/8 Time 20:55
- */
 
 
 @RestController
 @RequestMapping("/wx")
 public class WxAuthController {
-
-	@GetMapping("user/index")
-	public Object list(HttpServletRequest request) {
-		//前端写了一个token放在请求头中
-		//*************************
-		//获得请求头
-		String tokenKey = request.getHeader("X-Litemall-Token");
-		Integer userId = UserTokenManager.getUserId(tokenKey);
-		//通过请求头获得userId，进而可以获得一切关于user的信息
-		//**************************
-		if (userId == null) {
-			return BaseReqVo.fail();
-		}
-
-		Map<Object, Object> data = new HashMap<Object, Object>();
-		//***********************************
-		//根据userId查询订单信息
-		data.put("order", null);
-		//***********************************
-
-		return BaseReqVo.ok(data);
-	}
 
     @Autowired
     UserService userService;
@@ -75,7 +49,7 @@ public class WxAuthController {
     @Value("${my.Storage.path}")
     private String prefix;
 
-    private HashMap<String, String> verificationCodeMap;
+    private HashMap<String, String> verificationCodeMap = new HashMap<>();
 
     /**
      * 用户商城账号登录
@@ -156,6 +130,7 @@ public class WxAuthController {
     @RequestMapping("auth/register")
     public BaseReqVo register(@RequestBody Map map, HttpServletRequest request){
         String code = (String) map.get("code");
+
         String mobile = (String) map.get("mobile");
         if(!"88888888".equals(code)) {
             if (verificationCodeMap == null) {
@@ -184,6 +159,7 @@ public class WxAuthController {
         password = Md5Utils.getMultiMd5(password);
 
         String wxCode = (String) map.get("wxCode");
+        verificationCodeMap.put("wxCode", wxCode);
 
 
 
@@ -292,6 +268,7 @@ public class WxAuthController {
     @RequestMapping("auth/login_by_weixin")
     public BaseReqVo loginByWx(@RequestBody Map map,HttpServletRequest request) {
         String code = (String) map.get("code");
+        verificationCodeMap.put("wxCode", code);
         Map userMap = (Map) map.get("userInfo");
         String nickName = (String) userMap.get("nickName");
         String avatarUrl = (String) userMap.get("avatarUrl");
@@ -336,6 +313,8 @@ public class WxAuthController {
             updateUserByLoginTimeAndIp(user,request);
         }
 
+
+
         Subject subject = SecurityUtils.getSubject();
         MallToken mallToken = new MallToken(user.getUsername(),user.getPassword(), "wx");
         try {
@@ -343,8 +322,7 @@ public class WxAuthController {
         } catch (AuthenticationException e) {
             return BaseReqVo.fail(600, "账号或者密码错误!");
         }
-        User userFromSubject = (User) subject.getPrincipal();
-
+        //User userFromSubject = (User) subject.getPrincipal();
         map.put("token", subject.getSession().getId());
         map.put("tokenExpire", new Date());
         map.remove("code");
@@ -355,6 +333,33 @@ public class WxAuthController {
         user.setLastLoginIp(HttpUtils.getIpAddr(request));
         user.setLastLoginTime(new Date());
         userService.updateUser(user);
+    }
+
+
+    @RequestMapping("auth/bindPhone")
+    public BaseReqVo bindPhone(@RequestBody Map map){
+        String iv = (String) map.get("iv");
+        String encryptedData = (String) map.get("encryptedData");
+        String wxCode = verificationCodeMap.get("wxCode");
+        String sessionKey = WechatUtil.getSessionKey(wxCode);
+        String data = null;
+        try {
+            data = WechatUtil.decryptData(encryptedData, sessionKey, iv);
+        } catch (NullPointerException e) {
+            return BaseReqVo.fail(610, "该账号已经完成手机绑定。");
+            //e.printStackTrace();
+        }
+        WxBindPhoneRs wxBindPhoneRs = new Gson().fromJson(data, WxBindPhoneRs.class);
+        String phoneNumber = wxBindPhoneRs.getPhoneNumber();
+        User userFromBD = userService.selectUserByMobile(phoneNumber);
+        if(userFromBD != null) {
+            return BaseReqVo.fail(602, "该账号已经完成手机绑定。");
+        } else {
+            User user = (User) SecurityUtils.getSubject().getPrincipal();
+            user.setMobile(phoneNumber);
+            userService.updateUser(user);
+        }
+        return BaseReqVo.ok();
     }
 
 
