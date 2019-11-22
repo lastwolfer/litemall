@@ -4,11 +4,10 @@ package com.pandax.litemall.service;
         import com.pandax.litemall.mapper.GoodsMapper;
         import com.pandax.litemall.mapper.HistoryMapper;
         import com.pandax.litemall.mapper.KeywordMapper;
+        import org.apache.commons.lang.ArrayUtils;
         import org.springframework.beans.factory.annotation.Autowired;
         import org.springframework.stereotype.Service;
-
         import java.util.List;
-        import java.util.Random;
 
 @Service
 public class SearchServiceImpl implements SearchService {
@@ -18,6 +17,9 @@ public class SearchServiceImpl implements SearchService {
 
     @Autowired
     KeywordMapper keywordMapper;
+
+    @Autowired
+    GoodsMapper goodsMapper;
 
     @Override
     public int clearHistrory(int id) {
@@ -42,7 +44,11 @@ public class SearchServiceImpl implements SearchService {
 
     @Override
     public String[] getHelper(String keyword) {
-        return keywordMapper.getHelper(keyword);
+        String[] k1 = keywordMapper.getHelper(keyword);
+
+        String[] k2 = goodsMapper.getHelper(keyword);
+
+        return (String[]) ArrayUtils.addAll(k1,k2);
     }
 
     @Override

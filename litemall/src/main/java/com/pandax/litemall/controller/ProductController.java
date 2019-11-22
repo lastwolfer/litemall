@@ -240,19 +240,19 @@ public class ProductController {
                                  String keyword,String sort,String order,Boolean isNew,Boolean isHot){
         BaseReqVo baseReqVo = new BaseReqVo();
         Map map =null;
-        if(isHot != null ){
+        if(isHot != null ){//查看人气商品
             map = goodsService.selectAllHotGoods(isHot,page,size,order,sort,categoryId);
             baseReqVo.setErrmsg("成功");
             baseReqVo.setData(map);
             return baseReqVo;
         }
-        if(isNew != null){
+        if(isNew != null){//查看新品首发
             map = goodsService.selectAllNewGoods(isNew,page,size,order,sort,categoryId);
             baseReqVo.setErrmsg("成功");
             baseReqVo.setData(map);
             return baseReqVo;
         }
-        if(keyword != null ){
+        if(keyword != null ){//模糊查找
             Subject subject = SecurityUtils.getSubject();
             User user = (User) subject.getPrincipal();
             if (user != null){
@@ -263,13 +263,13 @@ public class ProductController {
             baseReqVo.setData(map);
             return baseReqVo;
         }
-        if(categoryId != null) {
+        if(categoryId != null) {//分类查找
             map = goodsService.selectGoodsByCategoryId(categoryId, page, size);
             baseReqVo.setErrmsg("成功");
             baseReqVo.setData(map);
             return baseReqVo;
         }
-        if(brandId != null){
+        if(brandId != null){//品牌查找
             map = goodsService.selectBrandByBrandId(brandId,page, size);
             baseReqVo.setErrmsg("成功");
             baseReqVo.setData(map);

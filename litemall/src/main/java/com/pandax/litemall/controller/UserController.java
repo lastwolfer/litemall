@@ -12,6 +12,7 @@ import com.pandax.reponseJson.UserAllAddress;
 import com.pandax.litemall.bean.*;
 import com.pandax.litemall.service.GoodsService;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.subject.Subject;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +48,7 @@ public class UserController {
      * @return 返回json数据
      */
     @RequestMapping("/admin/user/list")
+    @RequiresPermissions("admin:user:list")
     public BaseReqVo userList(Integer page, Integer limit, String sort, String order, String mobile, String username) {
         BaseReqVo baseReqVo = new BaseReqVo();
         Map map = userService.selectUserList(page, limit, sort, order, mobile, username);
@@ -68,6 +70,7 @@ public class UserController {
      * @return 返回json数据
      */
     @RequestMapping("/admin/address/list")
+    @RequiresPermissions("admin:address:list")
     public BaseReqVo addressList(Integer page, Integer limit, String sort, String order, String name, Integer userId) {
         BaseReqVo baseReqVo = new BaseReqVo();
         Map map = userService.selectAddressList(page, limit, sort, order, name, userId);
@@ -89,6 +92,7 @@ public class UserController {
      * @return 返回json数据
      */
     @RequestMapping("/admin/collect/list")
+    @RequiresPermissions("admin:collect:list")
     public BaseReqVo collectList(Integer page, Integer limit, String sort, String order, Integer valueId, Integer userId) {
         BaseReqVo baseReqVo = new BaseReqVo();
         Map map = userService.selectCollectList(page, limit, sort, order, valueId, userId);
@@ -110,6 +114,7 @@ public class UserController {
      * @return 返回json数据
      */
     @RequestMapping("/admin/footprint/list")
+    @RequiresPermissions("admin:footprint:list")
     public BaseReqVo footprintList(Integer page, Integer limit, String sort, String order, Integer goodsId, Integer userId) {
         BaseReqVo baseReqVo = new BaseReqVo();
         Map map = userService.selectFootprintList(page, limit, sort, order, goodsId, userId);
@@ -131,6 +136,7 @@ public class UserController {
      * @return 返回json数据
      */
     @RequestMapping("/admin/history/list")
+    @RequiresPermissions("admin:history:list")
     public BaseReqVo historyList(Integer page, Integer limit, String sort, String order, Integer userId, String keyword) {
         BaseReqVo baseReqVo = new BaseReqVo();
         Map map = userService.selectHistoryList(page, limit, sort, order, userId, keyword);
@@ -152,6 +158,7 @@ public class UserController {
      * @return json数据
      */
     @RequestMapping("/admin/feedback/list")
+    @RequiresPermissions("admin:feedback:list")
     public BaseReqVo feedbackList(Integer page, Integer limit, String sort, String order, Integer id, String username) {
         BaseReqVo baseReqVo = new BaseReqVo();
         Map map = userService.selectFeedbackList(page, limit, sort, order, id, username);
