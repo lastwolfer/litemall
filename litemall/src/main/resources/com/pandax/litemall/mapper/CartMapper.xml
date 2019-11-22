@@ -375,4 +375,10 @@
     <update id="updateDeleted">
       update cskaoyan_mall_cart set deleted = 1 where id = #{cartId}
     </update>
+  <select id="selectNumber" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from cskaoyan_mall_cart
+    where user_id=#{id} and deleted = 0 and goods_id=#{goodsId}
+  </select>
 </mapper>
