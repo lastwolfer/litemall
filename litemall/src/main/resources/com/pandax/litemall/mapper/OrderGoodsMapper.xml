@@ -362,4 +362,7 @@
     from cskaoyan_mall_order_goods
     where order_id=#{orderId}
   </select>
+  <update id="updateComment">
+    update cskaoyan_mall_order_goods set comment = #{commentId} where id = #{orderGoodId}
+  </update>
 </mapper>

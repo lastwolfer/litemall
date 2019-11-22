@@ -1,14 +1,11 @@
 package com.pandax.litemall.service;
 
         import com.pandax.litemall.bean.Keyword;
-        import com.pandax.litemall.mapper.GoodsMapper;
         import com.pandax.litemall.mapper.HistoryMapper;
         import com.pandax.litemall.mapper.KeywordMapper;
         import org.springframework.beans.factory.annotation.Autowired;
         import org.springframework.stereotype.Service;
-
         import java.util.List;
-        import java.util.Random;
 
 @Service
 public class SearchServiceImpl implements SearchService {

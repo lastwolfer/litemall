@@ -45,13 +45,14 @@ public class WxRealm extends AuthorizingRealm {
         UserExample example = new UserExample();
         example.createCriteria().andUsernameEqualTo(token.getUsername()).andDeletedEqualTo(false);
         List<User> users = userMapper.selectByExample(example);
+        if(users.size() == 0) {
+            return null;
+        }
         User user = users.get(0);
         String password = user.getPassword();
         //System.out.println(users);
-        if(users.size() != 0) {
-            user = users.get(0);
-            password = user.getPassword();
-        }
+        user = users.get(0);
+        password = user.getPassword();
         SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(user, password, getName());
         return simpleAuthenticationInfo;
     }
