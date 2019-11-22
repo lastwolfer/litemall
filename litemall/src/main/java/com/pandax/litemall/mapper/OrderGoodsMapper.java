@@ -31,4 +31,6 @@ public interface OrderGoodsMapper {
     OrderGoods[] selectByGoodsId(@Param("goodsId") Integer id);
 
     OrderGoods selectByOrderId(Integer orderId);
+
+    int updateComment(@Param("orderGoodId") Integer orderGoodsId,@Param("commentId") Integer commentId);
 }

@@ -1,6 +1,8 @@
 package com.pandax.litemall.service;
 
 
+import com.pandax.litemall.bean.Comment;
+import com.pandax.litemall.bean.OrderGoods;
 import com.pandax.litemall.bean.OrderSubmitInfo;
 
 import java.util.Map;
@@ -35,4 +37,9 @@ public interface OrderService {
     int refundOrder(Integer orderIdX);
 
     int prePay(Integer orderIdX);
+
+    OrderGoods getOrderGoods(Integer orderId, Integer goodsId);
+
+    int commentPost(Comment comment);
 }
+
