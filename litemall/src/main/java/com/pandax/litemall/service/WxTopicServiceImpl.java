@@ -23,12 +23,7 @@ public class WxTopicServiceImpl implements WxTopicService {
 
     @Override
     public List<Topic> getTopicRelated(int id) {
-        List<Integer> ints = topicMapper.getTopicIdList();
-        int[] r = new int[4];
-        for (int i = 0; i < 4; i++) {
-            r[i] = ints.remove(new Random().nextInt(ints.size()));
-        }
-        List<Topic> topicRelated = topicMapper.getTopicRelated(r);
+        List<Topic> topicRelated = topicMapper.getTopicRelated(id);
         return topicRelated;
     }
 

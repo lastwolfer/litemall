@@ -41,20 +41,10 @@ public interface TopicMapper {
     @Select("select * from cskaoyan_mall_topic where id = #{id}")
     Topic getTopicDetail(int id);
 
-
-    //"select *,pic_url as picUrl from cskaoyan_mall_topic where id in (#{array})"
-    @Select({"<script>",
-            "SELECT *,pic_url as picUrl FROM cskaoyan_mall_topic",
-            "WHERE id in",
-            "<foreach item=\"item\" collection=\"array\" open=\"(\"  close=\")\" separator=\",\">",
-            "#{item}",
-            "</foreach>",
-            "</script>"})
-    List<Topic> getTopicRelated(int[] r);
+    @Select("select *,pic_url as picUrl from cskaoyan_mall_topic where id != #{id} order by rand() limit 4")
+    List<Topic> getTopicRelated(@Param("id") int id);
 
     @Select("select *,pic_url as picUrl from cskaoyan_mall_topic")
     List<Topic> getTopic();
 
-    @Select("select id from cskaoyan_mall_topic")
-    List<Integer> getTopicIdList();
 }
