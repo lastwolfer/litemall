@@ -3,6 +3,8 @@ package com.pandax.litemall.bean;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
+
 public class OrderGoods {
     private Integer id;
 
@@ -101,7 +103,7 @@ public class OrderGoods {
     }
 
     public void setSpecifications(String specifications) {
-        this.specifications = specifications == null ? null : specifications.trim();
+        this.specifications = specifications;
     }
 
     public String getPicUrl() {

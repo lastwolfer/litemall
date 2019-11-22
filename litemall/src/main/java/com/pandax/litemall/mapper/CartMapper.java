@@ -35,4 +35,6 @@ public interface CartMapper {
     void deleteByProductId(@Param("productId") Integer productId, @Param("id")Integer id);
 
     void updateNumber(@Param("id")Integer id, @Param("number")Short number);
+
+    int updateDeleted(@Param("cartId") Integer cartId);
 }

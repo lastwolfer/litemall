@@ -10,7 +10,7 @@
     <result column="product_id" jdbcType="INTEGER" property="productId" />
     <result column="number" jdbcType="SMALLINT" property="number" />
     <result column="price" jdbcType="DECIMAL" property="price" />
-    <result column="specifications" jdbcType="VARCHAR" property="specifications" />
+    <result column="specifications" jdbcType="VARCHAR" property="specifications"/>
     <result column="pic_url" jdbcType="VARCHAR" property="picUrl" />
     <result column="comment" jdbcType="INTEGER" property="comment" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />

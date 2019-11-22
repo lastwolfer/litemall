@@ -372,4 +372,7 @@
     set number=#{number}
     where id=#{id}
   </update>
+    <update id="updateDeleted">
+      update cskaoyan_mall_cart set deleted = 1 where id = #{cartId}
+    </update>
 </mapper>

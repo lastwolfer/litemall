@@ -237,9 +237,21 @@ public class ProductController {
     //keyword=123&page=1&size=20&sort=name&order=desc&categoryId=0
     @RequestMapping("/wx/goods/list")
     public BaseReqVo wxGoodsList(Integer categoryId,Integer brandId,Integer page,Integer size,
-                                 String keyword,String sort,String order){
+                                 String keyword,String sort,String order,Boolean isNew,Boolean isHot){
         BaseReqVo baseReqVo = new BaseReqVo();
         Map map =null;
+        if(isHot != null ){
+            map = goodsService.selectAllHotGoods(isHot,page,size,order,sort,categoryId);
+            baseReqVo.setErrmsg("成功");
+            baseReqVo.setData(map);
+            return baseReqVo;
+        }
+        if(isNew != null){
+            map = goodsService.selectAllNewGoods(isNew,page,size,order,sort,categoryId);
+            baseReqVo.setErrmsg("成功");
+            baseReqVo.setData(map);
+            return baseReqVo;
+        }
         if(keyword != null ){
             Subject subject = SecurityUtils.getSubject();
             User user = (User) subject.getPrincipal();
@@ -253,12 +265,18 @@ public class ProductController {
         }
         if(categoryId != null) {
             map = goodsService.selectGoodsByCategoryId(categoryId, page, size);
+            baseReqVo.setErrmsg("成功");
+            baseReqVo.setData(map);
+            return baseReqVo;
         }
         if(brandId != null){
             map = goodsService.selectBrandByBrandId(brandId,page, size);
+            baseReqVo.setErrmsg("成功");
+            baseReqVo.setData(map);
+            return baseReqVo;
         }
         baseReqVo.setErrmsg("成功");
-        baseReqVo.setData(map);
+        baseReqVo.setData(null);
         return baseReqVo;
     }
 

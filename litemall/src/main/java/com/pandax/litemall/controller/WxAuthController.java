@@ -2,6 +2,14 @@ package com.pandax.litemall.controller;
 
 
 import com.pandax.litemall.bean.BaseReqVo;
+import com.pandax.litemall.bean.UserInfo;
+import com.pandax.litemall.shiro.UserToken;
+import com.pandax.litemall.shiro.UserTokenManager;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+
+import com.pandax.litemall.bean.BaseReqVo;
 import com.pandax.litemall.bean.User;
 import com.pandax.litemall.service.SmsService;
 import com.pandax.litemall.service.UserService;
@@ -25,9 +33,38 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
+/**
+<<<<<<< HEAD
+ * Created by little Stone
+ * Date 2019/7/8 Time 20:55
+ */
+
+
 @RestController
 @RequestMapping("/wx")
 public class WxAuthController {
+
+	@GetMapping("user/index")
+	public Object list(HttpServletRequest request) {
+		//前端写了一个token放在请求头中
+		//*************************
+		//获得请求头
+		String tokenKey = request.getHeader("X-Litemall-Token");
+		Integer userId = UserTokenManager.getUserId(tokenKey);
+		//通过请求头获得userId，进而可以获得一切关于user的信息
+		//**************************
+		if (userId == null) {
+			return BaseReqVo.fail();
+		}
+
+		Map<Object, Object> data = new HashMap<Object, Object>();
+		//***********************************
+		//根据userId查询订单信息
+		data.put("order", null);
+		//***********************************
+
+		return BaseReqVo.ok(data);
+	}
 
     @Autowired
     UserService userService;
