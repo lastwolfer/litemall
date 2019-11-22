@@ -212,6 +212,10 @@ public class CartServiceImpl implements CartService {
     public CartCheckedCondition cartCheckout(Integer cartId, Integer addressId, Integer couponId, Integer grouponRulesId, User user) {
         Map<String, Object> map = cartIndex(user);
         CartCheckedCondition cartCheckedCondition = new CartCheckedCondition();
+        //优惠券部分
+        //返回可用优惠券数目availableCouponlength
+        List<CouponUser> couponUsers = couponUserMapper.selectByUserId(user.getId());
+        cartCheckedCondition.setAvailableCouponLength(couponUsers.size());
         List<Cart> cartList = (List<Cart>) map.get("cartList");
         List<Cart> cartList1 = new ArrayList<>();
         for (Cart cart : cartList) {
@@ -219,7 +223,6 @@ public class CartServiceImpl implements CartService {
                 cartList1.add(cart);
             }
         }
-
         Address address = addressMapper.selectByPrimaryKey(addressId);
         cartCheckedCondition.setCheckedAddress(address);
         cartCheckedCondition.setAddressId(addressId);
@@ -232,12 +235,13 @@ public class CartServiceImpl implements CartService {
 
         Integer number=couponUserMapper.selectNumberByUserId(user.getId());
         cartCheckedCondition.setAvailableCouponLength(number!=null?number:0);
-        if (couponId != 0) {
+        if (couponId != 0 && couponId != -1) {
             //如果couponId不等于0，则去数据库中查询优惠券
             Coupon coupon = couponMapper.selectByPrimaryKey(couponId);
+            cartCheckedCondition.setCouponId(coupon.getId());
+            cartCheckedCondition.setCouponPrice(coupon.getDiscount().intValue());
             //查询地址
             int discount = coupon.getDiscount().intValue();
-            cartCheckedCondition.setCouponPrice(discount);
             cartCheckedCondition.setActualPrice(checkedGoodsAmount-discount);
             cartCheckedCondition.setOrderTotalPrice(checkedGoodsAmount - discount);
         }
