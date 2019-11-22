@@ -225,7 +225,7 @@ public class UserServiceImpl implements UserService {
         RegionExample example = new RegionExample();
         example.createCriteria().andPidEqualTo(pid);
         List<Region> regions = regionMapper.selectByExample(example);
-        return  regions;
+        return regions;
     }
 
     @Override
@@ -279,7 +279,7 @@ public class UserServiceImpl implements UserService {
             String province = regionMapper.selectNameById(address.getProvinceId());
             String city = regionMapper.selectNameById(address.getCityId());
             String area = regionMapper.selectNameById(address.getAreaId());
-            String detailedAddress = province+city+area+" "+address.getAddress();
+            String detailedAddress = province + city + area + " " + address.getAddress();
             UserAllAddress userAllAddress = new UserAllAddress();
             userAllAddress.setDetailedAddress(detailedAddress);
             userAllAddress.setId(address.getId());
@@ -290,7 +290,6 @@ public class UserServiceImpl implements UserService {
         }
         return userAllAddresses;
     }
-
 
     /**
      * 新增反馈
@@ -304,21 +303,9 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * 根据用户Id获取足迹
-     * @param id
-     * @return
-     */
-    @Override
-    public List<Footprint> selectFootprintByUserId(Integer id) {
-        FootprintExample footprintExample = new FootprintExample();
-        footprintExample.createCriteria().andUserIdEqualTo(id).andDeletedNotEqualTo(true);
-        return footprintMapper.selectByExample(footprintExample);
-    }
-
-
-    /**
-     *宝
+     * 宝
      * 按照地址id查询收货地址
+     *
      * @param id 收货地址id
      * @return 查询地址数据
      */
@@ -328,19 +315,19 @@ public class UserServiceImpl implements UserService {
         String provinceName = regionMapper.selectNameById(address.getProvinceId());
         String cityName = regionMapper.selectNameById(address.getCityId());
         String areaName = regionMapper.selectNameById(address.getAreaId());
-        Map<String,Object> map = new HashMap<>();
-        map.put("isDefault",address.getIsDefault());
-        map.put("areaId",address.getAreaId());
-        map.put("id",address.getId());
-        map.put("mobile",address.getMobile());
-        map.put("name",address.getName());
-        map.put("provinceId",address.getProvinceId());
-        map.put("provinceName",provinceName);
-        map.put("cityId",address.getCityId());
-        map.put("cityName",cityName);
-        map.put("areaId",address.getAreaId());
-        map.put("areaName",areaName);
-        map.put("address",address.getAddress());
+        Map<String, Object> map = new HashMap<>();
+        map.put("isDefault", address.getIsDefault());
+        map.put("areaId", address.getAreaId());
+        map.put("id", address.getId());
+        map.put("mobile", address.getMobile());
+        map.put("name", address.getName());
+        map.put("provinceId", address.getProvinceId());
+        map.put("provinceName", provinceName);
+        map.put("cityId", address.getCityId());
+        map.put("cityName", cityName);
+        map.put("areaId", address.getAreaId());
+        map.put("areaName", areaName);
+        map.put("address", address.getAddress());
         return map;
     }
 
@@ -351,10 +338,10 @@ public class UserServiceImpl implements UserService {
         address.setUserId(user.getId());
         //查询id和插入/修改数据
         Integer id = null;
-        if(address.getId() == 0) {//新的数据插入，返回id
+        if (address.getId() == 0) {//新的数据插入，返回id
             addressMapper.insertSelective(address);
             id = address.getId();
-        }else{
+        } else {
             addressMapper.updateByPrimaryKey(address);
             id = address.getId();
         }
@@ -366,13 +353,56 @@ public class UserServiceImpl implements UserService {
         addressMapper.deleteByPrimaryKey(id);
     }
 
-
+    /**
+     * 删除足迹
+     * @param id
+     * @return
+     */
     @Override
     public int deleteFootprint(Integer id) {
-        Footprint footprint = footprintMapper.selectByGoodsId(id);
+        Footprint footprint = footprintMapper.selectByPrimaryKey(id);
         footprint.setDeleted(true);
         footprint.setUpdateTime(new Date());
         return footprintMapper.updateByPrimaryKey(footprint);
+    }
+
+    /**
+     * 根据用户id和商品id添加足迹信息
+     * @param goodsId
+     * @param userId
+     * @return
+     */
+    @Override
+    public Integer insertFootprint(Integer goodsId, Integer userId) {
+        FootprintExample footprintExample = new FootprintExample();
+        footprintExample.createCriteria().andUserIdEqualTo(userId).andGoodsIdEqualTo(goodsId);
+        List<Footprint> footprints = footprintMapper.selectByExample(footprintExample);
+        if (footprints.size() == 0) {
+            Footprint footprint = new Footprint();
+            footprint.setUserId(userId);
+            footprint.setGoodsId(goodsId);
+            footprint.setAddTime(new Date());
+            footprint.setUpdateTime(new Date());
+            footprint.setDeleted(false);
+            return footprintMapper.insert(footprint);
+        }
+        Footprint footprint = footprints.get(0);
+        footprint.setUpdateTime(new Date());
+        return footprintMapper.updateByPrimaryKeySelective(footprint);
+    }
+
+    /**
+     * 根据用户id分页查询足迹
+     * @param id
+     * @param page
+     * @param size
+     * @return
+     */
+    @Override
+    public List<FootprintListBean> selectFootprint(Integer id, Integer page, Integer size) {
+        PageHelper.startPage(page,size);
+        List<FootprintListBean> listBeans = footprintMapper.selectFootprint(id);
+        return listBeans;
     }
 
     @Override
@@ -382,5 +412,4 @@ public class UserServiceImpl implements UserService {
         List<User> users = userMapper.selectByExample(example);
         return users.size() != 0? users.get(0) : null;
     }
-
 }

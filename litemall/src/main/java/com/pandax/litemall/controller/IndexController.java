@@ -77,6 +77,8 @@ public class IndexController {
         dataMap.put("brandList", brandList);
         List<Goods> hotGoodsList = goodsService.selectHotGoods();
         dataMap.put("hotGoodsList", hotGoodsList);
+        List<Topic> topicList = indexService.selectTopic();
+        dataMap.put("topicList",topicList);
         List floorGoodsList = goodsService.selectCategoryAndGoods();
         dataMap.put("floorGoodsList", floorGoodsList);
         return BaseReqVo.ok(dataMap);

@@ -51,9 +51,6 @@ public interface UserService {
 
    int insertFeedBack(Feedback feedback);
 
-   List<Footprint> selectFootprintByUserId(Integer id);
-
-
     Map selectAddressById(Integer id);
 
     Integer updateAddressSave(Address address);
@@ -61,6 +58,10 @@ public interface UserService {
     void deleteAddress(Integer id);
 
    int deleteFootprint(Integer id);
+
+    Integer insertFootprint(Integer goodsId, Integer userId);
+
+    List<FootprintListBean> selectFootprint(Integer id, Integer page, Integer size);
 
     User selectUserByWxId(String wxId);
 }

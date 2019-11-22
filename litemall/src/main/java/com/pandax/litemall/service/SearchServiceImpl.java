@@ -31,8 +31,8 @@ public class SearchServiceImpl implements SearchService {
 
     @Override
     public Keyword getDefault() {
-        List<Keyword> keywords = keywordMapper.selectDefault();
-        return keywords.get(new Random().nextInt(keywords.size()));
+        Keyword keyword = keywordMapper.selectDefault();
+        return keyword;
     }
 
     @Override

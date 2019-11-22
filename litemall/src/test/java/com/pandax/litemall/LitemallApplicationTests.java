@@ -2,6 +2,7 @@ package com.pandax.litemall;
 
 
 import com.pandax.litemall.mapper.CouponMapper;
+import com.pandax.litemall.util.Md5Utils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.config.IniSecurityManagerFactory;
@@ -43,7 +44,8 @@ class LitemallApplicationTests {
     }
     @Test
     void mytest2(){
-        Random r = new Random();
+        String admin123 = Md5Utils.getMultiMd5("admin123");
+        System.out.println(admin123);
     }
 
 }

@@ -1,13 +1,11 @@
 package com.pandax.litemall.service;
 
 import com.github.pagehelper.PageHelper;
-import com.pandax.litemall.bean.Banner;
-import com.pandax.litemall.bean.Brand;
-import com.pandax.litemall.bean.Category;
-import com.pandax.litemall.bean.CategoryExample;
+import com.pandax.litemall.bean.*;
 import com.pandax.litemall.mapper.BannerMapper;
 import com.pandax.litemall.mapper.BrandMapper;
 import com.pandax.litemall.mapper.CategoryMapper;
+import com.pandax.litemall.mapper.TopicMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -22,6 +20,8 @@ public class IndexServiceImpl implements IndexService {
     BrandMapper brandMapper;
     @Autowired
     CategoryMapper categoryMapper;
+    @Autowired
+    TopicMapper topicMapper;
 
     @Override
     public List<Banner> selectBanner() {
@@ -30,6 +30,7 @@ public class IndexServiceImpl implements IndexService {
 
     @Override
     public List<Brand> selectBrand() {
+        PageHelper.startPage(1,4);
         return brandMapper.selectByExample(null);
     }
 
@@ -58,5 +59,14 @@ public class IndexServiceImpl implements IndexService {
     @Override
     public Category selectCategoryL1ById(Integer id) {
         return categoryMapper.selectByPrimaryKey(id);
+    }
+
+    /**
+     * 查询专题
+     * @return
+     */
+    @Override
+    public List<Topic> selectTopic() {
+        return topicMapper.getTopic();
     }
 }
