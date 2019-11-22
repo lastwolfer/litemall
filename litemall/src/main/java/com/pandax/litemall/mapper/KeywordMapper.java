@@ -34,7 +34,7 @@ public interface KeywordMapper {
     @Select("select * from cskaoyan_mall_keyword where is_default = 1 ORDER BY rand() LIMIT 1")
     Keyword selectDefault();
 
-    @Select("select * from cskaoyan_mall_keyword where is_hot = 1 limit 20")
+    @Select("select * from cskaoyan_mall_keyword where is_hot = 1 order by sort_order desc limit 20")
     List<Keyword> selectHot();
 
     @Select("select keyword from cskaoyan_mall_keyword where keyword like concat('%', #{keyword},'%') ")
