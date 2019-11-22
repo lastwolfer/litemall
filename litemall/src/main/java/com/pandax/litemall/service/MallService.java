@@ -1,9 +1,6 @@
 package com.pandax.litemall.service;
 
-import com.pandax.litemall.bean.Brand;
-import com.pandax.litemall.bean.Category;
-import com.pandax.litemall.bean.Keyword;
-import com.pandax.litemall.bean.Region;
+import com.pandax.litemall.bean.*;
 
 import java.util.HashMap;
 
@@ -42,4 +39,8 @@ public interface MallService {
     void keywordDelete(Keyword keyword);
 
     Keyword keywordCreate(Keyword keyword);
+
+    Issue issueUpdate(Issue issue);
+
+    void issueDelete(Issue issue);
 }
