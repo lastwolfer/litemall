@@ -48,6 +48,14 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public int cartAdd(Cart cart, User user) {
+        //从数据库中查询是否相同的人已经加入了相同的商品
+        Cart cart10=cartMapper.selectNumber(cart.getGoodsId(),user.getId());
+        if(cart10!=null){
+            int i = cart.getNumber() + cart10.getNumber();
+            cart.setNumber((short) i);
+            //将原来的订单删除
+            cartMapper.deleteByPrimaryKey(cart10.getId());
+        }
         cart.setUserId(user.getId());
         //将无关的参数进行写入
         cart.setAddTime(new Date());

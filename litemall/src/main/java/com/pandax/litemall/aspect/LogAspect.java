@@ -144,7 +144,6 @@ public class LogAspect {
                 action = "删除管理员";
                 log.setResult(vo.getErrmsg());
                 break;
-
             case "brand/update":
                 action="品牌内容修改";
                 break;

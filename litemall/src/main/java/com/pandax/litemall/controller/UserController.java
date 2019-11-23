@@ -137,9 +137,10 @@ public class UserController {
      */
     @RequestMapping("/admin/history/list")
     @RequiresPermissions("admin:history:list")
-    public BaseReqVo historyList(Integer page, Integer limit, String sort, String order, Integer userId, String keyword) {
+    public BaseReqVo historyList(Integer page, Integer limit, String sort, String order,Integer userId, String keyword) {
         BaseReqVo baseReqVo = new BaseReqVo();
-        Map map = userService.selectHistoryList(page, limit, sort, order, userId, keyword);
+        Map map = null;
+        map = userService.selectHistoryList(page, limit, sort, order, userId, keyword);
         baseReqVo.setErrno(0);
         baseReqVo.setData(map);
         baseReqVo.setErrmsg("成功");

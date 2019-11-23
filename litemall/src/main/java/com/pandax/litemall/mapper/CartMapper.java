@@ -37,4 +37,6 @@ public interface CartMapper {
     void updateNumber(@Param("id")Integer id, @Param("number")Short number);
 
     int updateDeleted(@Param("cartId") Integer cartId);
+
+    Cart selectNumber(@Param("goodsId")Integer goodsId, @Param("id")Integer id);
 }
