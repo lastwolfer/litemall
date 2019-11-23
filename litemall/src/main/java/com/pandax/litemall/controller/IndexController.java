@@ -71,7 +71,8 @@ public class IndexController {
         dataMap.put("channel", channel);
         List<GrouponList> grouponList = promotionService.selectGrouponList();
         dataMap.put("grouponList", grouponList);
-        List<Banner> banner = indexService.selectBanner();
+//        List<Banner> banner = indexService.selectBanner();
+        List<Ad> banner = indexService.selectAd();
         dataMap.put("banner", banner);
         List<Brand> brandList = indexService.selectBrand();
         dataMap.put("brandList", brandList);

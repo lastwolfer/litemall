@@ -34,4 +34,6 @@ public interface AddressMapper {
 
 
     List<Address> selectByUserId(@Param("id")Integer id);
+
+    void updateIsDefaultFalse(@Param("userId") Integer id);
 }

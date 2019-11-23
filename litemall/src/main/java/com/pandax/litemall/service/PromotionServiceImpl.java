@@ -213,7 +213,9 @@ public class PromotionServiceImpl implements PromotionService {
         long total = PageInfo.getTotal();
         list.add(map1);
         map.put("total",total);
-        map.put("items",list);
+        if(map1.size()!=0){
+          map.put("items",list);
+        }
         return map;
     }
 

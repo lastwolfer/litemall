@@ -20,7 +20,7 @@
   <select id="selectAdmins" resultMap="BaseResultMap">
     select <include refid="adminInfo"/> from cskaoyan_mall_admin
     <where>
-      deleted = 0
+      deleted = false
       <if test="username != null " >
         and username like #{username}
       </if>

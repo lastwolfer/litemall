@@ -238,12 +238,14 @@ public class CartServiceImpl implements CartService {
         if (couponId != 0 && couponId != -1) {
             //如果couponId不等于0，则去数据库中查询优惠券
             Coupon coupon = couponMapper.selectByPrimaryKey(couponId);
-            cartCheckedCondition.setCouponId(coupon.getId());
-            cartCheckedCondition.setCouponPrice(coupon.getDiscount().intValue());
-            //查询地址
-            int discount = coupon.getDiscount().intValue();
-            cartCheckedCondition.setActualPrice(checkedGoodsAmount-discount);
-            cartCheckedCondition.setOrderTotalPrice(checkedGoodsAmount - discount);
+            if(coupon!=null){
+                cartCheckedCondition.setCouponId(coupon.getId());
+                cartCheckedCondition.setCouponPrice(coupon.getDiscount().intValue());
+                //查询地址
+                int discount = coupon.getDiscount().intValue();
+                cartCheckedCondition.setActualPrice(checkedGoodsAmount-discount);
+                cartCheckedCondition.setOrderTotalPrice(checkedGoodsAmount - discount);
+            }
         }
         return cartCheckedCondition;
     }

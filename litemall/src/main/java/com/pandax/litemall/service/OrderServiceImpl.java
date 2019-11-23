@@ -144,6 +144,8 @@ public class OrderServiceImpl implements OrderService{
 
     @Override
     public Integer orderSubmit(OrderSubmitInfo orderSubmitInfo) {
+        User user = (User) SecurityUtils.getSubject().getPrincipal();
+        Integer userId = user.getId();
         /*获取请求bean中的信息*/
         Integer addressId = orderSubmitInfo.getAddressId();
         Integer cartId = orderSubmitInfo.getCartId();
@@ -153,7 +155,8 @@ public class OrderServiceImpl implements OrderService{
         String message = orderSubmitInfo.getMessage();
         /*通过cartId获取cart信息*/
         CartExample cartExample = new CartExample();
-        cartExample.createCriteria().andCheckedEqualTo(true);
+        CartExample.Criteria criteria = cartExample.createCriteria();
+        criteria.andCheckedEqualTo(true).andUserIdEqualTo(userId);
         List<Cart> cartList = cartMapper.selectByExample(cartExample);
         Cart cartX = cartList.get(0);
         /*拼接订单基本信息*/
@@ -179,15 +182,21 @@ public class OrderServiceImpl implements OrderService{
             goodsPrice = goodsPrice.add(multiply);
         }
         order.setGoodsPrice(goodsPrice);
-        order.setFreightPrice(new BigDecimal(0));
-//        Coupon coupon = couponMapper.selectByPrimaryKey(couponId);
-//        order.setCouponPrice(coupon.getDiscount());
-        order.setCouponPrice(new BigDecimal("0"));
+        order.setFreightPrice(new BigDecimal(10));
+        Coupon coupon = couponMapper.selectByPrimaryKey(couponId);
+        if(coupon!=null){
+            order.setCouponPrice(coupon.getDiscount());
+        }else{
+            order.setCouponPrice(new BigDecimal("0"));
+        }
         order.setIntegralPrice(new BigDecimal(0));
 //        Groupon groupon = grouponMapper.selectByPrimaryKey(grouponLinkId);
-//        GrouponRules grouponRules = grouponRulesMapper.selectByPrimaryKey(grouponRulesId);
-//        order.setGrouponPrice(grouponRules.getDiscount());
-        order.setGrouponPrice(new BigDecimal("0"));
+        if(grouponRulesId == 0){
+            order.setGrouponPrice(new BigDecimal("0"));
+        }else{
+            GrouponRules grouponRules = grouponRulesMapper.selectByPrimaryKey(grouponRulesId);
+            order.setGrouponPrice(grouponRules.getDiscount());
+        }
         BigDecimal orderPrice = goodsPrice.add(order.getFreightPrice()).subtract(order.getCouponPrice());
         order.setOrderPrice(orderPrice);
         BigDecimal actualPrice = orderPrice.subtract(order.getIntegralPrice());

@@ -1,9 +1,6 @@
 package com.pandax.litemall.service;
 
-import com.pandax.litemall.bean.Banner;
-import com.pandax.litemall.bean.Brand;
-import com.pandax.litemall.bean.Category;
-import com.pandax.litemall.bean.Topic;
+import com.pandax.litemall.bean.*;
 
 import java.util.List;
 
@@ -20,4 +17,5 @@ public interface IndexService {
 
     List<Topic> selectTopic();
 
+    List<Ad> selectAd();
 }

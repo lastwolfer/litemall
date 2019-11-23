@@ -339,9 +339,16 @@ public class UserServiceImpl implements UserService {
         //查询id和插入/修改数据
         Integer id = null;
         if (address.getId() == 0) {//新的数据插入，返回id
+            if(address.getIsDefault() == true){//为true，则其他的默认值为0
+                addressMapper.updateIsDefaultFalse(user.getId());
+            }
             addressMapper.insertSelective(address);
+
             id = address.getId();
         } else {
+            if(address.getIsDefault() == true){//为true，则其他的默认值为0
+                addressMapper.updateIsDefaultFalse(user.getId());
+            }
             addressMapper.updateByPrimaryKey(address);
             id = address.getId();
         }

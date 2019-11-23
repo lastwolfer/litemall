@@ -2,10 +2,7 @@ package com.pandax.litemall.service;
 
 import com.github.pagehelper.PageHelper;
 import com.pandax.litemall.bean.*;
-import com.pandax.litemall.mapper.BannerMapper;
-import com.pandax.litemall.mapper.BrandMapper;
-import com.pandax.litemall.mapper.CategoryMapper;
-import com.pandax.litemall.mapper.TopicMapper;
+import com.pandax.litemall.mapper.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -22,6 +19,8 @@ public class IndexServiceImpl implements IndexService {
     CategoryMapper categoryMapper;
     @Autowired
     TopicMapper topicMapper;
+    @Autowired
+    AdMapper adMapper;
 
     @Override
     public List<Banner> selectBanner() {
@@ -68,5 +67,12 @@ public class IndexServiceImpl implements IndexService {
     @Override
     public List<Topic> selectTopic() {
         return topicMapper.getTopic();
+    }
+
+    @Override
+    public List<Ad> selectAd() {
+        AdExample adExample = new AdExample();
+        adExample.createCriteria().andEnabledEqualTo(true);
+        return adMapper.selectByExample(adExample);
     }
 }
